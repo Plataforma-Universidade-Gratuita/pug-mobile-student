@@ -1,9 +1,13 @@
 import { z } from "zod";
 
-import { API_BASE_URL, JSON_HEADERS } from "@/constants/api";
-import { ACCESS_TOKEN_COOKIE } from "@/constants/auth";
-import { ApiEnvelopeErrorSchema } from "@/schemas/api";
+import { API_BASE_URL, API_ROUTE_BASES, JSON_HEADERS } from "@/constants/api";
+import { ApiEnvelopeErrorSchema } from "@/schemas/api/shared/error";
 import type { ApiErrorBody, FieldError } from "@/types/api";
+import {
+	clearStudentSession,
+	getAccessToken,
+	refreshStudentSession,
+} from "@/utils/session";
 
 export class ApiError extends Error {
 	public readonly status: number;
@@ -38,18 +42,42 @@ function authHeaders(token?: string): Record<string, string> {
 	return headers;
 }
 
-async function resolveAccessToken(
-	explicitToken?: string,
-): Promise<string | undefined> {
-	if (explicitToken) return explicitToken;
-	if (typeof window !== "undefined") return undefined;
-
-	try {
-		const { cookies } = await import("next/headers");
-		return (await cookies()).get(ACCESS_TOKEN_COOKIE)?.value;
-	} catch {
-		return undefined;
+function shouldTrySessionRefresh(path: string, explicitToken?: string) {
+	if (explicitToken) {
+		return false;
 	}
+
+	return path !== `${API_ROUTE_BASES.identity.auth}/refresh`;
+}
+
+async function performRequest(
+	path: string,
+	init: RequestInit,
+	token?: string,
+	canRetry = true,
+): Promise<Response> {
+	const accessToken = token ?? (await getAccessToken()) ?? undefined;
+
+	const response = await fetch(`${API_BASE_URL}${path}`, {
+		...init,
+		headers: { ...authHeaders(accessToken), ...init.headers },
+	});
+
+	if (
+		response.status !== 401 ||
+		!canRetry ||
+		!shouldTrySessionRefresh(path, token)
+	) {
+		return response;
+	}
+
+	const refreshedTokens = await refreshStudentSession();
+	if (!refreshedTokens) {
+		await clearStudentSession();
+		return response;
+	}
+
+	return performRequest(path, init, refreshedTokens.token, false);
 }
 
 async function handleError(response: Response): Promise<never> {
@@ -70,11 +98,7 @@ export async function zfetch<T extends z.ZodTypeAny>(
 	schema: T,
 	token?: string,
 ): Promise<z.infer<T>> {
-	const accessToken = await resolveAccessToken(token);
-	const response = await fetch(`${API_BASE_URL}${path}`, {
-		...init,
-		headers: { ...authHeaders(accessToken), ...init.headers },
-	});
+	const response = await performRequest(path, init, token);
 	if (!response.ok) return handleError(response);
 
 	const json = await response.json();
@@ -86,11 +110,7 @@ export async function zvoid(
 	init: RequestInit,
 	token?: string,
 ): Promise<void> {
-	const accessToken = await resolveAccessToken(token);
-	const response = await fetch(`${API_BASE_URL}${path}`, {
-		...init,
-		headers: { ...authHeaders(accessToken), ...init.headers },
-	});
+	const response = await performRequest(path, init, token);
 	if (!response.ok) return handleError(response);
 }
 

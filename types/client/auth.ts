@@ -7,9 +7,14 @@ export interface PugJwtPayload {
 	exp: number;
 }
 
-export interface AdminTokenValidationResult {
+export interface StudentTokenValidationResult {
 	isValid: boolean;
 	payload?: PugJwtPayload;
+}
+
+export interface StoredSessionTokens {
+	accessToken: string;
+	refreshToken: string;
 }
 
 export interface LoginFormValues {

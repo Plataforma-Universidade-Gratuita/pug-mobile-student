@@ -9,19 +9,19 @@
     "auth": {
         "login": {
             "brand": {
-                "name": "PUG Web Admin",
-                "subtitle": "Workspace administrativo"
+                "name": "PUG Student",
+                "subtitle": "Workspace do estudante"
             },
             "feedback": {
                 "error": "NÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o foi possÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â­vel entrar agora.",
                 "success": "Login realizado com sucesso."
             },
             "form": {
-                "description": "Informe suas credenciais administrativas para entrar no workspace de operaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes do PUG.",
+                "description": "Informe suas credenciais de estudante para entrar na experiencia mobile do PUG.",
                 "fields": {
                     "email": {
                         "label": "Email",
-                        "placeholder": "admin@pug.edu.br"
+                        "placeholder": "student@pug.edu.br"
                     },
                     "password": {
                         "label": "Senha",
@@ -36,19 +36,19 @@
                 "badge": "Acesso protegido",
                 "highlights": {
                     "adminOnly": {
-                        "description": "A entrada de login e reservada para o workspace administrativo e para as rotas protegidas.",
-                        "title": "Acesso exclusivo para administradores"
+                        "description": "A entrada de login e reservada para contas de estudante e para as rotas mobile protegidas.",
+                        "title": "Acesso exclusivo para estudantes"
                     },
                     "refresh": {
-                        "description": "Tokens de acesso expirados sao renovados pelo middleware antes de interromper o shell.",
-                        "title": "Refresh automÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡tico de token"
+                        "description": "Tokens expirados sao renovados pela camada de sessao mobile antes de encerrar o acesso do estudante.",
+                        "title": "Refresh automatico de token"
                     },
                     "session": {
-                        "description": "Cookies seguros mantÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â©m a sessÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o estÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡vel em toda a area protegida da aplicaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o.",
-                        "title": "Continuidade de sessÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â£o"
+                        "description": "Armazenamento seguro no dispositivo mantem a sessao disponivel entre reinicializacoes do app.",
+                        "title": "Armazenamento seguro de sessao"
                     }
                 },
-                "title": "Entre para manter as operaÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â§ÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âµes acadÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Âªmicas controladas e consistentes."
+                "title": "Entre para continuar sua jornada de estudante."
             },
             "validation": {
                 "email": "Informe um email vÃƒÆ’Ã†â€™Ãƒâ€šÃ‚Â¡lido.",
@@ -1950,6 +1950,19 @@
                 "active": "Ativa",
                 "inactive": "Inativa"
             }
+        }
+    },
+    "mobile": {
+        "bootstrapping": "Verificando sua sessao...",
+        "home": {
+            "description": "Voce esta autenticado com uma sessao de estudante.",
+            "fields": {
+                "accountId": "ID da conta",
+                "email": "Email",
+                "groups": "Grupos de acesso",
+                "userId": "ID do usuario"
+            },
+            "title": "Inicio do Estudante"
         }
     },
     "Navbar": {

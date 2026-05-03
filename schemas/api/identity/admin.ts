@@ -1,10 +1,7 @@
 import { z } from "zod";
 
-import {
-	CampiEnum,
-	CampusResponseSchema,
-	AccountResponseSchema,
-} from "@/schemas/api";
+import { AccountResponseSchema } from "@/schemas/api/identity/account";
+import { CampiEnum, CampusResponseSchema } from "@/schemas/api/shared/shared";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

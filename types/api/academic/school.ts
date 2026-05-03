@@ -4,7 +4,7 @@ import {
 	SchoolCreateRequestSchema,
 	SchoolResponseSchema,
 	SchoolUpdateRequestSchema,
-} from "@/schemas/api";
+} from "@/schemas/api/academic/school";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

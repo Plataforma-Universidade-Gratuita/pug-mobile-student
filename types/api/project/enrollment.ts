@@ -5,7 +5,7 @@ import {
 	EnrollmentResponseSchema,
 	EnrollmentStatusEnum,
 	EnrollmentUpdateRequestSchema,
-} from "@/schemas/api";
+} from "@/schemas/api/project/enrollment";
 
 // ─── Enums ───────────────────────────────────────────────────────────────────
 

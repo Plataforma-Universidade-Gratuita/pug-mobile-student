@@ -1,6 +1,9 @@
 import { z } from "zod";
 
-import { AccountTypeEnum, AuditInfoResponseSchema } from "@/schemas/api";
+import {
+	AccountTypeEnum,
+	AuditInfoResponseSchema,
+} from "@/schemas/api/shared/shared";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

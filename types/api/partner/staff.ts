@@ -4,7 +4,7 @@ import {
 	StaffCreateRequestSchema,
 	StaffResponseSchema,
 	StaffUpdateRequestSchema,
-} from "@/schemas/api";
+} from "@/schemas/api/partner/staff";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

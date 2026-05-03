@@ -1,12 +1,7 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 
-import {
-	DEFAULT_LANG,
-	I18N_NAMESPACE,
-	LANG_COOKIE_MAX_AGE,
-	LANG_COOKIE_NAME,
-} from "@/constants/locale";
+import { DEFAULT_LANG, I18N_NAMESPACE } from "@/constants/locale";
 import enUSCommon from "@/public/locales/en-US/common.json";
 import ptBRCommon from "@/public/locales/pt-BR/common.json";
 import type { AppLang } from "@/types/client";
@@ -42,7 +37,5 @@ export function initI18n(initial: AppLang) {
 }
 
 export function applyClientLanguage(lang: AppLang, instance = initI18n(lang)) {
-	document.cookie = `${LANG_COOKIE_NAME}=${lang}; Path=/; Max-Age=${LANG_COOKIE_MAX_AGE}; SameSite=Lax`;
 	void instance.changeLanguage(lang);
-	document.documentElement.lang = lang;
 }

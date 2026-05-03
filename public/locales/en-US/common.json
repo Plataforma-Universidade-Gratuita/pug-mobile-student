@@ -9,19 +9,19 @@
     "auth": {
         "login": {
             "brand": {
-                "name": "PUG Web Admin",
-                "subtitle": "Administrator workspace"
+                "name": "PUG Student",
+                "subtitle": "Student workspace"
             },
             "feedback": {
                 "error": "Unable to sign in right now.",
                 "success": "Signed in successfully."
             },
             "form": {
-                "description": "Enter your administrator credentials to continue into the PUG operations workspace.",
+                "description": "Enter your student credentials to continue into the PUG mobile experience.",
                 "fields": {
                     "email": {
                         "label": "Email",
-                        "placeholder": "admin@pug.edu.br"
+                        "placeholder": "student@pug.edu.br"
                     },
                     "password": {
                         "label": "Password",
@@ -36,19 +36,19 @@
                 "badge": "Protected access",
                 "highlights": {
                     "adminOnly": {
-                        "description": "The login entry point is reserved for the admin workspace and protected routes.",
-                        "title": "Administrator-only access"
+                        "description": "The login entry point is reserved for student accounts and protected mobile routes.",
+                        "title": "Student-only access"
                     },
                     "refresh": {
-                        "description": "Expired access tokens are refreshed through the middleware before the shell is interrupted.",
+                        "description": "Expired access tokens are refreshed inside the mobile session layer before the app signs the student out.",
                         "title": "Automatic token refresh"
                     },
                     "session": {
-                        "description": "Secure cookies keep the session stable across the protected application area.",
-                        "title": "Session continuity"
+                        "description": "Secure device storage keeps the session available across app restarts.",
+                        "title": "Secure session storage"
                     }
                 },
-                "title": "Sign in to keep academic operations controlled and consistent."
+                "title": "Sign in to continue your student journey."
             },
             "validation": {
                 "email": "Enter a valid email address.",
@@ -1950,6 +1950,19 @@
                 "active": "Active",
                 "inactive": "Inactive"
             }
+        }
+    },
+    "mobile": {
+        "bootstrapping": "Checking your session...",
+        "home": {
+            "description": "You are signed in with a student session.",
+            "fields": {
+                "accountId": "Account ID",
+                "email": "Email",
+                "groups": "Access groups",
+                "userId": "User ID"
+            },
+            "title": "Student Home"
         }
     },
     "Navbar": {

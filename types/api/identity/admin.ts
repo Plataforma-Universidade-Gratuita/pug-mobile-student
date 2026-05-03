@@ -4,7 +4,7 @@ import {
 	AdminCreateRequestSchema,
 	AdminResponseSchema,
 	AdminUpdateRequestSchema,
-} from "@/schemas/api";
+} from "@/schemas/api/identity/admin";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 

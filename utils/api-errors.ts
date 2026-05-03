@@ -3,7 +3,6 @@ import type {
 	ApiErrorToastOptions,
 } from "@/types/client";
 import { ApiError } from "@/utils/api";
-import { WebApiError } from "@/utils/web-api";
 
 function isMeaningfulMessage(message: string | undefined): message is string {
 	if (!message) return false;
@@ -11,7 +10,7 @@ function isMeaningfulMessage(message: string | undefined): message is string {
 }
 
 export function getApiErrorMessage(error: unknown): string | undefined {
-	if (error instanceof ApiError || error instanceof WebApiError) {
+	if (error instanceof ApiError) {
 		return isMeaningfulMessage(error.message) ? error.message : undefined;
 	}
 
@@ -43,7 +42,7 @@ export function getApiErrorFieldErrors(error: unknown) {
 }
 
 export function getApiErrorCode(error: unknown): string | undefined {
-	if (error instanceof ApiError || error instanceof WebApiError) {
+	if (error instanceof ApiError) {
 		return error.code;
 	}
 
