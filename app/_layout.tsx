@@ -1,20 +1,14 @@
-import { useEffect, useRef } from "react";
-import {
-	ActivityIndicator,
-	StyleSheet,
-	Text,
-	View,
-} from "react-native";
+import React, { useEffect, useRef } from "react";
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { I18nextProvider, useTranslation } from "react-i18next";
+import { ActivityIndicator, StyleSheet, Text, View } from "react-native";
 
-import { APP_QUERY_CLIENT_OPTIONS } from "@/constants/react-query";
 import { DEFAULT_LANG } from "@/constants/locale";
+import { APP_QUERY_CLIENT_OPTIONS } from "@/constants/react-query";
 import { useAuthStore } from "@/store";
 import { initI18n } from "@/utils/locale";
-import React from "react";
 
 const i18n = initI18n(DEFAULT_LANG);
 const queryClient = new QueryClient(APP_QUERY_CLIENT_OPTIONS);
@@ -24,7 +18,10 @@ function BootstrapScreen() {
 
 	return (
 		<View style={styles.centered}>
-			<ActivityIndicator size="large" color="#2563eb" />
+			<ActivityIndicator
+				size="large"
+				color="#2563eb"
+			/>
 			<Text style={styles.bootText}>{t("mobile.bootstrapping")}</Text>
 		</View>
 	);

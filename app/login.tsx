@@ -1,4 +1,8 @@
 import React, { useEffect, useState } from "react";
+
+import { useRouter } from "expo-router";
+import { Controller } from "react-hook-form";
+import { useTranslation } from "react-i18next";
 import {
 	ActivityIndicator,
 	KeyboardAvoidingView,
@@ -10,13 +14,9 @@ import {
 	View,
 } from "react-native";
 
-import { Controller } from "react-hook-form";
-import { useRouter } from "expo-router";
-import { useTranslation } from "react-i18next";
-
+import { useLocalizedZodForm } from "@/hooks";
 import { createLoginFormSchema } from "@/schemas/client";
 import { useAuthStore } from "@/store";
-import { useLocalizedZodForm } from "@/hooks";
 import { getApiErrorMessage } from "@/utils/api-errors";
 
 export default function LoginScreen() {
@@ -51,7 +51,9 @@ export default function LoginScreen() {
 		try {
 			await signIn(values);
 		} catch (error) {
-			setSubmitError(getApiErrorMessage(error) ?? t("auth.login.feedback.error"));
+			setSubmitError(
+				getApiErrorMessage(error) ?? t("auth.login.feedback.error"),
+			);
 		}
 	});
 
@@ -128,7 +130,9 @@ export default function LoginScreen() {
 						)}
 					/>
 
-					{submitError ? <Text style={styles.errorText}>{submitError}</Text> : null}
+					{submitError ? (
+						<Text style={styles.errorText}>{submitError}</Text>
+					) : null}
 
 					<Pressable
 						disabled={isMutatingSession}

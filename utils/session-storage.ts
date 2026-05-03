@@ -29,7 +29,9 @@ async function getSecureStore(): Promise<SecureStoreModule | null> {
 }
 
 function hasWebStorage() {
-	return typeof window !== "undefined" && typeof window.localStorage !== "undefined";
+	return (
+		typeof window !== "undefined" && typeof window.localStorage !== "undefined"
+	);
 }
 
 export async function getStoredValue(key: string): Promise<string | null> {
@@ -45,7 +47,10 @@ export async function getStoredValue(key: string): Promise<string | null> {
 	return memoryStorage.get(key) ?? null;
 }
 
-export async function setStoredValue(key: string, value: string): Promise<void> {
+export async function setStoredValue(
+	key: string,
+	value: string,
+): Promise<void> {
 	const secureStore = await getSecureStore();
 	if (secureStore) {
 		await secureStore.setItemAsync(key, value);

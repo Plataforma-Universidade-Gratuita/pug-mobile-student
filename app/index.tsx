@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 
 import { useAuthStore } from "@/store";
 
@@ -32,7 +32,9 @@ export default function HomeScreen() {
 
 				<View style={styles.detailList}>
 					<View style={styles.detailItem}>
-						<Text style={styles.detailLabel}>{t("mobile.home.fields.email")}</Text>
+						<Text style={styles.detailLabel}>
+							{t("mobile.home.fields.email")}
+						</Text>
 						<Text style={styles.detailValue}>{sessionPayload.upn}</Text>
 					</View>
 
@@ -44,12 +46,16 @@ export default function HomeScreen() {
 					</View>
 
 					<View style={styles.detailItem}>
-						<Text style={styles.detailLabel}>{t("mobile.home.fields.userId")}</Text>
+						<Text style={styles.detailLabel}>
+							{t("mobile.home.fields.userId")}
+						</Text>
 						<Text style={styles.detailValue}>{sessionPayload.userId}</Text>
 					</View>
 
 					<View style={styles.detailItem}>
-						<Text style={styles.detailLabel}>{t("mobile.home.fields.groups")}</Text>
+						<Text style={styles.detailLabel}>
+							{t("mobile.home.fields.groups")}
+						</Text>
 						<Text style={styles.detailValue}>
 							{sessionPayload.groups.join(", ")}
 						</Text>

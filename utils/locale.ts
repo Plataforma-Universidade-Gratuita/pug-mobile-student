@@ -1,10 +1,12 @@
-import i18n from "i18next";
+import { createInstance } from "i18next";
 import { initReactI18next } from "react-i18next";
 
 import { DEFAULT_LANG, I18N_NAMESPACE } from "@/constants/locale";
 import enUSCommon from "@/public/locales/en-US/common.json";
 import ptBRCommon from "@/public/locales/pt-BR/common.json";
 import type { AppLang } from "@/types/client";
+
+const i18n = createInstance();
 
 const resources = {
 	"en-US": {

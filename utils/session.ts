@@ -38,7 +38,9 @@ export async function getStoredSessionTokens(): Promise<StoredSessionTokens | nu
 	};
 }
 
-export async function persistStudentSession(tokens: TokenResponse): Promise<void> {
+export async function persistStudentSession(
+	tokens: TokenResponse,
+): Promise<void> {
 	await Promise.all([
 		setStoredValue(ACCESS_TOKEN_STORAGE_KEY, tokens.token),
 		setStoredValue(REFRESH_TOKEN_STORAGE_KEY, tokens.refreshToken),
