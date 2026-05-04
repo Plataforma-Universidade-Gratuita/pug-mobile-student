@@ -68,6 +68,15 @@ In practical terms:
 - Keep Zod schemas under `schemas/`.
 - Keep reusable hooks under `hooks/`.
 - Keep reusable helper functions out of `.tsx` files when they are not tightly coupled to local component state. Put them in adjacent `utils.ts` when local to a feature/component folder.
+- `.tsx` component files should contain only the component they export.
+- Adjacent style builders such as `createStyles(...)` belong in a sibling `styles.ts`.
+- Adjacent helper functions that are not tightly coupled to component state belong in a sibling `utils.ts`.
+- Component and feature prop/interfaces belong in `types/`, not inline in `.tsx` files.
+- Shared component type files under `types/client/components/` should mirror the `components/` folder structure by domain.
+  - Example:
+    - `components/forms/input/Input.tsx`
+    - `types/client/components/forms/input.ts`
+- Constants belong in `constants/` unless moving them would break framework conventions or runtime behavior.
 - Keep all user-facing copy in locales. Do not add new hardcoded UI copy in screens, components, or features.
 - When changing shared copy, update both locale files:
   - `locales/en-US/common.json`
@@ -256,6 +265,7 @@ Good mobile styling defaults:
 - restrained surface depth
 - stable component sizing
 - clear pressed/disabled/loading states
+- shared theme tokens that reach the Expo web target should use `boxShadow` instead of `shadow*` props on web
 
 ## Navigation conventions
 
@@ -269,6 +279,7 @@ Navigation rules:
 - avoid deep web-style navigation hierarchies unless the product truly needs them
 - keep screen ownership clear
 - navigation labels and titles should still be localized
+- initial auth gating in route files should prefer declarative `Redirect` flows over `router.replace()` inside mount effects
 
 ## Reuse map from the web repo
 
@@ -369,6 +380,7 @@ Navigation rules:
 ## Exceptions and judgment
 
 - Framework-required route exports should stay in the Expo Router files that own them.
+- Expo Router entry files may stay as thin re-export wrappers so route ownership remains in `app/` while implementation lives elsewhere.
 - React contexts are runtime objects and belong where their behavior is most understandable; do not move them just to satisfy folder purity.
 - Component-local logic that is tightly coupled to state, refs, or rendering may stay inside `.tsx` files.
 - Do not abstract early just because the web repo had a heavier pattern. Mobile should stay lean until repeated behavior justifies a shared layer.

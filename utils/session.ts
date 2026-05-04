@@ -12,7 +12,7 @@ import {
 	getStoredValue,
 	removeStoredValue,
 	setStoredValue,
-} from "@/utils/session-storage";
+} from "@/utils/storage";
 
 export async function getAccessToken(): Promise<string | null> {
 	return getStoredValue(ACCESS_TOKEN_STORAGE_KEY);

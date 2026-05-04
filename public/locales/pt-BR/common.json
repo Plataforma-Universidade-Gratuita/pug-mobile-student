@@ -31,6 +31,23 @@
     },
     "mobile": {
         "bootstrapping": "Verificando sua sessao...",
+        "dev": {
+            "language": {
+                "label": "Idioma",
+                "options": {
+                    "enUS": "Ingles",
+                    "ptBR": "Portugues"
+                }
+            },
+            "theme": {
+                "label": "Tema",
+                "options": {
+                    "dark": "Escuro",
+                    "light": "Claro",
+                    "system": "Sistema"
+                }
+            }
+        },
         "home": {
             "description": "Voce esta autenticado com uma sessao de estudante.",
             "fields": {

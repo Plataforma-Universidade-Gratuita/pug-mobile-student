@@ -1,4 +1,5 @@
 export * from "./auth";
+export * from "./components";
 export * from "./forms";
 export * from "./locale";
 export * from "./query";

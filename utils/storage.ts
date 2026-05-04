@@ -1,3 +1,5 @@
+import { Platform } from "react-native";
+
 const SECURE_STORE_MODULE_NAME = "expo-secure-store";
 
 type SecureStoreModule = {
@@ -9,6 +11,10 @@ type SecureStoreModule = {
 const memoryStorage = new Map<string, string>();
 
 async function getSecureStore(): Promise<SecureStoreModule | null> {
+	if (Platform.OS === "web") {
+		return null;
+	}
+
 	try {
 		const module = await import(SECURE_STORE_MODULE_NAME);
 		const secureStore = "default" in module ? module.default : module;
