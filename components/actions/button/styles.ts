@@ -107,7 +107,7 @@ export function getContainerStyle(
 					: palette.accent,
 			borderColor: useSoftSurface ? palette.outline : "transparent",
 			borderWidth: 1,
-			transform: pressed ? [{ translateY: 1 }] : undefined,
+            transform: pressed ? [{ translateY: 1 }] : [],
 			...(useSoftSurface ? theme.shadow.sm : {}),
 		};
 	}
@@ -116,7 +116,7 @@ export function getContainerStyle(
 		backgroundColor: pressed ? palette.tint : "transparent",
 		borderColor: "transparent",
 		borderWidth: 1,
-		transform: pressed ? [{ translateY: 1 }] : undefined,
+        transform: pressed ? [{ translateY: 1 }] : [],
 	};
 }
 

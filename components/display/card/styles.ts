@@ -9,7 +9,6 @@ export function createStyles(theme: AppResolvedTheme) {
 			borderColor: theme.colors.border2,
 			borderRadius: theme.radius.xl,
 			borderWidth: 1,
-			overflow: "hidden",
 			...theme.shadow.sm,
 		},
 		header: {
@@ -47,7 +46,6 @@ export function createStyles(theme: AppResolvedTheme) {
 			maxWidth: 480,
 		},
 		content: {
-			flex: 1,
 			minWidth: 0,
 			padding: theme.space[5],
 		},
