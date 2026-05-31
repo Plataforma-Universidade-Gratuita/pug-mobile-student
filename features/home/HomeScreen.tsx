@@ -67,7 +67,7 @@ export function HomeScreen() {
 										onPress={() => void setThemeMode(option)}
 										size="sm"
 										usage="primary"
-										variant={themeMode === option ? "primary" : "ghost"}
+										variant={themeMode === option ? "primary" : "secondary"}
 									>
 										{t(DEV_THEME_OPTION_LABEL_KEYS[option])}
 									</Button>
@@ -86,7 +86,7 @@ export function HomeScreen() {
 										onPress={() => applyClientLanguage(option, i18n)}
 										size="sm"
 										usage="primary"
-										variant={currentLang === option ? "primary" : "ghost"}
+										variant={currentLang === option ? "primary" : "secondary"}
 									>
 										{t(DEV_LANGUAGE_OPTION_LABEL_KEYS[option])}
 									</Button>

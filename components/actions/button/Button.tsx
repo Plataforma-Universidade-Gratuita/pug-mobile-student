@@ -33,7 +33,7 @@ export function Button({
 	const styles = useMemo(() => createStyles(theme), [theme]);
 	const resolvedUsage =
 		usage ??
-		(variant === "secondary" || variant === "ghost" ? "secondary" : "primary");
+		(variant === "secondary" ? "secondary" : "primary");
 	const label = isLoading && loadingText ? loadingText : children;
 	const labelText =
 		typeof label === "string"
@@ -42,7 +42,7 @@ export function Button({
 				? title
 				: getAccessibleText(children);
 	const palette = getButtonPalette(theme, resolvedUsage);
-	const isSolidVariant = variant === "primary" || variant === "flat";
+	const isSolidVariant = variant === "primary";
 	const isDisabled = disabled || isLoading;
 
 	return (

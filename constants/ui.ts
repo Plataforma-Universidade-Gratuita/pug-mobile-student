@@ -10,8 +10,6 @@ export const BUTTON_USAGES = [
 export const BUTTON_VARIANTS = [
 	"primary",
 	"secondary",
-	"flat",
-	"ghost",
 ] as const;
 
 export const BUTTON_SIZES = ["sm", "md", "lg", "icon"] as const;

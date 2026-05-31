@@ -92,7 +92,7 @@ export function getContainerStyle(
 	variant: ButtonVariant,
 	pressed: boolean,
 ): ViewStyle {
-	const isSolidVariant = variant === "primary" || variant === "flat";
+	const isSolidVariant = variant === "primary";
 
 	if (isSolidVariant) {
 		const useSoftSurface = theme.mode === "dark";
@@ -126,7 +126,7 @@ export function getLabelStyle(
 	variant: ButtonVariant,
 	size: ButtonSize,
 ): TextStyle {
-	const isSolidVariant = variant === "primary" || variant === "flat";
+	const isSolidVariant = variant === "primary";
 	const fontSize = getFontSize(theme, size);
 
 	return {
