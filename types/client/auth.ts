@@ -1,23 +1,24 @@
 export interface PugJwtPayload {
 	upn: string;
-	groups: ("ADMIN" | "PARTNER" | "STUDENT")[];
+	groups: ("ADMIN" | "PARTNER" | "FORMER_STUDENT" | "STAFF")[];
 	accountId: string;
 	userId: string;
 	iat: number;
 	exp: number;
 }
 
-export interface StudentTokenValidationResult {
+export interface AdminTokenValidationResult {
 	isValid: boolean;
 	payload?: PugJwtPayload;
 }
 
-export interface StoredSessionTokens {
-	accessToken: string;
-	refreshToken: string;
-}
-
 export interface LoginFormValues {
 	email: string;
-	password: string;
+	password: string | null;
+}
+
+export interface WireCredentialsFormValues {
+	email: string;
+	password: string | null;
+	confirmPassword: string;
 }

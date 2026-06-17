@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
+
 const fs = require("fs");
 const path = require("path");
 
@@ -23,10 +25,10 @@ const allKeys = flattenKeys(en);
 
 const ROOT = path.resolve(__dirname, "..");
 const SCAN_DIRS = [
-	"api",
 	"app",
 	"components",
 	"constants",
+	"contexts",
 	"features",
 	"hooks",
 	"schemas",
