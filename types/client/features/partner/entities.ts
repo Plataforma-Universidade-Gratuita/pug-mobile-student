@@ -5,7 +5,7 @@ import type {
 	EntityResponse,
 	EntityUpdateRequest,
 } from "@/types/api";
-import type { ComboboxOption } from "@/types/client/components/primitives/forms/combobox";
+import type { ComboboxOption } from "@/types/client/forms";
 
 export type EntityEditorMode = "create" | "duplicate" | "update";
 

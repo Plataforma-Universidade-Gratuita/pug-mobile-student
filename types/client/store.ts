@@ -1,6 +1,9 @@
-import type { ServicePageSizeOption } from "@/types/client/components/composite/features/service-pages/index";
 import type { LoginRequest } from "@/types/api";
 import type { PugJwtPayload, StoredSessionTokens } from "@/types/client/auth";
+import type {
+	ServicePagePaginationEntry,
+	ServicePageSizeOption,
+} from "@/types/client/service";
 import type {
 	AppResolvedTheme,
 	AppTheme,
@@ -36,11 +39,6 @@ export interface AppShellStoreState {
 	collapsed: boolean;
 	setCollapsed: (collapsed: boolean) => void;
 	toggleCollapsed: () => void;
-}
-
-export interface ServicePagePaginationEntry {
-	page: number;
-	size: ServicePageSizeOption;
 }
 
 export interface PaginationStoreState {

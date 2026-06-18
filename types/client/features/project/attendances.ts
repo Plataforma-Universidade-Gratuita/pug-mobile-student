@@ -9,7 +9,7 @@ import type {
 	FormerStudentResponse,
 	ProjectResponse,
 } from "@/types/api";
-import type { ComboboxOption } from "@/types/client/components/primitives/forms/combobox";
+import type { ComboboxOption } from "@/types/client/forms";
 
 export interface AttendancePageProps {
 	attendanceId: string;

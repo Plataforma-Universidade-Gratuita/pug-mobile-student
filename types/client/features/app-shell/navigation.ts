@@ -1,5 +1,5 @@
-import type { IconComponent } from "@/types/client/components/primitives/display/icon/index";
 import type { AppLang, AppTheme } from "@/types/client/context";
+import type { IconComponent } from "@/types/client/ui";
 
 export type TranslationKey = string;
 
