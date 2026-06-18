@@ -11,16 +11,31 @@ export function getFilteredOptions(
 		return options;
 	}
 
-	const normalizedTerm = searchTerm.trim().toLowerCase();
+	const normalizedTerm = normalizeTextForSearch(searchTerm);
 
-	return options.filter(option => {
-		const label = getNodeText(option.label);
-		const description = getNodeText(option.description);
+	return options.filter(option =>
+		getSearchableOptionText(option).includes(normalizedTerm),
+	);
+}
 
-		return [label, description].some(value =>
-			value.toLowerCase().includes(normalizedTerm),
-		);
-	});
+function getSearchableOptionText(option: SelectOption) {
+	return normalizeTextForSearch(
+		[
+			option.value,
+			getNodeText(option.label),
+			getNodeText(option.description),
+			option.searchText ?? "",
+			...(option.keywords ?? []),
+		].join(" "),
+	);
+}
+
+function normalizeTextForSearch(value: string) {
+	return value
+		.trim()
+		.normalize("NFD")
+		.replace(/\p{Diacritic}+/gu, "")
+		.toLocaleLowerCase();
 }
 
 function getNodeText(node?: ReactNode): string {
