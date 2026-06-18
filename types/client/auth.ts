@@ -1,6 +1,6 @@
 export interface PugJwtPayload {
 	upn: string;
-	groups: ("ADMIN" | "PARTNER" | "FORMER_STUDENT" | "STAFF")[];
+	groups: ("ADMIN" | "PARTNER" | "FORMER_STUDENT" | "STAFF" | "STUDENT")[];
 	accountId: string;
 	userId: string;
 	iat: number;
@@ -10,6 +10,16 @@ export interface PugJwtPayload {
 export interface AdminTokenValidationResult {
 	isValid: boolean;
 	payload?: PugJwtPayload;
+}
+
+export interface StudentTokenValidationResult {
+	isValid: boolean;
+	payload?: PugJwtPayload;
+}
+
+export interface StoredSessionTokens {
+	accessToken: string;
+	refreshToken: string;
 }
 
 export interface LoginFormValues {

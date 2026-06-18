@@ -1,18 +1,24 @@
-import { ApiError } from "@/api/utils";
-import { WebApiError } from "@/api/web";
+import { ApiError } from "@/api/errors";
 import type {
 	ApiErrorToastContent,
 	ApiErrorToastOptions,
 } from "@/types/client";
-import { normalizePathSegments } from "@/utils/utils";
 
 function isMeaningfulMessage(message: string | undefined): message is string {
 	if (!message) return false;
 	return !/^HTTP\s\d{3}$/.test(message);
 }
 
+function normalizePathSegments(path: string): string[] {
+	return path
+		.replace(/\[(\d+)\]/g, ".$1")
+		.split(".")
+		.map(segment => segment.trim())
+		.filter(Boolean);
+}
+
 export function getApiErrorMessage(error: unknown): string | undefined {
-	if (error instanceof ApiError || error instanceof WebApiError) {
+	if (error instanceof ApiError) {
 		return isMeaningfulMessage(error.message) ? error.message : undefined;
 	}
 
@@ -37,10 +43,6 @@ export function getApiErrorToastContent(
 
 export function getApiErrorFieldErrors(error: unknown) {
 	if (error instanceof ApiError) {
-		return error.fieldErrors;
-	}
-
-	if (error instanceof WebApiError) {
 		return error.fieldErrors;
 	}
 

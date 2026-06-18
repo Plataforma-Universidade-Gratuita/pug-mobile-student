@@ -1,4 +1,5 @@
 import i18n from "i18next";
+import { Platform } from "react-native";
 import { initReactI18next } from "react-i18next";
 
 import { DEFAULT_LANG, LANG_COOKIE_NAME } from "@/constants";
@@ -38,7 +39,12 @@ export function initI18n(initial: AppLang) {
 }
 
 export function applyClientLanguage(lang: AppLang, instance = initI18n(lang)) {
-	document.cookie = `${LANG_COOKIE_NAME}=${lang}; Path=/; Max-Age=${LANG_COOKIE_MAX_AGE}; SameSite=Lax`;
 	void instance.changeLanguage(lang);
+
+	if (Platform.OS !== "web" || typeof document === "undefined") {
+		return;
+	}
+
+	document.cookie = `${LANG_COOKIE_NAME}=${lang}; Path=/; Max-Age=${LANG_COOKIE_MAX_AGE}; SameSite=Lax`;
 	document.documentElement.lang = lang;
 }

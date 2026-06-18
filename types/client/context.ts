@@ -1,7 +1,8 @@
-import { SUPPORTED_LANGS } from "@/constants";
-import { APP_THEMES } from "@/constants";
+import { SUPPORTED_LANGS } from "@/constants/locale";
 
-export type AppTheme = (typeof APP_THEMES)[number];
+export type { AppTheme } from "@/types/client/theme";
+import type { AppTheme } from "@/types/client/theme";
+
 export type AppLang = (typeof SUPPORTED_LANGS)[number];
 
 export interface LocaleContextValue {
