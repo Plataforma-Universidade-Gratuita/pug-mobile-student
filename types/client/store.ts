@@ -1,10 +1,6 @@
 import type { LoginRequest } from "@/types/api";
 import type { PugJwtPayload, StoredSessionTokens } from "@/types/client/auth";
 import type {
-	ServicePagePaginationEntry,
-	ServicePageSizeOption,
-} from "@/types/client/service";
-import type {
 	AppResolvedTheme,
 	AppTheme,
 	ResolvedThemeMode,
@@ -33,16 +29,4 @@ export interface ThemeStoreState {
 	hydrateTheme: () => Promise<void>;
 	setMode: (mode: AppTheme) => Promise<void>;
 	setSystemMode: (mode: ResolvedThemeMode) => void;
-}
-
-export interface AppShellStoreState {
-	collapsed: boolean;
-	setCollapsed: (collapsed: boolean) => void;
-	toggleCollapsed: () => void;
-}
-
-export interface PaginationStoreState {
-	entries: Record<string, ServicePagePaginationEntry>;
-	setEntry: (key: string, entry: ServicePagePaginationEntry) => void;
-	clearEntry: (key: string) => void;
 }

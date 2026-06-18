@@ -6,7 +6,6 @@ export * from "./contexts";
 export * from "./forms";
 export * from "./hooks";
 export * from "./query";
-export * from "./service";
 export * from "./store";
 export * from "./theme";
 export * from "./components";
