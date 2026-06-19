@@ -64,6 +64,9 @@ export function RootNavigator() {
 					contentStyle: { backgroundColor: theme.colors.surface1 },
 				}}
 			>
+				<Stack.Screen name="index" />
+				<Stack.Screen name="login" />
+				<Stack.Screen name="wire-credentials" />
 			</Stack>
 
 			{isBootstrapping ? (

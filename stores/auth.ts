@@ -25,6 +25,7 @@ function buildSessionState(tokens: StoredSessionTokens) {
 		refreshToken: tokens.refreshToken,
 		sessionPayload: validation.payload,
 		isAuthenticated: true,
+		requiresCredentialSetup: false,
 	};
 }
 
@@ -43,6 +44,7 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 	isAuthenticated: false,
 	isBootstrapping: false,
 	isMutatingSession: false,
+	requiresCredentialSetup: false,
 	accessToken: null,
 	refreshToken: null,
 	sessionPayload: null,
@@ -56,12 +58,17 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 		});
 	},
 
+	setRequiresCredentialSetup: value => {
+		set({ requiresCredentialSetup: value });
+	},
+
 	clearSessionState: () => {
 		set({
 			accessToken: null,
 			refreshToken: null,
 			sessionPayload: null,
 			isAuthenticated: false,
+			requiresCredentialSetup: false,
 		});
 	},
 
@@ -107,6 +114,7 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 
 				await baseSessionProvider.persistSession(refreshedTokens);
 				set(refreshedSession);
+				get().setRequiresCredentialSetup(!refreshedTokens.passwordWired);
 				return true;
 			} catch {
 				await clearApiSession();
@@ -136,6 +144,8 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 
 			await baseSessionProvider.persistSession(tokens);
 			get().setSession(toStoredSessionTokens(tokens), validation.payload);
+			get().setRequiresCredentialSetup(!tokens.passwordWired);
+			return tokens;
 		} finally {
 			set({ isMutatingSession: false });
 		}
@@ -185,5 +195,8 @@ configureApiSessionProvider({
 		useAuthStore
 			.getState()
 			.setSession(toStoredSessionTokens(tokens), validation.payload);
+		useAuthStore
+			.getState()
+			.setRequiresCredentialSetup(!tokens.passwordWired);
 	},
 });
