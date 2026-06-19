@@ -11,7 +11,7 @@ export function createPaperTheme(appTheme: AppResolvedTheme): MD3Theme {
 
 	return {
 		...baseTheme,
-		roundness: appTheme.radius.md,
+		roundness: appTheme.form.controlRadius,
 		colors: {
 			...baseTheme.colors,
 			primary: appTheme.colors.brand,
