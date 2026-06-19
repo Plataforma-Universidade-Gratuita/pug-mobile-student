@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import { TextInput as PaperTextInput } from "react-native-paper";
 
@@ -14,6 +15,7 @@ import {
 	resolveInputAutoComplete,
 	resolveInputColors,
 	resolveInputKeyboardType,
+	resolveInputPlaceholder,
 	resolvePasswordToggleIcon,
 	resolveSecureTextEntry,
 	shouldRenderPasswordToggle,
@@ -37,6 +39,7 @@ export function Input({
 	onSubmitEditing,
 	style,
 }: PrimitiveInputProps) {
+	const { t } = useTranslation();
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveFormStyleSpec(theme), [theme]);
 	const [passwordVisible, setPasswordVisible] = useState(false);
@@ -53,7 +56,10 @@ export function Input({
 	const shouldShowPasswordToggle = shouldRenderPasswordToggle(type);
 	const blurProps = onBlur ? { onBlur } : {};
 	const changeTextProps = onChangeText ? { onChangeText } : {};
-	const placeholderProps = placeholder ? { placeholder } : {};
+	const resolvedPlaceholder = resolveInputPlaceholder(type, placeholder, t);
+	const placeholderProps = resolvedPlaceholder
+		? { placeholder: resolvedPlaceholder }
+		: {};
 	const submitProps = onSubmitEditing ? { onSubmitEditing } : {};
 	const autoCapitalizeProps =
 		resolvedAutoCapitalize !== undefined

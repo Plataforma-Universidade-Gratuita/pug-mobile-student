@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from "react";
 
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 
 import * as api from "@/api";
@@ -10,15 +11,16 @@ import { useAuthStore, useThemeStore } from "@/stores";
 
 import { createStyles } from "./styles";
 import {
-	resolveWireCredentialsErrorMessage,
-	validateCredentialConfirmation,
-	validateCredentialPassword,
+	resolveWireCredentialsErrorMessageWithFallback,
+	validateCredentialConfirmationWithMessages,
+	validateCredentialPasswordWithMessages,
 } from "./utils";
 
 const { identity } = api;
 const { auth: authApi } = identity;
 
 export function WireCredentialsScreen() {
+	const { t } = useTranslation();
 	const router = useRouter();
 	const theme = useThemeStore(state => state.theme);
 	const sessionPayload = useAuthStore(state => state.sessionPayload);
@@ -47,10 +49,17 @@ export function WireCredentialsScreen() {
 	const isBusy = isSubmitting || isMutatingSession;
 
 	async function handleSubmit() {
-		const nextPasswordError = validateCredentialPassword(password);
-		const nextConfirmationError = validateCredentialConfirmation(
+		const nextPasswordError = validateCredentialPasswordWithMessages(password, {
+			required: t("auth.wireCredentials.errors.passwordRequired"),
+			minLength: t("auth.wireCredentials.errors.passwordMinLength"),
+		});
+		const nextConfirmationError = validateCredentialConfirmationWithMessages(
 			password,
 			confirmation,
+			{
+				required: t("auth.wireCredentials.errors.confirmationRequired"),
+				mismatch: t("auth.wireCredentials.errors.confirmationMismatch"),
+			},
 		);
 
 		setPasswordError(nextPasswordError);
@@ -62,7 +71,7 @@ export function WireCredentialsScreen() {
 		}
 
 		if (!email) {
-			setServerError("Unable to resolve the current account email.");
+			setServerError(t("auth.wireCredentials.errors.missingEmail"));
 			return;
 		}
 
@@ -77,7 +86,12 @@ export function WireCredentialsScreen() {
 			setRequiresCredentialSetup(false);
 			router.replace("/");
 		} catch (error) {
-			setServerError(resolveWireCredentialsErrorMessage(error));
+			setServerError(
+				resolveWireCredentialsErrorMessageWithFallback(
+					error,
+					t("auth.wireCredentials.errors.fallback"),
+				),
+			);
 		} finally {
 			setIsSubmitting(false);
 		}
@@ -104,19 +118,21 @@ export function WireCredentialsScreen() {
 							tone="warning"
 							variant="secondary"
 						>
-							First login setup
+							{t("auth.wireCredentials.badge")}
 						</Badge>
 
 						<View style={styles.header}>
-							<Label role="title">Finish your first access.</Label>
+							<Label role="title">{t("auth.wireCredentials.title")}</Label>
 							<Label role="subtitle">
-								Set your password now. It will be required on future logins.
+								{t("auth.wireCredentials.subtitle")}
 							</Label>
 						</View>
 
 						<View style={styles.form}>
 							<View style={styles.field}>
-								<Label role="field">Password</Label>
+								<Label role="field">
+									{t("auth.wireCredentials.passwordLabel")}
+								</Label>
 								<Input
 									autoFocus
 									autoComplete="password-new"
@@ -131,7 +147,7 @@ export function WireCredentialsScreen() {
 										}
 									}}
 									onSubmitEditing={handleSubmit}
-									placeholder="Create your password"
+									placeholder={t("auth.wireCredentials.passwordPlaceholder")}
 									returnKeyType="next"
 									type="password"
 									value={password}
@@ -139,7 +155,9 @@ export function WireCredentialsScreen() {
 							</View>
 
 							<View style={styles.field}>
-								<Label role="field">Confirm password</Label>
+								<Label role="field">
+									{t("auth.wireCredentials.confirmPasswordLabel")}
+								</Label>
 								<Input
 									autoComplete="password-new"
 									error={confirmationError}
@@ -153,7 +171,9 @@ export function WireCredentialsScreen() {
 										}
 									}}
 									onSubmitEditing={handleSubmit}
-									placeholder="Repeat your password"
+									placeholder={t(
+										"auth.wireCredentials.confirmPasswordPlaceholder",
+									)}
 									returnKeyType="done"
 									type="password"
 									value={confirmation}
@@ -176,7 +196,7 @@ export function WireCredentialsScreen() {
 										void handleSubmit();
 									}}
 								>
-									Finish setup
+									{t("auth.wireCredentials.submit")}
 								</Button>
 
 								<Button
@@ -186,7 +206,7 @@ export function WireCredentialsScreen() {
 									}}
 									variant="text"
 								>
-									Finish later
+									{t("auth.wireCredentials.finishLater")}
 								</Button>
 							</View>
 						</View>

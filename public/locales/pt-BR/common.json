@@ -1,1 +1,57 @@
-{}
+{
+	"auth": {
+		"login": {
+			"badge": "Former student access",
+			"emailLabel": "Email",
+			"errors": {
+				"emailInvalid": "Enter a valid email address.",
+				"emailRequired": "Email is required.",
+				"fallback": "Unable to sign in right now. Try again in a moment.",
+				"invalidCredentials": "Email or password is incorrect."
+			},
+			"firstAccessBadge": "First access",
+			"firstAccessNote": "Your first access does not require a password.",
+			"passwordHelper": "Leave it blank on your first access.",
+			"passwordLabel": "Password",
+			"submit": "Login",
+			"subtitle": "Keep control of your counterpart hours.",
+			"title": "PUG"
+		},
+		"wireCredentials": {
+			"badge": "First login setup",
+			"confirmPasswordLabel": "Confirm password",
+			"confirmPasswordPlaceholder": "Repeat your password",
+			"errors": {
+				"confirmationMismatch": "Passwords do not match.",
+				"confirmationRequired": "Confirm your password.",
+				"fallback": "Unable to finish setup right now. Try again in a moment.",
+				"missingEmail": "Unable to resolve the current account email.",
+				"passwordMinLength": "Password must have at least 8 characters.",
+				"passwordRequired": "Password is required."
+			},
+			"finishLater": "Finish later",
+			"passwordLabel": "Password",
+			"passwordPlaceholder": "Create your password",
+			"submit": "Finish setup",
+			"subtitle": "Set your password now. It will be required on future logins.",
+			"title": "Finish your first access."
+		}
+	},
+	"common": {
+		"primitives": {
+			"input": {
+				"placeholders": {
+					"email": "student@catolica.edu.br",
+					"password": "Enter your password",
+					"text": "Type here"
+				}
+			}
+		}
+	},
+	"home": {
+		"badge": "Session active",
+		"logout": "Log out",
+		"subtitleFallback": "Your session is ready.",
+		"title": "You are signed in."
+	}
+}

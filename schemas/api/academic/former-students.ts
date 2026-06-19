@@ -1,10 +1,10 @@
 import { z } from "zod";
 
 import {
-	AccountStatusRequestSchema,
+	AuditInfoResponseSchema,
 	CampiEnum,
 	CampusResponseSchema,
- AuditInfoResponseSchema } from "@/schemas/api/shared/shared";
+} from "@/schemas/api/shared/shared";
 
 /*
  * Forced exception: this frozen API schema avoids the root schemas barrel to
@@ -98,5 +98,3 @@ export const FormerStudentComplexSearchResponseSchema = z.object({
 	auditInfo: AuditInfoResponseSchema,
 	course: CourseComplexSearchResponseSchema,
 });
-
-export { AccountStatusRequestSchema };

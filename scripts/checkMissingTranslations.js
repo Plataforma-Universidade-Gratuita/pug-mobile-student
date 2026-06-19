@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
-
 const en = require("../public/locales/en-US/common.json");
 const pt = require("../public/locales/pt-BR/common.json");
 

@@ -55,6 +55,26 @@ export function resolveInputAutoComplete(
 	}
 }
 
+export function resolveInputPlaceholder(
+	type: NonNullable<PrimitiveInputProps["type"]>,
+	explicitPlaceholder: PrimitiveInputProps["placeholder"],
+	getText: (key: string) => string,
+) {
+	if (explicitPlaceholder) {
+		return explicitPlaceholder;
+	}
+
+	switch (type) {
+		case "email":
+			return getText("common.primitives.input.placeholders.email");
+		case "password":
+			return getText("common.primitives.input.placeholders.password");
+		case "text":
+		default:
+			return getText("common.primitives.input.placeholders.text");
+	}
+}
+
 export function resolveSecureTextEntry(
 	type: NonNullable<PrimitiveInputProps["type"]>,
 	passwordVisible: boolean,

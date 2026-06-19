@@ -13,23 +13,43 @@ export function normalizeLoginPassword(value: string) {
 }
 
 export function validateLoginEmail(value: string) {
+	return validateLoginEmailWithMessages(value, {
+		required: "Email is required.",
+		invalid: "Enter a valid email address.",
+	});
+}
+
+export function validateLoginEmailWithMessages(
+	value: string,
+	messages: { required: string; invalid: string },
+) {
 	const normalizedValue = normalizeLoginEmail(value);
 
 	if (!normalizedValue) {
-		return "Email is required.";
+		return messages.required;
 	}
 
 	if (!EMAIL_PATTERN.test(normalizedValue)) {
-		return "Enter a valid email address.";
+		return messages.invalid;
 	}
 
 	return null;
 }
 
 export function resolveLoginErrorMessage(error: unknown) {
+	return resolveLoginErrorMessageWithMessages(error, {
+		invalidCredentials: "Email or password is incorrect.",
+		fallback: "Unable to sign in right now. Try again in a moment.",
+	});
+}
+
+export function resolveLoginErrorMessageWithMessages(
+	error: unknown,
+	messages: { invalidCredentials: string; fallback: string },
+) {
 	if (error instanceof ApiError) {
 		if (error.status === 401) {
-			return "Email or password is incorrect.";
+			return messages.invalidCredentials;
 		}
 
 		return error.message;
@@ -39,5 +59,5 @@ export function resolveLoginErrorMessage(error: unknown) {
 		return error.message;
 	}
 
-	return "Unable to sign in right now. Try again in a moment.";
+	return messages.fallback;
 }

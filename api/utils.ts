@@ -37,7 +37,7 @@ import type {
 import { getStoredValue, removeStoredValue, setStoredValue } from "@/utils";
 
 import { API_BASE_URL, API_ROUTE_BASES, JSON_HEADERS } from "./constants";
-import { ApiError, parseApiErrorResponse } from "./errors";
+import { parseApiErrorResponse } from "./errors";
 
 function normalizeHeaders(headers?: HeadersInit): Record<string, string> {
 	if (!headers) {
@@ -387,8 +387,6 @@ function parseOptionalPositiveNumber(value: string) {
 
 	return parsed;
 }
-
-export { ApiError };
 
 function createDefaultSessionProvider(): ApiSessionProvider {
 	return {

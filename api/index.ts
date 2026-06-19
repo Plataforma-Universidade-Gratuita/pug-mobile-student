@@ -17,7 +17,6 @@ export * as enrollments from "./project/enrollments";
 export * as projectAreasOfExpertise from "./project/project-areas-of-expertise";
 export * as projects from "./project/projects";
 
-export * from "./auth";
 export * from "./constants";
 export * from "./errors";
 export * from "./utils";

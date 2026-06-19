@@ -1,5 +1,6 @@
 import React, { useMemo } from "react";
 
+import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
 import { createPrimitiveSurfaceStyleSpec } from "@/app/styles";
@@ -9,6 +10,7 @@ import { useAuthStore, useThemeStore } from "@/stores";
 import { createStyles } from "./styles";
 
 export function HomeScreen() {
+	const { t } = useTranslation();
 	const theme = useThemeStore(state => state.theme);
 	const sessionPayload = useAuthStore(state => state.sessionPayload);
 	const signOut = useAuthStore(state => state.signOut);
@@ -29,13 +31,13 @@ export function HomeScreen() {
 					tone="success"
 					variant="secondary"
 				>
-					Session active
+					{t("home.badge")}
 				</Badge>
 
 				<View style={styles.header}>
-					<Label role="title">You are signed in.</Label>
+					<Label role="title">{t("home.title")}</Label>
 					<Label role="subtitle">
-						{sessionPayload?.upn ?? "Your session is ready."}
+						{sessionPayload?.upn ?? t("home.subtitleFallback")}
 					</Label>
 				</View>
 
@@ -47,7 +49,7 @@ export function HomeScreen() {
 						}}
 						variant="secondary"
 					>
-						Log out
+						{t("home.logout")}
 					</Button>
 				</View>
 			</View>

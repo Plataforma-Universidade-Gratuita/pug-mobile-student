@@ -23,10 +23,16 @@ const resources = {
 
 export function initI18n(initial: AppLang) {
 	if (i18n.isInitialized) {
+		/* i18next exposes the shared singleton instance through the default export
+		in this setup, so we intentionally call the instance method here. */
+		// eslint-disable-next-line import/no-named-as-default-member
 		void i18n.changeLanguage(initial);
 		return i18n;
 	}
 
+	/* i18next exposes the shared singleton instance through the default export in
+	this setup, so we intentionally chain the instance methods here. */
+	// eslint-disable-next-line import/no-named-as-default-member
 	i18n.use(initReactI18next).init({
 		lng: initial,
 		fallbackLng: DEFAULT_LANG,

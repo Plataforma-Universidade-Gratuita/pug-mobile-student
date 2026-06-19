@@ -1,9 +1,6 @@
 import { z } from "zod";
 
-import {
-	AccountTypeEnum,
-	CredentialsRequestSchema,
-} from "@/schemas/api/shared/shared";
+import { AccountTypeEnum } from "@/schemas/api/shared/shared";
 
 // ─── Responses ───────────────────────────────────────────────────────────────
 
@@ -31,5 +28,3 @@ export const RefreshRequestSchema = z.object({
 export const LogoutRequestSchema = z.object({
 	refreshToken: z.string(),
 });
-
-export { CredentialsRequestSchema };

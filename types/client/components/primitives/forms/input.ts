@@ -4,7 +4,6 @@ import type {
 	KeyboardTypeOptions,
 	StyleProp,
 	TextInputProps,
-	TextStyle,
 	ViewStyle,
 } from "react-native";
 
