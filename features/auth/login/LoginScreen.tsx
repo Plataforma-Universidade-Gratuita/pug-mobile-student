@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 
 import { useRouter } from "expo-router";
+import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 
 import { Button, Badge, Input, Label } from "@/components/primitives";
-import { useAuthScreen, useServerErrorState } from "@/hooks";
+import {
+	useAuthScreen,
+	useLocalizedZodForm,
+	useServerErrorState,
+} from "@/hooks";
+import { createLoginFormSchema } from "@/schemas/client";
 import { useAuthStore } from "@/stores";
+import type { LoginFormValues } from "@/types/client";
 
 import { createStyles } from "./styles";
-import {
-	normalizeLoginEmail,
-	normalizeLoginPassword,
-	resolveLoginErrorMessageWithMessages,
-	validateLoginEmailWithMessages,
-} from "./utils";
+import { resolveLoginErrorMessageWithMessages } from "./utils";
 
 export function LoginScreen() {
 	const { t } = useTranslation();
@@ -23,27 +25,23 @@ export function LoginScreen() {
 	const { isMutatingSession, styles } = useAuthScreen(createStyles);
 	const { clearServerError, serverError, setServerError } =
 		useServerErrorState();
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [emailError, setEmailError] = useState<string | null>(null);
+	const form = useLocalizedZodForm<LoginFormValues>({
+		schemaFactory: createLoginFormSchema,
+		defaultValues: {
+			email: "",
+			password: null,
+		},
+		mode: "onSubmit",
+		reValidateMode: "onChange",
+	});
 
-	async function handleSubmit() {
-		const nextEmailError = validateLoginEmailWithMessages(email, {
-			required: t("auth.login.errors.emailRequired"),
-			invalid: t("auth.login.errors.emailInvalid"),
-		});
-
-		setEmailError(nextEmailError);
+	async function onSubmit(values: LoginFormValues) {
 		clearServerError();
-
-		if (nextEmailError) {
-			return;
-		}
 
 		try {
 			const tokens = await signIn({
-				email: normalizeLoginEmail(email),
-				password: normalizeLoginPassword(password),
+				email: values.email.trim().toLowerCase(),
+				password: values.password,
 			});
 
 			if (!tokens.passwordWired) {
@@ -90,36 +88,56 @@ export function LoginScreen() {
 						<View style={styles.form}>
 							<View style={styles.field}>
 								<Label role="field">{t("auth.login.emailLabel")}</Label>
-								<Input
-									autoComplete="email"
-									onChangeText={value => {
-										setEmail(value);
-										if (emailError) {
-											setEmailError(null);
-										}
-										clearServerError();
-									}}
-									onSubmitEditing={handleSubmit}
-									returnKeyType="next"
-									type="email"
-									value={email}
-									error={emailError}
+								<Controller
+									control={form.control}
+									name="email"
+									render={({ field, fieldState }) => (
+										<Input
+											autoComplete="email"
+											onBlur={() => {
+												field.onBlur();
+											}}
+											onChangeText={value => {
+												field.onChange(value);
+												clearServerError();
+											}}
+											onSubmitEditing={() => {
+												void form.handleSubmit(onSubmit)();
+											}}
+											returnKeyType="next"
+											type="email"
+											value={field.value}
+											error={fieldState.error?.message ?? null}
+										/>
+									)}
 								/>
 							</View>
 
 							<View style={styles.field}>
 								<Label role="field">{t("auth.login.passwordLabel")}</Label>
-								<Input
-									autoComplete="password"
-									helperText={t("auth.login.passwordHelper")}
-									onChangeText={value => {
-										setPassword(value);
-										clearServerError();
-									}}
-									onSubmitEditing={handleSubmit}
-									returnKeyType="done"
-									type="password"
-									value={password}
+								<Controller
+									control={form.control}
+									name="password"
+									render={({ field, fieldState }) => (
+										<Input
+											autoComplete="password"
+											error={fieldState.error?.message ?? null}
+											helperText={t("auth.login.passwordHelper")}
+											onBlur={() => {
+												field.onBlur();
+											}}
+											onChangeText={value => {
+												field.onChange(value);
+												clearServerError();
+											}}
+											onSubmitEditing={() => {
+												void form.handleSubmit(onSubmit)();
+											}}
+											returnKeyType="done"
+											type="password"
+											value={field.value ?? ""}
+										/>
+									)}
 								/>
 							</View>
 
@@ -135,7 +153,7 @@ export function LoginScreen() {
 							<Button
 								loading={isMutatingSession}
 								onPress={() => {
-									void handleSubmit();
+									void form.handleSubmit(onSubmit)();
 								}}
 							>
 								{t("auth.login.submit")}

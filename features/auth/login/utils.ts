@@ -1,41 +1,5 @@
 import { ApiError } from "@/api";
 
-const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-export function normalizeLoginEmail(value: string) {
-	return value.trim().toLowerCase();
-}
-
-export function normalizeLoginPassword(value: string) {
-	const normalizedValue = value.trim();
-
-	return normalizedValue.length > 0 ? normalizedValue : null;
-}
-
-export function validateLoginEmail(value: string) {
-	return validateLoginEmailWithMessages(value, {
-		required: "Email is required.",
-		invalid: "Enter a valid email address.",
-	});
-}
-
-export function validateLoginEmailWithMessages(
-	value: string,
-	messages: { required: string; invalid: string },
-) {
-	const normalizedValue = normalizeLoginEmail(value);
-
-	if (!normalizedValue) {
-		return messages.required;
-	}
-
-	if (!EMAIL_PATTERN.test(normalizedValue)) {
-		return messages.invalid;
-	}
-
-	return null;
-}
-
 export function resolveLoginErrorMessage(error: unknown) {
 	return resolveLoginErrorMessageWithMessages(error, {
 		invalidCredentials: "Email or password is incorrect.",

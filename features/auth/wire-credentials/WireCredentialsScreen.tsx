@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 
 import { useRouter } from "expo-router";
+import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 
 import * as api from "@/api";
 import { Button, Badge, Input, Label } from "@/components/primitives";
-import { useAuthScreen, useServerErrorState } from "@/hooks";
+import {
+	useAuthScreen,
+	useLocalizedZodForm,
+	useServerErrorState,
+} from "@/hooks";
+import { createWireCredentialsFormSchema } from "@/schemas/client";
 import { useAuthStore } from "@/stores";
+import type { WireCredentialsFormValues } from "@/types/client";
 
 import { createStyles } from "./styles";
-import {
-	resolveWireCredentialsErrorMessageWithFallback,
-	validateCredentialConfirmationWithMessages,
-	validateCredentialPasswordWithMessages,
-} from "./utils";
+import { resolveWireCredentialsErrorMessageWithFallback } from "./utils";
 
 const { identity } = api;
 const { auth: authApi } = identity;
@@ -30,42 +33,28 @@ export function WireCredentialsScreen() {
 	const { isMutatingSession, styles } = useAuthScreen(createStyles);
 	const { clearServerError, serverError, setServerError } =
 		useServerErrorState();
-	const [password, setPassword] = useState("");
-	const [confirmation, setConfirmation] = useState("");
-	const [passwordError, setPasswordError] = useState<string | null>(null);
-	const [confirmationError, setConfirmationError] = useState<string | null>(
-		null,
-	);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const email = sessionPayload?.upn ?? "";
 	const isBusy = isSubmitting || isMutatingSession;
+	const form = useLocalizedZodForm<WireCredentialsFormValues>({
+		schemaFactory: createWireCredentialsFormSchema,
+		defaultValues: {
+			password: null,
+			confirmPassword: "",
+		},
+		mode: "onSubmit",
+		reValidateMode: "onChange",
+	});
 
-	async function handleSubmit() {
-		const nextPasswordError = validateCredentialPasswordWithMessages(password, {
-			required: t("auth.wireCredentials.errors.passwordRequired"),
-			minLength: t("auth.wireCredentials.errors.passwordMinLength"),
-		});
-		const nextConfirmationError = validateCredentialConfirmationWithMessages(
-			password,
-			confirmation,
-			{
-				required: t("auth.wireCredentials.errors.confirmationRequired"),
-				mismatch: t("auth.wireCredentials.errors.confirmationMismatch"),
-			},
-		);
-
-		setPasswordError(nextPasswordError);
-		setConfirmationError(nextConfirmationError);
+	async function onSubmit(values: WireCredentialsFormValues) {
 		clearServerError();
-
-		if (nextPasswordError || nextConfirmationError) {
-			return;
-		}
 
 		if (!email) {
 			setServerError(t("auth.wireCredentials.errors.missingEmail"));
 			return;
 		}
+
+		const password = values.password?.trim() ?? "";
 
 		setIsSubmitting(true);
 
@@ -125,21 +114,31 @@ export function WireCredentialsScreen() {
 								<Label role="field">
 									{t("auth.wireCredentials.passwordLabel")}
 								</Label>
-								<Input
-									autoComplete="password-new"
-									error={passwordError}
-									onChangeText={value => {
-										setPassword(value);
-										if (passwordError) {
-											setPasswordError(null);
-										}
-										clearServerError();
-									}}
-									onSubmitEditing={handleSubmit}
-									placeholder={t("auth.wireCredentials.passwordPlaceholder")}
-									returnKeyType="next"
-									type="password"
-									value={password}
+								<Controller
+									control={form.control}
+									name="password"
+									render={({ field, fieldState }) => (
+										<Input
+											autoComplete="password-new"
+											error={fieldState.error?.message ?? null}
+											onBlur={() => {
+												field.onBlur();
+											}}
+											onChangeText={value => {
+												field.onChange(value);
+												clearServerError();
+											}}
+											onSubmitEditing={() => {
+												void form.handleSubmit(onSubmit)();
+											}}
+											placeholder={t(
+												"auth.wireCredentials.passwordPlaceholder",
+											)}
+											returnKeyType="next"
+											type="password"
+											value={field.value ?? ""}
+										/>
+									)}
 								/>
 							</View>
 
@@ -147,23 +146,31 @@ export function WireCredentialsScreen() {
 								<Label role="field">
 									{t("auth.wireCredentials.confirmPasswordLabel")}
 								</Label>
-								<Input
-									autoComplete="password-new"
-									error={confirmationError}
-									onChangeText={value => {
-										setConfirmation(value);
-										if (confirmationError) {
-											setConfirmationError(null);
-										}
-										clearServerError();
-									}}
-									onSubmitEditing={handleSubmit}
-									placeholder={t(
-										"auth.wireCredentials.confirmPasswordPlaceholder",
+								<Controller
+									control={form.control}
+									name="confirmPassword"
+									render={({ field, fieldState }) => (
+										<Input
+											autoComplete="password-new"
+											error={fieldState.error?.message ?? null}
+											onBlur={() => {
+												field.onBlur();
+											}}
+											onChangeText={value => {
+												field.onChange(value);
+												clearServerError();
+											}}
+											onSubmitEditing={() => {
+												void form.handleSubmit(onSubmit)();
+											}}
+											placeholder={t(
+												"auth.wireCredentials.confirmPasswordPlaceholder",
+											)}
+											returnKeyType="done"
+											type="password"
+											value={field.value}
+										/>
 									)}
-									returnKeyType="done"
-									type="password"
-									value={confirmation}
 								/>
 							</View>
 
@@ -180,7 +187,7 @@ export function WireCredentialsScreen() {
 								<Button
 									loading={isBusy}
 									onPress={() => {
-										void handleSubmit();
+										void form.handleSubmit(onSubmit)();
 									}}
 								>
 									{t("auth.wireCredentials.submit")}

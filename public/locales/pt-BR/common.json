@@ -6,8 +6,11 @@
 			"errors": {
 				"emailInvalid": "Enter a valid email address.",
 				"emailRequired": "Email is required.",
+				"emailTooLong": "Email is too long.",
 				"fallback": "Unable to sign in right now. Try again in a moment.",
-				"invalidCredentials": "Email or password is incorrect."
+				"invalidCredentials": "Email or password is incorrect.",
+				"passwordInvalid": "Password must have between 8 and 255 characters.",
+				"passwordRequired": "Password is required."
 			},
 			"passwordHelper": "Leave it blank on your first access.",
 			"passwordLabel": "Password",

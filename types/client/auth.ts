@@ -12,6 +12,16 @@ export interface StudentTokenValidationResult {
 	payload?: PugJwtPayload;
 }
 
+export interface LoginFormValues {
+	email: string;
+	password: string | null;
+}
+
+export interface WireCredentialsFormValues {
+	password: string | null;
+	confirmPassword: string;
+}
+
 export interface StoredSessionTokens {
 	accessToken: string;
 	refreshToken: string;
