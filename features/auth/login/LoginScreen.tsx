@@ -147,4 +147,3 @@ export function LoginScreen() {
 		</View>
 	);
 }
-
