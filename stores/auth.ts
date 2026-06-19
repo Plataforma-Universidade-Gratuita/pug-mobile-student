@@ -3,7 +3,7 @@ import { create } from "zustand";
 import * as api from "@/api";
 import type { TokenResponse } from "@/types/api";
 import type { AuthStoreState, StoredSessionTokens } from "@/types/client";
-import { validateStudentToken } from "@/utils";
+import { validateFormerStudentToken } from "@/utils";
 
 const {
 	clearApiSession,
@@ -14,7 +14,7 @@ const {
 const { auth: authApi } = identity;
 
 function buildSessionState(tokens: StoredSessionTokens) {
-	const validation = validateStudentToken(tokens.accessToken);
+	const validation = validateFormerStudentToken(tokens.accessToken);
 
 	if (!validation.isValid || !validation.payload) {
 		return null;
@@ -134,12 +134,12 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 
 		try {
 			const tokens = await authApi.login(credentials);
-			const validation = validateStudentToken(tokens.token);
+			const validation = validateFormerStudentToken(tokens.token);
 
 			if (!validation.isValid || !validation.payload) {
 				await clearApiSession();
 				get().clearSessionState();
-				throw new Error("Received a non-student token during sign-in.");
+				throw new Error("Received a non-former-student token during sign-in.");
 			}
 
 			await baseSessionProvider.persistSession(tokens);
@@ -187,7 +187,7 @@ configureApiSessionProvider({
 	persistSession: async tokens => {
 		await baseSessionProvider.persistSession(tokens);
 
-		const validation = validateStudentToken(tokens.token);
+		const validation = validateFormerStudentToken(tokens.token);
 		if (!validation.isValid || !validation.payload) {
 			return;
 		}
@@ -195,8 +195,6 @@ configureApiSessionProvider({
 		useAuthStore
 			.getState()
 			.setSession(toStoredSessionTokens(tokens), validation.payload);
-		useAuthStore
-			.getState()
-			.setRequiresCredentialSetup(!tokens.passwordWired);
+		useAuthStore.getState().setRequiresCredentialSetup(!tokens.passwordWired);
 	},
 });

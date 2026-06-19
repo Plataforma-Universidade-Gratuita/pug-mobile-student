@@ -45,4 +45,3 @@ export function useCityDetailQuery(id: string | null) {
 		enabled: id !== null,
 	});
 }
-

@@ -10,4 +10,3 @@ export const projectKeys = {
 	idleAreasOfExpertise: () =>
 		[...projectKeys.all, "areas-of-expertise", "idle"] as const,
 };
-

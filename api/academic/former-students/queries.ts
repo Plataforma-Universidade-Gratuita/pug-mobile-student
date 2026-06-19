@@ -19,4 +19,3 @@ export function useFormerStudentDetailQuery(id: string | null) {
 		enabled: id !== null,
 	});
 }
-

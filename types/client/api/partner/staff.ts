@@ -1,7 +1,4 @@
-import type {
-	StaffCreateRequest,
-	StaffUpdateRequest,
-} from "@/types/api";
+import type { StaffCreateRequest, StaffUpdateRequest } from "@/types/api";
 
 export type StaffEditorMode = "create" | "duplicate" | "update";
 
@@ -38,4 +35,3 @@ export interface PatchStaffCachesArgs {
 	accountId: string;
 	accountActive: boolean;
 }
-

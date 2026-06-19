@@ -17,12 +17,18 @@ export function HomeScreen() {
 		() => createPrimitiveSurfaceStyleSpec(theme),
 		[theme],
 	);
-	const styles = useMemo(() => createStyles(theme, surfaceSpec), [surfaceSpec, theme]);
+	const styles = useMemo(
+		() => createStyles(theme, surfaceSpec),
+		[surfaceSpec, theme],
+	);
 
 	return (
 		<View style={styles.screen}>
 			<View style={styles.panel}>
-				<Badge tone="success" variant="secondary">
+				<Badge
+					tone="success"
+					variant="secondary"
+				>
 					Session active
 				</Badge>
 

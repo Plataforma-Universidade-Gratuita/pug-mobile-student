@@ -7,4 +7,3 @@ export const enrollmentKeys = {
 		[...enrollmentKeys.all, "detail", projectId, formerStudentId] as const,
 	idleDetail: () => [...enrollmentKeys.all, "detail", "idle", "idle"] as const,
 };
-

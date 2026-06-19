@@ -14,10 +14,7 @@ import type {
 } from "@/types/api";
 
 export async function get(id: string): Promise<CityResponse> {
-	return authFetch(
-		`${API_ROUTE_BASES.geo.cities}/${id}`,
-		CityResponseSchema,
-	);
+	return authFetch(`${API_ROUTE_BASES.geo.cities}/${id}`, CityResponseSchema);
 }
 
 export async function list(): Promise<CityResponse[]> {
@@ -40,4 +37,3 @@ export async function search(
 		},
 	);
 }
-

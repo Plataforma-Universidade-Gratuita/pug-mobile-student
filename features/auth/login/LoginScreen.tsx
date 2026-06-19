@@ -2,12 +2,7 @@ import React, { useMemo, useState } from "react";
 
 import { useRouter } from "expo-router";
 import type { Href } from "expo-router";
-import {
-	KeyboardAvoidingView,
-	Platform,
-	ScrollView,
-	View,
-} from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 
 import { createPrimitiveSurfaceStyleSpec } from "@/app/styles";
 import { Button, Badge, Input, Label } from "@/components/primitives";
@@ -34,7 +29,10 @@ export function LoginScreen() {
 		() => createPrimitiveSurfaceStyleSpec(theme),
 		[theme],
 	);
-	const styles = useMemo(() => createStyles(theme, surfaceSpec), [surfaceSpec, theme]);
+	const styles = useMemo(
+		() => createStyles(theme, surfaceSpec),
+		[surfaceSpec, theme],
+	);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [emailError, setEmailError] = useState<string | null>(null);
@@ -79,8 +77,11 @@ export function LoginScreen() {
 					showsVerticalScrollIndicator={false}
 				>
 					<View style={styles.panel}>
-						<Badge tone="brand" variant="secondary">
-							Student access
+						<Badge
+							tone="brand"
+							variant="secondary"
+						>
+							Former student access
 						</Badge>
 
 						<View style={styles.header}>
@@ -134,7 +135,10 @@ export function LoginScreen() {
 							</View>
 
 							{serverError ? (
-								<Label role="helper" tone="danger">
+								<Label
+									role="helper"
+									tone="danger"
+								>
 									{serverError}
 								</Label>
 							) : null}
@@ -150,10 +154,16 @@ export function LoginScreen() {
 						</View>
 
 						<View style={styles.note}>
-							<Badge tone="info" variant="secondary">
+							<Badge
+								tone="info"
+								variant="secondary"
+							>
 								First access
 							</Badge>
-							<Label role="helper" tone="muted">
+							<Label
+								role="helper"
+								tone="muted"
+							>
 								Your first access does not require a password.
 							</Label>
 						</View>

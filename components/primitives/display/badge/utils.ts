@@ -33,28 +33,36 @@ export function resolveBadgeColors(
 		},
 		success: {
 			primaryBackground:
-				theme.mode === "dark" ? "rgba(70, 167, 88, 0.18)" : "rgba(70, 167, 88, 0.12)",
+				theme.mode === "dark"
+					? "rgba(70, 167, 88, 0.18)"
+					: "rgba(70, 167, 88, 0.12)",
 			primaryText: theme.colors.success,
 			secondaryBorder: theme.colors.success,
 			secondaryText: theme.colors.success,
 		},
 		info: {
 			primaryBackground:
-				theme.mode === "dark" ? "rgba(0, 144, 255, 0.18)" : "rgba(0, 144, 255, 0.12)",
+				theme.mode === "dark"
+					? "rgba(0, 144, 255, 0.18)"
+					: "rgba(0, 144, 255, 0.12)",
 			primaryText: theme.colors.info,
 			secondaryBorder: theme.colors.info,
 			secondaryText: theme.colors.info,
 		},
 		warning: {
 			primaryBackground:
-				theme.mode === "dark" ? "rgba(255, 197, 61, 0.18)" : "rgba(255, 197, 61, 0.16)",
+				theme.mode === "dark"
+					? "rgba(255, 197, 61, 0.18)"
+					: "rgba(255, 197, 61, 0.16)",
 			primaryText: theme.mode === "dark" ? "#f6d98f" : "#8a6200",
 			secondaryBorder: theme.colors.warning,
 			secondaryText: theme.mode === "dark" ? "#f6d98f" : "#8a6200",
 		},
 		danger: {
 			primaryBackground:
-				theme.mode === "dark" ? "rgba(229, 72, 77, 0.18)" : "rgba(229, 72, 77, 0.12)",
+				theme.mode === "dark"
+					? "rgba(229, 72, 77, 0.18)"
+					: "rgba(229, 72, 77, 0.12)",
 			primaryText: theme.colors.danger,
 			secondaryBorder: theme.colors.danger,
 			secondaryText: theme.colors.danger,

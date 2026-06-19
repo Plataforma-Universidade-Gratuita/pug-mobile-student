@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { API_ROUTE_BASES, authFetch, authVoid, qs} from "@/api";
+import { API_ROUTE_BASES, authFetch, authVoid, qs } from "@/api";
 import {
 	EnrollmentComplexSearchRequestSchema,
 	EnrollmentComplexSearchResponseSchema,
@@ -129,4 +129,3 @@ export async function deleteEnrollment(
 		},
 	);
 }
-

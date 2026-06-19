@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { API_ROUTE_BASES,authFetch, authVoid, qs } from "@/api";
+import { API_ROUTE_BASES, authFetch, authVoid, qs } from "@/api";
 import {
 	AttendanceComplexSearchRequestSchema,
 	AttendanceComplexSearchResponseSchema,
@@ -81,4 +81,3 @@ export async function remove(id: string): Promise<void> {
 		method: "DELETE",
 	});
 }
-

@@ -19,4 +19,3 @@ export function useAreaOfExpertiseDetailQuery(id: string | null) {
 		enabled: id !== null,
 	});
 }
-

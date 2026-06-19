@@ -5,7 +5,7 @@ import type {
 	StudentTokenValidationResult,
 } from "@/types/client";
 
-export function validateStudentToken(
+export function validateFormerStudentToken(
 	token: string,
 ): StudentTokenValidationResult {
 	try {
@@ -14,7 +14,7 @@ export function validateStudentToken(
 		const isExpired = payload.exp * 1000 < Date.now();
 		if (isExpired) return { isValid: false };
 
-		if (!payload.groups?.includes("STUDENT")) return { isValid: false };
+		if (!payload.groups?.includes("FORMER_STUDENT")) return { isValid: false };
 
 		return { isValid: true, payload };
 	} catch {

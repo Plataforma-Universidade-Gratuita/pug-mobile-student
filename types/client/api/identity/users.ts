@@ -4,4 +4,3 @@ export interface UserComplexSearchFilters {
 	dateFrom: string;
 	dateTo: string;
 }
-

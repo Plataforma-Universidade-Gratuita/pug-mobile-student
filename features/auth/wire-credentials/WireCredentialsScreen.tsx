@@ -1,15 +1,10 @@
 import React, { useMemo, useState } from "react";
 
 import { useRouter } from "expo-router";
-import {
-	KeyboardAvoidingView,
-	Platform,
-	ScrollView,
-	View,
-} from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 
-import { createPrimitiveSurfaceStyleSpec } from "@/app/styles";
 import * as api from "@/api";
+import { createPrimitiveSurfaceStyleSpec } from "@/app/styles";
 import { Button, Badge, Input, Label } from "@/components/primitives";
 import { useAuthStore, useThemeStore } from "@/stores";
 
@@ -36,11 +31,16 @@ export function WireCredentialsScreen() {
 		() => createPrimitiveSurfaceStyleSpec(theme),
 		[theme],
 	);
-	const styles = useMemo(() => createStyles(theme, surfaceSpec), [surfaceSpec, theme]);
+	const styles = useMemo(
+		() => createStyles(theme, surfaceSpec),
+		[surfaceSpec, theme],
+	);
 	const [password, setPassword] = useState("");
 	const [confirmation, setConfirmation] = useState("");
 	const [passwordError, setPasswordError] = useState<string | null>(null);
-	const [confirmationError, setConfirmationError] = useState<string | null>(null);
+	const [confirmationError, setConfirmationError] = useState<string | null>(
+		null,
+	);
 	const [serverError, setServerError] = useState<string | null>(null);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const email = sessionPayload?.upn ?? "";
@@ -100,7 +100,10 @@ export function WireCredentialsScreen() {
 					showsVerticalScrollIndicator={false}
 				>
 					<View style={styles.panel}>
-						<Badge tone="warning" variant="secondary">
+						<Badge
+							tone="warning"
+							variant="secondary"
+						>
 							First login setup
 						</Badge>
 
@@ -158,7 +161,10 @@ export function WireCredentialsScreen() {
 							</View>
 
 							{serverError ? (
-								<Label role="helper" tone="danger">
+								<Label
+									role="helper"
+									tone="danger"
+								>
 									{serverError}
 								</Label>
 							) : null}

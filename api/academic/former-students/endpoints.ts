@@ -102,13 +102,10 @@ export async function update(
 }
 
 export async function setActive(id: string, active: boolean): Promise<void> {
-	return authVoid(
-		`${API_ROUTE_BASES.academic.formerStudents}/${id}/status`,
-		{
-			method: "PATCH",
-			body: JSON.stringify(AccountStatusRequestSchema.parse({ active })),
-		},
-	);
+	return authVoid(`${API_ROUTE_BASES.academic.formerStudents}/${id}/status`, {
+		method: "PATCH",
+		body: JSON.stringify(AccountStatusRequestSchema.parse({ active })),
+	});
 }
 
 export async function remove(id: string): Promise<void> {
@@ -116,4 +113,3 @@ export async function remove(id: string): Promise<void> {
 		method: "DELETE",
 	});
 }
-

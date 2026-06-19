@@ -4,4 +4,3 @@ export const areaOfExpertiseKeys = {
 	detail: (id: string) => [...areaOfExpertiseKeys.all, "detail", id] as const,
 	idleDetail: () => [...areaOfExpertiseKeys.all, "detail", "idle"] as const,
 };
-

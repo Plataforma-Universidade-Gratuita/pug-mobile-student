@@ -7,4 +7,3 @@ export const userKeys = {
 	idleDetail: () => [...userKeys.all, "detail", "idle"] as const,
 	me: () => [...userKeys.all, "me"] as const,
 };
-

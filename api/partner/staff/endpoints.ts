@@ -27,10 +27,7 @@ export async function get(id: string): Promise<StaffResponse> {
 }
 
 export async function getMe(): Promise<StaffResponse> {
-	return authFetch(
-		`${API_ROUTE_BASES.partner.staff}/me`,
-		StaffResponseSchema,
-	);
+	return authFetch(`${API_ROUTE_BASES.partner.staff}/me`, StaffResponseSchema);
 }
 
 export async function list(ids?: string[]): Promise<StaffResponse[]> {
@@ -100,4 +97,3 @@ export async function remove(id: string): Promise<void> {
 		method: "DELETE",
 	});
 }
-

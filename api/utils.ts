@@ -1,32 +1,43 @@
 import i18n from "i18next";
 import { z } from "zod";
 
-import {ACCESS_TOKEN_STORAGE_KEY, DEFAULT_LANG, REFRESH_TOKEN_STORAGE_KEY} from "@/constants";
-import {createApiSuccessEnvelopeSchema, RefreshRequestSchema, TokenResponseSchema} from "@/schemas/api";
+import {
+	ACCESS_TOKEN_STORAGE_KEY,
+	DEFAULT_LANG,
+	REFRESH_TOKEN_STORAGE_KEY,
+} from "@/constants";
+import {
+	createApiSuccessEnvelopeSchema,
+	RefreshRequestSchema,
+	TokenResponseSchema,
+} from "@/schemas/api";
 import type {
-    AttendanceComplexSearchRequest,
-    AttendanceStatus,
-    EnrollmentComplexSearchRequest,
-    EnrollmentStatus,
-    EntityComplexSearchRequest,
-    ProjectComplexSearchRequest,
-    StaffComplexSearchRequest, TokenResponse,
-    UserComplexSearchRequest,
+	AttendanceComplexSearchRequest,
+	AttendanceStatus,
+	EnrollmentComplexSearchRequest,
+	EnrollmentStatus,
+	EntityComplexSearchRequest,
+	ProjectComplexSearchRequest,
+	StaffComplexSearchRequest,
+	TokenResponse,
+	UserComplexSearchRequest,
 } from "@/types/api";
 import type {
-    AccountComplexSearchFilters,
-    EntityComplexSearchFilters,
-    ProjectComplexSearchFilters,
-    ApiRequestOptions,
-    PrimitiveHeaderValue,
-    SearchDateBoundary,
-    StaffComplexSearchFilters,
-    UserComplexSearchFilters, AuthenticatedApiRequestOptions, ApiSessionProvider,
+	AccountComplexSearchFilters,
+	EntityComplexSearchFilters,
+	ProjectComplexSearchFilters,
+	ApiRequestOptions,
+	PrimitiveHeaderValue,
+	SearchDateBoundary,
+	StaffComplexSearchFilters,
+	UserComplexSearchFilters,
+	AuthenticatedApiRequestOptions,
+	ApiSessionProvider,
 } from "@/types/client";
+import { getStoredValue, removeStoredValue, setStoredValue } from "@/utils";
 
 import { API_BASE_URL, API_ROUTE_BASES, JSON_HEADERS } from "./constants";
 import { ApiError, parseApiErrorResponse } from "./errors";
-import {getStoredValue, removeStoredValue, setStoredValue} from "@/utils";
 
 function normalizeHeaders(headers?: HeadersInit): Record<string, string> {
 	if (!headers) {
@@ -57,7 +68,9 @@ export function qs(params: Record<string, string | undefined | null>): string {
 }
 
 export function resolveApiLocale(explicitLocale?: string): string {
-	return explicitLocale ?? i18n.resolvedLanguage ?? i18n.language ?? DEFAULT_LANG;
+	return (
+		explicitLocale ?? i18n.resolvedLanguage ?? i18n.language ?? DEFAULT_LANG
+	);
 }
 
 export function buildApiUrl(path: string): string {
@@ -68,11 +81,13 @@ export function buildApiUrl(path: string): string {
 	return `${API_BASE_URL}${path}`;
 }
 
-export function buildApiHeaders(options: {
-	headers?: HeadersInit;
-	locale?: string;
-	authToken?: string | null;
-} = {}): Record<string, string> {
+export function buildApiHeaders(
+	options: {
+		headers?: HeadersInit;
+		locale?: string;
+		authToken?: string | null;
+	} = {},
+): Record<string, string> {
 	const headers = {
 		...JSON_HEADERS,
 		...normalizeHeaders(options.headers),
@@ -126,7 +141,9 @@ export async function parseApiVoid(response: Response): Promise<void> {
 
 	try {
 		const json = JSON.parse(text) as unknown;
-		const envelopeResult = createApiSuccessEnvelopeSchema(z.unknown()).safeParse(json);
+		const envelopeResult = createApiSuccessEnvelopeSchema(
+			z.unknown(),
+		).safeParse(json);
 		if (envelopeResult.success) {
 			return;
 		}
@@ -374,143 +391,143 @@ function parseOptionalPositiveNumber(value: string) {
 export { ApiError };
 
 function createDefaultSessionProvider(): ApiSessionProvider {
-    return {
-        getAccessToken: () => getStoredValue(ACCESS_TOKEN_STORAGE_KEY),
-        getRefreshToken: () => getStoredValue(REFRESH_TOKEN_STORAGE_KEY),
-        persistSession: async tokens => {
-            await Promise.all([
-                setStoredValue(ACCESS_TOKEN_STORAGE_KEY, tokens.token),
-                setStoredValue(REFRESH_TOKEN_STORAGE_KEY, tokens.refreshToken),
-            ]);
-        },
-        clearSession: async () => {
-            await Promise.all([
-                removeStoredValue(ACCESS_TOKEN_STORAGE_KEY),
-                removeStoredValue(REFRESH_TOKEN_STORAGE_KEY),
-            ]);
-        },
-        onSessionInvalidated: () => undefined,
-    };
+	return {
+		getAccessToken: () => getStoredValue(ACCESS_TOKEN_STORAGE_KEY),
+		getRefreshToken: () => getStoredValue(REFRESH_TOKEN_STORAGE_KEY),
+		persistSession: async tokens => {
+			await Promise.all([
+				setStoredValue(ACCESS_TOKEN_STORAGE_KEY, tokens.token),
+				setStoredValue(REFRESH_TOKEN_STORAGE_KEY, tokens.refreshToken),
+			]);
+		},
+		clearSession: async () => {
+			await Promise.all([
+				removeStoredValue(ACCESS_TOKEN_STORAGE_KEY),
+				removeStoredValue(REFRESH_TOKEN_STORAGE_KEY),
+			]);
+		},
+		onSessionInvalidated: () => undefined,
+	};
 }
 
 let sessionProvider: ApiSessionProvider = createDefaultSessionProvider();
 
 let refreshPromise: Promise<TokenResponse | null> | null = null;
 
-export function configureApiSessionProvider(provider: ApiSessionProvider | null) {
-    sessionProvider = provider ?? createDefaultSessionProvider();
+export function configureApiSessionProvider(
+	provider: ApiSessionProvider | null,
+) {
+	sessionProvider = provider ?? createDefaultSessionProvider();
 }
 
 export function getApiSessionProvider() {
-    return sessionProvider;
+	return sessionProvider;
 }
 
 async function invalidateSession() {
-    await sessionProvider.clearSession();
-    await sessionProvider.onSessionInvalidated();
+	await sessionProvider.clearSession();
+	await sessionProvider.onSessionInvalidated();
 }
 
 async function refreshSession(): Promise<TokenResponse | null> {
-    if (refreshPromise) {
-        return refreshPromise;
-    }
+	if (refreshPromise) {
+		return refreshPromise;
+	}
 
-    refreshPromise = (async () => {
-        const refreshToken = await sessionProvider.getRefreshToken();
-        if (!refreshToken) {
-            await invalidateSession();
-            return null;
-        }
+	refreshPromise = (async () => {
+		const refreshToken = await sessionProvider.getRefreshToken();
+		if (!refreshToken) {
+			await invalidateSession();
+			return null;
+		}
 
-        try {
-            const tokens = await apiFetch(
-                `${API_ROUTE_BASES.identity.auth}/refresh`,
-                TokenResponseSchema,
-                {
-                    method: "POST",
-                    body: JSON.stringify(
-                        RefreshRequestSchema.parse({ refreshToken }),
-                    ),
-                },
-            );
-            await sessionProvider.persistSession(tokens);
-            return tokens;
-        } catch {
-            await invalidateSession();
-            return null;
-        } finally {
-            refreshPromise = null;
-        }
-    })();
+		try {
+			const tokens = await apiFetch(
+				`${API_ROUTE_BASES.identity.auth}/refresh`,
+				TokenResponseSchema,
+				{
+					method: "POST",
+					body: JSON.stringify(RefreshRequestSchema.parse({ refreshToken })),
+				},
+			);
+			await sessionProvider.persistSession(tokens);
+			return tokens;
+		} catch {
+			await invalidateSession();
+			return null;
+		} finally {
+			refreshPromise = null;
+		}
+	})();
 
-    return refreshPromise;
+	return refreshPromise;
 }
 
 async function requestWithAuthRetry(
-    path: string,
-    options: AuthenticatedApiRequestOptions = {},
+	path: string,
+	options: AuthenticatedApiRequestOptions = {},
 ): Promise<Response> {
-    const accessToken = await sessionProvider.getAccessToken();
-    const firstRequestHeaders = buildApiHeaders({
-        ...(options.headers ? { headers: options.headers } : {}),
-        ...(options.locale ? { locale: resolveApiLocale(options.locale) } : {}),
-        ...(accessToken ? { authToken: accessToken } : {}),
-    });
-    const firstResponse = await fetch(buildApiUrl(path), {
-        ...options,
-        headers: firstRequestHeaders,
-    });
+	const accessToken = await sessionProvider.getAccessToken();
+	const firstRequestHeaders = buildApiHeaders({
+		...(options.headers ? { headers: options.headers } : {}),
+		...(options.locale ? { locale: resolveApiLocale(options.locale) } : {}),
+		...(accessToken ? { authToken: accessToken } : {}),
+	});
+	const firstResponse = await fetch(buildApiUrl(path), {
+		...options,
+		headers: firstRequestHeaders,
+	});
 
-    if (firstResponse.ok) {
-        return firstResponse;
-    }
+	if (firstResponse.ok) {
+		return firstResponse;
+	}
 
-    if (
-        options.skipAuthRetry ||
-        (firstResponse.status !== 401 && firstResponse.status !== 403)
-    ) {
-        return parseApiErrorResponse(firstResponse);
-    }
+	if (
+		options.skipAuthRetry ||
+		(firstResponse.status !== 401 && firstResponse.status !== 403)
+	) {
+		return parseApiErrorResponse(firstResponse);
+	}
 
-    const refreshedTokens = await refreshSession();
-    if (!refreshedTokens?.token) {
-        return parseApiErrorResponse(firstResponse);
-    }
+	const refreshedTokens = await refreshSession();
+	if (!refreshedTokens?.token) {
+		return parseApiErrorResponse(firstResponse);
+	}
 
-    const retryRequestHeaders = buildApiHeaders({
-        ...(options.headers ? { headers: options.headers } : {}),
-        ...(options.locale ? { locale: resolveApiLocale(options.locale) } : {}),
-        authToken: refreshedTokens.token,
-    });
-    const retryResponse = await fetch(buildApiUrl(path), {
-        ...options,
-        headers: retryRequestHeaders,
-    });
+	const retryRequestHeaders = buildApiHeaders({
+		...(options.headers ? { headers: options.headers } : {}),
+		...(options.locale ? { locale: resolveApiLocale(options.locale) } : {}),
+		authToken: refreshedTokens.token,
+	});
+	const retryResponse = await fetch(buildApiUrl(path), {
+		...options,
+		headers: retryRequestHeaders,
+	});
 
-    if (!retryResponse.ok) {
-        return parseApiErrorResponse(retryResponse);
-    }
+	if (!retryResponse.ok) {
+		return parseApiErrorResponse(retryResponse);
+	}
 
-    return retryResponse;
+	return retryResponse;
 }
 
 export async function authFetch<TSchema extends z.ZodTypeAny>(
-    path: string,
-    schema: TSchema,
-    options: AuthenticatedApiRequestOptions = {},
+	path: string,
+	schema: TSchema,
+	options: AuthenticatedApiRequestOptions = {},
 ): Promise<z.infer<TSchema>> {
-    const response = await requestWithAuthRetry(path, options);
-    return parseApiData(response, schema);
+	const response = await requestWithAuthRetry(path, options);
+	return parseApiData(response, schema);
 }
 
 export async function authVoid(
-    path: string,
-    options: AuthenticatedApiRequestOptions = {},
+	path: string,
+	options: AuthenticatedApiRequestOptions = {},
 ): Promise<void> {
-    const response = await requestWithAuthRetry(path, options);
-    await parseApiVoid(response);
+	const response = await requestWithAuthRetry(path, options);
+	await parseApiVoid(response);
 }
 
 export async function clearApiSession() {
-    await sessionProvider.clearSession();
+	await sessionProvider.clearSession();
 }

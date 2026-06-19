@@ -11,9 +11,7 @@ export function createPrimitiveSurfaceStyleSpec(
 
 	return {
 		screenBackground: theme.colors.surface1,
-		screenGlow: isDark
-			? "rgba(175, 78, 93, 0.16)"
-			: "rgba(155, 34, 52, 0.1)",
+		screenGlow: isDark ? "rgba(175, 78, 93, 0.16)" : "rgba(155, 34, 52, 0.1)",
 		panelBackground: isDark
 			? "rgba(23, 19, 27, 0.96)"
 			: "rgba(255, 255, 255, 0.92)",
@@ -39,7 +37,9 @@ export function createPrimitiveFormStyleSpec(
 		subtitleLineHeight: theme.type.md * theme.lineHeight.normal,
 		labelText: theme.colors.muted,
 		helperText: theme.colors.muted,
-		inputBackground: isDark ? "rgba(255, 255, 255, 0.04)" : theme.colors.surface3,
+		inputBackground: isDark
+			? "rgba(255, 255, 255, 0.04)"
+			: theme.colors.surface3,
 		inputBorder: isDark ? "rgba(255, 255, 255, 0.08)" : theme.colors.border2,
 		inputText: theme.colors.text,
 		inputPlaceholder: isDark ? "#96939d" : "#7a7f88",

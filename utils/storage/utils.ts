@@ -53,7 +53,10 @@ export async function getStoredValue(key: string): Promise<string | null> {
 	return memoryStorage.get(key) ?? null;
 }
 
-export async function setStoredValue(key: string, value: string): Promise<void> {
+export async function setStoredValue(
+	key: string,
+	value: string,
+): Promise<void> {
 	const secureStore = await getSecureStore();
 	if (secureStore) {
 		await secureStore.setItemAsync(key, value);

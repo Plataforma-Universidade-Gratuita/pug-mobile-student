@@ -5,6 +5,7 @@ import { Text as PaperText } from "react-native-paper";
 import { createPrimitiveFormStyleSpec } from "@/app/styles";
 import { useThemeStore } from "@/stores";
 import type { PrimitiveLabelProps } from "@/types/client";
+
 import { styles } from "./styles";
 import {
 	resolveLabelColor,

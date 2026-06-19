@@ -1,6 +1,4 @@
-import type {
-	EnrollmentStatus,
-} from "@/types/api";
+import type { EnrollmentStatus } from "@/types/api";
 
 export type EnrollmentStatusAction =
 	| "accept"

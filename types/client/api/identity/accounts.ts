@@ -13,4 +13,3 @@ export interface AccountComplexSearchFilters {
 	dateTo: string;
 	activeOnly: boolean;
 }
-

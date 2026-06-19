@@ -1,6 +1,6 @@
 export interface PugJwtPayload {
 	upn: string;
-	groups: ("ADMIN" | "PARTNER" | "FORMER_STUDENT" | "STAFF" | "STUDENT")[];
+	groups: ("ADMIN" | "PARTNER" | "FORMER_STUDENT")[];
 	accountId: string;
 	userId: string;
 	iat: number;

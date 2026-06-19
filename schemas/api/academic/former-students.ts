@@ -4,7 +4,7 @@ import {
 	AccountStatusRequestSchema,
 	CampiEnum,
 	CampusResponseSchema,
-} from "@/schemas/api/shared/shared";
+ AuditInfoResponseSchema } from "@/schemas/api/shared/shared";
 
 /*
  * Forced exception: this frozen API schema avoids the root schemas barrel to
@@ -14,7 +14,6 @@ import {
 	AccountComplexSearchResponseSchema,
 	AccountSimpleComplexSearchResponseSchema,
 } from "../identity/accounts";
-import { AuditInfoResponseSchema } from "../shared/shared";
 import { CourseComplexSearchResponseSchema } from "./courses";
 
 export const CounterpartHoursResponseSchema = z.object({

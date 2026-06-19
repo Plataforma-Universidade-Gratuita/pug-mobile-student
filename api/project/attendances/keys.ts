@@ -6,4 +6,3 @@ export const attendanceKeys = {
 	detail: (id: string) => [...attendanceKeys.all, "detail", id] as const,
 	idleDetail: () => [...attendanceKeys.all, "detail", "idle"] as const,
 };
-

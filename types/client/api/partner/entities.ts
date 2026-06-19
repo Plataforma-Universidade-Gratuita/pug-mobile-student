@@ -1,7 +1,4 @@
-import type {
-	EntityCreateRequest,
-	EntityUpdateRequest,
-} from "@/types/api";
+import type { EntityCreateRequest, EntityUpdateRequest } from "@/types/api";
 
 export type EntityEditorMode = "create" | "duplicate" | "update";
 
@@ -19,7 +16,6 @@ export interface EntityUpdateMutationVariables {
 	id: string;
 	body: EntityUpdateRequest;
 }
-
 
 export interface RemoveEntityMutationVariables {
 	id: string;

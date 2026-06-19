@@ -85,4 +85,3 @@ export async function remove(id: string): Promise<void> {
 		method: "DELETE",
 	});
 }
-

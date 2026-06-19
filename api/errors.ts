@@ -1,4 +1,4 @@
-﻿import { z } from "zod";
+import { z } from "zod";
 
 import { ApiEnvelopeErrorSchema, ApiErrorSchema } from "@/schemas/api";
 import type { ApiErrorBody, FieldError } from "@/types/api";
@@ -48,7 +48,9 @@ function buildHttpFallbackError(status: number) {
 	});
 }
 
-export async function parseApiErrorResponse(response: Response): Promise<never> {
+export async function parseApiErrorResponse(
+	response: Response,
+): Promise<never> {
 	const text = await response.text();
 	if (!text.trim()) {
 		throw buildHttpFallbackError(response.status);

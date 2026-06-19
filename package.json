@@ -16,7 +16,7 @@
 		"trans": "node ./scripts/reorderTranslations.js dev && node ./scripts/checkMissingTranslations.js && node ./scripts/checkUnusedTranslations.js",
 		"lint": "eslint .",
 		"lint:fix": "eslint . --fix",
-		"format": "prettier --write . && npm run lint:fix && tsc --noEmit && npm run trans",
+		"format": "npm run trans && prettier --write . && npm run lint:fix && tsc --noEmit",
 		"format:check": "prettier --check . && npm run lint"
 	},
 	"dependencies": {

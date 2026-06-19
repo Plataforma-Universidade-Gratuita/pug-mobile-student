@@ -21,10 +21,7 @@ export async function get(id: string): Promise<UserResponse> {
 }
 
 export async function getMe(): Promise<UserResponse> {
-	return authFetch(
-		`${API_ROUTE_BASES.identity.users}/me`,
-		UserResponseSchema,
-	);
+	return authFetch(`${API_ROUTE_BASES.identity.users}/me`, UserResponseSchema);
 }
 
 export async function list(ids?: string[]): Promise<UserResponse[]> {
@@ -52,4 +49,3 @@ export async function search(
 		},
 	);
 }
-

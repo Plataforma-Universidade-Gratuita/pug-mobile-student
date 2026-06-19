@@ -6,4 +6,3 @@ export const cityKeys = {
 	detail: (id: string) => [...cityKeys.all, "detail", id] as const,
 	idleDetail: () => [...cityKeys.all, "detail", "idle"] as const,
 };
-

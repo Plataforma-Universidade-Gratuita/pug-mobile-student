@@ -123,11 +123,19 @@ export function Input({
 			/>
 
 			{error ? (
-				<Label role="helper" tone="danger" style={styles.helper}>
+				<Label
+					role="helper"
+					tone="danger"
+					style={styles.helper}
+				>
 					{error}
 				</Label>
 			) : helperText ? (
-				<Label role="helper" tone="muted" style={styles.helper}>
+				<Label
+					role="helper"
+					tone="muted"
+					style={styles.helper}
+				>
 					{helperText}
 				</Label>
 			) : null}

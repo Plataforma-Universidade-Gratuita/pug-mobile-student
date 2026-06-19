@@ -3,7 +3,6 @@ import type {
 	AreaOfExpertiseUpdateRequest,
 } from "@/types/api";
 
-
 export interface AreaOfExpertiseCreateMutationVariables {
 	body: AreaOfExpertiseCreateRequest;
 }

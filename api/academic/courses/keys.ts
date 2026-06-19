@@ -4,4 +4,3 @@ export const courseKeys = {
 	detail: (id: string) => [...courseKeys.all, "detail", id] as const,
 	idleDetail: () => [...courseKeys.all, "detail", "idle"] as const,
 };
-

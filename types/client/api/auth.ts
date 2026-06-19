@@ -1,4 +1,4 @@
-﻿import type { TokenResponse } from "@/types/api";
+import type { TokenResponse } from "@/types/api";
 
 export interface ApiSessionProvider {
 	getAccessToken(): Promise<string | null>;
@@ -8,8 +8,10 @@ export interface ApiSessionProvider {
 	onSessionInvalidated(): Promise<void> | void;
 }
 
-export interface AuthenticatedApiRequestOptions
-	extends Omit<RequestInit, "headers"> {
+export interface AuthenticatedApiRequestOptions extends Omit<
+	RequestInit,
+	"headers"
+> {
 	headers?: HeadersInit;
 	locale?: string;
 	skipAuthRetry?: boolean;

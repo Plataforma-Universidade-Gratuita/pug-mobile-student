@@ -1,4 +1,4 @@
-﻿export type PrimitiveHeaderValue = string | number | boolean;
+export type PrimitiveHeaderValue = string | number | boolean;
 
 export interface ApiRequestOptions extends Omit<RequestInit, "headers"> {
 	headers?: HeadersInit;

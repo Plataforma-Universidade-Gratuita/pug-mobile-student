@@ -8,4 +8,3 @@ export const entityKeys = {
 	detail: (id: string) => [...entityKeys.all, "detail", id] as const,
 	idleDetail: () => [...entityKeys.all, "detail", "idle"] as const,
 };
-

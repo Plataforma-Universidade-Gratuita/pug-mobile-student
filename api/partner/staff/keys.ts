@@ -15,4 +15,3 @@ export const staffKeys = {
 	supportingCities: () => [...staffKeys.all, "supporting-cities"] as const,
 	supportingEntities: () => [...staffKeys.all, "supporting-entities"] as const,
 };
-

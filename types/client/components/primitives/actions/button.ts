@@ -1,5 +1,11 @@
 import type { ReactNode } from "react";
-import type { GestureResponderEvent, StyleProp, TextStyle, ViewStyle } from "react-native";
+
+import type {
+	GestureResponderEvent,
+	StyleProp,
+	TextStyle,
+	ViewStyle,
+} from "react-native";
 
 export type PrimitiveButtonVariant = "primary" | "secondary" | "text";
 
