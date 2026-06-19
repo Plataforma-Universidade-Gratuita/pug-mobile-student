@@ -1,6 +1,6 @@
-import type { PrimitiveLabelProps } from "@/types/components/primitives/forms";
 import type {
 	AppResolvedTheme,
+	PrimitiveLabelProps,
 	PrimitiveFormStyleSpec,
 } from "@/types/client";
 
