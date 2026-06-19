@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { buildProjectComplexSearchRequest } from "@/utils";
+import { buildProjectComplexSearchRequest } from "@/api";
 import type { ProjectComplexSearchFilters } from "@/types/client";
 
 import * as projectAreasOfExpertise from "../project-areas-of-expertise";
@@ -60,4 +60,3 @@ export function useProjectAreasOfExpertiseQuery(projectId: string | null) {
 		enabled: projectId !== null,
 	});
 }
-

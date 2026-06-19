@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { buildAttendanceComplexSearchRequest } from "@//utils";
+import { buildAttendanceComplexSearchRequest } from "@/api";
 import type { AttendanceComplexSearchFilters } from "@/types/client";
 
 import { get, list, search } from "./endpoints";
@@ -46,4 +46,3 @@ export function useAttendanceDetailQuery(id: string | null) {
 		enabled: id !== null,
 	});
 }
-

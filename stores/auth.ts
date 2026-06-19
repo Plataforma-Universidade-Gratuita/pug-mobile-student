@@ -1,14 +1,17 @@
 import { create } from "zustand";
 
-import * as authApi from "@/api/identity/auth";
-import {
+import * as api from "@/api";
+import type { TokenResponse } from "@/types/api";
+import type { AuthStoreState, StoredSessionTokens } from "@/types/client";
+import { validateStudentToken } from "@/utils";
+
+const {
 	clearApiSession,
 	configureApiSessionProvider,
 	getApiSessionProvider,
-} from "@/api/auth";
-import type { TokenResponse } from "@/types/api";
-import type { AuthStoreState, StoredSessionTokens } from "@/types/client";
-import { validateStudentToken } from "@/utils/auth";
+	identity,
+} = api;
+const { auth: authApi } = identity;
 
 function buildSessionState(tokens: StoredSessionTokens) {
 	const validation = validateStudentToken(tokens.accessToken);

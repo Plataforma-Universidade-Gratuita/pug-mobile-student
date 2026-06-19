@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { buildEnrollmentComplexSearchRequest } from "@/utils";
+import { buildEnrollmentComplexSearchRequest } from "@/api";
 import type { EnrollmentComplexSearchFilters } from "@/types/client";
 
 import { get, list, search } from "./endpoints";
@@ -52,4 +52,3 @@ export function useEnrollmentDetailQuery(
 		enabled: projectId !== null && formerStudentId !== null,
 	});
 }
-

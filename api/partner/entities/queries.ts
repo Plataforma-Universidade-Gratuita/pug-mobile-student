@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { buildEntityComplexSearchRequest } from "@/utils";
+import { buildEntityComplexSearchRequest } from "@/api";
 import type { UseEntitiesSearchQueryFilters } from "@/types/client";
 
 import { get, list, listCities, search } from "./endpoints";
@@ -53,4 +53,3 @@ export function useEntityDetailQuery(id: string | null) {
 		enabled: id !== null,
 	});
 }
-

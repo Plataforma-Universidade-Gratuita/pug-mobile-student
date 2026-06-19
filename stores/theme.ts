@@ -1,15 +1,16 @@
 import { Appearance } from "react-native";
 import { create } from "zustand";
 
-import { DEFAULT_THEME, THEME_STORAGE_KEY } from "@/constants/theme";
+import { DEFAULT_THEME, THEME_STORAGE_KEY } from "@/constants";
 import type { ThemeStoreState } from "@/types/client";
-import { getStoredValue, setStoredValue } from "@/utils/storage";
 import {
 	coerceResolvedTheme,
 	coerceTheme,
+	getStoredValue,
 	resolveAppTheme,
 	resolveThemeMode,
-} from "@/utils/theme-value";
+	setStoredValue,
+} from "@/utils";
 
 function buildThemeState(
 	mode: ThemeStoreState["mode"],

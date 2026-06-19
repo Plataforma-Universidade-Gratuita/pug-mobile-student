@@ -14,7 +14,9 @@ export function createPrimitiveSurfaceStyleSpec(
 		screenGlow: isDark
 			? "rgba(175, 78, 93, 0.16)"
 			: "rgba(155, 34, 52, 0.1)",
-		panelBackground: isDark ? "rgba(23, 19, 27, 0.96)" : "rgba(255, 255, 255, 0.92)",
+		panelBackground: isDark
+			? "rgba(23, 19, 27, 0.96)"
+			: "rgba(255, 255, 255, 0.92)",
 		panelBorder: isDark ? "rgba(255, 255, 255, 0.08)" : theme.colors.border2,
 		panelRadius: theme.surface.panelRadius,
 		panelPadding: theme.surface.panelPadding,
@@ -49,7 +51,9 @@ export function createPrimitiveFormStyleSpec(
 		buttonShadowOpacity: isDark ? 0.34 : 0.22,
 		textActionColor: isDark ? "#f2d0d6" : theme.colors.brand,
 		badgeHeight: theme.form.badgeHeight,
-		badgeBackground: isDark ? "rgba(175, 78, 93, 0.12)" : "rgba(155, 34, 52, 0.1)",
+		badgeBackground: isDark
+			? "rgba(175, 78, 93, 0.12)"
+			: "rgba(155, 34, 52, 0.1)",
 		badgeText: isDark ? "#f1d1d7" : theme.colors.brand,
 	};
 }

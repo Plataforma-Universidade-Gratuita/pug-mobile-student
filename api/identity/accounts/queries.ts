@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { buildAccountComplexSearchRequest } from "@/utils";
+import { buildAccountComplexSearchRequest } from "@/api";
 import type { AccountComplexSearchFilters } from "@/types/client";
 
 import { get, getMe, list, search } from "./endpoints";
@@ -53,4 +53,3 @@ export function useCurrentAccountQuery() {
 		queryFn: getMe,
 	});
 }
-

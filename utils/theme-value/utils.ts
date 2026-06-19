@@ -3,7 +3,7 @@ import {
 	APP_THEMES,
 	DEFAULT_RESOLVED_THEME,
 	DEFAULT_THEME,
-} from "@/constants/theme";
+} from "@/constants";
 import type {
 	AppResolvedTheme,
 	AppTheme,

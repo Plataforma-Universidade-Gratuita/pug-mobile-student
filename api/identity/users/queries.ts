@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { buildUserComplexSearchRequest } from "@/utils";
+import { buildUserComplexSearchRequest } from "@/api";
 import type { UserComplexSearchFilters } from "@/types/client";
 
 import { get, getMe, list, search } from "./endpoints";
@@ -53,4 +53,3 @@ export function useCurrentUserQuery() {
 		queryFn: getMe,
 	});
 }
-

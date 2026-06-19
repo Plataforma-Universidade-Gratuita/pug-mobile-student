@@ -3,7 +3,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import * as identity from "@/api/identity";
-import { buildStaffComplexSearchRequest } from "@/utils";
+import { buildStaffComplexSearchRequest } from "@/api";
 import type { StaffComplexSearchFilters } from "@/types/client";
 
 import * as entities from "../entities";
@@ -86,4 +86,3 @@ export function useStaffEntitiesQuery() {
 		queryFn: () => listEntities(),
 	});
 }
-
