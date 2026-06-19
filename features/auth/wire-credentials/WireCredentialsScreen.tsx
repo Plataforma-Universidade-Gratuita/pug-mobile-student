@@ -126,7 +126,6 @@ export function WireCredentialsScreen() {
 									{t("auth.wireCredentials.passwordLabel")}
 								</Label>
 								<Input
-									autoFocus
 									autoComplete="password-new"
 									error={passwordError}
 									onChangeText={value => {

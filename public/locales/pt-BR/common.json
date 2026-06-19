@@ -12,8 +12,8 @@
 			"passwordHelper": "Leave it blank on your first access.",
 			"passwordLabel": "Password",
 			"submit": "Login",
-			"subtitle": "Keep control of your counterpart hours.",
-			"title": "PUG"
+            "subtitle": "Access attendance, projects, and enrollment updates from one place.",
+            "title": "Keep control of your counterpart hours"
 		},
 		"wireCredentials": {
 			"badge": "First login setup",
@@ -31,8 +31,8 @@
 			"passwordLabel": "Password",
 			"passwordPlaceholder": "Create your password",
 			"submit": "Finish setup",
-			"subtitle": "Set your password now. It will be required on future logins.",
-			"title": "Finish your first access."
+            "subtitle": "Create the password that will be required in future accesses.",
+            "title": "Set your password"
 		}
 	},
 	"common": {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import {KeyboardAvoidingView, Platform, ScrollView, View} from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 
 import { Button, Badge, Input, Label } from "@/components/primitives";
 import { useAuthScreen, useServerErrorState } from "@/hooks";
@@ -91,7 +91,6 @@ export function LoginScreen() {
 							<View style={styles.field}>
 								<Label role="field">{t("auth.login.emailLabel")}</Label>
 								<Input
-									autoFocus
 									autoComplete="email"
 									onChangeText={value => {
 										setEmail(value);
@@ -143,8 +142,9 @@ export function LoginScreen() {
 							</Button>
 						</View>
 					</View>
-                </ScrollView>
+				</ScrollView>
 			</KeyboardAvoidingView>
 		</View>
 	);
 }
+

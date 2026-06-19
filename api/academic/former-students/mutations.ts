@@ -23,7 +23,6 @@ import type {
 import { create, remove, setActive, update } from "./endpoints";
 import { formerStudentKeys as keys } from "./keys";
 
-const { accounts, users } = identity;
 const { accountKeys } = accountApi;
 const { userKeys } = userApi;
 

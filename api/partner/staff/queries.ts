@@ -11,7 +11,6 @@ import * as entities from "../entities";
 import { get, list, search } from "./endpoints";
 import { staffKeys as keys } from "./keys";
 
-const { accounts, users } = identity;
 const { get: getAccount } = accountApi;
 const { list: listEntities, listCities } = entities;
 const { get: getUser } = userApi;
