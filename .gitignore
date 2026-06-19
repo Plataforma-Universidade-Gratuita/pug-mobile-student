@@ -36,6 +36,7 @@ yarn-error.*
 # local env files
 .env*.local
 prototype
+mock
 
 # markdown notes
 *.md
