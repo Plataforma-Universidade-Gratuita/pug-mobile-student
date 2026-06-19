@@ -1,1 +1,0 @@
-export const DEFAULT_UNDO_DURATION = 3000;
