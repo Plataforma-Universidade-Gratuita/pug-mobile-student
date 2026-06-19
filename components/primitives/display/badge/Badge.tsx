@@ -2,8 +2,8 @@ import React, { useMemo } from "react";
 
 import { Chip } from "react-native-paper";
 
-import { createPrimitiveFormStyleSpec } from "@/app/styles";
 import { useThemeStore } from "@/stores";
+import { createPrimitiveFormStyleSpec } from "@/styles";
 import type { PrimitiveBadgeProps } from "@/types/client";
 
 import { styles } from "./styles";
@@ -13,6 +13,7 @@ export function Badge({
 	children,
 	tone = "brand",
 	variant = "primary",
+	style,
 }: PrimitiveBadgeProps) {
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveFormStyleSpec(theme), [theme]);
@@ -33,6 +34,7 @@ export function Badge({
 					borderColor: colors.borderColor,
 					borderRadius: theme.radius.circle,
 				},
+				style,
 			]}
 			textStyle={[
 				styles.text,

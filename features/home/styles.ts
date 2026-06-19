@@ -13,27 +13,22 @@ export function createStyles(
 		screen: {
 			flex: 1,
 			backgroundColor: spec.screenBackground,
+		},
+		content: {
+			flex: 1,
 			paddingHorizontal: theme.layout.screenPadding,
 			paddingVertical: theme.space[6],
-			justifyContent: "center",
 		},
-		panel: {
-			width: "100%",
-			maxWidth: theme.layout.contentMaxWidth,
-			alignSelf: "center",
+		shell: {
+			flex: 1,
+			justifyContent: "center",
 			gap: theme.space[5],
-			padding: spec.panelPadding,
-			borderWidth: 1,
-			borderColor: spec.panelBorder,
-			borderRadius: spec.panelRadius,
-			backgroundColor: spec.panelBackground,
-			...theme.shadow.lg,
+		},
+		badge: {
+			alignSelf: "flex-start",
 		},
 		header: {
-			gap: theme.space[2],
-		},
-		actions: {
-			gap: theme.space[3],
+			gap: theme.form.headerGap,
 		},
 	});
 }

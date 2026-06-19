@@ -2,8 +2,9 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { buildStaffComplexSearchRequest } from "@/api";
-import * as identity from "@/api/identity";
+import * as accountApi from "@/api/identity/accounts";
+import * as userApi from "@/api/identity/users";
+import { buildStaffComplexSearchRequest } from "@/api/utils";
 import type { StaffComplexSearchFilters } from "@/types/client";
 
 import * as entities from "../entities";
@@ -11,9 +12,9 @@ import { get, list, search } from "./endpoints";
 import { staffKeys as keys } from "./keys";
 
 const { accounts, users } = identity;
-const { get: getAccount } = accounts;
+const { get: getAccount } = accountApi;
 const { list: listEntities, listCities } = entities;
-const { get: getUser } = users;
+const { get: getUser } = userApi;
 
 export function useStaffQuery(enabled = true) {
 	return useQuery({

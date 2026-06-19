@@ -6,7 +6,8 @@ import {
 	type QueryClient,
 } from "@tanstack/react-query";
 
-import * as identity from "@/api/identity";
+import * as accountApi from "@/api/identity/accounts";
+import * as userApi from "@/api/identity/users";
 import type {
 	AccountResponse,
 	FormerStudentResponse,
@@ -23,8 +24,8 @@ import { create, remove, setActive, update } from "./endpoints";
 import { formerStudentKeys as keys } from "./keys";
 
 const { accounts, users } = identity;
-const { accountKeys } = accounts;
-const { userKeys } = users;
+const { accountKeys } = accountApi;
+const { userKeys } = userApi;
 
 function formatCpf(value: string) {
 	const digits = value.replace(/\D+/g, "").slice(0, 11);

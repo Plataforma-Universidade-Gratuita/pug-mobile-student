@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { buildEnrollmentComplexSearchRequest } from "@/api";
+import { buildEnrollmentComplexSearchRequest } from "@/api/utils";
 import type { EnrollmentComplexSearchFilters } from "@/types/client";
 
 import { get, list, search } from "./endpoints";

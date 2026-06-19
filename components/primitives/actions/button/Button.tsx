@@ -2,8 +2,8 @@ import React, { useMemo } from "react";
 
 import { Button as PaperButton } from "react-native-paper";
 
-import { createPrimitiveFormStyleSpec } from "@/app/styles";
 import { useThemeStore } from "@/stores";
+import { createPrimitiveFormStyleSpec } from "@/styles";
 import type { PrimitiveButtonProps } from "@/types/client";
 
 import { styles } from "./styles";

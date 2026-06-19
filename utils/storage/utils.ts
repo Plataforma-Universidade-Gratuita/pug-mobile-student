@@ -1,7 +1,5 @@
 import { Platform } from "react-native";
 
-import { SECURE_STORE_MODULE_NAME } from "@/constants";
-
 type SecureStoreModule = {
 	getItemAsync(key: string): Promise<string | null>;
 	setItemAsync(key: string, value: string): Promise<void>;
@@ -16,7 +14,7 @@ async function getSecureStore(): Promise<SecureStoreModule | null> {
 	}
 
 	try {
-		const module = await import(SECURE_STORE_MODULE_NAME);
+		const module = await import("expo-secure-store");
 		const secureStore = "default" in module ? module.default : module;
 
 		if (

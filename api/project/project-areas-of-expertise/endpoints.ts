@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-import { API_ROUTE_BASES, authFetch, authVoid } from "@/api";
+import { API_ROUTE_BASES } from "@/api/constants";
+import { authFetch, authVoid } from "@/api/utils";
 import {
 	AreaOfExpertiseResponseSchema,
 	ProjectAreaOfExpertiseRequestSchema,

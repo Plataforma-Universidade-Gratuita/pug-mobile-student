@@ -9,8 +9,6 @@
 				"fallback": "Unable to sign in right now. Try again in a moment.",
 				"invalidCredentials": "Email or password is incorrect."
 			},
-			"firstAccessBadge": "First access",
-			"firstAccessNote": "Your first access does not require a password.",
 			"passwordHelper": "Leave it blank on your first access.",
 			"passwordLabel": "Password",
 			"submit": "Login",

@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 
+import type { StyleProp, ViewStyle } from "react-native";
+
 export type BadgeTone =
 	| "neutral"
 	| "brand"
@@ -14,4 +16,5 @@ export interface PrimitiveBadgeProps {
 	children: ReactNode;
 	tone?: BadgeTone;
 	variant?: BadgeVariant;
+	style?: StyleProp<ViewStyle>;
 }

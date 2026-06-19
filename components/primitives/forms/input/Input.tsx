@@ -4,8 +4,8 @@ import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 import { TextInput as PaperTextInput } from "react-native-paper";
 
-import { createPrimitiveFormStyleSpec } from "@/app/styles";
 import { useThemeStore } from "@/stores";
+import { createPrimitiveFormStyleSpec } from "@/styles";
 import type { PrimitiveInputProps } from "@/types/client";
 
 import { Label } from "../label";

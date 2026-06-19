@@ -35,6 +35,12 @@ yarn-error.*
 
 # local env files
 .env*.local
+prototype
+
+# markdown notes
+*.md
+!README.md
+
 
 # typescript
 *.tsbuildinfo

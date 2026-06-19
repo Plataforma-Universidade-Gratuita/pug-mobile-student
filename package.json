@@ -6,7 +6,7 @@
 		"dev": "cross-env NODE_OPTIONS=--use-system-ca expo start --offline --port 3001",
 		"dev:mock": "cross-env NODE_OPTIONS=--use-system-ca node ./scripts/with-env.mjs mock-api.env expo start --offline --port 3001",
 		"dev:tunnel": "cross-env NODE_OPTIONS=--use-system-ca expo start --tunnel --port 3001",
-		"dev:mock:tunnel": "cross-env NODE_OPTIONS=--use-system-ca node ./scripts/with-env.mjs mock-api.env expo start --tunnel --port 3001",
+		"dev:mock:tunnel": "node ./scripts/check-mock-tunnel-env.mjs && cross-env NODE_OPTIONS=--use-system-ca node ./scripts/with-env.mjs mock-api-tunnel.env expo start --tunnel --port 3001",
 		"android": "cross-env NODE_OPTIONS=--use-system-ca expo start --offline --port 3001 --android",
 		"android:mock": "cross-env NODE_OPTIONS=--use-system-ca node ./scripts/with-env.mjs mock-api.env expo start --offline --port 3001 --android",
 		"ios": "cross-env NODE_OPTIONS=--use-system-ca expo start --offline --port 3001 --ios",

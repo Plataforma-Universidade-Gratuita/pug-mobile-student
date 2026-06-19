@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-import { API_ROUTE_BASES, authFetch, authVoid, qs } from "@/api";
+import { API_ROUTE_BASES } from "@/api/constants";
+import { authFetch, authVoid, qs } from "@/api/utils";
 import {
 	EntityComplexSearchRequestSchema,
 	EntityComplexSearchResponseSchema,
@@ -18,7 +19,7 @@ import type {
 	PaginationRequest,
 } from "@/types/api";
 
-export { list as listCities } from "@/api/geo/cities";
+export { list as listCities } from "@/api/geo/cities/endpoints";
 
 export async function get(id: string): Promise<EntityResponse> {
 	return authFetch(

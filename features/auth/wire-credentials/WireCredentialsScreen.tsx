@@ -1,13 +1,13 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 
 import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 
 import * as api from "@/api";
-import { createPrimitiveSurfaceStyleSpec } from "@/app/styles";
 import { Button, Badge, Input, Label } from "@/components/primitives";
-import { useAuthStore, useThemeStore } from "@/stores";
+import { useAuthScreen, useServerErrorState } from "@/hooks";
+import { useAuthStore } from "@/stores";
 
 import { createStyles } from "./styles";
 import {
@@ -22,28 +22,20 @@ const { auth: authApi } = identity;
 export function WireCredentialsScreen() {
 	const { t } = useTranslation();
 	const router = useRouter();
-	const theme = useThemeStore(state => state.theme);
 	const sessionPayload = useAuthStore(state => state.sessionPayload);
 	const signOut = useAuthStore(state => state.signOut);
 	const setRequiresCredentialSetup = useAuthStore(
 		state => state.setRequiresCredentialSetup,
 	);
-	const isMutatingSession = useAuthStore(state => state.isMutatingSession);
-	const surfaceSpec = useMemo(
-		() => createPrimitiveSurfaceStyleSpec(theme),
-		[theme],
-	);
-	const styles = useMemo(
-		() => createStyles(theme, surfaceSpec),
-		[surfaceSpec, theme],
-	);
+	const { isMutatingSession, styles } = useAuthScreen(createStyles);
+	const { clearServerError, serverError, setServerError } =
+		useServerErrorState();
 	const [password, setPassword] = useState("");
 	const [confirmation, setConfirmation] = useState("");
 	const [passwordError, setPasswordError] = useState<string | null>(null);
 	const [confirmationError, setConfirmationError] = useState<string | null>(
 		null,
 	);
-	const [serverError, setServerError] = useState<string | null>(null);
 	const [isSubmitting, setIsSubmitting] = useState(false);
 	const email = sessionPayload?.upn ?? "";
 	const isBusy = isSubmitting || isMutatingSession;
@@ -64,7 +56,7 @@ export function WireCredentialsScreen() {
 
 		setPasswordError(nextPasswordError);
 		setConfirmationError(nextConfirmationError);
-		setServerError(null);
+		clearServerError();
 
 		if (nextPasswordError || nextConfirmationError) {
 			return;
@@ -142,9 +134,7 @@ export function WireCredentialsScreen() {
 										if (passwordError) {
 											setPasswordError(null);
 										}
-										if (serverError) {
-											setServerError(null);
-										}
+										clearServerError();
 									}}
 									onSubmitEditing={handleSubmit}
 									placeholder={t("auth.wireCredentials.passwordPlaceholder")}
@@ -166,9 +156,7 @@ export function WireCredentialsScreen() {
 										if (confirmationError) {
 											setConfirmationError(null);
 										}
-										if (serverError) {
-											setServerError(null);
-										}
+										clearServerError();
 									}}
 									onSubmitEditing={handleSubmit}
 									placeholder={t(

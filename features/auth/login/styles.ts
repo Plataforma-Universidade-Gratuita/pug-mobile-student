@@ -35,6 +35,9 @@ export function createStyles(
 			backgroundColor: spec.panelBackground,
 			...theme.shadow.lg,
 		},
+		badge: {
+			alignSelf: "flex-start",
+		},
 		header: {
 			gap: theme.form.headerGap,
 		},
@@ -43,10 +46,6 @@ export function createStyles(
 		},
 		field: {
 			gap: theme.form.fieldGap,
-		},
-		note: {
-			gap: theme.space[3],
-			paddingTop: theme.space[2],
 		},
 	});
 }

@@ -1,6 +1,7 @@
 import { z } from "zod";
 
-import { API_ROUTE_BASES, authFetch, qs } from "@/api";
+import { API_ROUTE_BASES } from "@/api/constants";
+import { authFetch, qs } from "@/api/utils";
 import {
 	createPageResponseSchema,
 	UserComplexSearchRequestSchema,

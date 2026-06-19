@@ -1,13 +1,12 @@
-import React, { useMemo, useState } from "react";
+import React, { useState } from "react";
 
 import { useRouter } from "expo-router";
-import type { Href } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
+import {KeyboardAvoidingView, Platform, ScrollView, View} from "react-native";
 
-import { createPrimitiveSurfaceStyleSpec } from "@/app/styles";
 import { Button, Badge, Input, Label } from "@/components/primitives";
-import { useAuthStore, useThemeStore } from "@/stores";
+import { useAuthScreen, useServerErrorState } from "@/hooks";
+import { useAuthStore } from "@/stores";
 
 import { createStyles } from "./styles";
 import {
@@ -17,28 +16,16 @@ import {
 	validateLoginEmailWithMessages,
 } from "./utils";
 
-/* Expo typed routes have not regenerated the new route yet. Keep the cast local
-until the route type manifest is refreshed. */
-const WIRE_CREDENTIALS_ROUTE = "/wire-credentials" as Href;
-
 export function LoginScreen() {
 	const { t } = useTranslation();
 	const router = useRouter();
-	const theme = useThemeStore(state => state.theme);
 	const signIn = useAuthStore(state => state.signIn);
-	const isMutatingSession = useAuthStore(state => state.isMutatingSession);
-	const surfaceSpec = useMemo(
-		() => createPrimitiveSurfaceStyleSpec(theme),
-		[theme],
-	);
-	const styles = useMemo(
-		() => createStyles(theme, surfaceSpec),
-		[surfaceSpec, theme],
-	);
+	const { isMutatingSession, styles } = useAuthScreen(createStyles);
+	const { clearServerError, serverError, setServerError } =
+		useServerErrorState();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [emailError, setEmailError] = useState<string | null>(null);
-	const [serverError, setServerError] = useState<string | null>(null);
 
 	async function handleSubmit() {
 		const nextEmailError = validateLoginEmailWithMessages(email, {
@@ -47,7 +34,7 @@ export function LoginScreen() {
 		});
 
 		setEmailError(nextEmailError);
-		setServerError(null);
+		clearServerError();
 
 		if (nextEmailError) {
 			return;
@@ -60,7 +47,7 @@ export function LoginScreen() {
 			});
 
 			if (!tokens.passwordWired) {
-				router.replace(WIRE_CREDENTIALS_ROUTE);
+				router.replace("/wire-credentials");
 				return;
 			}
 
@@ -88,8 +75,9 @@ export function LoginScreen() {
 				>
 					<View style={styles.panel}>
 						<Badge
+							style={styles.badge}
 							tone="brand"
-							variant="secondary"
+							variant="primary"
 						>
 							{t("auth.login.badge")}
 						</Badge>
@@ -110,9 +98,7 @@ export function LoginScreen() {
 										if (emailError) {
 											setEmailError(null);
 										}
-										if (serverError) {
-											setServerError(null);
-										}
+										clearServerError();
 									}}
 									onSubmitEditing={handleSubmit}
 									returnKeyType="next"
@@ -129,9 +115,7 @@ export function LoginScreen() {
 									helperText={t("auth.login.passwordHelper")}
 									onChangeText={value => {
 										setPassword(value);
-										if (serverError) {
-											setServerError(null);
-										}
+										clearServerError();
 									}}
 									onSubmitEditing={handleSubmit}
 									returnKeyType="done"
@@ -158,23 +142,8 @@ export function LoginScreen() {
 								{t("auth.login.submit")}
 							</Button>
 						</View>
-
-						<View style={styles.note}>
-							<Badge
-								tone="info"
-								variant="secondary"
-							>
-								{t("auth.login.firstAccessBadge")}
-							</Badge>
-							<Label
-								role="helper"
-								tone="muted"
-							>
-								{t("auth.login.firstAccessNote")}
-							</Label>
-						</View>
 					</View>
-				</ScrollView>
+                </ScrollView>
 			</KeyboardAvoidingView>
 		</View>
 	);
