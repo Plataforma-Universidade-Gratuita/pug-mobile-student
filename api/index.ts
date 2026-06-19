@@ -9,7 +9,6 @@ export * as courses from "./academic/courses";
 export * as formerStudents from "./academic/former-students";
 export * as cities from "./geo/cities";
 export * as accounts from "./identity/accounts";
-export * as admins from "./identity/admins";
 export * as users from "./identity/users";
 export * as entities from "./partner/entities";
 export * as staff from "./partner/staff";

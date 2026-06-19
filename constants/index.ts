@@ -1,4 +1,3 @@
-/* --- Root --- */
 export * from "./auth";
 export * from "./dev-controls";
 export * from "./locale";

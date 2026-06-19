@@ -1,6 +1,4 @@
-import { authVoid } from "@/api/auth";
-import { API_ROUTE_BASES } from "@/api/constants";
-import { apiFetch } from "@/api/utils";
+import { API_ROUTE_BASES, authVoid, apiFetch } from "@/api";
 import { TokenResponseSchema } from "@/schemas/api";
 import type {
 	CredentialsRequest,

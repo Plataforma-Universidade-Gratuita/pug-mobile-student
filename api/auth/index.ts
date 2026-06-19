@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import type { AuthenticatedApiRequestOptions, ApiSessionProvider } from "@/types/client/api";
+import type { AuthenticatedApiRequestOptions, ApiSessionProvider } from "@/types/client";
 
 import {
 	authFetch as authFetchInternal,

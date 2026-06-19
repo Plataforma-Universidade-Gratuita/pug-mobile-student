@@ -5,8 +5,8 @@ import { StatusBar } from "expo-status-bar";
 import * as SystemUI from "expo-system-ui";
 import { View, useColorScheme } from "react-native";
 
-import { useAuthStore, useThemeStore } from "@/store";
-import { coerceResolvedTheme, getStatusBarStyle } from "@/utils/theme-value";
+import { useAuthStore, useThemeStore } from "@/stores";
+import { coerceResolvedTheme, getStatusBarStyle } from "@/utils";
 
 import { BootstrapScreen } from "./BootstrapScreen";
 import { createStyles } from "./styles";
@@ -64,8 +64,6 @@ export function RootNavigator() {
 					contentStyle: { backgroundColor: theme.colors.surface1 },
 				}}
 			>
-				<Stack.Screen name="index" />
-				<Stack.Screen name="login" />
 			</Stack>
 
 			{isBootstrapping ? (

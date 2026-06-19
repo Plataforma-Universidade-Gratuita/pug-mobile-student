@@ -1,12 +1,12 @@
 import i18n from "i18next";
 import { z } from "zod";
 
-import { DEFAULT_LANG } from "@/constants/locale";
+import { DEFAULT_LANG } from "@/constants";
 import { createApiSuccessEnvelopeSchema } from "@/schemas/api";
 import type {
 	ApiRequestOptions,
 	PrimitiveHeaderValue,
-} from "@/types/client/api";
+} from "@/types/client";
 
 import { API_BASE_URL, JSON_HEADERS } from "./constants";
 import { ApiError, parseApiErrorResponse } from "./errors";

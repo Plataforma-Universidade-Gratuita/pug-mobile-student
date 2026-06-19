@@ -4,7 +4,7 @@ import {
 	type MD3Theme,
 } from "react-native-paper";
 
-import type { AppResolvedTheme } from "@/types/client/theme";
+import type { AppResolvedTheme } from "@/types/client";
 
 export function createPaperTheme(appTheme: AppResolvedTheme): MD3Theme {
 	const baseTheme = appTheme.mode === "dark" ? MD3DarkTheme : MD3LightTheme;

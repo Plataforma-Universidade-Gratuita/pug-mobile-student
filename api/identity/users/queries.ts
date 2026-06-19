@@ -2,7 +2,7 @@
 
 import { useQuery } from "@tanstack/react-query";
 
-import { buildUserComplexSearchRequest } from "@/features/identity/users/utils";
+import { buildUserComplexSearchRequest } from "@/utils";
 import type { UserComplexSearchFilters } from "@/types/client";
 
 import { get, getMe, list, search } from "./endpoints";

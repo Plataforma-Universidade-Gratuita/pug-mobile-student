@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ActivityIndicator, Text, View } from "react-native";
 
-import { useThemeStore } from "@/store";
+import { useThemeStore } from "@/stores";
 
 import { createStyles } from "./styles";
 
