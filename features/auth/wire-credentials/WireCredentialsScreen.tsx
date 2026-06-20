@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 import { useRouter } from "expo-router";
 import { Controller } from "react-hook-form";
@@ -14,7 +14,10 @@ import {
 } from "@/hooks";
 import { createWireCredentialsFormSchema } from "@/schemas/client";
 import { useAuthStore } from "@/stores";
-import type { WireCredentialsFormValues } from "@/types/client";
+import type {
+	PrimitiveInputFocusHandle,
+	WireCredentialsFormValues,
+} from "@/types/client";
 
 import { createStyles } from "./styles";
 import { resolveWireCredentialsErrorMessageWithFallback } from "./utils";
@@ -31,6 +34,9 @@ export function WireCredentialsScreen() {
 	const { clearServerError, serverError, setServerError } =
 		useServerErrorState();
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const confirmPasswordInputRef = useRef<PrimitiveInputFocusHandle | null>(
+		null,
+	);
 	const email = sessionPayload?.upn ?? "";
 	const isBusy = isSubmitting || isMutatingSession;
 	const form = useLocalizedZodForm<WireCredentialsFormValues>({
@@ -117,6 +123,7 @@ export function WireCredentialsScreen() {
 									render={({ field, fieldState }) => (
 										<Input
 											autoComplete="password-new"
+											blurOnSubmit={false}
 											error={fieldState.error?.message ?? null}
 											onBlur={() => {
 												field.onBlur();
@@ -126,7 +133,7 @@ export function WireCredentialsScreen() {
 												clearServerError();
 											}}
 											onSubmitEditing={() => {
-												void form.handleSubmit(onSubmit)();
+												confirmPasswordInputRef.current?.focus();
 											}}
 											placeholder={t(
 												"auth.wireCredentials.passwordPlaceholder",
@@ -149,6 +156,7 @@ export function WireCredentialsScreen() {
 									render={({ field, fieldState }) => (
 										<Input
 											autoComplete="password-new"
+											inputRef={confirmPasswordInputRef}
 											error={fieldState.error?.message ?? null}
 											onBlur={() => {
 												field.onBlur();

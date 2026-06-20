@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ReactNode, Ref } from "react";
 
 import type {
 	KeyboardTypeOptions,
@@ -6,6 +6,10 @@ import type {
 	TextInputProps,
 	ViewStyle,
 } from "react-native";
+
+export interface PrimitiveInputFocusHandle {
+	focus: () => void;
+}
 
 export type PrimitiveInputType = "text" | "email" | "password";
 
@@ -23,7 +27,9 @@ export interface PrimitiveInputProps {
 	autoComplete?: TextInputProps["autoComplete"];
 	keyboardType?: KeyboardTypeOptions;
 	returnKeyType?: TextInputProps["returnKeyType"];
+	blurOnSubmit?: TextInputProps["blurOnSubmit"];
 	onBlur?: TextInputProps["onBlur"];
 	onSubmitEditing?: TextInputProps["onSubmitEditing"];
+	inputRef?: Ref<PrimitiveInputFocusHandle>;
 	style?: StyleProp<ViewStyle>;
 }

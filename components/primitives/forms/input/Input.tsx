@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from "react";
+import type { ComponentProps } from "react";
 
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
@@ -35,8 +36,10 @@ export function Input({
 	autoComplete,
 	keyboardType,
 	returnKeyType,
+	blurOnSubmit,
 	onBlur,
 	onSubmitEditing,
+	inputRef,
 	style,
 }: PrimitiveInputProps) {
 	const { t } = useTranslation();
@@ -75,6 +78,7 @@ export function Input({
 			? { keyboardType: resolveInputKeyboardType(type, keyboardType) }
 			: {};
 	const returnKeyTypeProps = returnKeyType ? { returnKeyType } : {};
+	const blurOnSubmitProps = blurOnSubmit !== undefined ? { blurOnSubmit } : {};
 	const rightAdornmentProps = shouldShowPasswordToggle
 		? {
 				right: (
@@ -101,12 +105,14 @@ export function Input({
 				placeholderTextColor={colors.placeholderTextColor}
 				outlineColor={colors.outlineColor}
 				activeOutlineColor={colors.activeOutlineColor}
+				ref={inputRef as ComponentProps<typeof PaperTextInput>["ref"]}
 				{...changeTextProps}
 				{...placeholderProps}
 				{...autoCapitalizeProps}
 				{...autoCompleteProps}
 				{...keyboardTypeProps}
 				{...returnKeyTypeProps}
+				{...blurOnSubmitProps}
 				{...blurProps}
 				{...submitProps}
 				contentStyle={styles.content}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 
 import { useRouter } from "expo-router";
 import { Controller } from "react-hook-form";
@@ -13,7 +13,10 @@ import {
 } from "@/hooks";
 import { createLoginFormSchema } from "@/schemas/client";
 import { useAuthStore } from "@/stores";
-import type { LoginFormValues } from "@/types/client";
+import type {
+	LoginFormValues,
+	PrimitiveInputFocusHandle,
+} from "@/types/client";
 
 import { createStyles } from "./styles";
 import { resolveLoginErrorMessageWithMessages } from "./utils";
@@ -25,6 +28,7 @@ export function LoginScreen() {
 	const { isMutatingSession, styles } = useAuthScreen(createStyles);
 	const { clearServerError, serverError, setServerError } =
 		useServerErrorState();
+	const passwordInputRef = useRef<PrimitiveInputFocusHandle | null>(null);
 	const form = useLocalizedZodForm<LoginFormValues>({
 		schemaFactory: createLoginFormSchema,
 		defaultValues: {
@@ -94,6 +98,7 @@ export function LoginScreen() {
 									render={({ field, fieldState }) => (
 										<Input
 											autoComplete="email"
+											blurOnSubmit={false}
 											onBlur={() => {
 												field.onBlur();
 											}}
@@ -102,7 +107,7 @@ export function LoginScreen() {
 												clearServerError();
 											}}
 											onSubmitEditing={() => {
-												void form.handleSubmit(onSubmit)();
+												passwordInputRef.current?.focus();
 											}}
 											returnKeyType="next"
 											type="email"
@@ -121,6 +126,7 @@ export function LoginScreen() {
 									render={({ field, fieldState }) => (
 										<Input
 											autoComplete="password"
+											inputRef={passwordInputRef}
 											error={fieldState.error?.message ?? null}
 											helperText={t("auth.login.passwordHelper")}
 											onBlur={() => {
