@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 
-import { useRouter } from "expo-router";
 import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
@@ -24,7 +23,6 @@ import { resolveWireCredentialsErrorMessageWithFallback } from "./utils";
 
 export function WireCredentialsScreen() {
 	const { t } = useTranslation();
-	const router = useRouter();
 	const refreshSession = useAuthStore(state => state.refreshSession);
 	const sessionPayload = useAuthStore(state => state.sessionPayload);
 	const signOut = useAuthStore(state => state.signOut);
@@ -66,7 +64,6 @@ export function WireCredentialsScreen() {
 			});
 
 			await refreshSession();
-			router.replace("/");
 		} catch (error) {
 			setServerError(
 				resolveWireCredentialsErrorMessageWithFallback(
@@ -81,7 +78,6 @@ export function WireCredentialsScreen() {
 
 	async function handleFinishLater() {
 		await signOut();
-		router.replace("/login");
 	}
 
 	return (

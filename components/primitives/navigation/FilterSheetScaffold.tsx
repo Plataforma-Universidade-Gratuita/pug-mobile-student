@@ -2,11 +2,11 @@ import React, { useMemo } from "react";
 
 import { View } from "react-native";
 
-import { Label } from "@/components/primitives";
 import { useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { FilterSheetScaffoldProps } from "@/types/client";
 
+import { Label } from "../forms";
 import { createStyles } from "./styles";
 
 export function FilterSheetScaffold({

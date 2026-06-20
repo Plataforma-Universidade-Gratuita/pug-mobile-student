@@ -1,6 +1,5 @@
 import { jwtDecode } from "jwt-decode";
 
-import { API_BASE_URL } from "@/api";
 import {
 	AuthRoutes,
 	accounts,
@@ -17,6 +16,8 @@ import {
 	users,
 } from "@/mock";
 import type { PugJwtPayload } from "@/types/client";
+
+import { API_BASE_URL } from "../constants";
 
 type MockMethod = "DELETE" | "GET" | "PATCH" | "POST" | "PUT";
 
