@@ -5,6 +5,7 @@ import {
 	ACCESS_TOKEN_STORAGE_KEY,
 	DEFAULT_LANG,
 	REFRESH_TOKEN_STORAGE_KEY,
+	REQUIRES_CREDENTIAL_SETUP_STORAGE_KEY,
 } from "@/constants";
 import {
 	createApiSuccessEnvelopeSchema,
@@ -392,16 +393,32 @@ function createDefaultSessionProvider(): ApiSessionProvider {
 	return {
 		getAccessToken: () => getStoredValue(ACCESS_TOKEN_STORAGE_KEY),
 		getRefreshToken: () => getStoredValue(REFRESH_TOKEN_STORAGE_KEY),
+		getRequiresCredentialSetup: async () => {
+			const storedValue = await getStoredValue(
+				REQUIRES_CREDENTIAL_SETUP_STORAGE_KEY,
+			);
+
+			if (storedValue === null) {
+				return null;
+			}
+
+			return storedValue === "1";
+		},
 		persistSession: async tokens => {
 			await Promise.all([
 				setStoredValue(ACCESS_TOKEN_STORAGE_KEY, tokens.token),
 				setStoredValue(REFRESH_TOKEN_STORAGE_KEY, tokens.refreshToken),
+				setStoredValue(
+					REQUIRES_CREDENTIAL_SETUP_STORAGE_KEY,
+					tokens.passwordWired ? "0" : "1",
+				),
 			]);
 		},
 		clearSession: async () => {
 			await Promise.all([
 				removeStoredValue(ACCESS_TOKEN_STORAGE_KEY),
 				removeStoredValue(REFRESH_TOKEN_STORAGE_KEY),
+				removeStoredValue(REQUIRES_CREDENTIAL_SETUP_STORAGE_KEY),
 			]);
 		},
 		onSessionInvalidated: () => undefined,

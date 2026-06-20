@@ -5,22 +5,19 @@ import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 
-import * as api from "@/api";
 import { Button, Badge, Input, Label } from "@/components/primitives";
 import {
 	useAuthScreen,
 	useLocalizedZodForm,
 	useServerErrorState,
 } from "@/hooks";
+import { AuthRoutes } from "@/mock";
 import { createWireCredentialsFormSchema } from "@/schemas/client";
 import { useAuthStore } from "@/stores";
 import type { WireCredentialsFormValues } from "@/types/client";
 
 import { createStyles } from "./styles";
 import { resolveWireCredentialsErrorMessageWithFallback } from "./utils";
-
-const { identity } = api;
-const { auth: authApi } = identity;
 
 export function WireCredentialsScreen() {
 	const { t } = useTranslation();
@@ -34,6 +31,7 @@ export function WireCredentialsScreen() {
 	const { clearServerError, serverError, setServerError } =
 		useServerErrorState();
 	const [isSubmitting, setIsSubmitting] = useState(false);
+	const accountId = sessionPayload?.accountId ?? "";
 	const email = sessionPayload?.upn ?? "";
 	const isBusy = isSubmitting || isMutatingSession;
 	const form = useLocalizedZodForm<WireCredentialsFormValues>({
@@ -49,7 +47,7 @@ export function WireCredentialsScreen() {
 	async function onSubmit(values: WireCredentialsFormValues) {
 		clearServerError();
 
-		if (!email) {
+		if (!accountId || !email) {
 			setServerError(t("auth.wireCredentials.errors.missingEmail"));
 			return;
 		}
@@ -59,7 +57,7 @@ export function WireCredentialsScreen() {
 		setIsSubmitting(true);
 
 		try {
-			await authApi.wireCredentials({
+			await AuthRoutes.wireCredentials(accountId, {
 				email,
 				password: password.trim(),
 			});
@@ -185,7 +183,8 @@ export function WireCredentialsScreen() {
 
 							<View style={styles.actions}>
 								<Button
-									loading={isBusy}
+									disabled={isBusy}
+									loading={isSubmitting}
 									onPress={() => {
 										void form.handleSubmit(onSubmit)();
 									}}

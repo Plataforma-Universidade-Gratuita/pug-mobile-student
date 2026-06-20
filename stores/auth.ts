@@ -1,19 +1,18 @@
 import { create } from "zustand";
 
 import * as api from "@/api";
+import { AuthRoutes } from "@/mock";
 import type { TokenResponse } from "@/types/api";
 import type { AuthStoreState, StoredSessionTokens } from "@/types/client";
 import { validateFormerStudentToken } from "@/utils";
 
-const {
-	clearApiSession,
-	configureApiSessionProvider,
-	getApiSessionProvider,
-	identity,
-} = api;
-const { auth: authApi } = identity;
+const { clearApiSession, configureApiSessionProvider, getApiSessionProvider } =
+	api;
 
-function buildSessionState(tokens: StoredSessionTokens) {
+function buildSessionState(
+	tokens: StoredSessionTokens,
+	requiresCredentialSetup: boolean,
+) {
 	const validation = validateFormerStudentToken(tokens.accessToken);
 
 	if (!validation.isValid || !validation.payload) {
@@ -25,7 +24,7 @@ function buildSessionState(tokens: StoredSessionTokens) {
 		refreshToken: tokens.refreshToken,
 		sessionPayload: validation.payload,
 		isAuthenticated: true,
-		requiresCredentialSetup: false,
+		requiresCredentialSetup,
 	};
 }
 
@@ -81,29 +80,35 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 			set({ isBootstrapping: true });
 
 			try {
-				const [accessToken, refreshToken] = await Promise.all([
-					baseSessionProvider.getAccessToken(),
-					baseSessionProvider.getRefreshToken(),
-				]);
+				const [accessToken, refreshToken, requiresCredentialSetup] =
+					await Promise.all([
+						baseSessionProvider.getAccessToken(),
+						baseSessionProvider.getRefreshToken(),
+						baseSessionProvider.getRequiresCredentialSetup(),
+					]);
 
 				if (!accessToken || !refreshToken) {
 					get().clearSessionState();
 					return false;
 				}
 
-				const validStoredSession = buildSessionState({
-					accessToken,
-					refreshToken,
-				});
+				const validStoredSession = buildSessionState(
+					{
+						accessToken,
+						refreshToken,
+					},
+					requiresCredentialSetup ?? false,
+				);
 
-				if (validStoredSession) {
+				if (validStoredSession && requiresCredentialSetup !== null) {
 					set(validStoredSession);
 					return true;
 				}
 
-				const refreshedTokens = await authApi.refresh({ refreshToken });
+				const refreshedTokens = await AuthRoutes.refresh({ refreshToken });
 				const refreshedSession = buildSessionState(
 					toStoredSessionTokens(refreshedTokens),
+					!refreshedTokens.passwordWired,
 				);
 
 				if (!refreshedSession) {
@@ -133,7 +138,7 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 		set({ isMutatingSession: true });
 
 		try {
-			const tokens = await authApi.login(credentials);
+			const tokens = await AuthRoutes.login(credentials);
 			const validation = validateFormerStudentToken(tokens.token);
 
 			if (!validation.isValid || !validation.payload) {
@@ -160,7 +165,7 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 
 			if (refreshToken) {
 				try {
-					await authApi.logout({ refreshToken });
+					await AuthRoutes.logout({ refreshToken });
 				} catch {
 					// Local session clearing still needs to complete even if the remote logout fails.
 				}
