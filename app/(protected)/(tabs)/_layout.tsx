@@ -18,7 +18,11 @@ export default function ProtectedTabsLayout() {
 				options={{
 					title: "Home",
 					tabBarIcon: ({ color }) => (
-						<House color={color} size={TAB_ICON_SIZE} strokeWidth={2.1} />
+						<House
+							color={color}
+							size={TAB_ICON_SIZE}
+							strokeWidth={2.1}
+						/>
 					),
 				}}
 			/>
@@ -27,7 +31,11 @@ export default function ProtectedTabsLayout() {
 				options={{
 					title: "Discover",
 					tabBarIcon: ({ color }) => (
-						<Compass color={color} size={TAB_ICON_SIZE} strokeWidth={2.1} />
+						<Compass
+							color={color}
+							size={TAB_ICON_SIZE}
+							strokeWidth={2.1}
+						/>
 					),
 				}}
 			/>
