@@ -5,13 +5,13 @@ import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 
+import * as api from "@/api";
 import { Button, Badge, Input, Label } from "@/components/primitives";
 import {
 	useAuthScreen,
 	useLocalizedZodForm,
 	useServerErrorState,
 } from "@/hooks";
-import { AuthRoutes } from "@/mock";
 import { createWireCredentialsFormSchema } from "@/schemas/client";
 import { useAuthStore } from "@/stores";
 import type { WireCredentialsFormValues } from "@/types/client";
@@ -31,7 +31,6 @@ export function WireCredentialsScreen() {
 	const { clearServerError, serverError, setServerError } =
 		useServerErrorState();
 	const [isSubmitting, setIsSubmitting] = useState(false);
-	const accountId = sessionPayload?.accountId ?? "";
 	const email = sessionPayload?.upn ?? "";
 	const isBusy = isSubmitting || isMutatingSession;
 	const form = useLocalizedZodForm<WireCredentialsFormValues>({
@@ -47,7 +46,7 @@ export function WireCredentialsScreen() {
 	async function onSubmit(values: WireCredentialsFormValues) {
 		clearServerError();
 
-		if (!accountId || !email) {
+		if (!email) {
 			setServerError(t("auth.wireCredentials.errors.missingEmail"));
 			return;
 		}
@@ -57,7 +56,7 @@ export function WireCredentialsScreen() {
 		setIsSubmitting(true);
 
 		try {
-			await AuthRoutes.wireCredentials(accountId, {
+			await api.identity.auth.wireCredentials({
 				email,
 				password: password.trim(),
 			});

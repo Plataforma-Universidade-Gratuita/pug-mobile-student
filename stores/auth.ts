@@ -1,7 +1,6 @@
 import { create } from "zustand";
 
 import * as api from "@/api";
-import { AuthRoutes } from "@/mock";
 import type { TokenResponse } from "@/types/api";
 import type { AuthStoreState, StoredSessionTokens } from "@/types/client";
 import { validateFormerStudentToken } from "@/utils";
@@ -105,7 +104,9 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 					return true;
 				}
 
-				const refreshedTokens = await AuthRoutes.refresh({ refreshToken });
+				const refreshedTokens = await api.identity.auth.refresh({
+					refreshToken,
+				});
 				const refreshedSession = buildSessionState(
 					toStoredSessionTokens(refreshedTokens),
 					!refreshedTokens.passwordWired,
@@ -138,7 +139,7 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 		set({ isMutatingSession: true });
 
 		try {
-			const tokens = await AuthRoutes.login(credentials);
+			const tokens = await api.identity.auth.login(credentials);
 			const validation = validateFormerStudentToken(tokens.token);
 
 			if (!validation.isValid || !validation.payload) {
@@ -165,7 +166,7 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 
 			if (refreshToken) {
 				try {
-					await AuthRoutes.logout({ refreshToken });
+					await api.identity.auth.logout({ refreshToken });
 				} catch {
 					// Local session clearing still needs to complete even if the remote logout fails.
 				}

@@ -3,6 +3,9 @@ const API_VERSION_PREFIX = "/v1";
 export const API_BASE_URL =
 	process.env.EXPO_PUBLIC_API_URL ?? "http://localhost:8080";
 
+export const USE_INTERNAL_MOCK =
+	process.env.EXPO_PUBLIC_USE_INTERNAL_MOCK === "true";
+
 export const JSON_HEADERS: Record<string, string> = {
 	"Content-Type": "application/json",
 };
