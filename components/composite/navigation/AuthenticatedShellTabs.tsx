@@ -1,8 +1,7 @@
 import React from "react";
 
-import { Compass, House, ListChecks, UserRound } from "lucide-react-native";
-
 import { Tabs } from "expo-router";
+import { Compass, House, ListChecks, UserRound } from "lucide-react-native";
 
 import { useThemeStore } from "@/stores";
 
@@ -40,7 +39,11 @@ export function AuthenticatedShellTabs() {
 				options={{
 					title: "Home",
 					tabBarIcon: ({ color }) => (
-						<House color={color} size={TAB_ICON_SIZE} strokeWidth={2.1} />
+						<House
+							color={color}
+							size={TAB_ICON_SIZE}
+							strokeWidth={2.1}
+						/>
 					),
 				}}
 			/>
@@ -49,7 +52,11 @@ export function AuthenticatedShellTabs() {
 				options={{
 					title: "Discover",
 					tabBarIcon: ({ color }) => (
-						<Compass color={color} size={TAB_ICON_SIZE} strokeWidth={2.1} />
+						<Compass
+							color={color}
+							size={TAB_ICON_SIZE}
+							strokeWidth={2.1}
+						/>
 					),
 				}}
 			/>
@@ -71,7 +78,11 @@ export function AuthenticatedShellTabs() {
 				options={{
 					title: "Profile",
 					tabBarIcon: ({ color }) => (
-						<UserRound color={color} size={TAB_ICON_SIZE} strokeWidth={2.1} />
+						<UserRound
+							color={color}
+							size={TAB_ICON_SIZE}
+							strokeWidth={2.1}
+						/>
 					),
 				}}
 			/>

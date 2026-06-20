@@ -37,7 +37,10 @@ export default function ProtectedLayout() {
 		<Stack screenOptions={{ headerShown: false }}>
 			<Stack.Screen name="(tabs)" />
 			<Stack.Screen name="wire-credentials" />
-			<Stack.Screen name="(modals)" options={{ presentation: "modal" }} />
+			<Stack.Screen
+				name="(modals)"
+				options={{ presentation: "modal" }}
+			/>
 		</Stack>
 	);
 }

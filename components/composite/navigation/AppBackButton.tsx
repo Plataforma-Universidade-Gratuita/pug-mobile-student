@@ -2,9 +2,8 @@ import React from "react";
 
 import { ChevronLeft } from "lucide-react-native";
 
-import type { AppBackButtonProps } from "@/types/client";
-
 import { HeaderActionButton } from "@/components";
+import type { AppBackButtonProps } from "@/types/client";
 
 export function AppBackButton({
 	accessibilityLabel = "Go back",

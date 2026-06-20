@@ -1,5 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 
+import { API_BASE_URL } from "@/api";
 import {
 	AuthRoutes,
 	accounts,
@@ -16,8 +17,6 @@ import {
 	users,
 } from "@/mock";
 import type { PugJwtPayload } from "@/types/client";
-
-import { API_BASE_URL } from "@/api";
 
 type MockMethod = "DELETE" | "GET" | "PATCH" | "POST" | "PUT";
 
@@ -155,7 +154,9 @@ function resolveAccountId(headers?: HeadersInit) {
 	}
 
 	try {
-		const payload = jwtDecode<PugJwtPayload>(authorization.slice("Bearer ".length));
+		const payload = jwtDecode<PugJwtPayload>(
+			authorization.slice("Bearer ".length),
+		);
 		return payload.accountId ?? null;
 	} catch {
 		return null;
@@ -187,7 +188,10 @@ function normalizeError(error: unknown) {
 			};
 		}
 
-		if (normalizedMessage.includes("requires") || normalizedMessage.includes("forbidden")) {
+		if (
+			normalizedMessage.includes("requires") ||
+			normalizedMessage.includes("forbidden")
+		) {
 			return {
 				status: 403,
 				code: "FORBIDDEN",
@@ -251,7 +255,8 @@ const routes: MockRouteDefinition[] = [
 		pattern: "/v1/auth/logout-all",
 		void: true,
 		status: 204,
-		handle: ({ accountId }) => AuthRoutes.logoutAll(requireAccountId(accountId)),
+		handle: ({ accountId }) =>
+			AuthRoutes.logoutAll(requireAccountId(accountId)),
 	},
 	{
 		method: "POST",
@@ -309,7 +314,8 @@ const routes: MockRouteDefinition[] = [
 	{
 		method: "POST",
 		pattern: "/v1/academic/areas-of-expertise/search",
-		handle: ({ url, body }) => areasOfExpertise.search(parsePagination(url), body),
+		handle: ({ url, body }) =>
+			areasOfExpertise.search(parsePagination(url), body),
 	},
 	{
 		method: "POST",
@@ -384,7 +390,8 @@ const routes: MockRouteDefinition[] = [
 	{
 		method: "GET",
 		pattern: "/v1/academic/former-students/me",
-		handle: ({ accountId }) => formerStudents.getMe(requireAccountId(accountId)),
+		handle: ({ accountId }) =>
+			formerStudents.getMe(requireAccountId(accountId)),
 	},
 	{
 		method: "GET",
@@ -394,7 +401,8 @@ const routes: MockRouteDefinition[] = [
 	{
 		method: "POST",
 		pattern: "/v1/academic/former-students/search",
-		handle: ({ url, body }) => formerStudents.search(parsePagination(url), body),
+		handle: ({ url, body }) =>
+			formerStudents.search(parsePagination(url), body),
 	},
 	{
 		method: "POST",
@@ -564,7 +572,8 @@ const routes: MockRouteDefinition[] = [
 	{
 		method: "GET",
 		pattern: "/v1/projects/enrollments/me",
-		handle: ({ accountId }) => enrollments.listMine(requireAccountId(accountId)),
+		handle: ({ accountId }) =>
+			enrollments.listMine(requireAccountId(accountId)),
 	},
 	{
 		method: "GET",
@@ -628,10 +637,7 @@ const routes: MockRouteDefinition[] = [
 		void: true,
 		status: 204,
 		handle: ({ params }) =>
-			enrollments.deleteEnrollment(
-				params.projectId,
-				params.formerStudentId,
-			),
+			enrollments.deleteEnrollment(params.projectId, params.formerStudentId),
 	},
 	{
 		method: "GET",
@@ -736,7 +742,9 @@ export async function executeInternalMockRequest(
 	path: string,
 	options: RequestInit = {},
 ) {
-	const url = new URL(/^https?:\/\//.test(path) ? path : `${API_BASE_URL}${path}`);
+	const url = new URL(
+		/^https?:\/\//.test(path) ? path : `${API_BASE_URL}${path}`,
+	);
 	const method = (options.method?.toUpperCase() ?? "GET") as MockMethod;
 	const match = findRoute(method, url.pathname);
 

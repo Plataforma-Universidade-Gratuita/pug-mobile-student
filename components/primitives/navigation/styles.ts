@@ -1,6 +1,9 @@
 import { StyleSheet } from "react-native";
 
-import type { AppResolvedTheme, PrimitiveSurfaceStyleSpec } from "@/types/client";
+import type {
+	AppResolvedTheme,
+	PrimitiveSurfaceStyleSpec,
+} from "@/types/client";
 
 export function createStyles(
 	theme: AppResolvedTheme,

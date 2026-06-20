@@ -1,4 +1,5 @@
 import { API_ROUTE_BASES } from "@/api/constants";
+import { apiFetch, authVoid } from "@/api/utils";
 import { TokenResponseSchema } from "@/schemas/api";
 import type {
 	CredentialsRequest,
@@ -7,7 +8,6 @@ import type {
 	RefreshRequest,
 	TokenResponse,
 } from "@/types/api";
-import { apiFetch, authVoid } from "@/api/utils";
 
 export async function login(body: LoginRequest): Promise<TokenResponse> {
 	return apiFetch(

@@ -23,10 +23,7 @@ export function ModalScreenScaffold({
 
 	return (
 		<View
-			style={[
-				styles.modalScreen,
-				{ backgroundColor: spec.screenBackground },
-			]}
+			style={[styles.modalScreen, { backgroundColor: spec.screenBackground }]}
 		>
 			<View style={styles.modalContent}>
 				<View style={styles.modalHeaderRow}>
