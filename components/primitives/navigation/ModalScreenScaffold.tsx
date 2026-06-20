@@ -1,0 +1,53 @@
+import React, { useMemo } from "react";
+
+import { View } from "react-native";
+
+import { Label } from "@/components/primitives";
+import { useThemeStore } from "@/stores";
+import { createPrimitiveSurfaceStyleSpec } from "@/styles";
+import type { ModalScreenScaffoldProps } from "@/types/client";
+
+import { createStyles } from "./styles";
+
+export function ModalScreenScaffold({
+	title,
+	subtitle,
+	children,
+	footer,
+	leftAccessory,
+	rightAccessory,
+}: ModalScreenScaffoldProps) {
+	const theme = useThemeStore(state => state.theme);
+	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
+	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
+
+	return (
+		<View
+			style={[
+				styles.modalScreen,
+				{ backgroundColor: spec.screenBackground },
+			]}
+		>
+			<View style={styles.modalContent}>
+				<View style={styles.modalHeaderRow}>
+					<View style={styles.modalActionSlot}>
+						{leftAccessory ? leftAccessory : null}
+					</View>
+
+					<View style={styles.modalHeaderCopy}>
+						<Label role="title">{title}</Label>
+						{subtitle ? <Label role="helper">{subtitle}</Label> : null}
+					</View>
+
+					<View style={styles.modalActionSlot}>
+						{rightAccessory ? rightAccessory : null}
+					</View>
+				</View>
+
+				<View style={styles.modalBody}>{children}</View>
+			</View>
+
+			{footer ? <View style={styles.modalFooter}>{footer}</View> : null}
+		</View>
+	);
+}

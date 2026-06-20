@@ -1,0 +1,73 @@
+import React, { useMemo } from "react";
+
+import { X } from "lucide-react-native";
+import { useRouter } from "expo-router";
+import { View } from "react-native";
+
+import { HeaderActionButton } from "@/components/composite";
+import { Badge, Button, Label, ModalScreenScaffold } from "@/components";
+import { useThemeStore } from "@/stores";
+import { createPrimitiveSurfaceStyleSpec } from "@/styles";
+
+import { createStyles } from "./styles";
+
+interface ModalRoutePlaceholderScreenProps {
+	title: string;
+	subtitle?: string;
+	description?: string;
+}
+
+const DEFAULT_DESCRIPTION =
+	"This modal route is in place so the authenticated shell can land before the form flow is implemented.";
+
+export function ModalRoutePlaceholderScreen({
+	title,
+	subtitle,
+	description = DEFAULT_DESCRIPTION,
+}: ModalRoutePlaceholderScreenProps) {
+	const router = useRouter();
+	const theme = useThemeStore(state => state.theme);
+	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
+	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
+	const scaffoldProps = subtitle ? { subtitle } : {};
+
+	return (
+		<ModalScreenScaffold
+			footer={
+				<Button
+					variant="secondary"
+					onPress={() => {
+						router.back();
+					}}
+				>
+					Close
+				</Button>
+			}
+			leftAccessory={
+				<HeaderActionButton
+					accessibilityLabel="Close modal"
+					icon={X}
+					onPress={() => {
+						router.back();
+					}}
+				/>
+			}
+			title={title}
+			{...scaffoldProps}
+		>
+			<View style={styles.panel}>
+				<Badge
+					style={styles.badge}
+					variant="secondary"
+				>
+					Modal scaffold
+				</Badge>
+
+				<View style={styles.body}>
+					<Label role="field">{title}</Label>
+					<Label role="helper">{description}</Label>
+				</View>
+			</View>
+		</ModalScreenScaffold>
+	);
+}
