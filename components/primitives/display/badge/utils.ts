@@ -5,6 +5,7 @@ import type {
 	PrimitiveBadgeProps,
 	PrimitiveFormStyleSpec,
 } from "@/types/client";
+import { withAlpha } from "@/utils";
 
 export function resolveBadgeMode(
 	variant: NonNullable<PrimitiveBadgeProps["variant"]>,
@@ -32,37 +33,37 @@ export function resolveBadgeColors(
 			secondaryText: theme.colors.brand,
 		},
 		success: {
-			primaryBackground:
-				theme.mode === "dark"
-					? "rgba(70, 167, 88, 0.18)"
-					: "rgba(70, 167, 88, 0.12)",
+			primaryBackground: withAlpha(
+				theme.colors.success,
+				theme.mode === "dark" ? 0.18 : 0.12,
+			),
 			primaryText: theme.colors.success,
 			secondaryBorder: theme.colors.success,
 			secondaryText: theme.colors.success,
 		},
 		info: {
-			primaryBackground:
-				theme.mode === "dark"
-					? "rgba(0, 144, 255, 0.18)"
-					: "rgba(0, 144, 255, 0.12)",
+			primaryBackground: withAlpha(
+				theme.colors.info,
+				theme.mode === "dark" ? 0.18 : 0.12,
+			),
 			primaryText: theme.colors.info,
 			secondaryBorder: theme.colors.info,
 			secondaryText: theme.colors.info,
 		},
 		warning: {
-			primaryBackground:
-				theme.mode === "dark"
-					? "rgba(255, 197, 61, 0.18)"
-					: "rgba(255, 197, 61, 0.16)",
-			primaryText: theme.mode === "dark" ? "#f6d98f" : "#8a6200",
+			primaryBackground: withAlpha(
+				theme.colors.warning,
+				theme.mode === "dark" ? 0.18 : 0.16,
+			),
+			primaryText: theme.colors.warningSoftText,
 			secondaryBorder: theme.colors.warning,
-			secondaryText: theme.mode === "dark" ? "#f6d98f" : "#8a6200",
+			secondaryText: theme.colors.warningSoftText,
 		},
 		danger: {
-			primaryBackground:
-				theme.mode === "dark"
-					? "rgba(229, 72, 77, 0.18)"
-					: "rgba(229, 72, 77, 0.12)",
+			primaryBackground: withAlpha(
+				theme.colors.danger,
+				theme.mode === "dark" ? 0.18 : 0.12,
+			),
 			primaryText: theme.colors.danger,
 			secondaryBorder: theme.colors.danger,
 			secondaryText: theme.colors.danger,

@@ -32,6 +32,13 @@ export interface AppThemeColors {
 	chromeBgHover: string;
 	chromeFg: string;
 	chromeMuted: string;
+	brandSoftText: string;
+	warningSoftText: string;
+	tabFgActive: string;
+	tabFgInactive: string;
+	tabBgActive: string;
+	tabBgPressed: string;
+	tabSeparator: string;
 }
 
 export interface AppThemeRadius {

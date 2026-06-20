@@ -9,7 +9,7 @@ import { useThemeStore } from "@/stores";
 
 import { createTabBarStyles } from "./tab-bar-styles";
 
-const TAB_ICON_SIZE = 22;
+const TAB_ICON_SIZE = 20;
 
 function resolveTabLabel(
 	label: BottomTabBarProps["descriptors"][string]["options"]["tabBarLabel"],
@@ -36,6 +36,18 @@ export function AuthenticatedTabBar({
 
 	return (
 		<View style={styles.container}>
+			<View
+				pointerEvents="none"
+				style={styles.fadeStrong}
+			/>
+			<View
+				pointerEvents="none"
+				style={styles.fadeMid}
+			/>
+			<View
+				pointerEvents="none"
+				style={styles.fadeSoft}
+			/>
 			<View style={styles.rail}>
 				{state.routes.map((route, index) => {
 					const isFocused = state.index === index;
@@ -47,8 +59,8 @@ export function AuthenticatedTabBar({
 					}
 
 					const color = isFocused
-						? theme.colors.brand
-						: theme.colors.chromeMuted;
+						? theme.colors.tabFgActive
+						: theme.colors.tabFgInactive;
 					const label = resolveTabLabel(options.tabBarLabel, options.title);
 					const icon = options.tabBarIcon?.({
 						focused: isFocused,
@@ -90,6 +102,7 @@ export function AuthenticatedTabBar({
 							<Label
 								align="center"
 								role="caption"
+								numberOfLines={1}
 								style={[
 									styles.label,
 									{ color },

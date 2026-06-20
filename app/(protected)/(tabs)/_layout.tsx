@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Tabs } from "expo-router";
-import { Compass, House, ListChecks, UserRound } from "lucide-react-native";
+import { House, ListChecks, Search, UserRound } from "lucide-react-native";
 
 import {
 	AuthenticatedTabBar,
@@ -9,7 +9,7 @@ import {
 } from "@/components";
 import { useThemeStore } from "@/stores";
 
-const TAB_ICON_SIZE = 22;
+const TAB_ICON_SIZE = 20;
 
 export default function ProtectedTabsLayout() {
 	const theme = useThemeStore(state => state.theme);
@@ -23,11 +23,11 @@ export default function ProtectedTabsLayout() {
 				name="index"
 				options={{
 					title: "Home",
-					tabBarIcon: ({ color }) => (
+					tabBarIcon: ({ color, size }) => (
 						<House
 							color={color}
-							size={TAB_ICON_SIZE}
-							strokeWidth={2.1}
+							size={size ?? TAB_ICON_SIZE}
+							strokeWidth={1.95}
 						/>
 					),
 				}}
@@ -36,11 +36,11 @@ export default function ProtectedTabsLayout() {
 				name="discover"
 				options={{
 					title: "Discover",
-					tabBarIcon: ({ color }) => (
-						<Compass
+					tabBarIcon: ({ color, size }) => (
+						<Search
 							color={color}
-							size={TAB_ICON_SIZE}
-							strokeWidth={2.1}
+							size={size ?? TAB_ICON_SIZE}
+							strokeWidth={1.95}
 						/>
 					),
 				}}
@@ -49,11 +49,11 @@ export default function ProtectedTabsLayout() {
 				name="activity"
 				options={{
 					title: "Activity",
-					tabBarIcon: ({ color }) => (
+					tabBarIcon: ({ color, size }) => (
 						<ListChecks
 							color={color}
-							size={TAB_ICON_SIZE}
-							strokeWidth={2.1}
+							size={size ?? TAB_ICON_SIZE}
+							strokeWidth={1.95}
 						/>
 					),
 				}}
@@ -62,11 +62,11 @@ export default function ProtectedTabsLayout() {
 				name="profile"
 				options={{
 					title: "Profile",
-					tabBarIcon: ({ color }) => (
+					tabBarIcon: ({ color, size }) => (
 						<UserRound
 							color={color}
-							size={TAB_ICON_SIZE}
-							strokeWidth={2.1}
+							size={size ?? TAB_ICON_SIZE}
+							strokeWidth={1.95}
 						/>
 					),
 				}}
