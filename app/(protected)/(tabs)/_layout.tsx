@@ -3,7 +3,10 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { Compass, House, ListChecks, UserRound } from "lucide-react-native";
 
-import { createAuthenticatedShellTabScreenOptions } from "@/components";
+import {
+	AuthenticatedTabBar,
+	createAuthenticatedShellTabScreenOptions,
+} from "@/components";
 import { useThemeStore } from "@/stores";
 
 const TAB_ICON_SIZE = 22;
@@ -12,7 +15,10 @@ export default function ProtectedTabsLayout() {
 	const theme = useThemeStore(state => state.theme);
 
 	return (
-		<Tabs screenOptions={createAuthenticatedShellTabScreenOptions(theme)}>
+		<Tabs
+			screenOptions={createAuthenticatedShellTabScreenOptions(theme)}
+			tabBar={props => <AuthenticatedTabBar {...props} />}
+		>
 			<Tabs.Screen
 				name="index"
 				options={{

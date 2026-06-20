@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef } from "react";
 
-import { Slot } from "expo-router";
+import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import * as SystemUI from "expo-system-ui";
 import { View, useColorScheme } from "react-native";
@@ -52,18 +52,27 @@ export function RootNavigator() {
 	}, [theme.colors.surface1]);
 
 	return (
-		<View style={styles.container}>
+		<>
 			<StatusBar
 				backgroundColor={theme.colors.surface1}
 				style={getStatusBarStyle(resolvedMode)}
 			/>
-			<Slot />
+
+			<Stack
+				screenOptions={{
+					headerShown: false,
+					contentStyle: { backgroundColor: theme.colors.surface1 },
+				}}
+			>
+				<Stack.Screen name="(public)" />
+				<Stack.Screen name="(protected)" />
+			</Stack>
 
 			{isBootstrapping ? (
 				<View style={styles.bootstrapOverlay}>
 					<BootstrapScreen />
 				</View>
 			) : null}
-		</View>
+		</>
 	);
 }
