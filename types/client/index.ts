@@ -2,6 +2,7 @@ export * from "./api";
 export * from "./app";
 export * from "./auth";
 export * from "./context";
+export * from "./features";
 export * from "./hooks";
 export * from "./query";
 export * from "./store";

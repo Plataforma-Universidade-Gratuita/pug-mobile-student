@@ -6,23 +6,15 @@ import { AppScreenHeader } from "@/components/composite";
 import { Badge, Label } from "@/components/primitives";
 import { useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
+import type { RoutePlaceholderScreenProps } from "@/types/client";
 
+import { ROUTE_PLACEHOLDER_DEFAULT_DESCRIPTION } from "./constants";
 import { createStyles } from "./styles";
-
-interface RoutePlaceholderScreenProps {
-	title: string;
-	subtitle?: string;
-	description?: string;
-	showBackButton?: boolean;
-}
-
-const DEFAULT_DESCRIPTION =
-	"This route is wired into the authenticated shell. Feature content lands here next.";
 
 export function RoutePlaceholderScreen({
 	title,
 	subtitle,
-	description = DEFAULT_DESCRIPTION,
+	description = ROUTE_PLACEHOLDER_DEFAULT_DESCRIPTION,
 	showBackButton = false,
 }: RoutePlaceholderScreenProps) {
 	const theme = useThemeStore(state => state.theme);

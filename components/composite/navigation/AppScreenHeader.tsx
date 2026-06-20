@@ -3,11 +3,11 @@ import React, { useMemo } from "react";
 import { useRouter } from "expo-router";
 import { View } from "react-native";
 
-import { AppBackButton } from "@/components";
 import { Label } from "@/components/primitives";
 import { useThemeStore } from "@/stores";
 import type { AppScreenHeaderProps } from "@/types/client";
 
+import { AppBackButton } from "./AppBackButton";
 import { createStyles } from "./styles";
 
 export function AppScreenHeader({

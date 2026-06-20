@@ -1,0 +1,1 @@
+export const AUTHENTICATED_SHELL_TAB_ICON_SIZE = 18;

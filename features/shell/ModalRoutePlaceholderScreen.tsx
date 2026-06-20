@@ -8,22 +8,15 @@ import { Badge, Button, Label, ModalScreenScaffold } from "@/components";
 import { HeaderActionButton } from "@/components/composite";
 import { useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
+import type { ModalRoutePlaceholderScreenProps } from "@/types/client";
 
+import { MODAL_ROUTE_PLACEHOLDER_DEFAULT_DESCRIPTION } from "./constants";
 import { createStyles } from "./styles";
-
-interface ModalRoutePlaceholderScreenProps {
-	title: string;
-	subtitle?: string;
-	description?: string;
-}
-
-const DEFAULT_DESCRIPTION =
-	"This modal route is in place so the authenticated shell can land before the form flow is implemented.";
 
 export function ModalRoutePlaceholderScreen({
 	title,
 	subtitle,
-	description = DEFAULT_DESCRIPTION,
+	description = MODAL_ROUTE_PLACEHOLDER_DEFAULT_DESCRIPTION,
 }: ModalRoutePlaceholderScreenProps) {
 	const router = useRouter();
 	const theme = useThemeStore(state => state.theme);

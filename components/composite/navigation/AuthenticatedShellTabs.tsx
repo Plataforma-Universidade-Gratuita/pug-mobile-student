@@ -3,35 +3,7 @@ import React from "react";
 import { Tabs } from "expo-router";
 import { Compass, House, ListChecks, UserRound } from "lucide-react-native";
 
-import type { AppResolvedTheme } from "@/types/client";
-
-const TAB_ICON_SIZE = 18;
-
-export function createAuthenticatedShellTabScreenOptions(
-	theme: AppResolvedTheme,
-) {
-	return {
-		headerShown: false,
-		tabBarActiveTintColor: theme.colors.brand,
-		tabBarInactiveTintColor: theme.colors.chromeMuted,
-		tabBarHideOnKeyboard: true,
-		tabBarLabelStyle: {
-			fontFamily: theme.font.sans,
-			fontSize: theme.type.xs,
-			fontWeight: theme.weight.semibold,
-		},
-		tabBarStyle: {
-			backgroundColor: theme.colors.surface2,
-			borderTopColor: theme.colors.border2,
-			height: 68,
-			paddingBottom: theme.space[2],
-			paddingTop: theme.space[2],
-		},
-		sceneStyle: {
-			backgroundColor: theme.colors.surface1,
-		},
-	} as const;
-}
+import { AUTHENTICATED_SHELL_TAB_ICON_SIZE } from "./constants";
 
 export function AuthenticatedShellTabs() {
 	return (
@@ -43,7 +15,7 @@ export function AuthenticatedShellTabs() {
 					tabBarIcon: ({ color }) => (
 						<House
 							color={color}
-							size={TAB_ICON_SIZE}
+							size={AUTHENTICATED_SHELL_TAB_ICON_SIZE}
 							strokeWidth={2.1}
 						/>
 					),
@@ -56,7 +28,7 @@ export function AuthenticatedShellTabs() {
 					tabBarIcon: ({ color }) => (
 						<Compass
 							color={color}
-							size={TAB_ICON_SIZE}
+							size={AUTHENTICATED_SHELL_TAB_ICON_SIZE}
 							strokeWidth={2.1}
 						/>
 					),
@@ -69,7 +41,7 @@ export function AuthenticatedShellTabs() {
 					tabBarIcon: ({ color }) => (
 						<ListChecks
 							color={color}
-							size={TAB_ICON_SIZE}
+							size={AUTHENTICATED_SHELL_TAB_ICON_SIZE}
 							strokeWidth={2.1}
 						/>
 					),
@@ -82,7 +54,7 @@ export function AuthenticatedShellTabs() {
 					tabBarIcon: ({ color }) => (
 						<UserRound
 							color={color}
-							size={TAB_ICON_SIZE}
+							size={AUTHENTICATED_SHELL_TAB_ICON_SIZE}
 							strokeWidth={2.1}
 						/>
 					),
