@@ -70,6 +70,27 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 		});
 	},
 
+	refreshSession: async () => {
+		const refreshToken =
+			get().refreshToken ?? (await baseSessionProvider.getRefreshToken());
+
+		if (!refreshToken) {
+			throw new Error("Missing refresh token.");
+		}
+
+		const tokens = await api.identity.auth.refresh({ refreshToken });
+		const validation = validateFormerStudentToken(tokens.token);
+
+		if (!validation.isValid || !validation.payload) {
+			await clearApiSession();
+			get().clearSessionState();
+			throw new Error("Received a non-former-student token during refresh.");
+		}
+
+		await getApiSessionProvider().persistSession(tokens);
+		return tokens;
+	},
+
 	bootstrapSession: async () => {
 		if (bootstrapPromise) {
 			return bootstrapPromise;
@@ -118,9 +139,7 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 					return false;
 				}
 
-				await baseSessionProvider.persistSession(refreshedTokens);
-				set(refreshedSession);
-				get().setRequiresCredentialSetup(!refreshedTokens.passwordWired);
+				await getApiSessionProvider().persistSession(refreshedTokens);
 				return true;
 			} catch {
 				await clearApiSession();
@@ -148,9 +167,7 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 				throw new Error("Received a non-former-student token during sign-in.");
 			}
 
-			await baseSessionProvider.persistSession(tokens);
-			get().setSession(toStoredSessionTokens(tokens), validation.payload);
-			get().setRequiresCredentialSetup(!tokens.passwordWired);
+			await getApiSessionProvider().persistSession(tokens);
 			return tokens;
 		} finally {
 			set({ isMutatingSession: false });

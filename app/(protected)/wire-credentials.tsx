@@ -1,13 +1,9 @@
 import React from "react";
 
 import { Redirect } from "expo-router";
-import type { Href } from "expo-router";
 
 import { WireCredentialsScreen } from "@/features/auth/wire-credentials";
 import { useAuthStore } from "@/stores";
-
-const HOME_ROUTE = "/" as Href;
-const LOGIN_ROUTE = "/login" as Href;
 
 export default function WireCredentialsRoute() {
 	const isAuthenticated = useAuthStore(state => state.isAuthenticated);
@@ -21,11 +17,11 @@ export default function WireCredentialsRoute() {
 	}
 
 	if (!isAuthenticated) {
-		return <Redirect href={LOGIN_ROUTE} />;
+		return <Redirect href="/login" />;
 	}
 
 	if (!requiresCredentialSetup) {
-		return <Redirect href={HOME_ROUTE} />;
+		return <Redirect href="/" />;
 	}
 
 	return <WireCredentialsScreen />;

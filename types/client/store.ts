@@ -15,6 +15,7 @@ export interface AuthStoreState {
 	refreshToken: string | null;
 	sessionPayload: PugJwtPayload | null;
 	bootstrapSession: () => Promise<boolean>;
+	refreshSession: () => Promise<TokenResponse>;
 	signIn: (credentials: LoginRequest) => Promise<TokenResponse>;
 	signOut: () => Promise<void>;
 	setSession: (tokens: StoredSessionTokens, payload: PugJwtPayload) => void;

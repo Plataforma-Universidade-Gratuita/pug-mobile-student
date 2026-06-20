@@ -25,11 +25,9 @@ import { resolveWireCredentialsErrorMessageWithFallback } from "./utils";
 export function WireCredentialsScreen() {
 	const { t } = useTranslation();
 	const router = useRouter();
+	const refreshSession = useAuthStore(state => state.refreshSession);
 	const sessionPayload = useAuthStore(state => state.sessionPayload);
 	const signOut = useAuthStore(state => state.signOut);
-	const setRequiresCredentialSetup = useAuthStore(
-		state => state.setRequiresCredentialSetup,
-	);
 	const { isMutatingSession, styles } = useAuthScreen(createStyles);
 	const { clearServerError, serverError, setServerError } =
 		useServerErrorState();
@@ -67,7 +65,7 @@ export function WireCredentialsScreen() {
 				password: password.trim(),
 			});
 
-			setRequiresCredentialSetup(false);
+			await refreshSession();
 			router.replace("/");
 		} catch (error) {
 			setServerError(
