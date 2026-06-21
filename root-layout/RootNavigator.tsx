@@ -15,9 +15,11 @@ export function RootNavigator() {
 	const bootstrapSession = useAuthStore(state => state.bootstrapSession);
 	const isBootstrapping = useAuthStore(state => state.isBootstrapping);
 	const theme = useThemeStore(state => state.theme);
+	const isThemeHydrated = useThemeStore(state => state.isHydrated);
 	const resolvedMode = useThemeStore(state => state.resolvedMode);
 	const hydrateTheme = useThemeStore(state => state.hydrateTheme);
 	const setSystemMode = useThemeStore(state => state.setSystemMode);
+	const isLanguageHydrated = useLocaleStore(state => state.isHydrated);
 	const hydrateLanguage = useLocaleStore(state => state.hydrateLanguage);
 	const systemColorScheme = useColorScheme();
 	const styles = useMemo(() => createStyles(theme), [theme]);
@@ -62,6 +64,9 @@ export function RootNavigator() {
 		);
 	}, [theme.colors.surface1]);
 
+	const isAppBootstrapping =
+		isBootstrapping || !isThemeHydrated || !isLanguageHydrated;
+
 	return (
 		<>
 			<StatusBar
@@ -79,7 +84,7 @@ export function RootNavigator() {
 				<Stack.Screen name="(protected)" />
 			</Stack>
 
-			{isBootstrapping ? (
+			{isAppBootstrapping ? (
 				<View style={styles.bootstrapOverlay}>
 					<BootstrapScreen />
 				</View>

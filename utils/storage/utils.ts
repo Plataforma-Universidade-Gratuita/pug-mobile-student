@@ -1,3 +1,4 @@
+import * as SecureStore from "expo-secure-store";
 import { Platform } from "react-native";
 
 type SecureStoreModule = {
@@ -8,14 +9,13 @@ type SecureStoreModule = {
 
 const memoryStorage = new Map<string, string>();
 
-async function getSecureStore(): Promise<SecureStoreModule | null> {
+function getSecureStore(): SecureStoreModule | null {
 	if (Platform.OS === "web") {
 		return null;
 	}
 
 	try {
-		const module = await import("expo-secure-store");
-		const secureStore = "default" in module ? module.default : module;
+		const secureStore = SecureStore;
 
 		if (
 			secureStore &&
@@ -39,9 +39,13 @@ function hasWebStorage() {
 }
 
 export async function getStoredValue(key: string): Promise<string | null> {
-	const secureStore = await getSecureStore();
+	const secureStore = getSecureStore();
 	if (secureStore) {
-		return secureStore.getItemAsync(key);
+		try {
+			return await secureStore.getItemAsync(key);
+		} catch {
+			// Ignore secure store read failures and fall back.
+		}
 	}
 
 	if (hasWebStorage()) {
@@ -55,10 +59,14 @@ export async function setStoredValue(
 	key: string,
 	value: string,
 ): Promise<void> {
-	const secureStore = await getSecureStore();
+	const secureStore = getSecureStore();
 	if (secureStore) {
-		await secureStore.setItemAsync(key, value);
-		return;
+		try {
+			await secureStore.setItemAsync(key, value);
+			return;
+		} catch {
+			// Ignore secure store write failures and fall back.
+		}
 	}
 
 	if (hasWebStorage()) {
@@ -70,10 +78,14 @@ export async function setStoredValue(
 }
 
 export async function removeStoredValue(key: string): Promise<void> {
-	const secureStore = await getSecureStore();
+	const secureStore = getSecureStore();
 	if (secureStore) {
-		await secureStore.deleteItemAsync(key);
-		return;
+		try {
+			await secureStore.deleteItemAsync(key);
+			return;
+		} catch {
+			// Ignore secure store delete failures and fall back.
+		}
 	}
 
 	if (hasWebStorage()) {
