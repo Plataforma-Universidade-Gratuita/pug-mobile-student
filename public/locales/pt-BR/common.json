@@ -1,41 +1,41 @@
 {
 	"auth": {
 		"login": {
-			"badge": "Former student access",
+			"badge": "Acesso de egresso",
 			"emailLabel": "Email",
 			"errors": {
-				"emailInvalid": "Enter a valid email address.",
-				"emailRequired": "Email is required.",
-				"emailTooLong": "Email is too long.",
-				"fallback": "Unable to sign in right now. Try again in a moment.",
-				"invalidCredentials": "Email or password is incorrect.",
-				"passwordInvalid": "Password must have between 8 and 255 characters.",
-				"passwordRequired": "Password is required."
+				"emailInvalid": "Informe um endereço de email válido.",
+				"emailRequired": "Email é obrigatório.",
+				"emailTooLong": "Email muito longo.",
+				"fallback": "Não foi possível acessar agora. Tente novamente em instantes.",
+				"invalidCredentials": "Email ou senha estão incorretos ou a conta está inativa.",
+				"passwordInvalid": "A senha deve ter entre 8 e 255 caracteres.",
+				"passwordRequired": "Senha é obrigatória."
 			},
-			"passwordHelper": "Leave it blank on your first access.",
-			"passwordLabel": "Password",
-			"submit": "Login",
-			"subtitle": "Access attendance, projects, and enrollment updates from one place.",
-			"title": "Keep control of your counterpart hours"
+			"passwordHelper": "Deixe em branco no primeiro acesso.",
+			"passwordLabel": "Senha",
+			"submit": "Acessar",
+			"subtitle": "Gerencie suas inscrições e presenças em projetos em um só lugar.",
+			"title": "Controle suas horas de contrapartida"
 		},
 		"wireCredentials": {
-			"badge": "First login setup",
-			"confirmPasswordLabel": "Confirm password",
-			"confirmPasswordPlaceholder": "Repeat your password",
+			"badge": "Configuração do primeiro acesso",
+			"confirmPasswordLabel": "Confirmar senha",
+			"confirmPasswordPlaceholder": "Repita sua senha",
 			"errors": {
-				"confirmationMismatch": "Passwords do not match.",
-				"confirmationRequired": "Confirm your password.",
-				"fallback": "Unable to finish setup right now. Try again in a moment.",
-				"missingEmail": "Unable to resolve the current account email.",
-				"passwordMinLength": "Password must have at least 8 characters.",
-				"passwordRequired": "Password is required."
+				"confirmationMismatch": "As senhas não coincidem.",
+				"confirmationRequired": "Confirme sua senha.",
+				"fallback": "Não foi possível concluir a configuração agora. Tente novamente em instantes.",
+				"missingEmail": "Não foi possível identificar o email da conta atual.",
+				"passwordMinLength": "A senha deve ter pelo menos 8 caracteres.",
+				"passwordRequired": "Senha é obrigatória."
 			},
-			"finishLater": "Finish later",
-			"passwordLabel": "Password",
-			"passwordPlaceholder": "Create your password",
-			"submit": "Finish setup",
-			"subtitle": "Create the password that will be required in future accesses.",
-			"title": "Set your password"
+			"finishLater": "Concluir depois",
+			"passwordLabel": "Senha",
+			"passwordPlaceholder": "Crie sua senha",
+			"submit": "Concluir configuração",
+			"subtitle": "Crie a senha que será exigida nos próximos acessos.",
+			"title": "Defina sua senha"
 		}
 	},
 	"common": {
@@ -43,17 +43,17 @@
 			"input": {
 				"placeholders": {
 					"email": "student@catolica.edu.br",
-					"password": "Enter your password",
-					"text": "Type here"
+					"password": "Digite sua senha",
+					"text": "Digite aqui"
 				}
 			}
 		}
 	},
 	"home": {
-		"badge": "Session active",
-		"logout": "Log out",
-		"subtitleFallback": "Your session is ready.",
-		"title": "You are signed in."
+		"badge": "Sessão ativa",
+		"logout": "Sair",
+		"subtitleFallback": "Sua sessão está pronta.",
+		"title": "Você está conectado."
 	},
 	"profile": {
 		"badge": "Perfil",
@@ -61,13 +61,13 @@
 			"load": "Alguns dados do perfil não puderam ser carregados agora."
 		},
 		"fields": {
-			"academicRegistration": "Matrícula acadêmica",
-			"accountEmail": "Email da conta",
-			"areaOfExpertise": "Área de expertise",
+			"academicRegistration": "Registro acadêmica",
+			"accountEmail": "Email",
+			"areaOfExpertise": "Área de conhecimento",
 			"course": "Curso",
 			"cpf": "CPF",
 			"language": "Idioma",
-			"languageHelper": "Altere o idioma da interface e das validações.",
+			"languageHelper": "Altere o idioma da aplicação.",
 			"theme": "Tema",
 			"themeHelper": "Escolha como o aplicativo deve ser exibido."
 		},
@@ -77,7 +77,7 @@
 			"everywhere": "Sair de todos os lugares",
 			"everywhereHelper": "Encerre a sessão desta conta em todos os dispositivos que ainda estiverem conectados.",
 			"stay": "Continuar conectado",
-			"stayHelper": "Feche esta folha e continue usando o aplicativo.",
+			"stayHelper": "Feche este painel e continue usando o aplicativo.",
 			"subtitle": "Escolha entre continuar nesta sessão, sair apenas deste dispositivo ou encerrar todas as sessões ativas.",
 			"title": "Sair da sua conta",
 			"trigger": "Sair"

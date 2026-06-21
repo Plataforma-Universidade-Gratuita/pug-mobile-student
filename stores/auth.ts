@@ -5,6 +5,8 @@ import type { TokenResponse } from "@/types/api";
 import type { AuthStoreState, StoredSessionTokens } from "@/types/client";
 import { validateFormerStudentToken } from "@/utils";
 
+import { useCurrentFormerStudentStore } from "./current-former-student";
+
 const { clearApiSession, configureApiSessionProvider, getApiSessionProvider } =
 	api;
 
@@ -38,6 +40,17 @@ const baseSessionProvider = getApiSessionProvider();
 
 let bootstrapPromise: Promise<boolean> | null = null;
 
+async function synchronizeCurrentFormerStudentContext(passwordWired: boolean) {
+	const currentFormerStudentStore = useCurrentFormerStudentStore.getState();
+
+	if (!passwordWired) {
+		currentFormerStudentStore.clearCurrentFormerStudentContext();
+		return;
+	}
+
+	await currentFormerStudentStore.loadCurrentFormerStudentContext();
+}
+
 export const useAuthStore = create<AuthStoreState>((set, get) => ({
 	isAuthenticated: false,
 	isBootstrapping: false,
@@ -61,6 +74,10 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 	},
 
 	clearSessionState: () => {
+		useCurrentFormerStudentStore
+			.getState()
+			.clearCurrentFormerStudentContext();
+
 		set({
 			accessToken: null,
 			refreshToken: null,
@@ -88,6 +105,7 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 		}
 
 		await getApiSessionProvider().persistSession(tokens);
+		await synchronizeCurrentFormerStudentContext(tokens.passwordWired);
 		return tokens;
 	},
 
@@ -122,6 +140,9 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 
 				if (validStoredSession && requiresCredentialSetup !== null) {
 					set(validStoredSession);
+					await synchronizeCurrentFormerStudentContext(
+						!validStoredSession.requiresCredentialSetup,
+					);
 					return true;
 				}
 
@@ -140,6 +161,9 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 				}
 
 				await getApiSessionProvider().persistSession(refreshedTokens);
+				await synchronizeCurrentFormerStudentContext(
+					refreshedTokens.passwordWired,
+				);
 				return true;
 			} catch {
 				await clearApiSession();
@@ -168,7 +192,19 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 			}
 
 			await getApiSessionProvider().persistSession(tokens);
+			await synchronizeCurrentFormerStudentContext(tokens.passwordWired);
 			return tokens;
+		} finally {
+			set({ isMutatingSession: false });
+		}
+	},
+
+	completeCredentialSetup: async body => {
+		set({ isMutatingSession: true });
+
+		try {
+			await api.identity.auth.wireCredentials(body);
+			await get().refreshSession();
 		} finally {
 			set({ isMutatingSession: false });
 		}

@@ -1,4 +1,12 @@
-import type { LoginRequest, TokenResponse } from "@/types/api";
+import type {
+	AccountResponse,
+	CredentialsRequest,
+	CourseResponse,
+	FormerStudentResponse,
+	LoginRequest,
+	TokenResponse,
+	UserResponse,
+} from "@/types/api";
 
 import type { PugJwtPayload, StoredSessionTokens } from "./auth";
 import type { AppLang } from "./context";
@@ -15,11 +23,24 @@ export interface AuthStoreState {
 	bootstrapSession: () => Promise<boolean>;
 	refreshSession: () => Promise<TokenResponse>;
 	signIn: (credentials: LoginRequest) => Promise<TokenResponse>;
+	completeCredentialSetup: (body: CredentialsRequest) => Promise<void>;
 	signOut: () => Promise<void>;
 	signOutAll: () => Promise<void>;
 	setSession: (tokens: StoredSessionTokens, payload: PugJwtPayload) => void;
 	setRequiresCredentialSetup: (value: boolean) => void;
 	clearSessionState: () => void;
+}
+
+export interface CurrentFormerStudentStoreState {
+	currentAccount: AccountResponse | null;
+	currentUser: UserResponse | null;
+	currentFormerStudent: FormerStudentResponse | null;
+	currentCourse: CourseResponse | null;
+	isLoading: boolean;
+	isLoaded: boolean;
+	error: string | null;
+	loadCurrentFormerStudentContext: () => Promise<void>;
+	clearCurrentFormerStudentContext: () => void;
 }
 
 export interface ThemeStoreState {

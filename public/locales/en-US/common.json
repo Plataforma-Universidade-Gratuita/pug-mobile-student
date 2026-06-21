@@ -8,14 +8,14 @@
 				"emailRequired": "Email is required.",
 				"emailTooLong": "Email is too long.",
 				"fallback": "Unable to sign in right now. Try again in a moment.",
-				"invalidCredentials": "Email or password is incorrect.",
+				"invalidCredentials": "Email or password is incorrect or account is inactive.",
 				"passwordInvalid": "Password must have between 8 and 255 characters.",
 				"passwordRequired": "Password is required."
 			},
 			"passwordHelper": "Leave it blank on your first access.",
 			"passwordLabel": "Password",
 			"submit": "Login",
-			"subtitle": "Access attendance, projects, and enrollment updates from one place.",
+			"subtitle": "Manage enrollments and attendance on projects from one place.",
 			"title": "Keep control of your counterpart hours"
 		},
 		"wireCredentials": {
@@ -62,12 +62,12 @@
 		},
 		"fields": {
 			"academicRegistration": "Academic registration",
-			"accountEmail": "Account email",
+			"accountEmail": "Account",
 			"areaOfExpertise": "Area of expertise",
 			"course": "Course",
 			"cpf": "CPF",
 			"language": "Language",
-			"languageHelper": "Switch interface and validation copy.",
+			"languageHelper": "Switch application language.",
 			"theme": "Theme",
 			"themeHelper": "Choose how the app should render."
 		},

@@ -4,7 +4,6 @@ import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 
-import * as api from "@/api";
 import { Button, Badge, Input, Label } from "@/components/primitives";
 import {
 	useAuthScreen,
@@ -23,7 +22,9 @@ import { resolveWireCredentialsErrorMessageWithFallback } from "./utils";
 
 export function WireCredentialsScreen() {
 	const { t } = useTranslation();
-	const refreshSession = useAuthStore(state => state.refreshSession);
+	const completeCredentialSetup = useAuthStore(
+		state => state.completeCredentialSetup,
+	);
 	const sessionPayload = useAuthStore(state => state.sessionPayload);
 	const signOut = useAuthStore(state => state.signOut);
 	const { isMutatingSession, styles } = useAuthScreen(createStyles);
@@ -58,12 +59,10 @@ export function WireCredentialsScreen() {
 		setIsSubmitting(true);
 
 		try {
-			await api.identity.auth.wireCredentials({
+			await completeCredentialSetup({
 				email,
 				password: password.trim(),
 			});
-
-			await refreshSession();
 		} catch (error) {
 			setServerError(
 				resolveWireCredentialsErrorMessageWithFallback(

@@ -4,10 +4,14 @@ import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import * as api from "@/api";
 import { BrandScreenHeader } from "@/components";
 import { Label, OverflowActionSheet } from "@/components/primitives";
-import { useAuthStore, useLocaleStore, useThemeStore } from "@/stores";
+import {
+	useAuthStore,
+	useCurrentFormerStudentStore,
+	useLocaleStore,
+	useThemeStore,
+} from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import { withAlpha } from "@/utils";
 
@@ -31,28 +35,26 @@ export function ProfileScreen() {
 	const styles = useMemo(() => createStyles(theme), [theme]);
 	const contentBottomPadding =
 		theme.space[8] + Math.max(insets.bottom, theme.space[2]) + theme.space[4];
-
-	const currentAccountQuery = api.identity.accounts.useCurrentAccountQuery();
-	const currentUserQuery = api.identity.users.useCurrentUserQuery();
-	const currentFormerStudentQuery =
-		api.academic.formerStudents.useCurrentFormerStudentQuery();
-	const courseQuery = api.academic.courses.useCourseDetailQuery(
-		currentFormerStudentQuery.data?.courseId ?? null,
+	const currentAccount = useCurrentFormerStudentStore(
+		state => state.currentAccount,
+	);
+	const currentUser = useCurrentFormerStudentStore(state => state.currentUser);
+	const currentFormerStudent = useCurrentFormerStudentStore(
+		state => state.currentFormerStudent,
+	);
+	const currentCourse = useCurrentFormerStudentStore(state => state.currentCourse);
+	const currentFormerStudentError = useCurrentFormerStudentStore(
+		state => state.error,
+	);
+	const isProfileLoading = useCurrentFormerStudentStore(
+		state => state.isLoading,
 	);
 
 	const loadingLabel = t("profile.values.loading");
 	const unavailableLabel = t("profile.values.unavailable");
-	const currentUser = currentUserQuery.data;
-	const currentAccount = currentAccountQuery.data;
-	const currentFormerStudent = currentFormerStudentQuery.data;
-	const currentCourse = courseQuery.data;
-	const hasProfileLoadError =
-		currentAccountQuery.isError ||
-		currentUserQuery.isError ||
-		currentFormerStudentQuery.isError ||
-		courseQuery.isError;
+	const hasProfileLoadError = currentFormerStudentError !== null;
 
-	const activeStatusLabel = currentAccountQuery.isPending
+	const activeStatusLabel = isProfileLoading
 		? loadingLabel
 		: currentAccount
 			? currentAccount.active
@@ -60,7 +62,7 @@ export function ProfileScreen() {
 				: t("profile.values.inactive")
 			: unavailableLabel;
 	const activeTone: "neutral" | "success" | "danger" =
-		currentAccountQuery.isPending || !currentAccount
+		isProfileLoading || !currentAccount
 			? "neutral"
 			: currentAccount.active
 				? "success"
@@ -68,43 +70,43 @@ export function ProfileScreen() {
 
 	const studentName = resolveProfileFieldValue(
 		currentUser?.name,
-		currentUserQuery.isPending,
+		isProfileLoading,
 		loadingLabel,
 		unavailableLabel,
 	);
 	const cpf = resolveProfileFieldValue(
 		currentUser?.cpfFormatted ?? currentUser?.cpf,
-		currentUserQuery.isPending,
+		isProfileLoading,
 		loadingLabel,
 		unavailableLabel,
 	);
 	const email = resolveProfileFieldValue(
 		currentAccount?.email,
-		currentAccountQuery.isPending,
+		isProfileLoading,
 		loadingLabel,
 		unavailableLabel,
 	);
 	const academicRegistration = resolveProfileFieldValue(
 		currentFormerStudent?.academicRegistration,
-		currentFormerStudentQuery.isPending,
+		isProfileLoading,
 		loadingLabel,
 		unavailableLabel,
 	);
 	const campus = resolveProfileFieldValue(
 		currentFormerStudent?.campus.campusFormatted,
-		currentFormerStudentQuery.isPending,
+		isProfileLoading,
 		loadingLabel,
 		unavailableLabel,
 	);
 	const courseName = resolveProfileFieldValue(
 		currentCourse?.name,
-		courseQuery.isPending,
+		isProfileLoading,
 		loadingLabel,
 		unavailableLabel,
 	);
 	const areaOfExpertiseName = resolveProfileFieldValue(
 		currentCourse?.areaOfExpertise.name,
-		courseQuery.isPending,
+		isProfileLoading,
 		loadingLabel,
 		unavailableLabel,
 	);
