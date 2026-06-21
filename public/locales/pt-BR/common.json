@@ -64,6 +64,19 @@
 			"seatsUnlimited": "Vagas ilimitadas",
 			"seatsValue": "{{count}} vagas restantes"
 		},
+		"filters": {
+			"apply": "Aplicar",
+			"clear": "Limpar",
+			"entitiesHelper": "Selecione uma ou mais entidades parceiras.",
+			"entitiesLabel": "Entidades",
+			"searchHelper": "Busca em qualquer um dos campos.",
+			"searchLabel": "Nome ou descricao",
+			"searchPlaceholder": "Buscar projetos",
+			"statusesHelper": "Selecione um ou mais status de projeto.",
+			"statusesLabel": "Status",
+			"subtitle": "Aplique filtros locais para refinar os projetos disponiveis.",
+			"title": "Filtrar projetos"
+		},
 		"resultsTitle": "Projetos",
 		"states": {
 			"badge": "Estado da descoberta",
@@ -71,6 +84,8 @@
 			"emptyTitle": "Nada aberto por enquanto",
 			"errorDescription": "NÃ£o foi possÃ­vel carregar a descoberta de projetos agora.",
 			"errorTitle": "Projetos indisponÃ­veis",
+			"filteredEmptyDescription": "Tente limpar um ou mais filtros para ver mais resultados.",
+			"filteredEmptyTitle": "Nenhum projeto corresponde a estes filtros",
 			"loadingDescription": "Verificando quais projetos estÃ£o abertos para sua Ã¡rea acadÃªmica atual.",
 			"loadingTitle": "Carregando projetos disponÃ­veis",
 			"missingAreaDescription": "NÃ£o foi possÃ­vel identificar a Ã¡rea de conhecimento do seu curso atual.",

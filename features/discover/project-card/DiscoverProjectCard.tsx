@@ -63,13 +63,6 @@ export function DiscoverProjectCard({
 								>
 									{statusLabel}
 								</Badge>
-
-								<Badge
-									tone="neutral"
-									variant="secondary"
-								>
-									{seatsLabel}
-								</Badge>
 							</View>
 						</View>
 

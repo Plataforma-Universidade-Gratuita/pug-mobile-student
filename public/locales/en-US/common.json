@@ -64,6 +64,19 @@
 			"seatsUnlimited": "Unlimited spots",
 			"seatsValue": "{{count}} spots left"
 		},
+		"filters": {
+			"apply": "Apply",
+			"clear": "Clear",
+			"entitiesHelper": "Select one or more partner entities.",
+			"entitiesLabel": "Entities",
+			"searchHelper": "Matches either field.",
+			"searchLabel": "Name or description",
+			"searchPlaceholder": "Search projects",
+			"statusesHelper": "Select one or more project statuses.",
+			"statusesLabel": "Statuses",
+			"subtitle": "Apply local filters to narrow the available projects.",
+			"title": "Filter projects"
+		},
 		"resultsTitle": "Projects",
 		"states": {
 			"badge": "Discovery state",
@@ -71,6 +84,8 @@
 			"emptyTitle": "Nothing open yet",
 			"errorDescription": "Unable to load project discovery right now.",
 			"errorTitle": "Projects unavailable",
+			"filteredEmptyDescription": "Try clearing one or more filters to see more results.",
+			"filteredEmptyTitle": "No projects match these filters",
 			"loadingDescription": "Checking which projects are open for your current academic area.",
 			"loadingTitle": "Loading available projects",
 			"missingAreaDescription": "Your current course area of expertise could not be resolved.",

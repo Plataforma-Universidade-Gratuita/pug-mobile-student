@@ -1,7 +1,7 @@
 import type { TFunction } from "i18next";
 
 import type { ProjectResponse } from "@/types/api";
-import type { BadgeTone } from "@/types/client";
+import type { BadgeTone, DiscoverFilters } from "@/types/client";
 
 import {
 	DISCOVERABLE_PROJECT_STATUSES,
@@ -13,6 +13,56 @@ type ProjectStatus = ProjectResponse["status"]["status"];
 const DISCOVERABLE_PROJECT_STATUS_SET: ReadonlySet<ProjectStatus> = new Set(
 	DISCOVERABLE_PROJECT_STATUSES,
 );
+
+export function createDefaultDiscoverFilters(): DiscoverFilters {
+	return {
+		query: "",
+		entityIds: [],
+		statuses: [],
+	};
+}
+
+export function hasDiscoverFilters(filters: DiscoverFilters) {
+	return (
+		filters.query.trim().length > 0 ||
+		filters.entityIds.length > 0 ||
+		filters.statuses.length > 0
+	);
+}
+
+export function filterDiscoverProjects(
+	projects: ProjectResponse[],
+	filters: DiscoverFilters,
+) {
+	const query = filters.query.trim().toLocaleLowerCase();
+
+	return projects.filter(project => {
+		if (
+			filters.entityIds.length > 0 &&
+			!filters.entityIds.includes(project.entity.id)
+		) {
+			return false;
+		}
+
+		if (
+			filters.statuses.length > 0 &&
+			!filters.statuses.includes(project.status.status)
+		) {
+			return false;
+		}
+
+		if (!query) {
+			return true;
+		}
+
+		const normalizedName = project.name.toLocaleLowerCase();
+		const normalizedDescription = project.description.toLocaleLowerCase();
+
+		return (
+			normalizedName.includes(query) || normalizedDescription.includes(query)
+		);
+	});
+}
 
 export function getProjectRemainingHours(project: ProjectResponse) {
 	const offeredHours = project.projectInfo.offeredHours;
