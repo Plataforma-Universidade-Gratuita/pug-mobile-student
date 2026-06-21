@@ -4,6 +4,7 @@ import { Pressable } from "react-native";
 
 import { useThemeStore } from "@/stores";
 import type { HeaderActionButtonProps } from "@/types/client";
+import { withAlpha } from "@/utils";
 
 import { createStyles } from "./styles";
 
@@ -16,6 +17,18 @@ export function HeaderActionButton({
 }: HeaderActionButtonProps) {
 	const theme = useThemeStore(state => state.theme);
 	const styles = useMemo(() => createStyles(theme), [theme]);
+	const backgroundColor = withAlpha(
+		theme.colors.brand,
+		theme.mode === "dark" ? 0.12 : 0.07,
+	);
+	const pressedBackgroundColor = withAlpha(
+		theme.colors.brand,
+		theme.mode === "dark" ? 0.2 : 0.12,
+	);
+	const borderColor = withAlpha(
+		theme.colors.brand,
+		theme.mode === "dark" ? 0.18 : 0.12,
+	);
 
 	return (
 		<Pressable
@@ -26,10 +39,8 @@ export function HeaderActionButton({
 			style={({ pressed }) => [
 				styles.actionButton,
 				{
-					backgroundColor: pressed
-						? theme.colors.chromeBgHover
-						: theme.colors.chromeBg,
-					borderColor: theme.colors.border2,
+					backgroundColor: pressed ? pressedBackgroundColor : backgroundColor,
+					borderColor,
 					borderRadius: theme.radius.md,
 					opacity: disabled ? 0.5 : 1,
 				},
@@ -37,7 +48,7 @@ export function HeaderActionButton({
 			]}
 		>
 			<Icon
-				color={theme.colors.chromeFg}
+				color={theme.colors.brand}
 				size={18}
 				strokeWidth={2.25}
 			/>

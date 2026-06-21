@@ -1,10 +1,11 @@
 import React, { useMemo, useState } from "react";
 
+import { LogOut } from "lucide-react-native";
 import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { BrandScreenHeader } from "@/components";
+import { BrandScreenHeader, HeaderActionButton } from "@/components";
 import { Label, OverflowActionSheet } from "@/components/primitives";
 import {
 	useAuthStore,
@@ -115,7 +116,19 @@ export function ProfileScreen() {
 
 	return (
 		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}>
-			<BrandScreenHeader title={t("profile.title")} />
+			<BrandScreenHeader
+				title={t("profile.title")}
+				rightAccessory={
+					<HeaderActionButton
+						accessibilityLabel={t("profile.logout.trigger")}
+						disabled={isMutatingSession}
+						icon={LogOut}
+						onPress={() => {
+							setIsLogoutSheetVisible(true);
+						}}
+					/>
+				}
+			/>
 
 			<ScrollView
 				contentContainerStyle={[
@@ -154,12 +167,8 @@ export function ProfileScreen() {
 						language={language}
 						languageHelper={t("profile.fields.languageHelper")}
 						languageLabel={t("profile.fields.language")}
-						logoutLabel={t("profile.logout.trigger")}
 						onLanguageChange={nextLanguage => {
 							void setLanguage(nextLanguage);
-						}}
-						onOpenLogout={() => {
-							setIsLogoutSheetVisible(true);
 						}}
 						onThemeModeChange={nextThemeMode => {
 							void setThemeMode(nextThemeMode);

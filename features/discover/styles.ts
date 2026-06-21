@@ -21,12 +21,8 @@ export function createStyles(
 		shell: {
 			gap: theme.space[4],
 		},
-		summaryCard: {
+		summarySection: {
 			gap: theme.space[3],
-			padding: spec.panelPadding,
-			borderWidth: 1,
-			borderRadius: spec.panelRadius,
-			...theme.shadow.sm,
 		},
 		summaryTop: {
 			flexDirection: "row",
@@ -40,6 +36,16 @@ export function createStyles(
 		summaryTitle: {
 			fontSize: theme.type.lg,
 			lineHeight: theme.type.lg * theme.lineHeight.tight,
+		},
+		resultsSection: {
+			gap: theme.space[3],
+		},
+		resultsHeader: {
+			gap: theme.space[1],
+		},
+		resultsTitle: {
+			fontSize: theme.type.md,
+			lineHeight: theme.type.md * theme.lineHeight.tight,
 		},
 		projectList: {
 			gap: theme.space[3],

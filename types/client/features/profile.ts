@@ -35,6 +35,4 @@ export interface ProfilePreferencesCardProps {
 	languageHelper: string;
 	language: AppLang;
 	onLanguageChange: (language: AppLang) => void;
-	logoutLabel: string;
-	onOpenLogout: () => void;
 }

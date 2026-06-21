@@ -50,6 +50,10 @@ export function DiscoverScreen() {
 		api.project.projectAreasOfExpertise.useProjectsByAreaOfExpertiseQuery(
 			areaOfExpertise?.id ?? null,
 		);
+	const entitiesQuery = api.partner.entities.useEntitiesQuery(
+		areaOfExpertise !== null,
+	);
+	const citiesQuery = api.geo.cities.useCitiesQuery(areaOfExpertise !== null);
 
 	useEffect(() => {
 		if (!isCurrentFormerStudentLoaded && !isCurrentFormerStudentLoading) {
@@ -67,6 +71,15 @@ export function DiscoverScreen() {
 				.filter(isDiscoverableProject)
 				.sort(sortDiscoverProjects),
 		[projectsQuery.data],
+	);
+	const entitiesById = useMemo(
+		() =>
+			new Map((entitiesQuery.data ?? []).map(entity => [entity.id, entity])),
+		[entitiesQuery.data],
+	);
+	const cityNamesById = useMemo(
+		() => new Map((citiesQuery.data ?? []).map(city => [city.id, city.name])),
+		[citiesQuery.data],
 	);
 
 	const stateCopy = resolveDiscoverQueryStateCopy(t, {
@@ -108,7 +121,11 @@ export function DiscoverScreen() {
 				]}
 				refreshControl={
 					<RefreshControl
-						refreshing={projectsQuery.isRefetching}
+						refreshing={
+							projectsQuery.isRefetching ||
+							entitiesQuery.isRefetching ||
+							citiesQuery.isRefetching
+						}
 						onRefresh={() => {
 							if (!isCurrentFormerStudentLoaded) {
 								void loadCurrentFormerStudentContext();
@@ -116,6 +133,8 @@ export function DiscoverScreen() {
 
 							if (areaOfExpertise !== null) {
 								void projectsQuery.refetch();
+								void entitiesQuery.refetch();
+								void citiesQuery.refetch();
 							}
 						}}
 						tintColor={theme.colors.brand}
@@ -124,15 +143,7 @@ export function DiscoverScreen() {
 				showsVerticalScrollIndicator={false}
 			>
 				<View style={styles.shell}>
-					<View
-						style={[
-							styles.summaryCard,
-							{
-								backgroundColor: spec.panelBackground,
-								borderColor: spec.panelBorder,
-							},
-						]}
-					>
+					<View style={styles.summarySection}>
 						<View style={styles.summaryTop}>
 							<Badge
 								tone="brand"
@@ -186,45 +197,62 @@ export function DiscoverScreen() {
 							</View>
 						</View>
 					) : (
-						<View style={styles.projectList}>
-							{discoverableProjects.map(project => {
-								const remainingHours = getProjectRemainingHours(project);
-								const availableSeats = getProjectAvailableSeats(project);
-								const maxParticipants = project.projectInfo.maxParticipants;
-								const hoursLabel =
-									remainingHours == null
-										? t("discover.card.hoursFallback")
-										: t("discover.card.hoursValue", {
-												remaining: remainingHours,
-												total: project.projectInfo.offeredHours ?? 0,
-											});
-								const seatsLabel =
-									maxParticipants == null
-										? t("discover.card.seatsUnlimited")
-										: availableSeats == null
-											? t("discover.card.seatsOpen")
-											: t("discover.card.seatsValue", {
-													count: availableSeats,
-												});
+						<View style={styles.resultsSection}>
+							<View style={styles.resultsHeader}>
+								<Label
+									role="field"
+									style={styles.resultsTitle}
+								>
+									{t("discover.resultsTitle")}
+								</Label>
+							</View>
 
-								return (
-									<DiscoverProjectCard
-										key={project.id}
-										description={project.description}
-										entityName={project.entity.name}
-										hoursLabel={hoursLabel}
-										onPress={() => {
-											router.push(`/discover/projects/${project.id}`);
-										}}
-										seatsLabel={seatsLabel}
-										statusLabel={project.status.statusFormatted}
-										statusTone={resolveDiscoverProjectStatusTone(
-											project.status.status,
-										)}
-										title={project.name}
-									/>
-								);
-							})}
+							<View style={styles.projectList}>
+								{discoverableProjects.map(project => {
+									const remainingHours = getProjectRemainingHours(project);
+									const availableSeats = getProjectAvailableSeats(project);
+									const maxParticipants = project.projectInfo.maxParticipants;
+									const entity = entitiesById.get(project.entity.id);
+									const cityName = entity
+										? (cityNamesById.get(entity.cityId) ?? null)
+										: null;
+									const entityMeta = cityName
+										? `${project.entity.name} - ${cityName}`
+										: project.entity.name;
+									const hoursLabel =
+										remainingHours == null
+											? t("discover.card.hoursFallback")
+											: t("discover.card.hoursValue", {
+													count: remainingHours,
+												});
+									const seatsLabel =
+										maxParticipants == null
+											? t("discover.card.seatsUnlimited")
+											: availableSeats == null
+												? t("discover.card.seatsOpen")
+												: t("discover.card.seatsValue", {
+														count: availableSeats,
+													});
+
+									return (
+										<DiscoverProjectCard
+											key={project.id}
+											description={project.description}
+											entityMeta={entityMeta}
+											hoursLabel={hoursLabel}
+											onPress={() => {
+												router.push(`/discover/projects/${project.id}`);
+											}}
+											seatsLabel={seatsLabel}
+											statusLabel={project.status.statusFormatted}
+											statusTone={resolveDiscoverProjectStatusTone(
+												project.status.status,
+											)}
+											title={project.name}
+										/>
+									);
+								})}
+							</View>
 						</View>
 					)}
 				</View>

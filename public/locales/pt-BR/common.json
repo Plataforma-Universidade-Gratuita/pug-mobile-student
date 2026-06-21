@@ -4,37 +4,37 @@
 			"badge": "Acesso de egresso",
 			"emailLabel": "Email",
 			"errors": {
-				"emailInvalid": "Informe um endereço de email válido.",
-				"emailRequired": "Email é obrigatório.",
+				"emailInvalid": "Informe um endereÃ§o de email vÃ¡lido.",
+				"emailRequired": "Email Ã© obrigatÃ³rio.",
 				"emailTooLong": "Email muito longo.",
-				"fallback": "Não foi possível acessar agora. Tente novamente em instantes.",
-				"invalidCredentials": "Email ou senha estão incorretos ou a conta está inativa.",
+				"fallback": "NÃ£o foi possÃ­vel acessar agora. Tente novamente em instantes.",
+				"invalidCredentials": "Email ou senha estÃ£o incorretos ou a conta estÃ¡ inativa.",
 				"passwordInvalid": "A senha deve ter entre 8 e 255 caracteres.",
-				"passwordRequired": "Senha é obrigatória."
+				"passwordRequired": "Senha Ã© obrigatÃ³ria."
 			},
 			"passwordHelper": "Deixe em branco no primeiro acesso.",
 			"passwordLabel": "Senha",
 			"submit": "Acessar",
-			"subtitle": "Gerencie suas inscrições e presenças em projetos em um só lugar.",
+			"subtitle": "Gerencie suas inscriÃ§Ãµes e presenÃ§as em projetos em um sÃ³ lugar.",
 			"title": "Controle suas horas de contrapartida"
 		},
 		"wireCredentials": {
-			"badge": "Configuração do primeiro acesso",
+			"badge": "ConfiguraÃ§Ã£o do primeiro acesso",
 			"confirmPasswordLabel": "Confirmar senha",
 			"confirmPasswordPlaceholder": "Repita sua senha",
 			"errors": {
-				"confirmationMismatch": "As senhas não coincidem.",
+				"confirmationMismatch": "As senhas nÃ£o coincidem.",
 				"confirmationRequired": "Confirme sua senha.",
-				"fallback": "Não foi possível concluir a configuração agora. Tente novamente em instantes.",
-				"missingEmail": "Não foi possível identificar o email da conta atual.",
+				"fallback": "NÃ£o foi possÃ­vel concluir a configuraÃ§Ã£o agora. Tente novamente em instantes.",
+				"missingEmail": "NÃ£o foi possÃ­vel identificar o email da conta atual.",
 				"passwordMinLength": "A senha deve ter pelo menos 8 caracteres.",
-				"passwordRequired": "Senha é obrigatória."
+				"passwordRequired": "Senha Ã© obrigatÃ³ria."
 			},
 			"finishLater": "Concluir depois",
 			"passwordLabel": "Senha",
 			"passwordPlaceholder": "Crie sua senha",
-			"submit": "Concluir configuração",
-			"subtitle": "Crie a senha que será exigida nos próximos acessos.",
+			"submit": "Concluir configuraÃ§Ã£o",
+			"subtitle": "Crie a senha que serÃ¡ exigida nos prÃ³ximos acessos.",
 			"title": "Defina sua senha"
 		}
 	},
@@ -53,65 +53,66 @@
 		"actions": {
 			"filters": "Abrir filtros"
 		},
-		"badge": "Projetos disponíveis",
+		"badge": "Projetos disponÃ­veis",
 		"card": {
-			"hoursFallback": "Horas disponíveis",
+			"hoursFallback": "Horas disponÃ­veis",
 			"hoursLabel": "Horas",
-			"hoursValue": "{{remaining}}h restantes de {{total}}h",
+			"hoursValue": "{{count}}h restantes",
 			"openProject": "Abrir projeto {{name}}",
 			"seatsLabel": "Disponibilidade",
 			"seatsOpen": "Vagas abertas",
 			"seatsUnlimited": "Vagas ilimitadas",
 			"seatsValue": "{{count}} vagas restantes"
 		},
+		"resultsTitle": "Projetos",
 		"states": {
 			"badge": "Estado da descoberta",
-			"emptyDescription": "Nenhum projeto disponível corresponde à sua área neste momento.",
+			"emptyDescription": "Nenhum projeto disponÃ­vel corresponde Ã  sua Ã¡rea neste momento.",
 			"emptyTitle": "Nada aberto por enquanto",
-			"errorDescription": "Não foi possível carregar a descoberta de projetos agora.",
-			"errorTitle": "Projetos indisponíveis",
-			"loadingDescription": "Verificando quais projetos estão abertos para sua área acadêmica atual.",
-			"loadingTitle": "Carregando projetos disponíveis",
-			"missingAreaDescription": "Não foi possível identificar a área de conhecimento do seu curso atual.",
-			"missingAreaTitle": "Área de conhecimento indisponível"
+			"errorDescription": "NÃ£o foi possÃ­vel carregar a descoberta de projetos agora.",
+			"errorTitle": "Projetos indisponÃ­veis",
+			"loadingDescription": "Verificando quais projetos estÃ£o abertos para sua Ã¡rea acadÃªmica atual.",
+			"loadingTitle": "Carregando projetos disponÃ­veis",
+			"missingAreaDescription": "NÃ£o foi possÃ­vel identificar a Ã¡rea de conhecimento do seu curso atual.",
+			"missingAreaTitle": "Ãrea de conhecimento indisponÃ­vel"
 		},
 		"summary": {
-			"count": "{{count}} disponíveis",
-			"description": "Somente projetos com horas restantes, vagas abertas e status elegível aparecem aqui.",
-			"fallbackArea": "Área indisponível"
+			"count": "{{count}} disponÃ­veis",
+			"description": "Somente projetos com horas restantes, vagas abertas e status elegÃ­vel aparecem aqui.",
+			"fallbackArea": "Ãrea indisponÃ­vel"
 		},
 		"title": "Descobrir"
 	},
 	"home": {
-		"badge": "Sessão ativa",
+		"badge": "SessÃ£o ativa",
 		"logout": "Sair",
-		"subtitleFallback": "Sua sessão está pronta.",
-		"title": "Você está conectado."
+		"subtitleFallback": "Sua sessÃ£o estÃ¡ pronta.",
+		"title": "VocÃª estÃ¡ conectado."
 	},
 	"profile": {
 		"badge": "Perfil",
 		"errors": {
-			"load": "Alguns dados do perfil não puderam ser carregados agora."
+			"load": "Alguns dados do perfil nÃ£o puderam ser carregados agora."
 		},
 		"fields": {
-			"academicRegistration": "Registro acadêmico",
+			"academicRegistration": "Registro acadÃªmico",
 			"accountEmail": "Email",
-			"areaOfExpertise": "Área de conhecimento",
+			"areaOfExpertise": "Ãrea de conhecimento",
 			"course": "Curso",
 			"cpf": "CPF",
 			"language": "Idioma",
-			"languageHelper": "Altere o idioma da aplicação.",
+			"languageHelper": "Altere o idioma da aplicaÃ§Ã£o.",
 			"theme": "Tema",
 			"themeHelper": "Escolha como o aplicativo deve ser exibido."
 		},
 		"logout": {
 			"device": "Sair neste dispositivo",
-			"deviceHelper": "Encerre apenas a sessão do dispositivo atual.",
+			"deviceHelper": "Encerre apenas a sessÃ£o do dispositivo atual.",
 			"everywhere": "Sair de todos os lugares",
-			"everywhereHelper": "Encerre a sessão desta conta em todos os dispositivos que ainda estiverem conectados.",
+			"everywhereHelper": "Encerre a sessÃ£o desta conta em todos os dispositivos que ainda estiverem conectados.",
 			"stay": "Continuar conectado",
 			"stayHelper": "Feche este painel e continue usando o aplicativo.",
-			"subtitle": "Escolha entre continuar nesta sessão, sair apenas deste dispositivo ou encerrar todas as sessões ativas.",
+			"subtitle": "Escolha entre continuar nesta sessÃ£o, sair apenas deste dispositivo ou encerrar todas as sessÃµes ativas.",
 			"title": "Sair da sua conta",
 			"trigger": "Sair"
 		},
@@ -123,16 +124,16 @@
 			}
 		},
 		"sections": {
-			"preferences": "Preferências e sessão",
+			"preferences": "PreferÃªncias e sessÃ£o",
 			"record": "Registro do estudante",
-			"session": "Sessão"
+			"session": "SessÃ£o"
 		},
 		"title": "Perfil",
 		"values": {
 			"active": "Ativa",
 			"inactive": "Inativa",
 			"loading": "Carregando...",
-			"unavailable": "Indisponível"
+			"unavailable": "IndisponÃ­vel"
 		}
 	}
 }

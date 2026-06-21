@@ -22,8 +22,6 @@ export function PreferencesCard({
 	languageHelper,
 	language,
 	onLanguageChange,
-	logoutLabel,
-	onOpenLogout,
 }: ProfilePreferencesCardProps) {
 	const { t } = useTranslation();
 	const theme = useThemeStore(state => state.theme);
@@ -150,27 +148,6 @@ export function PreferencesCard({
 							</Pressable>
 						);
 					})}
-				</View>
-
-				<View style={[styles.logoutSection]}>
-					<Pressable
-						onPress={onOpenLogout}
-						style={({ pressed }) => [
-							styles.logoutTrigger,
-							{
-								backgroundColor: pressed
-									? theme.colors.chromeBgHover
-									: theme.colors.chromeBg,
-							},
-						]}
-					>
-						<Label
-							role="field"
-							style={{ color: theme.colors.chromeFg }}
-						>
-							{logoutLabel}
-						</Label>
-					</Pressable>
 				</View>
 			</View>
 		</View>

@@ -2,7 +2,7 @@ import type { BadgeTone } from "../components/primitives/display/badge";
 
 export interface DiscoverProjectCardProps {
 	title: string;
-	entityName: string;
+	entityMeta: string;
 	description: string;
 	statusLabel: string;
 	statusTone: BadgeTone;

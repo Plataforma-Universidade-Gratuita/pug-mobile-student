@@ -57,13 +57,14 @@
 		"card": {
 			"hoursFallback": "Hours available",
 			"hoursLabel": "Hours",
-			"hoursValue": "{{remaining}}h left of {{total}}h",
+			"hoursValue": "{{count}}h left",
 			"openProject": "Open project {{name}}",
 			"seatsLabel": "Availability",
 			"seatsOpen": "Open spots",
 			"seatsUnlimited": "Unlimited spots",
 			"seatsValue": "{{count}} spots left"
 		},
+		"resultsTitle": "Projects",
 		"states": {
 			"badge": "Discovery state",
 			"emptyDescription": "No available projects match your area right now.",

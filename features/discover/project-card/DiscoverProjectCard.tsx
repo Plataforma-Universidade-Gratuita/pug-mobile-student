@@ -14,7 +14,7 @@ import { createStyles } from "./styles";
 
 export function DiscoverProjectCard({
 	title,
-	entityName,
+	entityMeta,
 	description,
 	statusLabel,
 	statusTone,
@@ -26,110 +26,126 @@ export function DiscoverProjectCard({
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
+	const isDark = theme.mode === "dark";
 
 	return (
 		<Pressable
 			accessibilityRole="button"
 			accessibilityLabel={t("discover.card.openProject", { name: title })}
 			onPress={onPress}
-			style={({ pressed }) => [
-				styles.card,
-				{
-					backgroundColor: pressed
-						? withAlpha(theme.colors.brand, theme.mode === "dark" ? 0.12 : 0.05)
-						: spec.panelBackground,
-					borderColor: spec.panelBorder,
-				},
-			]}
 		>
-			<View style={styles.badgeRow}>
-				<View style={styles.badgeGroup}>
-					<Badge
-						tone={statusTone}
-						variant="primary"
+			{({ pressed }) => {
+				const cardBackgroundColor = pressed
+					? theme.colors.surface2
+					: spec.panelBackground;
+				const metricBackgroundColor = pressed
+					? theme.colors.surface3
+					: theme.colors.surface2;
+				const metricBorderColor = pressed
+					? withAlpha(theme.colors.text, isDark ? 0.12 : 0.08)
+					: spec.panelBorder;
+
+				return (
+					<View
+						style={[
+							styles.card,
+							{
+								backgroundColor: cardBackgroundColor,
+								borderColor: spec.panelBorder,
+							},
+						]}
 					>
-						{statusLabel}
-					</Badge>
+						<View style={styles.badgeRow}>
+							<View style={styles.badgeGroup}>
+								<Badge
+									tone={statusTone}
+									variant="primary"
+								>
+									{statusLabel}
+								</Badge>
 
-					<Badge
-						tone="neutral"
-						variant="secondary"
-					>
-						{seatsLabel}
-					</Badge>
-				</View>
-			</View>
+								<Badge
+									tone="neutral"
+									variant="secondary"
+								>
+									{seatsLabel}
+								</Badge>
+							</View>
+						</View>
 
-			<View style={styles.titleRow}>
-				<View style={styles.titleCopy}>
-					<Label
-						role="field"
-						style={styles.title}
-					>
-						{title}
-					</Label>
+						<View style={styles.titleRow}>
+							<View style={styles.titleCopy}>
+								<Label
+									role="field"
+									style={styles.title}
+								>
+									{title}
+								</Label>
 
-					<Label
-						role="helper"
-						numberOfLines={1}
-					>
-						{entityName}
-					</Label>
-				</View>
+								<Label
+									role="helper"
+									numberOfLines={1}
+								>
+									{entityMeta}
+								</Label>
+							</View>
 
-				<ChevronRight
-					color={theme.colors.muted}
-					size={18}
-					strokeWidth={2.25}
-					style={styles.chevron}
-				/>
-			</View>
+							<ChevronRight
+								color={theme.colors.muted}
+								size={18}
+								strokeWidth={2.25}
+								style={styles.chevron}
+							/>
+						</View>
 
-			<Label
-				role="helper"
-				numberOfLines={2}
-				style={styles.description}
-			>
-				{description}
-			</Label>
+						<Label
+							role="helper"
+							numberOfLines={2}
+							style={styles.description}
+						>
+							{description}
+						</Label>
 
-			<View style={styles.metricsRow}>
-				<View
-					style={[
-						styles.metricCard,
-						{
-							backgroundColor: theme.colors.surface2,
-							borderColor: spec.panelBorder,
-						},
-					]}
-				>
-					<Label role="helper">{t("discover.card.hoursLabel")}</Label>
-					<Label
-						role="field"
-						style={styles.metricValue}
-					>
-						{hoursLabel}
-					</Label>
-				</View>
+						<View style={styles.metricsRow}>
+							<View
+								style={[
+									styles.metricCard,
+									{
+										backgroundColor: metricBackgroundColor,
+										borderColor: metricBorderColor,
+									},
+								]}
+							>
+								<Label role="helper">{t("discover.card.hoursLabel")}</Label>
+								<Label
+									role="field"
+									style={styles.metricValue}
+								>
+									{hoursLabel}
+								</Label>
+							</View>
 
-				<View
-					style={[
-						styles.metricCard,
-						{
-							backgroundColor: theme.colors.surface2,
-							borderColor: spec.panelBorder,
-						},
-					]}
-				>
-					<Label role="helper">{t("discover.card.seatsLabel")}</Label>
-					<Label
-						role="field"
-						style={styles.metricValue}
-					>
-						{seatsLabel}
-					</Label>
-				</View>
-			</View>
+							<View
+								style={[
+									styles.metricCard,
+									{
+										backgroundColor: metricBackgroundColor,
+										borderColor: metricBorderColor,
+									},
+								]}
+							>
+								<Label role="helper">{t("discover.card.seatsLabel")}</Label>
+								<Label
+									role="field"
+									style={styles.metricValue}
+								>
+									{seatsLabel}
+								</Label>
+							</View>
+						</View>
+					</View>
+				);
+			}}
 		</Pressable>
 	);
 }
