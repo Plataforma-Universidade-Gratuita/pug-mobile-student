@@ -27,10 +27,11 @@ export function AuthenticatedTabBar({
 	navigation,
 }: BottomTabBarProps) {
 	const theme = useThemeStore(store => store.theme);
+	const insets = useSafeAreaInsets();
 	const routeCount = state.routes.length;
 	const styles = useMemo(
-		() => createTabBarStyles(theme),
-		[theme],
+		() => createTabBarStyles(theme, insets.bottom),
+		[insets.bottom, theme],
 	);
 	const railRef = useRef<View>(null);
 	const indicatorTranslateX = useRef(new Animated.Value(0)).current;

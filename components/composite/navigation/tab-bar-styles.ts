@@ -6,19 +6,25 @@ import { withAlpha } from "@/utils";
 export const TAB_BAR_DOCK_PADDING = 4;
 
 export function createTabBarStyles(
-	theme: AppResolvedTheme
+	theme: AppResolvedTheme,
+	bottomInset: number,
 ) {
+	const bottomPadding = Math.max(bottomInset, theme.space[2]) + theme.space[2];
 
 	return StyleSheet.create({
 		container: {
 			backgroundColor: "transparent",
-			paddingBottom: theme.space[4],
+			bottom: 0,
+			left: 0,
+			paddingBottom: bottomPadding,
 			paddingHorizontal: theme.layout.screenPadding,
 			paddingTop: theme.space[2],
+			position: "absolute",
+			right: 0,
 		},
 		dock: {
 			alignSelf: "center",
-			backgroundColor: "transparent",
+			backgroundColor: withAlpha(theme.colors.surface1, 0.5),
 			borderColor: withAlpha(
 				theme.colors.border1,
 				theme.mode === "dark" ? 0.34 : 0.58,
@@ -48,7 +54,7 @@ export function createTabBarStyles(
 		},
 		activePill: {
 			backgroundColor:
-				theme.mode === "dark" ? theme.colors.surface3 : theme.colors.surface2,
+				theme.mode === "dark" ? theme.colors.surface3 : theme.colors.surface3,
 			borderColor:
 				theme.mode === "dark" ? theme.colors.border2 : theme.colors.border1,
 			borderRadius: theme.radius.circle,

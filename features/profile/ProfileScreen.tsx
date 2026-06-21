@@ -2,6 +2,7 @@ import React, { useMemo, useState } from "react";
 
 import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import * as api from "@/api";
 import { BrandScreenHeader } from "@/components";
@@ -16,6 +17,7 @@ import { resolveProfileFieldValue } from "./utils";
 
 export function ProfileScreen() {
 	const { t } = useTranslation();
+	const insets = useSafeAreaInsets();
 	const theme = useThemeStore(state => state.theme);
 	const themeMode = useThemeStore(state => state.mode);
 	const setThemeMode = useThemeStore(state => state.setMode);
@@ -27,6 +29,8 @@ export function ProfileScreen() {
 	const [isLogoutSheetVisible, setIsLogoutSheetVisible] = useState(false);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme), [theme]);
+	const contentBottomPadding =
+		theme.space[8] + Math.max(insets.bottom, theme.space[2]) + theme.space[4];
 
 	const currentAccountQuery = api.identity.accounts.useCurrentAccountQuery();
 	const currentUserQuery = api.identity.users.useCurrentUserQuery();
@@ -110,7 +114,10 @@ export function ProfileScreen() {
 			<BrandScreenHeader title={t("profile.title")} />
 
 			<ScrollView
-				contentContainerStyle={styles.content}
+				contentContainerStyle={[
+					styles.content,
+					{ paddingBottom: contentBottomPadding },
+				]}
 				showsVerticalScrollIndicator={false}
 			>
 				<View style={styles.shell}>
