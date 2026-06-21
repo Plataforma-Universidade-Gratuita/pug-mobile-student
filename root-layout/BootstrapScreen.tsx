@@ -6,14 +6,12 @@ import { useThemeStore } from "@/stores";
 
 import { createStyles } from "./styles";
 
-const lightIcon = require("../public/assets/icon.png");
-const darkIcon = require("../public/assets/icon-inverted.png");
+const brandLogo = require("../public/assets/brand/pug-logo.png");
 
 export function BootstrapScreen() {
 	const theme = useThemeStore(state => state.theme);
 	const progress = useRef(new Animated.Value(0)).current;
 	const styles = useMemo(() => createStyles(theme), [theme]);
-	const iconSource = theme.mode === "dark" ? darkIcon : lightIcon;
 	const iconScale = progress.interpolate({
 		inputRange: [0, 0.5, 1],
 		outputRange: [0.97, 1.03, 0.97],
@@ -107,7 +105,7 @@ export function BootstrapScreen() {
 					]}
 				>
 					<Animated.Image
-						source={iconSource}
+						source={brandLogo}
 						style={styles.bootIcon}
 					/>
 				</Animated.View>

@@ -57,7 +57,7 @@
 	},
 	"profile": {
 		"badge": "Profile",
-		"headline": "Student data, preferences, and session controls stay together in one quiet working area.",
+		"title": "Profile",
 		"sections": {
 			"record": "Student record",
 			"preferences": "Preferences and session",

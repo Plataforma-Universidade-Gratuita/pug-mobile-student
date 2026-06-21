@@ -57,7 +57,7 @@
 	},
 	"profile": {
 		"badge": "Perfil",
-		"headline": "Seus dados, preferências e controles de sessão ficam juntos em uma área de trabalho discreta.",
+		"title": "Perfil",
 		"sections": {
 			"record": "Registro do estudante",
 			"preferences": "Preferências e sessão",

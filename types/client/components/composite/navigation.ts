@@ -24,3 +24,9 @@ export interface AppScreenHeaderProps {
 	leftAccessory?: ReactNode;
 	rightAccessory?: ReactNode;
 }
+
+export interface BrandScreenHeaderProps {
+	title: string;
+	leftAccessory?: ReactNode;
+	rightAccessory?: ReactNode;
+}

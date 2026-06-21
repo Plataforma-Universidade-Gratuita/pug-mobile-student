@@ -4,12 +4,13 @@ import { useTranslation } from "react-i18next";
 import { Pressable, ScrollView, View } from "react-native";
 
 import * as api from "@/api";
-import { Badge, Label, OverflowActionSheet } from "@/components/primitives";
+import { BrandScreenHeader } from "@/components";
+import { Label, OverflowActionSheet } from "@/components/primitives";
 import { useAuthStore, useLocaleStore, useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import { withAlpha } from "@/utils";
 
-import { PROFILE_LANGUAGE_OPTIONS, PROFILE_THEME_OPTIONS } from "./constants";
+import { InfoCard, PreferencesCard, StudentCard } from "./profile-sections";
 import { createStyles } from "./styles";
 import { getInitials, resolveProfileFieldValue } from "./utils";
 
@@ -25,7 +26,7 @@ export function ProfileScreen() {
 	const isMutatingSession = useAuthStore(state => state.isMutatingSession);
 	const [isLogoutSheetVisible, setIsLogoutSheetVisible] = useState(false);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
-	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
+	const styles = useMemo(() => createStyles(theme), [theme]);
 
 	const currentAccountQuery = api.identity.accounts.useCurrentAccountQuery();
 	const currentUserQuery = api.identity.users.useCurrentUserQuery();
@@ -47,7 +48,7 @@ export function ProfileScreen() {
 		currentFormerStudentQuery.isError ||
 		courseQuery.isError;
 
-	const activeLabel = currentAccountQuery.isPending
+	const activeStatusLabel = currentAccountQuery.isPending
 		? loadingLabel
 		: currentAccount
 			? currentAccount.active
@@ -61,7 +62,7 @@ export function ProfileScreen() {
 				? "success"
 				: "danger";
 
-	const profileName = resolveProfileFieldValue(
+	const studentName = resolveProfileFieldValue(
 		currentUser?.name,
 		currentUserQuery.isPending,
 		loadingLabel,
@@ -104,330 +105,60 @@ export function ProfileScreen() {
 		unavailableLabel,
 	);
 
-	const selectorBackground = withAlpha(
-		theme.colors.surface2,
-		theme.mode === "dark" ? 0.42 : 0.72,
-	);
-	const selectorOptionPressedBackground = withAlpha(theme.colors.brand, 0.14);
-	const avatarBackground = withAlpha(
-		theme.colors.brand,
-		theme.mode === "dark" ? 0.16 : 0.1,
-	);
-	const avatarBorder = withAlpha(
-		theme.colors.brand,
-		theme.mode === "dark" ? 0.28 : 0.16,
-	);
-	const neutralOptionBackground = theme.colors.surface3;
-	const neutralOptionBorder = spec.panelBorder;
-	const warningOptionBackground = withAlpha(
-		theme.colors.warning,
-		theme.mode === "dark" ? 0.16 : 0.14,
-	);
-	const warningOptionBorder = withAlpha(
-		theme.colors.warning,
-		theme.mode === "dark" ? 0.24 : 0.22,
-	);
-	const dangerOptionBackground = withAlpha(
-		theme.colors.danger,
-		theme.mode === "dark" ? 0.16 : 0.12,
-	);
-	const dangerOptionBorder = withAlpha(
-		theme.colors.danger,
-		theme.mode === "dark" ? 0.28 : 0.2,
-	);
-
 	return (
 		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}>
+			<BrandScreenHeader title={t("profile.title")} />
+
 			<ScrollView
 				contentContainerStyle={styles.content}
 				showsVerticalScrollIndicator={false}
 			>
 				<View style={styles.shell}>
-					<View
-						style={[
-							styles.identityCard,
-							{
-								backgroundColor: spec.panelBackground,
-								borderColor: spec.panelBorder,
-							},
-						]}
-					>
-						<View style={styles.identityTop}>
-							<View style={styles.identityCopy}>
-								<Badge
-									style={styles.identityBadge}
-									tone="brand"
-									variant="primary"
-								>
-									{t("profile.badge")}
-								</Badge>
+					<StudentCard
+						avatarInitials={getInitials(currentUser?.name)}
+						badgeLabel={t("profile.badge")}
+						cpfLabel={t("profile.fields.cpf")}
+						cpfValue={cpf}
+						name={studentName}
+					/>
 
-								<Label
-									role="title"
-									style={styles.identityName}
-								>
-									{profileName}
-								</Label>
+					<InfoCard
+						academicRegistrationLabel={t("profile.fields.academicRegistration")}
+						academicRegistrationValue={academicRegistration}
+						activeStatusLabel={activeStatusLabel}
+						activeTone={activeTone}
+						areaOfExpertiseLabel={t("profile.fields.areaOfExpertise")}
+						areaOfExpertiseValue={areaOfExpertiseName}
+						campusValue={campus}
+						courseLabel={t("profile.fields.course")}
+						courseValue={courseName}
+						emailLabel={t("profile.fields.accountEmail")}
+						emailValue={email}
+						errorMessage={
+							hasProfileLoadError ? t("profile.errors.load") : undefined
+						}
+						sectionTitle={t("profile.sections.record")}
+					/>
 
-								<Label role="subtitle">{t("profile.headline")}</Label>
-							</View>
-
-							<View
-								style={[
-									styles.avatarBadge,
-									{
-										backgroundColor: avatarBackground,
-										borderColor: avatarBorder,
-									},
-								]}
-							>
-								<Label
-									role="field"
-									tone="brand"
-									style={styles.avatarText}
-								>
-									{getInitials(currentUser?.name)}
-								</Label>
-							</View>
-						</View>
-
-						<Label role="helper">{`${t("profile.fields.cpf")} · ${cpf}`}</Label>
-					</View>
-
-					<View
-						style={[
-							styles.section,
-							{
-								backgroundColor: spec.panelBackground,
-								borderColor: spec.panelBorder,
-							},
-						]}
-					>
-						<View style={styles.sectionHeader}>
-							<Label role="caption">{t("profile.sections.record")}</Label>
-						</View>
-
-						<View style={styles.rows}>
-							<View style={styles.row}>
-								<View style={styles.rowCopy}>
-									<Label role="caption">
-										{t("profile.fields.accountEmail")}
-									</Label>
-									<Label style={styles.rowValue}>{email}</Label>
-								</View>
-
-								<View style={styles.rowAccessory}>
-									<Badge
-										tone={activeTone}
-										variant="secondary"
-									>
-										{activeLabel}
-									</Badge>
-								</View>
-							</View>
-
-							<View
-								style={[
-									styles.row,
-									styles.rowDivider,
-									{ borderTopColor: spec.panelBorder },
-								]}
-							>
-								<View style={styles.rowCopy}>
-									<Label role="caption">
-										{t("profile.fields.academicRegistration")}
-									</Label>
-									<Label style={styles.rowValue}>{academicRegistration}</Label>
-								</View>
-
-								<View style={styles.rowAccessory}>
-									<Badge
-										tone="neutral"
-										variant="primary"
-									>
-										{campus}
-									</Badge>
-								</View>
-							</View>
-
-							<View
-								style={[
-									styles.row,
-									styles.rowDivider,
-									{ borderTopColor: spec.panelBorder },
-								]}
-							>
-								<View style={styles.rowCopy}>
-									<Label role="caption">{t("profile.fields.course")}</Label>
-									<Label style={styles.rowValue}>{courseName}</Label>
-								</View>
-							</View>
-
-							<View
-								style={[
-									styles.row,
-									styles.rowDivider,
-									{ borderTopColor: spec.panelBorder },
-								]}
-							>
-								<View style={styles.rowCopy}>
-									<Label role="caption">
-										{t("profile.fields.areaOfExpertise")}
-									</Label>
-									<Label style={styles.rowValue}>{areaOfExpertiseName}</Label>
-								</View>
-							</View>
-						</View>
-
-						{hasProfileLoadError ? (
-							<Label
-								role="helper"
-								tone="danger"
-							>
-								{t("profile.errors.load")}
-							</Label>
-						) : null}
-					</View>
-
-					<View
-						style={[
-							styles.section,
-							{
-								backgroundColor: spec.panelBackground,
-								borderColor: spec.panelBorder,
-							},
-						]}
-					>
-						<View style={styles.sectionHeader}>
-							<Label role="caption">{t("profile.sections.preferences")}</Label>
-						</View>
-
-						<View style={styles.rows}>
-							<View style={styles.row}>
-								<View style={styles.rowCopy}>
-									<Label role="field">{t("profile.fields.theme")}</Label>
-									<Label role="helper">{t("profile.fields.themeHelper")}</Label>
-								</View>
-							</View>
-
-							<View
-								style={[
-									styles.selector,
-									{
-										backgroundColor: selectorBackground,
-										borderColor: spec.panelBorder,
-									},
-								]}
-							>
-								{PROFILE_THEME_OPTIONS.map(option => {
-									const isSelected = themeMode === option.value;
-
-									return (
-										<Pressable
-											key={option.value}
-											onPress={() => {
-												void setThemeMode(option.value);
-											}}
-											style={({ pressed }) => [
-												styles.selectorOption,
-												{
-													backgroundColor: isSelected
-														? theme.colors.tabBgActive
-														: pressed
-															? selectorOptionPressedBackground
-															: "transparent",
-												},
-											]}
-										>
-											<Label
-												role="caption"
-												tone={isSelected ? "brand" : "muted"}
-											>
-												{t(option.labelKey)}
-											</Label>
-										</Pressable>
-									);
-								})}
-							</View>
-
-							<View
-								style={[
-									styles.row,
-									styles.rowDivider,
-									{ borderTopColor: spec.panelBorder },
-								]}
-							>
-								<View style={styles.rowCopy}>
-									<Label role="field">{t("profile.fields.language")}</Label>
-									<Label role="helper">
-										{t("profile.fields.languageHelper")}
-									</Label>
-								</View>
-							</View>
-
-							<View
-								style={[
-									styles.selector,
-									{
-										backgroundColor: selectorBackground,
-										borderColor: spec.panelBorder,
-									},
-								]}
-							>
-								{PROFILE_LANGUAGE_OPTIONS.map(option => {
-									const isSelected = language === option.value;
-
-									return (
-										<Pressable
-											key={option.value}
-											onPress={() => {
-												void setLanguage(option.value);
-											}}
-											style={({ pressed }) => [
-												styles.selectorOption,
-												styles.selectorOptionCompact,
-												{
-													backgroundColor: isSelected
-														? theme.colors.tabBgActive
-														: pressed
-															? selectorOptionPressedBackground
-															: "transparent",
-												},
-											]}
-										>
-											<Label
-												role="caption"
-												tone={isSelected ? "brand" : "muted"}
-											>
-												{option.label}
-											</Label>
-										</Pressable>
-									);
-								})}
-							</View>
-
-							<Pressable
-								onPress={() => {
-									setIsLogoutSheetVisible(true);
-								}}
-								style={({ pressed }) => [
-									styles.logoutTrigger,
-									{
-										backgroundColor: pressed
-											? theme.colors.chromeBgHover
-											: theme.colors.chromeBg,
-									},
-								]}
-							>
-								<Label
-									role="field"
-									style={{ color: theme.colors.chromeFg }}
-								>
-									{t("profile.logout.trigger")}
-								</Label>
-							</Pressable>
-						</View>
-					</View>
+					<PreferencesCard
+						language={language}
+						languageHelper={t("profile.fields.languageHelper")}
+						languageLabel={t("profile.fields.language")}
+						logoutLabel={t("profile.logout.trigger")}
+						onLanguageChange={nextLanguage => {
+							void setLanguage(nextLanguage);
+						}}
+						onOpenLogout={() => {
+							setIsLogoutSheetVisible(true);
+						}}
+						onThemeModeChange={nextThemeMode => {
+							void setThemeMode(nextThemeMode);
+						}}
+						sectionTitle={t("profile.sections.preferences")}
+						themeHelper={t("profile.fields.themeHelper")}
+						themeLabel={t("profile.fields.theme")}
+						themeMode={themeMode}
+					/>
 				</View>
 			</ScrollView>
 
@@ -457,8 +188,8 @@ export function ProfileScreen() {
 								{
 									backgroundColor: pressed
 										? withAlpha(theme.colors.surfaceHighlight, 1)
-										: neutralOptionBackground,
-									borderColor: neutralOptionBorder,
+										: theme.colors.surface3,
+									borderColor: spec.panelBorder,
 									opacity: isMutatingSession ? 0.6 : 1,
 								},
 							]}
@@ -482,8 +213,14 @@ export function ProfileScreen() {
 												theme.colors.warning,
 												theme.mode === "dark" ? 0.22 : 0.18,
 											)
-										: warningOptionBackground,
-									borderColor: warningOptionBorder,
+										: withAlpha(
+												theme.colors.warning,
+												theme.mode === "dark" ? 0.16 : 0.14,
+											),
+									borderColor: withAlpha(
+										theme.colors.warning,
+										theme.mode === "dark" ? 0.24 : 0.22,
+									),
 									opacity: isMutatingSession ? 0.6 : 1,
 								},
 							]}
@@ -514,8 +251,14 @@ export function ProfileScreen() {
 												theme.colors.danger,
 												theme.mode === "dark" ? 0.24 : 0.18,
 											)
-										: dangerOptionBackground,
-									borderColor: dangerOptionBorder,
+										: withAlpha(
+												theme.colors.danger,
+												theme.mode === "dark" ? 0.16 : 0.12,
+											),
+									borderColor: withAlpha(
+										theme.colors.danger,
+										theme.mode === "dark" ? 0.28 : 0.2,
+									),
 									opacity: isMutatingSession ? 0.6 : 1,
 								},
 							]}
