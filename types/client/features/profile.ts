@@ -7,7 +7,6 @@ export interface ProfileStudentCardProps {
 	name: string;
 	cpfLabel: string;
 	cpfValue: string;
-	avatarInitials: string;
 }
 
 export interface ProfileInfoCardProps {

@@ -38,7 +38,6 @@ export interface AppThemeColors {
 	tabFgInactive: string;
 	tabBgActive: string;
 	tabBgPressed: string;
-	tabSeparator: string;
 }
 
 export interface AppThemeRadius {

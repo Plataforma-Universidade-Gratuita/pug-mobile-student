@@ -4,23 +4,11 @@ import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
 import { Pressable, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { Label } from "@/components/primitives";
 import { useThemeStore } from "@/stores";
 
 import { createTabBarStyles } from "./tab-bar-styles";
 
-const TAB_ICON_SIZE = 20;
-
-function resolveTabLabel(
-	label: BottomTabBarProps["descriptors"][string]["options"]["tabBarLabel"],
-	title?: string,
-) {
-	if (typeof label === "string") {
-		return label;
-	}
-
-	return title ?? "";
-}
+const TAB_ICON_SIZE = 24;
 
 export function AuthenticatedTabBar({
 	state,
@@ -38,15 +26,7 @@ export function AuthenticatedTabBar({
 		<View style={styles.container}>
 			<View
 				pointerEvents="none"
-				style={styles.fadeStrong}
-			/>
-			<View
-				pointerEvents="none"
-				style={styles.fadeMid}
-			/>
-			<View
-				pointerEvents="none"
-				style={styles.fadeSoft}
+				style={styles.topEdge}
 			/>
 			<View style={styles.rail}>
 				{state.routes.map((route, index) => {
@@ -61,16 +41,18 @@ export function AuthenticatedTabBar({
 					const color = isFocused
 						? theme.colors.tabFgActive
 						: theme.colors.tabFgInactive;
-					const label = resolveTabLabel(options.tabBarLabel, options.title);
 					const icon = options.tabBarIcon?.({
 						focused: isFocused,
 						color,
 						size: TAB_ICON_SIZE,
 					});
+					const accessibilityLabel =
+						typeof options.title === "string" ? options.title : route.name;
 
 					return (
 						<Pressable
 							key={route.key}
+							accessibilityLabel={accessibilityLabel}
 							accessibilityRole="tab"
 							accessibilityState={isFocused ? { selected: true } : {}}
 							onLongPress={() => {
@@ -99,18 +81,6 @@ export function AuthenticatedTabBar({
 							]}
 						>
 							<View style={styles.iconSlot}>{icon}</View>
-							<Label
-								align="center"
-								role="caption"
-								numberOfLines={1}
-								style={[
-									styles.label,
-									{ color },
-									isFocused ? styles.labelActive : null,
-								]}
-							>
-								{label}
-							</Label>
 						</Pressable>
 					);
 				})}

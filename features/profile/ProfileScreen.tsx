@@ -12,7 +12,7 @@ import { withAlpha } from "@/utils";
 
 import { InfoCard, PreferencesCard, StudentCard } from "./profile-sections";
 import { createStyles } from "./styles";
-import { getInitials, resolveProfileFieldValue } from "./utils";
+import { resolveProfileFieldValue } from "./utils";
 
 export function ProfileScreen() {
 	const { t } = useTranslation();
@@ -115,7 +115,6 @@ export function ProfileScreen() {
 			>
 				<View style={styles.shell}>
 					<StudentCard
-						avatarInitials={getInitials(currentUser?.name)}
 						badgeLabel={t("profile.badge")}
 						cpfLabel={t("profile.fields.cpf")}
 						cpfValue={cpf}

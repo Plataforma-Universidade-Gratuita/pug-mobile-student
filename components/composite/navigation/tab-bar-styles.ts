@@ -11,53 +11,34 @@ export function createTabBarStyles(
 	return StyleSheet.create({
 		container: {
 			backgroundColor: theme.colors.surface1,
-			overflow: "hidden",
+			overflow: "visible",
 			paddingBottom: bottomPadding,
 			paddingHorizontal: 5,
 			paddingTop: 7.5,
 			position: "relative",
-			...(theme.mode === "dark"
-				? {
-						shadowColor: theme.colors.overlay,
-						shadowOpacity: 0.18,
-						shadowRadius: 16,
-						shadowOffset: { width: 0, height: -8 },
-						elevation: 10,
-					}
-				: {
-						shadowColor: theme.colors.text,
-						shadowOpacity: 0.04,
-						shadowRadius: 14,
-						shadowOffset: { width: 0, height: -6 },
-						elevation: 4,
-					}),
 		},
-		fadeStrong: {
-			backgroundColor: theme.colors.surfaceHighlight,
-			height: 6,
+		topEdge: {
+			backgroundColor: theme.colors.tabSeparator,
+			height: 1,
 			left: 0,
-			opacity: theme.mode === "dark" ? 0.9 : 0.7,
 			position: "absolute",
 			right: 0,
 			top: 0,
-		},
-		fadeMid: {
-			backgroundColor: theme.colors.surfaceHighlight,
-			height: 14,
-			left: 0,
-			opacity: theme.mode === "dark" ? 0.38 : 0.28,
-			position: "absolute",
-			right: 0,
-			top: 6,
-		},
-		fadeSoft: {
-			backgroundColor: theme.colors.surfaceHighlight,
-			height: 22,
-			left: 0,
-			opacity: theme.mode === "dark" ? 0.14 : 0.1,
-			position: "absolute",
-			right: 0,
-			top: 20,
+			...(theme.mode === "dark"
+				? {
+						shadowColor: theme.colors.overlay,
+						shadowOpacity: 0.32,
+						shadowRadius: 28,
+						shadowOffset: { width: 0, height: -14 },
+						elevation: 0,
+					}
+				: {
+						shadowColor: theme.colors.text,
+						shadowOpacity: 0.06,
+						shadowRadius: 24,
+						shadowOffset: { width: 0, height: -12 },
+						elevation: 0,
+					}),
 		},
 		rail: {
 			alignItems: "center",
@@ -73,12 +54,11 @@ export function createTabBarStyles(
 			alignItems: "center",
 			borderRadius: 16,
 			flex: 1,
-			gap: 5,
 			justifyContent: "center",
 			maxWidth: 74,
-			minHeight: 50,
+			minHeight: 44,
 			paddingHorizontal: 4,
-			paddingVertical: 7,
+			paddingVertical: 10,
 		},
 		itemActive: {
 			backgroundColor: theme.colors.tabBgActive,
@@ -88,19 +68,9 @@ export function createTabBarStyles(
 		},
 		iconSlot: {
 			alignItems: "center",
-			height: 20,
+			height: 24,
 			justifyContent: "center",
-			width: 20,
-		},
-		label: {
-			fontFamily: theme.font.sans,
-			fontSize: 11,
-			fontWeight: theme.weight.medium,
-			letterSpacing: 0.35,
-			lineHeight: 14,
-		},
-		labelActive: {
-			fontWeight: theme.weight.semibold,
+			width: 24,
 		},
 	});
 }

@@ -30,6 +30,8 @@ export function createStyles(theme: AppResolvedTheme) {
 		brandHeader: {
 			paddingHorizontal: theme.layout.screenPadding,
 			paddingBottom: theme.space[2],
+			position: "relative",
+			zIndex: 2,
 		},
 		brandHeaderRow: {
 			flexDirection: "row",
@@ -45,37 +47,36 @@ export function createStyles(theme: AppResolvedTheme) {
 		},
 		brandHeaderCenter: {
 			flex: 1,
-			flexDirection: "row",
 			alignItems: "center",
 			justifyContent: "center",
-			gap: theme.space[3],
-		},
-		brandLogoFrame: {
-			width: 32,
-			height: 32,
-			borderRadius: 11,
-			alignItems: "center",
-			justifyContent: "center",
-			backgroundColor: theme.colors.surface2,
-			overflow: "hidden",
-			shadowColor: theme.colors.brand,
-			shadowOffset: {
-				width: 0,
-				height: 0,
-			},
-			shadowOpacity: theme.mode === "dark" ? 0.2 : 0.12,
-			shadowRadius: 12,
-			elevation: 4,
-		},
-		brandLogoImage: {
-			width: 34,
-			height: 34,
-			borderRadius: 11,
 		},
 		brandHeaderTitle: {
 			fontSize: theme.type.lg,
 			lineHeight: theme.type.lg * theme.lineHeight.tight,
 			fontWeight: theme.weight.semibold,
+		},
+		headerEdge: {
+			backgroundColor: theme.colors.tabSeparator,
+			bottom: 0,
+			height: 1,
+			left: 0,
+			position: "absolute",
+			right: 0,
+			...(theme.mode === "dark"
+				? {
+						shadowColor: theme.colors.overlay,
+						shadowOpacity: 0.22,
+						shadowRadius: 18,
+						shadowOffset: { width: 0, height: 10 },
+						elevation: 3,
+					}
+				: {
+						shadowColor: theme.colors.text,
+						shadowOpacity: 0.05,
+						shadowRadius: 14,
+						shadowOffset: { width: 0, height: 8 },
+						elevation: 1,
+					}),
 		},
 	});
 }

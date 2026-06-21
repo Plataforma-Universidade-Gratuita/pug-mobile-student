@@ -31,5 +31,3 @@ export const PROFILE_LANGUAGE_OPTIONS: readonly {
 		value: "en-US",
 	},
 ];
-
-export const PROFILE_AVATAR_FALLBACK = "FS";

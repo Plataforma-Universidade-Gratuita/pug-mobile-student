@@ -48,9 +48,10 @@ export function createSectionStyles(
 			alignItems: "center",
 			justifyContent: "center",
 		},
-		avatarText: {
-			fontSize: theme.type.lg,
-			lineHeight: theme.type.lg * theme.lineHeight.tight,
+		avatarLogo: {
+			width: 72,
+			height: 72,
+			borderRadius: 18,
 		},
 		sectionHeader: {
 			gap: theme.space[1],

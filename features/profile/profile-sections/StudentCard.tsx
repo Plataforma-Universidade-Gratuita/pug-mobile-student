@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 
-import { View } from "react-native";
+import { Image, View } from "react-native";
 
 import { Badge, Label } from "@/components/primitives";
 import { useThemeStore } from "@/stores";
@@ -10,12 +10,13 @@ import { withAlpha } from "@/utils";
 
 import { createSectionStyles } from "./styles";
 
+const brandLogo = require("../../../public/assets/brand/pug-logo.png");
+
 export function StudentCard({
 	badgeLabel,
 	name,
 	cpfLabel,
 	cpfValue,
-	avatarInitials,
 }: ProfileStudentCardProps) {
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
@@ -67,13 +68,10 @@ export function StudentCard({
 						},
 					]}
 				>
-					<Label
-						role="field"
-						tone="brand"
-						style={styles.avatarText}
-					>
-						{avatarInitials}
-					</Label>
+					<Image
+						source={brandLogo}
+						style={styles.avatarLogo}
+					/>
 				</View>
 			</View>
 
