@@ -12,14 +12,13 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useThemeStore } from "@/stores";
 
-import { createTabBarStyles, TAB_BAR_DOCK_PADDING } from "./tab-bar-styles";
-
-const TAB_ICON_SIZE = 24;
-const DRAG_ACTIVATION_OFFSET = 4;
-
-function clampIndex(index: number, routeCount: number) {
-	return Math.min(Math.max(index, 0), routeCount - 1);
-}
+import {
+	TAB_BAR_DOCK_PADDING,
+	TAB_BAR_DRAG_ACTIVATION_OFFSET,
+	TAB_BAR_ICON_SIZE,
+} from "./constants";
+import { createTabBarStyles } from "./styles";
+import { clampTabIndex } from "./utils";
 
 export function AuthenticatedTabBar({
 	state,
@@ -89,7 +88,10 @@ export function AuthenticatedTabBar({
 			}
 
 			const localX = Math.min(Math.max(pageX - railPageX, 0), railWidth - 1);
-			const nextIndex = clampIndex(Math.floor(localX / itemWidth), routeCount);
+			const nextIndex = clampTabIndex(
+				Math.floor(localX / itemWidth),
+				routeCount,
+			);
 
 			if (previewIndexRef.current !== nextIndex) {
 				setPreview(nextIndex);
@@ -151,7 +153,7 @@ export function AuthenticatedTabBar({
 			PanResponder.create({
 				onStartShouldSetPanResponder: () => false,
 				onMoveShouldSetPanResponder: (_event, gestureState) =>
-					Math.abs(gestureState.dx) > DRAG_ACTIVATION_OFFSET,
+					Math.abs(gestureState.dx) > TAB_BAR_DRAG_ACTIVATION_OFFSET,
 				onPanResponderGrant: event => {
 					syncRailMetrics();
 					previewRouteFromPageX(event.nativeEvent.pageX, true);
@@ -217,7 +219,7 @@ export function AuthenticatedTabBar({
 						const icon = options.tabBarIcon?.({
 							focused: isHighlighted,
 							color,
-							size: TAB_ICON_SIZE,
+							size: TAB_BAR_ICON_SIZE,
 						});
 						const accessibilityLabel =
 							typeof options.title === "string" ? options.title : route.name;

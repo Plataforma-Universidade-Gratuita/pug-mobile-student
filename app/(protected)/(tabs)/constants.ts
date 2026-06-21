@@ -1,0 +1,1 @@
+export const PROTECTED_TABS_ICON_SIZE = 20;

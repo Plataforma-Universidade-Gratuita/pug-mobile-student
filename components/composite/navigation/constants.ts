@@ -1,0 +1,3 @@
+export const TAB_BAR_DOCK_PADDING = 4;
+export const TAB_BAR_ICON_SIZE = 24;
+export const TAB_BAR_DRAG_ACTIVATION_OFFSET = 4;

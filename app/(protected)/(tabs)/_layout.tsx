@@ -9,7 +9,7 @@ import {
 } from "@/components";
 import { useThemeStore } from "@/stores";
 
-const TAB_ICON_SIZE = 20;
+import { PROTECTED_TABS_ICON_SIZE } from "./constants";
 
 export default function ProtectedTabsLayout() {
 	const theme = useThemeStore(state => state.theme);
@@ -26,7 +26,7 @@ export default function ProtectedTabsLayout() {
 					tabBarIcon: ({ color, size }) => (
 						<House
 							color={color}
-							size={size ?? TAB_ICON_SIZE}
+							size={size ?? PROTECTED_TABS_ICON_SIZE}
 							strokeWidth={1.95}
 						/>
 					),
@@ -39,7 +39,7 @@ export default function ProtectedTabsLayout() {
 					tabBarIcon: ({ color, size }) => (
 						<Search
 							color={color}
-							size={size ?? TAB_ICON_SIZE}
+							size={size ?? PROTECTED_TABS_ICON_SIZE}
 							strokeWidth={1.95}
 						/>
 					),
@@ -52,7 +52,7 @@ export default function ProtectedTabsLayout() {
 					tabBarIcon: ({ color, size }) => (
 						<ListChecks
 							color={color}
-							size={size ?? TAB_ICON_SIZE}
+							size={size ?? PROTECTED_TABS_ICON_SIZE}
 							strokeWidth={1.95}
 						/>
 					),
@@ -65,7 +65,7 @@ export default function ProtectedTabsLayout() {
 					tabBarIcon: ({ color, size }) => (
 						<UserRound
 							color={color}
-							size={size ?? TAB_ICON_SIZE}
+							size={size ?? PROTECTED_TABS_ICON_SIZE}
 							strokeWidth={1.95}
 						/>
 					),

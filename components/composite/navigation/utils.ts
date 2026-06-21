@@ -1,5 +1,9 @@
 import type { AppResolvedTheme } from "@/types/client";
 
+export function clampTabIndex(index: number, routeCount: number) {
+	return Math.min(Math.max(index, 0), routeCount - 1);
+}
+
 export function createAuthenticatedShellTabScreenOptions(
 	theme: AppResolvedTheme,
 ) {

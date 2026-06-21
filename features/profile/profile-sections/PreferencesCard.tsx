@@ -9,7 +9,7 @@ import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ProfilePreferencesCardProps } from "@/types/client";
 import { withAlpha } from "@/utils";
 
-import { PROFILE_LANGUAGE_OPTIONS, PROFILE_THEME_OPTIONS } from "../constants";
+import { PROFILE_LANGUAGE_OPTIONS, PROFILE_THEME_OPTIONS } from "./constants";
 import { createSectionStyles } from "./styles";
 
 export function PreferencesCard({
