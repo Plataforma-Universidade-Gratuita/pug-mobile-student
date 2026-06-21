@@ -32,17 +32,17 @@ export function createStyles(theme: AppResolvedTheme) {
 			color: theme.colors.text,
 		},
 		sheetSubtitle: {
-			color: withAlpha(
-				theme.colors.text,
-				theme.mode === "dark" ? 0.74 : 0.68,
-			),
+			color: theme.colors.muted,
 		},
 		sheetOptions: {
 			gap: theme.space[2],
 		},
 		logoutOption: {
-			gap: theme.space[1],
-			padding: theme.space[4],
+			gap: theme.space[2],
+			minHeight: 88,
+			justifyContent: "center",
+			paddingHorizontal: theme.space[4],
+			paddingVertical: theme.space[4],
 			borderWidth: 1,
 			borderRadius: theme.radius.xl,
 		},
@@ -54,21 +54,15 @@ export function createStyles(theme: AppResolvedTheme) {
 			color: theme.colors.text,
 		},
 		logoutOptionHelper: {
-			color: withAlpha(
-				theme.colors.text,
-				theme.mode === "dark" ? 0.74 : 0.68,
-			),
+			color: theme.colors.muted,
 		},
 		logoutWarningHelper: {
-			color: withAlpha(
-				theme.colors.warningSoftText,
-				theme.mode === "dark" ? 0.92 : 0.9,
-			),
+			color: theme.colors.warningSoftText,
 		},
 		logoutDangerHelper: {
 			color: withAlpha(
 				theme.colors.danger,
-				theme.mode === "dark" ? 0.84 : 0.8,
+				theme.mode === "dark" ? 0.92 : 0.88,
 			),
 		},
 	});

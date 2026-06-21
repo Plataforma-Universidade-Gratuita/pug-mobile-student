@@ -110,7 +110,7 @@ export function ProfileScreen() {
 	);
 
 	return (
-		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}> 
+		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}>
 			<BrandScreenHeader title={t("profile.title")} />
 
 			<ScrollView
@@ -208,7 +208,10 @@ export function ProfileScreen() {
 								styles.logoutOption,
 								{
 									backgroundColor: pressed
-										? withAlpha(theme.colors.surfaceHighlight, 1)
+										? withAlpha(
+												theme.colors.text,
+												theme.mode === "dark" ? 0.08 : 0.04,
+											)
 										: theme.colors.surface3,
 									borderColor: spec.panelBorder,
 									opacity: isMutatingSession ? 0.6 : 1,

@@ -57,49 +57,49 @@
 	},
 	"profile": {
 		"badge": "Perfil",
-		"title": "Perfil",
-		"sections": {
-			"record": "Registro do estudante",
-			"preferences": "Preferências e sessão",
-			"session": "Sessão"
+		"errors": {
+			"load": "Alguns dados do perfil não puderam ser carregados agora."
 		},
 		"fields": {
-			"cpf": "CPF",
-			"accountEmail": "Email da conta",
 			"academicRegistration": "Matrícula acadêmica",
-			"course": "Curso",
+			"accountEmail": "Email da conta",
 			"areaOfExpertise": "Área de expertise",
-			"theme": "Tema",
-			"themeHelper": "Escolha como o aplicativo deve ser exibido.",
+			"course": "Curso",
+			"cpf": "CPF",
 			"language": "Idioma",
-			"languageHelper": "Altere o idioma da interface e das validações."
+			"languageHelper": "Altere o idioma da interface e das validações.",
+			"theme": "Tema",
+			"themeHelper": "Escolha como o aplicativo deve ser exibido."
 		},
-		"values": {
-			"loading": "Carregando...",
-			"unavailable": "Indisponível",
-			"active": "Ativa",
-			"inactive": "Inativa"
+		"logout": {
+			"device": "Sair neste dispositivo",
+			"deviceHelper": "Encerre apenas a sessão do dispositivo atual.",
+			"everywhere": "Sair de todos os lugares",
+			"everywhereHelper": "Encerre a sessão desta conta em todos os dispositivos que ainda estiverem conectados.",
+			"stay": "Continuar conectado",
+			"stayHelper": "Feche esta folha e continue usando o aplicativo.",
+			"subtitle": "Escolha entre continuar nesta sessão, sair apenas deste dispositivo ou encerrar todas as sessões ativas.",
+			"title": "Sair da sua conta",
+			"trigger": "Sair"
 		},
 		"options": {
 			"theme": {
+				"dark": "Escuro",
 				"light": "Claro",
-				"system": "Sistema",
-				"dark": "Escuro"
+				"system": "Sistema"
 			}
 		},
-		"logout": {
-			"trigger": "Sair",
-			"title": "Sair da sua conta",
-			"subtitle": "Escolha entre continuar nesta sessão, sair apenas deste dispositivo ou encerrar todas as sessões ativas.",
-			"stay": "Continuar conectado",
-			"stayHelper": "Feche esta folha e continue usando o aplicativo.",
-			"everywhere": "Sair de todos os lugares",
-			"everywhereHelper": "Encerre a sessão desta conta em todos os dispositivos que ainda estiverem conectados.",
-			"device": "Sair neste dispositivo",
-			"deviceHelper": "Encerre apenas a sessão do dispositivo atual."
+		"sections": {
+			"preferences": "Preferências e sessão",
+			"record": "Registro do estudante",
+			"session": "Sessão"
 		},
-		"errors": {
-			"load": "Alguns dados do perfil não puderam ser carregados agora."
+		"title": "Perfil",
+		"values": {
+			"active": "Ativa",
+			"inactive": "Inativa",
+			"loading": "Carregando...",
+			"unavailable": "Indisponível"
 		}
 	}
 }

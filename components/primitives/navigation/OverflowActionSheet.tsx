@@ -1,11 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 
-import {
-	Animated,
-	Modal,
-	Pressable,
-	View,
-} from "react-native";
+import { Animated, Modal, Pressable, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useThemeStore } from "@/stores";
@@ -98,9 +93,10 @@ export function OverflowActionSheet({
 					style={[
 						styles.sheetSurface,
 						{
-							backgroundColor: spec.panelBackground,
+							backgroundColor: theme.colors.surface2,
 							borderColor: spec.panelBorder,
-							paddingBottom: spec.panelPadding + Math.max(insets.bottom, theme.space[2]),
+							paddingBottom:
+								spec.panelPadding + Math.max(insets.bottom, theme.space[2]),
 							transform: [{ translateY }],
 						},
 					]}

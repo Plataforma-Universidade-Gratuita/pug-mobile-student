@@ -57,49 +57,49 @@
 	},
 	"profile": {
 		"badge": "Profile",
-		"title": "Profile",
-		"sections": {
-			"record": "Student record",
-			"preferences": "Preferences and session",
-			"session": "Session"
+		"errors": {
+			"load": "Some profile data could not be loaded right now."
 		},
 		"fields": {
-			"cpf": "CPF",
-			"accountEmail": "Account email",
 			"academicRegistration": "Academic registration",
-			"course": "Course",
+			"accountEmail": "Account email",
 			"areaOfExpertise": "Area of expertise",
-			"theme": "Theme",
-			"themeHelper": "Choose how the app should render.",
+			"course": "Course",
+			"cpf": "CPF",
 			"language": "Language",
-			"languageHelper": "Switch interface and validation copy."
+			"languageHelper": "Switch interface and validation copy.",
+			"theme": "Theme",
+			"themeHelper": "Choose how the app should render."
 		},
-		"values": {
-			"loading": "Loading...",
-			"unavailable": "Unavailable",
-			"active": "Active",
-			"inactive": "Inactive"
+		"logout": {
+			"device": "Log out on this device",
+			"deviceHelper": "Only end the current device session.",
+			"everywhere": "Log out everywhere",
+			"everywhereHelper": "End this account session on every device that is still signed in.",
+			"stay": "Stay signed in",
+			"stayHelper": "Close this sheet and keep using the app.",
+			"subtitle": "Choose whether to keep this session, sign out only here, or end every active session.",
+			"title": "Log out of your account",
+			"trigger": "Log out"
 		},
 		"options": {
 			"theme": {
+				"dark": "Dark",
 				"light": "Light",
-				"system": "System",
-				"dark": "Dark"
+				"system": "System"
 			}
 		},
-		"logout": {
-			"trigger": "Log out",
-			"title": "Log out of your account",
-			"subtitle": "Choose whether to keep this session, sign out only here, or end every active session.",
-			"stay": "Stay signed in",
-			"stayHelper": "Close this sheet and keep using the app.",
-			"everywhere": "Log out everywhere",
-			"everywhereHelper": "End this account session on every device that is still signed in.",
-			"device": "Log out on this device",
-			"deviceHelper": "Only end the current device session."
+		"sections": {
+			"preferences": "Preferences and session",
+			"record": "Student record",
+			"session": "Session"
 		},
-		"errors": {
-			"load": "Some profile data could not be loaded right now."
+		"title": "Profile",
+		"values": {
+			"active": "Active",
+			"inactive": "Inactive",
+			"loading": "Loading...",
+			"unavailable": "Unavailable"
 		}
 	}
 }
