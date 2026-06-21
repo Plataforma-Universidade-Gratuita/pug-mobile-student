@@ -1,0 +1,13 @@
+export const DISCOVERABLE_PROJECT_STATUSES = [
+	"IN_PROGRESS",
+	"PLANNED",
+	"ON_HOLD",
+] as const;
+
+export const DISCOVER_PROJECT_STATUS_ORDER = {
+	IN_PROGRESS: 0,
+	PLANNED: 1,
+	ON_HOLD: 2,
+	COMPLETED: 3,
+	CANCELED: 4,
+} as const;

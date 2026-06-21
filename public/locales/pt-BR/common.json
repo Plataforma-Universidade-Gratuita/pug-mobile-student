@@ -49,6 +49,39 @@
 			}
 		}
 	},
+	"discover": {
+		"actions": {
+			"filters": "Abrir filtros"
+		},
+		"badge": "Projetos disponíveis",
+		"card": {
+			"hoursFallback": "Horas disponíveis",
+			"hoursLabel": "Horas",
+			"hoursValue": "{{remaining}}h restantes de {{total}}h",
+			"openProject": "Abrir projeto {{name}}",
+			"seatsLabel": "Disponibilidade",
+			"seatsOpen": "Vagas abertas",
+			"seatsUnlimited": "Vagas ilimitadas",
+			"seatsValue": "{{count}} vagas restantes"
+		},
+		"states": {
+			"badge": "Estado da descoberta",
+			"emptyDescription": "Nenhum projeto disponível corresponde à sua área neste momento.",
+			"emptyTitle": "Nada aberto por enquanto",
+			"errorDescription": "Não foi possível carregar a descoberta de projetos agora.",
+			"errorTitle": "Projetos indisponíveis",
+			"loadingDescription": "Verificando quais projetos estão abertos para sua área acadêmica atual.",
+			"loadingTitle": "Carregando projetos disponíveis",
+			"missingAreaDescription": "Não foi possível identificar a área de conhecimento do seu curso atual.",
+			"missingAreaTitle": "Área de conhecimento indisponível"
+		},
+		"summary": {
+			"count": "{{count}} disponíveis",
+			"description": "Somente projetos com horas restantes, vagas abertas e status elegível aparecem aqui.",
+			"fallbackArea": "Área indisponível"
+		},
+		"title": "Descobrir"
+	},
 	"home": {
 		"badge": "Sessão ativa",
 		"logout": "Sair",
@@ -61,7 +94,7 @@
 			"load": "Alguns dados do perfil não puderam ser carregados agora."
 		},
 		"fields": {
-			"academicRegistration": "Registro acadêmica",
+			"academicRegistration": "Registro acadêmico",
 			"accountEmail": "Email",
 			"areaOfExpertise": "Área de conhecimento",
 			"course": "Curso",

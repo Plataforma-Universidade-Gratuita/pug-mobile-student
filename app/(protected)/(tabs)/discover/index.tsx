@@ -1,13 +1,7 @@
 import React from "react";
 
-import { RoutePlaceholderScreen } from "@/features/shell";
+import { DiscoverScreen } from "@/features/discover";
 
 export default function DiscoverRoute() {
-	return (
-		<RoutePlaceholderScreen
-			description="Project discovery, filtering, and enrollment entry land here."
-			subtitle="Find projects to enroll in."
-			title="Discover"
-		/>
-	);
+	return <DiscoverScreen />;
 }

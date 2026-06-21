@@ -49,6 +49,39 @@
 			}
 		}
 	},
+	"discover": {
+		"actions": {
+			"filters": "Open filters"
+		},
+		"badge": "Available projects",
+		"card": {
+			"hoursFallback": "Hours available",
+			"hoursLabel": "Hours",
+			"hoursValue": "{{remaining}}h left of {{total}}h",
+			"openProject": "Open project {{name}}",
+			"seatsLabel": "Availability",
+			"seatsOpen": "Open spots",
+			"seatsUnlimited": "Unlimited spots",
+			"seatsValue": "{{count}} spots left"
+		},
+		"states": {
+			"badge": "Discovery state",
+			"emptyDescription": "No available projects match your area right now.",
+			"emptyTitle": "Nothing open yet",
+			"errorDescription": "Unable to load project discovery right now.",
+			"errorTitle": "Projects unavailable",
+			"loadingDescription": "Checking which projects are open for your current academic area.",
+			"loadingTitle": "Loading available projects",
+			"missingAreaDescription": "Your current course area of expertise could not be resolved.",
+			"missingAreaTitle": "Area of expertise unavailable"
+		},
+		"summary": {
+			"count": "{{count}} available",
+			"description": "Only projects with remaining hours, open availability, and eligible status are listed here.",
+			"fallbackArea": "Area unavailable"
+		},
+		"title": "Discover"
+	},
 	"home": {
 		"badge": "Session active",
 		"logout": "Log out",
