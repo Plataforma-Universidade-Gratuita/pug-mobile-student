@@ -5,7 +5,7 @@ import { StatusBar } from "expo-status-bar";
 import * as SystemUI from "expo-system-ui";
 import { View, useColorScheme } from "react-native";
 
-import { useAuthStore, useThemeStore } from "@/stores";
+import { useAuthStore, useLocaleStore, useThemeStore } from "@/stores";
 import { coerceResolvedTheme, getStatusBarStyle } from "@/utils";
 
 import { BootstrapScreen } from "./BootstrapScreen";
@@ -18,10 +18,12 @@ export function RootNavigator() {
 	const resolvedMode = useThemeStore(state => state.resolvedMode);
 	const hydrateTheme = useThemeStore(state => state.hydrateTheme);
 	const setSystemMode = useThemeStore(state => state.setSystemMode);
+	const hydrateLanguage = useLocaleStore(state => state.hydrateLanguage);
 	const systemColorScheme = useColorScheme();
 	const styles = useMemo(() => createStyles(theme), [theme]);
 	const hasBootstrappedAuth = useRef(false);
 	const hasHydratedTheme = useRef(false);
+	const hasHydratedLanguage = useRef(false);
 
 	useEffect(() => {
 		if (hasHydratedTheme.current) {
@@ -31,6 +33,15 @@ export function RootNavigator() {
 		hasHydratedTheme.current = true;
 		void hydrateTheme();
 	}, [hydrateTheme]);
+
+	useEffect(() => {
+		if (hasHydratedLanguage.current) {
+			return;
+		}
+
+		hasHydratedLanguage.current = true;
+		void hydrateLanguage();
+	}, [hydrateLanguage]);
 
 	useEffect(() => {
 		setSystemMode(coerceResolvedTheme(systemColorScheme));

@@ -1,4 +1,4 @@
-{
+﻿{
 	"auth": {
 		"login": {
 			"badge": "Former student access",
@@ -54,5 +54,52 @@
 		"logout": "Log out",
 		"subtitleFallback": "Your session is ready.",
 		"title": "You are signed in."
+	},
+	"profile": {
+		"badge": "Perfil",
+		"headline": "Seus dados, preferências e controles de sessão ficam juntos em uma área de trabalho discreta.",
+		"sections": {
+			"record": "Registro do estudante",
+			"preferences": "Preferências e sessão",
+			"session": "Sessão"
+		},
+		"fields": {
+			"cpf": "CPF",
+			"accountEmail": "Email da conta",
+			"academicRegistration": "Matrícula acadêmica",
+			"course": "Curso",
+			"areaOfExpertise": "Área de expertise",
+			"theme": "Tema",
+			"themeHelper": "Escolha como o aplicativo deve ser exibido.",
+			"language": "Idioma",
+			"languageHelper": "Altere o idioma da interface e das validações."
+		},
+		"values": {
+			"loading": "Carregando...",
+			"unavailable": "Indisponível",
+			"active": "Ativa",
+			"inactive": "Inativa"
+		},
+		"options": {
+			"theme": {
+				"light": "Claro",
+				"system": "Sistema",
+				"dark": "Escuro"
+			}
+		},
+		"logout": {
+			"trigger": "Sair",
+			"title": "Escolha como deseja sair.",
+			"subtitle": "Mantenha essa decisão próxima da borda inferior e deixe as opções explícitas.",
+			"stay": "Continuar conectado",
+			"stayHelper": "Feche a gaveta e mantenha a sessão atual.",
+			"everywhere": "Sair de todos os lugares",
+			"everywhereHelper": "Invalide a sessão em todos os dispositivos que ainda estiverem conectados.",
+			"device": "Sair neste dispositivo",
+			"deviceHelper": "Encerre apenas a sessão deste dispositivo."
+		},
+		"errors": {
+			"load": "Alguns dados do perfil não puderam ser carregados agora."
+		}
 	}
 }

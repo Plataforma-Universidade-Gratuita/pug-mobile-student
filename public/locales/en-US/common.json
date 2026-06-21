@@ -1,4 +1,4 @@
-{
+﻿{
 	"auth": {
 		"login": {
 			"badge": "Former student access",
@@ -54,5 +54,52 @@
 		"logout": "Log out",
 		"subtitleFallback": "Your session is ready.",
 		"title": "You are signed in."
+	},
+	"profile": {
+		"badge": "Profile",
+		"headline": "Student data, preferences, and session controls stay together in one quiet working area.",
+		"sections": {
+			"record": "Student record",
+			"preferences": "Preferences and session",
+			"session": "Session"
+		},
+		"fields": {
+			"cpf": "CPF",
+			"accountEmail": "Account email",
+			"academicRegistration": "Academic registration",
+			"course": "Course",
+			"areaOfExpertise": "Area of expertise",
+			"theme": "Theme",
+			"themeHelper": "Choose how the app should render.",
+			"language": "Language",
+			"languageHelper": "Switch interface and validation copy."
+		},
+		"values": {
+			"loading": "Loading...",
+			"unavailable": "Unavailable",
+			"active": "Active",
+			"inactive": "Inactive"
+		},
+		"options": {
+			"theme": {
+				"light": "Light",
+				"system": "System",
+				"dark": "Dark"
+			}
+		},
+		"logout": {
+			"trigger": "Log out",
+			"title": "Choose how you want to leave.",
+			"subtitle": "Keep this decision close to the bottom edge and make the options explicit.",
+			"stay": "Stay signed in",
+			"stayHelper": "Dismiss the drawer and keep the current session.",
+			"everywhere": "Log out everywhere",
+			"everywhereHelper": "Invalidate the session on every device that is still signed in.",
+			"device": "Log out on this device",
+			"deviceHelper": "Only end the current device session."
+		},
+		"errors": {
+			"load": "Some profile data could not be loaded right now."
+		}
 	}
 }

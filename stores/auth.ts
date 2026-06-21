@@ -195,6 +195,23 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 			set({ isMutatingSession: false });
 		}
 	},
+
+	signOutAll: async () => {
+		set({ isMutatingSession: true });
+
+		try {
+			try {
+				await api.identity.auth.logoutAll();
+			} catch {
+				// Local session clearing still needs to complete even if the remote logout-all fails.
+			}
+
+			await clearApiSession();
+			get().clearSessionState();
+		} finally {
+			set({ isMutatingSession: false });
+		}
+	},
 }));
 
 configureApiSessionProvider({
