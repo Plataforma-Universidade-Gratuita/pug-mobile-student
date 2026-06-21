@@ -46,7 +46,7 @@ export function BrandScreenHeader({
 
 			<View
 				pointerEvents="none"
-				style={styles.headerEdge}
+				style={styles.headerShadowEdge}
 			/>
 		</View>
 	);

@@ -152,9 +152,7 @@ export function PreferencesCard({
 					})}
 				</View>
 
-				<View
-					style={[styles.logoutSection, { borderTopColor: spec.panelBorder }]}
-				>
+				<View style={[styles.logoutSection]}>
 					<Pressable
 						onPress={onOpenLogout}
 						style={({ pressed }) => [

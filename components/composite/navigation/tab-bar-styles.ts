@@ -1,70 +1,92 @@
 import { StyleSheet } from "react-native";
 
 import type { AppResolvedTheme } from "@/types/client";
+import { withAlpha } from "@/utils";
+
+export const TAB_BAR_DOCK_PADDING = 4;
 
 export function createTabBarStyles(
-	theme: AppResolvedTheme,
-	bottomInset: number,
+	theme: AppResolvedTheme
 ) {
-	const bottomPadding = Math.max(bottomInset - theme.space[3], 4);
 
 	return StyleSheet.create({
 		container: {
-			backgroundColor: theme.colors.surface1,
-			overflow: "visible",
-			paddingBottom: bottomPadding,
-			paddingHorizontal: 5,
-			paddingTop: 7.5,
-			position: "relative",
+			backgroundColor: "transparent",
+			paddingBottom: theme.space[4],
+			paddingHorizontal: theme.layout.screenPadding,
+			paddingTop: theme.space[2],
 		},
-		topEdge: {
-			backgroundColor: theme.colors.tabSeparator,
-			height: 1,
-			left: 0,
-			position: "absolute",
-			right: 0,
-			top: 0,
+		dock: {
+			alignSelf: "center",
+			backgroundColor: "transparent",
+			borderColor: withAlpha(
+				theme.colors.border1,
+				theme.mode === "dark" ? 0.34 : 0.58,
+			),
+			borderRadius: theme.radius.circle,
+			borderWidth: 1,
+			maxWidth: 320,
+			overflow: "visible",
+			padding: TAB_BAR_DOCK_PADDING,
+			position: "relative",
+			width: "100%",
 			...(theme.mode === "dark"
 				? {
 						shadowColor: theme.colors.overlay,
-						shadowOpacity: 0.32,
-						shadowRadius: 28,
-						shadowOffset: { width: 0, height: -14 },
-						elevation: 0,
+						shadowOpacity: 0.18,
+						shadowRadius: 16,
+						shadowOffset: { width: 0, height: 8 },
+						elevation: 4,
+					}
+				: {
+						shadowColor: theme.colors.text,
+						shadowOpacity: 0.05,
+						shadowRadius: 12,
+						shadowOffset: { width: 0, height: 6 },
+						elevation: 2,
+					}),
+		},
+		activePill: {
+			backgroundColor:
+				theme.mode === "dark" ? theme.colors.surface3 : theme.colors.surface2,
+			borderColor:
+				theme.mode === "dark" ? theme.colors.border2 : theme.colors.border1,
+			borderRadius: theme.radius.circle,
+			borderWidth: 1,
+			bottom: TAB_BAR_DOCK_PADDING,
+			position: "absolute",
+			top: TAB_BAR_DOCK_PADDING,
+			...(theme.mode === "dark"
+				? {
+						shadowColor: theme.colors.overlay,
+						shadowOpacity: 0.18,
+						shadowRadius: 14,
+						shadowOffset: { width: 0, height: 6 },
+						elevation: 2,
 					}
 				: {
 						shadowColor: theme.colors.text,
 						shadowOpacity: 0.06,
-						shadowRadius: 24,
-						shadowOffset: { width: 0, height: -12 },
-						elevation: 0,
+						shadowRadius: 10,
+						shadowOffset: { width: 0, height: 4 },
+						elevation: 1,
 					}),
 		},
 		rail: {
 			alignItems: "center",
-			alignSelf: "center",
 			flexDirection: "row",
-			gap: 6,
 			justifyContent: "center",
-			maxWidth: 316,
 			width: "100%",
 			zIndex: 1,
 		},
 		item: {
 			alignItems: "center",
-			borderRadius: 16,
 			flex: 1,
+			height: 52,
 			justifyContent: "center",
-			maxWidth: 74,
-			minHeight: 44,
-			paddingHorizontal: 4,
-			paddingVertical: 10,
-		},
-		itemActive: {
-			backgroundColor: theme.colors.tabBgActive,
 		},
 		itemPressed: {
-			backgroundColor: theme.colors.tabBgPressed,
+			opacity: 0.84,
 		},
 		iconSlot: {
 			alignItems: "center",

@@ -55,8 +55,8 @@ export function createStyles(theme: AppResolvedTheme) {
 			lineHeight: theme.type.lg * theme.lineHeight.tight,
 			fontWeight: theme.weight.semibold,
 		},
-		headerEdge: {
-			backgroundColor: theme.colors.tabSeparator,
+		headerShadowEdge: {
+			backgroundColor: theme.colors.surface1,
 			bottom: 0,
 			height: 1,
 			left: 0,
@@ -65,16 +65,16 @@ export function createStyles(theme: AppResolvedTheme) {
 			...(theme.mode === "dark"
 				? {
 						shadowColor: theme.colors.overlay,
-						shadowOpacity: 0.22,
-						shadowRadius: 18,
-						shadowOffset: { width: 0, height: 10 },
-						elevation: 3,
+						shadowOpacity: 0.26,
+						shadowRadius: 22,
+						shadowOffset: { width: 0, height: 12 },
+						elevation: 2,
 					}
 				: {
 						shadowColor: theme.colors.text,
-						shadowOpacity: 0.05,
-						shadowRadius: 14,
-						shadowOffset: { width: 0, height: 8 },
+						shadowOpacity: 0.07,
+						shadowRadius: 20,
+						shadowOffset: { width: 0, height: 10 },
 						elevation: 1,
 					}),
 		},

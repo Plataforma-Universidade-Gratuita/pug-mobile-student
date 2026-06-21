@@ -107,9 +107,8 @@ export function createSectionStyles(
 		},
 		selectorOptionCompact: {},
 		logoutSection: {
-			marginTop: theme.space[4],
+			marginTop: theme.space[2],
 			paddingTop: theme.space[3],
-			borderTopWidth: 1,
 		},
 		logoutTrigger: {
 			minHeight: 54,

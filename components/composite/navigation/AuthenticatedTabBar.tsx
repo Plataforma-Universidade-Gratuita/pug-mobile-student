@@ -1,89 +1,264 @@
-import React, { useMemo } from "react";
+import React, {
+	useCallback,
+	useEffect,
+	useMemo,
+	useRef,
+	useState,
+} from "react";
 
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
-import { Pressable, View } from "react-native";
+import { Animated, PanResponder, Pressable, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { useThemeStore } from "@/stores";
 
-import { createTabBarStyles } from "./tab-bar-styles";
+import { createTabBarStyles, TAB_BAR_DOCK_PADDING } from "./tab-bar-styles";
 
 const TAB_ICON_SIZE = 24;
+const DRAG_ACTIVATION_OFFSET = 4;
+
+function clampIndex(index: number, routeCount: number) {
+	return Math.min(Math.max(index, 0), routeCount - 1);
+}
 
 export function AuthenticatedTabBar({
 	state,
 	descriptors,
 	navigation,
 }: BottomTabBarProps) {
-	const theme = useThemeStore(state => state.theme);
-	const insets = useSafeAreaInsets();
+	const theme = useThemeStore(store => store.theme);
+	const routeCount = state.routes.length;
 	const styles = useMemo(
-		() => createTabBarStyles(theme, insets.bottom),
-		[insets.bottom, theme],
+		() => createTabBarStyles(theme),
+		[theme],
+	);
+	const railRef = useRef<View>(null);
+	const indicatorTranslateX = useRef(new Animated.Value(0)).current;
+	const previewIndexRef = useRef<number | null>(null);
+	const [previewIndex, setPreviewIndex] = useState<number | null>(null);
+	const [railWidth, setRailWidth] = useState(0);
+	const [railPageX, setRailPageX] = useState(0);
+
+	const highlightedIndex = previewIndex ?? state.index;
+	const itemWidth = routeCount > 0 ? railWidth / routeCount : 0;
+
+	const syncRailMetrics = useCallback(() => {
+		railRef.current?.measureInWindow((pageX, _pageY, measuredWidth) => {
+			setRailPageX(pageX);
+			if (measuredWidth > 0) {
+				setRailWidth(measuredWidth);
+			}
+		});
+	}, []);
+
+	const setPreview = useCallback((nextIndex: number | null) => {
+		previewIndexRef.current = nextIndex;
+		setPreviewIndex(nextIndex);
+	}, []);
+
+	const animateIndicatorToIndex = useCallback(
+		(nextIndex: number, immediate?: boolean) => {
+			if (itemWidth <= 0) {
+				return;
+			}
+
+			const nextTranslateX = nextIndex * itemWidth;
+
+			if (immediate) {
+				indicatorTranslateX.stopAnimation();
+				indicatorTranslateX.setValue(nextTranslateX);
+				return;
+			}
+
+			Animated.spring(indicatorTranslateX, {
+				toValue: nextTranslateX,
+				stiffness: 280,
+				damping: 28,
+				mass: 0.9,
+				useNativeDriver: true,
+			}).start();
+		},
+		[indicatorTranslateX, itemWidth],
+	);
+
+	const previewRouteFromPageX = useCallback(
+		(pageX: number, immediate?: boolean) => {
+			if (itemWidth <= 0 || routeCount === 0) {
+				return;
+			}
+
+			const localX = Math.min(Math.max(pageX - railPageX, 0), railWidth - 1);
+			const nextIndex = clampIndex(Math.floor(localX / itemWidth), routeCount);
+
+			if (previewIndexRef.current !== nextIndex) {
+				setPreview(nextIndex);
+			}
+
+			animateIndicatorToIndex(nextIndex, immediate);
+		},
+		[
+			animateIndicatorToIndex,
+			itemWidth,
+			railPageX,
+			railWidth,
+			routeCount,
+			setPreview,
+		],
+	);
+
+	const navigateToIndex = useCallback(
+		(nextIndex: number) => {
+			const nextRoute = state.routes[nextIndex];
+
+			if (!nextRoute) {
+				setPreview(null);
+				return;
+			}
+
+			const event = navigation.emit({
+				type: "tabPress",
+				target: nextRoute.key,
+				canPreventDefault: true,
+			});
+
+			if (event.defaultPrevented || nextIndex === state.index) {
+				setPreview(null);
+				return;
+			}
+
+			navigation.navigate(nextRoute.name, nextRoute.params);
+		},
+		[navigation, setPreview, state.index, state.routes],
+	);
+
+	useEffect(() => {
+		if (routeCount === 0) {
+			return;
+		}
+
+		animateIndicatorToIndex(highlightedIndex);
+	}, [animateIndicatorToIndex, highlightedIndex, routeCount]);
+
+	useEffect(() => {
+		if (previewIndexRef.current === state.index) {
+			setPreview(null);
+		}
+	}, [setPreview, state.index]);
+
+	const panResponder = useMemo(
+		() =>
+			PanResponder.create({
+				onStartShouldSetPanResponder: () => false,
+				onMoveShouldSetPanResponder: (_event, gestureState) =>
+					Math.abs(gestureState.dx) > DRAG_ACTIVATION_OFFSET,
+				onPanResponderGrant: event => {
+					syncRailMetrics();
+					previewRouteFromPageX(event.nativeEvent.pageX, true);
+				},
+				onPanResponderMove: event => {
+					previewRouteFromPageX(event.nativeEvent.pageX, true);
+				},
+				onPanResponderRelease: () => {
+					const nextIndex = previewIndexRef.current;
+
+					if (nextIndex == null) {
+						return;
+					}
+
+					navigateToIndex(nextIndex);
+				},
+				onPanResponderTerminate: () => {
+					setPreview(null);
+				},
+			}),
+		[navigateToIndex, previewRouteFromPageX, setPreview, syncRailMetrics],
 	);
 
 	return (
 		<View style={styles.container}>
 			<View
-				pointerEvents="none"
-				style={styles.topEdge}
-			/>
-			<View style={styles.rail}>
-				{state.routes.map((route, index) => {
-					const isFocused = state.index === index;
-					const descriptor = descriptors[route.key];
-					const options = descriptor?.options;
+				style={styles.dock}
+				{...panResponder.panHandlers}
+			>
+				{itemWidth > 0 ? (
+					<Animated.View
+						pointerEvents="none"
+						style={[
+							styles.activePill,
+							{
+								left: TAB_BAR_DOCK_PADDING,
+								width: itemWidth,
+								transform: [{ translateX: indicatorTranslateX }],
+							},
+						]}
+					/>
+				) : null}
 
-					if (!descriptor || !options) {
-						return null;
-					}
+				<View
+					ref={railRef}
+					onLayout={() => {
+						syncRailMetrics();
+					}}
+					style={styles.rail}
+				>
+					{state.routes.map((route, index) => {
+						const descriptor = descriptors[route.key];
+						const options = descriptor?.options;
 
-					const color = isFocused
-						? theme.colors.tabFgActive
-						: theme.colors.tabFgInactive;
-					const icon = options.tabBarIcon?.({
-						focused: isFocused,
-						color,
-						size: TAB_ICON_SIZE,
-					});
-					const accessibilityLabel =
-						typeof options.title === "string" ? options.title : route.name;
+						if (!descriptor || !options) {
+							return null;
+						}
 
-					return (
-						<Pressable
-							key={route.key}
-							accessibilityLabel={accessibilityLabel}
-							accessibilityRole="tab"
-							accessibilityState={isFocused ? { selected: true } : {}}
-							onLongPress={() => {
-								navigation.emit({
-									type: "tabLongPress",
-									target: route.key,
-								});
-							}}
-							onPress={() => {
-								const event = navigation.emit({
-									type: "tabPress",
-									target: route.key,
-									canPreventDefault: true,
-								});
+						const isHighlighted = highlightedIndex === index;
+						const color = isHighlighted
+							? theme.colors.tabFgActive
+							: theme.colors.tabFgInactive;
+						const icon = options.tabBarIcon?.({
+							focused: isHighlighted,
+							color,
+							size: TAB_ICON_SIZE,
+						});
+						const accessibilityLabel =
+							typeof options.title === "string" ? options.title : route.name;
 
-								if (isFocused || event.defaultPrevented) {
-									return;
+						return (
+							<Pressable
+								key={route.key}
+								accessibilityLabel={accessibilityLabel}
+								accessibilityRole="tab"
+								accessibilityState={
+									state.index === index ? { selected: true } : {}
 								}
-
-								navigation.navigate(route.name, route.params);
-							}}
-							style={({ pressed }) => [
-								styles.item,
-								isFocused ? styles.itemActive : null,
-								pressed ? styles.itemPressed : null,
-							]}
-						>
-							<View style={styles.iconSlot}>{icon}</View>
-						</Pressable>
-					);
-				})}
+								onLongPress={() => {
+									navigation.emit({
+										type: "tabLongPress",
+										target: route.key,
+									});
+								}}
+								onPress={() => {
+									setPreview(index);
+									animateIndicatorToIndex(index, true);
+									navigateToIndex(index);
+								}}
+								onPressIn={() => {
+									setPreview(index);
+									animateIndicatorToIndex(index);
+								}}
+								onPressOut={() => {
+									if (index === state.index) {
+										setPreview(null);
+									}
+								}}
+								style={({ pressed }) => [
+									styles.item,
+									pressed ? styles.itemPressed : null,
+								]}
+							>
+								<View style={styles.iconSlot}>{icon}</View>
+							</Pressable>
+						);
+					})}
+				</View>
 			</View>
 		</View>
 	);
