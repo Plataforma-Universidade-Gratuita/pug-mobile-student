@@ -1,4 +1,4 @@
-﻿{
+{
 	"auth": {
 		"login": {
 			"badge": "Former student access",
@@ -89,14 +89,14 @@
 		},
 		"logout": {
 			"trigger": "Sair",
-			"title": "Escolha como deseja sair.",
-			"subtitle": "Mantenha essa decisão próxima da borda inferior e deixe as opções explícitas.",
+			"title": "Sair da sua conta",
+			"subtitle": "Escolha entre continuar nesta sessão, sair apenas deste dispositivo ou encerrar todas as sessões ativas.",
 			"stay": "Continuar conectado",
-			"stayHelper": "Feche a gaveta e mantenha a sessão atual.",
+			"stayHelper": "Feche esta folha e continue usando o aplicativo.",
 			"everywhere": "Sair de todos os lugares",
-			"everywhereHelper": "Invalide a sessão em todos os dispositivos que ainda estiverem conectados.",
+			"everywhereHelper": "Encerre a sessão desta conta em todos os dispositivos que ainda estiverem conectados.",
 			"device": "Sair neste dispositivo",
-			"deviceHelper": "Encerre apenas a sessão deste dispositivo."
+			"deviceHelper": "Encerre apenas a sessão do dispositivo atual."
 		},
 		"errors": {
 			"load": "Alguns dados do perfil não puderam ser carregados agora."

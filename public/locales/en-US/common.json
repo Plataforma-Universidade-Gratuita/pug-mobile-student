@@ -1,4 +1,4 @@
-﻿{
+{
 	"auth": {
 		"login": {
 			"badge": "Former student access",
@@ -89,12 +89,12 @@
 		},
 		"logout": {
 			"trigger": "Log out",
-			"title": "Choose how you want to leave.",
-			"subtitle": "Keep this decision close to the bottom edge and make the options explicit.",
+			"title": "Log out of your account",
+			"subtitle": "Choose whether to keep this session, sign out only here, or end every active session.",
 			"stay": "Stay signed in",
-			"stayHelper": "Dismiss the drawer and keep the current session.",
+			"stayHelper": "Close this sheet and keep using the app.",
 			"everywhere": "Log out everywhere",
-			"everywhereHelper": "Invalidate the session on every device that is still signed in.",
+			"everywhereHelper": "End this account session on every device that is still signed in.",
 			"device": "Log out on this device",
 			"deviceHelper": "Only end the current device session."
 		},

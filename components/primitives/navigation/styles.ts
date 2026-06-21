@@ -4,6 +4,7 @@ import type {
 	AppResolvedTheme,
 	PrimitiveSurfaceStyleSpec,
 } from "@/types/client";
+import { withAlpha } from "@/utils";
 
 export function createStyles(
 	theme: AppResolvedTheme,
@@ -13,15 +14,35 @@ export function createStyles(
 		sheetModal: {
 			flex: 1,
 			justifyContent: "flex-end",
-			margin: 0,
-			padding: theme.space[4],
+		},
+		sheetBackdropPressable: {
+			...StyleSheet.absoluteFillObject,
+		},
+		sheetBackdrop: {
+			...StyleSheet.absoluteFillObject,
+			backgroundColor: withAlpha(
+				theme.colors.overlay,
+				theme.mode === "dark" ? 0.84 : 0.48,
+			),
 		},
 		sheetSurface: {
 			gap: theme.space[4],
-			padding: spec.panelPadding,
+			paddingHorizontal: spec.panelPadding,
+			paddingTop: theme.space[3],
 			borderWidth: 1,
-			borderRadius: spec.panelRadius,
-			...theme.shadow.lg,
+			borderTopLeftRadius: spec.panelRadius,
+			borderTopRightRadius: spec.panelRadius,
+		},
+		sheetHandle: {
+			alignSelf: "center",
+			backgroundColor: withAlpha(
+				theme.colors.muted,
+				theme.mode === "dark" ? 0.52 : 0.24,
+			),
+			borderRadius: theme.radius.circle,
+			height: 4,
+			marginBottom: theme.space[1],
+			width: 40,
 		},
 		sheetHeader: {
 			gap: theme.space[1],

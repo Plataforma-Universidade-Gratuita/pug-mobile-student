@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
 import type { AppResolvedTheme } from "@/types/client";
+import { withAlpha } from "@/utils";
 
 export function createStyles(theme: AppResolvedTheme) {
 	return StyleSheet.create({
@@ -24,6 +25,18 @@ export function createStyles(theme: AppResolvedTheme) {
 		sheetHeader: {
 			gap: theme.space[1],
 		},
+		sheetCaption: {
+			color: theme.colors.muted,
+		},
+		sheetTitle: {
+			color: theme.colors.text,
+		},
+		sheetSubtitle: {
+			color: withAlpha(
+				theme.colors.text,
+				theme.mode === "dark" ? 0.74 : 0.68,
+			),
+		},
 		sheetOptions: {
 			gap: theme.space[2],
 		},
@@ -36,6 +49,27 @@ export function createStyles(theme: AppResolvedTheme) {
 		logoutOptionCopy: {
 			flex: 1,
 			gap: theme.space[1],
+		},
+		logoutOptionTitle: {
+			color: theme.colors.text,
+		},
+		logoutOptionHelper: {
+			color: withAlpha(
+				theme.colors.text,
+				theme.mode === "dark" ? 0.74 : 0.68,
+			),
+		},
+		logoutWarningHelper: {
+			color: withAlpha(
+				theme.colors.warningSoftText,
+				theme.mode === "dark" ? 0.92 : 0.9,
+			),
+		},
+		logoutDangerHelper: {
+			color: withAlpha(
+				theme.colors.danger,
+				theme.mode === "dark" ? 0.84 : 0.8,
+			),
 		},
 	});
 }

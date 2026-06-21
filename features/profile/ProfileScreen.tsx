@@ -110,7 +110,7 @@ export function ProfileScreen() {
 	);
 
 	return (
-		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}>
+		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}> 
 			<BrandScreenHeader title={t("profile.title")} />
 
 			<ScrollView
@@ -178,9 +178,24 @@ export function ProfileScreen() {
 			>
 				<View style={styles.sheetContent}>
 					<View style={styles.sheetHeader}>
-						<Label role="caption">{t("profile.sections.session")}</Label>
-						<Label role="field">{t("profile.logout.title")}</Label>
-						<Label role="helper">{t("profile.logout.subtitle")}</Label>
+						<Label
+							role="caption"
+							style={styles.sheetCaption}
+						>
+							{t("profile.sections.session")}
+						</Label>
+						<Label
+							role="field"
+							style={styles.sheetTitle}
+						>
+							{t("profile.logout.title")}
+						</Label>
+						<Label
+							role="helper"
+							style={styles.sheetSubtitle}
+						>
+							{t("profile.logout.subtitle")}
+						</Label>
 					</View>
 
 					<View style={styles.sheetOptions}>
@@ -201,8 +216,18 @@ export function ProfileScreen() {
 							]}
 						>
 							<View style={styles.logoutOptionCopy}>
-								<Label role="field">{t("profile.logout.stay")}</Label>
-								<Label role="helper">{t("profile.logout.stayHelper")}</Label>
+								<Label
+									role="field"
+									style={styles.logoutOptionTitle}
+								>
+									{t("profile.logout.stay")}
+								</Label>
+								<Label
+									role="helper"
+									style={styles.logoutOptionHelper}
+								>
+									{t("profile.logout.stayHelper")}
+								</Label>
 							</View>
 						</Pressable>
 
@@ -238,7 +263,10 @@ export function ProfileScreen() {
 								>
 									{t("profile.logout.everywhere")}
 								</Label>
-								<Label role="helper">
+								<Label
+									role="helper"
+									style={styles.logoutWarningHelper}
+								>
 									{t("profile.logout.everywhereHelper")}
 								</Label>
 							</View>
@@ -276,7 +304,12 @@ export function ProfileScreen() {
 								>
 									{t("profile.logout.device")}
 								</Label>
-								<Label role="helper">{t("profile.logout.deviceHelper")}</Label>
+								<Label
+									role="helper"
+									style={styles.logoutDangerHelper}
+								>
+									{t("profile.logout.deviceHelper")}
+								</Label>
 							</View>
 						</Pressable>
 					</View>
