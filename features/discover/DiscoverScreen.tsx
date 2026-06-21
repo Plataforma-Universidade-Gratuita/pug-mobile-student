@@ -12,12 +12,12 @@ import { Badge, Label } from "@/components/primitives";
 import { useCurrentFormerStudentStore, useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 
+import { DISCOVERABLE_PROJECT_STATUSES } from "./constants";
 import { DiscoverProjectCard } from "./project-card";
 import { createStyles } from "./styles";
 import {
 	getProjectAvailableSeats,
 	getProjectRemainingHours,
-	isDiscoverableProject,
 	resolveDiscoverProjectStatusTone,
 	resolveDiscoverQueryStateCopy,
 	sortDiscoverProjects,
@@ -46,14 +46,29 @@ export function DiscoverScreen() {
 		state => state.loadCurrentFormerStudentContext,
 	);
 	const areaOfExpertise = currentCourse?.areaOfExpertise ?? null;
-	const projectsQuery =
-		api.project.projectAreasOfExpertise.useProjectsByAreaOfExpertiseQuery(
-			areaOfExpertise?.id ?? null,
-		);
-	const entitiesQuery = api.partner.entities.useEntitiesQuery(
+	const areaOfExpertiseId = areaOfExpertise?.id ?? null;
+	const projectFilters = useMemo(
+		() => ({
+			name: "",
+			entityIds: [],
+			description: "",
+			createdByIds: [],
+			statuses: [...DISCOVERABLE_PROJECT_STATUSES],
+			maxOfferedHours: "",
+			minOfferedHours: "",
+			dateFrom: "",
+			dateTo: "",
+			areaOfExpertiseIds: areaOfExpertiseId ? [areaOfExpertiseId] : [],
+			availability: true,
+		}),
+		[areaOfExpertiseId],
+	);
+	const projectsQuery = api.project.projects.useProjectsSearchQuery(
+		0,
+		100,
+		projectFilters,
 		areaOfExpertise !== null,
 	);
-	const citiesQuery = api.geo.cities.useCitiesQuery(areaOfExpertise !== null);
 
 	useEffect(() => {
 		if (!isCurrentFormerStudentLoaded && !isCurrentFormerStudentLoading) {
@@ -66,20 +81,8 @@ export function DiscoverScreen() {
 	]);
 
 	const discoverableProjects = useMemo(
-		() =>
-			(projectsQuery.data ?? [])
-				.filter(isDiscoverableProject)
-				.sort(sortDiscoverProjects),
-		[projectsQuery.data],
-	);
-	const entitiesById = useMemo(
-		() =>
-			new Map((entitiesQuery.data ?? []).map(entity => [entity.id, entity])),
-		[entitiesQuery.data],
-	);
-	const cityNamesById = useMemo(
-		() => new Map((citiesQuery.data ?? []).map(city => [city.id, city.name])),
-		[citiesQuery.data],
+		() => [...(projectsQuery.data?.content ?? [])].sort(sortDiscoverProjects),
+		[projectsQuery.data?.content],
 	);
 
 	const stateCopy = resolveDiscoverQueryStateCopy(t, {
@@ -93,7 +96,7 @@ export function DiscoverScreen() {
 	});
 
 	const contentBottomPadding =
-		theme.space[8] + theme.space[8] + Math.max(insets.bottom, theme.space[4]);
+		theme.space[8] + theme.space[4] + Math.max(insets.bottom, theme.space[4]);
 	const summaryCountLabel =
 		areaOfExpertise !== null && stateCopy === null
 			? t("discover.summary.count", {
@@ -121,11 +124,7 @@ export function DiscoverScreen() {
 				]}
 				refreshControl={
 					<RefreshControl
-						refreshing={
-							projectsQuery.isRefetching ||
-							entitiesQuery.isRefetching ||
-							citiesQuery.isRefetching
-						}
+						refreshing={projectsQuery.isRefetching}
 						onRefresh={() => {
 							if (!isCurrentFormerStudentLoaded) {
 								void loadCurrentFormerStudentContext();
@@ -133,8 +132,6 @@ export function DiscoverScreen() {
 
 							if (areaOfExpertise !== null) {
 								void projectsQuery.refetch();
-								void entitiesQuery.refetch();
-								void citiesQuery.refetch();
 							}
 						}}
 						tintColor={theme.colors.brand}
@@ -212,13 +209,7 @@ export function DiscoverScreen() {
 									const remainingHours = getProjectRemainingHours(project);
 									const availableSeats = getProjectAvailableSeats(project);
 									const maxParticipants = project.projectInfo.maxParticipants;
-									const entity = entitiesById.get(project.entity.id);
-									const cityName = entity
-										? (cityNamesById.get(entity.cityId) ?? null)
-										: null;
-									const entityMeta = cityName
-										? `${project.entity.name} - ${cityName}`
-										: project.entity.name;
+									const entityMeta = project.entity.name;
 									const hoursLabel =
 										remainingHours == null
 											? t("discover.card.hoursFallback")

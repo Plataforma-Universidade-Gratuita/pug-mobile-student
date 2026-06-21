@@ -75,6 +75,8 @@ export const ProjectComplexSearchRequestSchema = z.object({
 	statuses: z.array(ProjectStatusEnum).optional(),
 	maxOfferedHours: z.number().optional(),
 	minOfferedHours: z.number().optional(),
+	areaOfExpertiseIds: z.array(z.string()).optional(),
+	availability: z.boolean().optional(),
 });
 
 export const ProjectComplexSearchResponseSchema = z.object({

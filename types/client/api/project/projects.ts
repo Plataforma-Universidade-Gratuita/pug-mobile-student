@@ -23,6 +23,8 @@ export interface ProjectComplexSearchFilters {
 	minOfferedHours: string;
 	dateFrom: string;
 	dateTo: string;
+	areaOfExpertiseIds: string[];
+	availability: boolean;
 }
 
 export interface ProjectCreateMutationVariables {

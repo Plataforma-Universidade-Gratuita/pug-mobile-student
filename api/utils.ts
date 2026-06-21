@@ -386,6 +386,11 @@ export function buildProjectComplexSearchRequest(
 		minOfferedHours: parseOptionalPositiveNumber(filters.minOfferedHours),
 		dateFrom: toSearchDateOffsetDateTime(filters.dateFrom, "start"),
 		dateTo: toSearchDateOffsetDateTime(filters.dateTo, "end"),
+		areaOfExpertiseIds:
+			filters.areaOfExpertiseIds.length > 0
+				? filters.areaOfExpertiseIds
+				: undefined,
+		availability: filters.availability,
 	};
 }
 
