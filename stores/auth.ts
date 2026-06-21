@@ -74,9 +74,7 @@ export const useAuthStore = create<AuthStoreState>((set, get) => ({
 	},
 
 	clearSessionState: () => {
-		useCurrentFormerStudentStore
-			.getState()
-			.clearCurrentFormerStudentContext();
+		useCurrentFormerStudentStore.getState().clearCurrentFormerStudentContext();
 
 		set({
 			accessToken: null,

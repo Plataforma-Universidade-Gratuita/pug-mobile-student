@@ -14,8 +14,8 @@ function resolveCurrentFormerStudentContextError(error: unknown) {
 	return "Unable to load current former student context.";
 }
 
-export const useCurrentFormerStudentStore = create<CurrentFormerStudentStoreState>(
-	(set, get) => ({
+export const useCurrentFormerStudentStore =
+	create<CurrentFormerStudentStoreState>((set, get) => ({
 		currentAccount: null,
 		currentUser: null,
 		currentFormerStudent: null,
@@ -105,5 +105,4 @@ export const useCurrentFormerStudentStore = create<CurrentFormerStudentStoreStat
 				error: null,
 			});
 		},
-	}),
-);
+	}));

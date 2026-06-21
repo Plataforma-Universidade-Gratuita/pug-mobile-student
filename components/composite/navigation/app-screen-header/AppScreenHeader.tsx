@@ -7,7 +7,7 @@ import { Label } from "@/components/primitives";
 import { useThemeStore } from "@/stores";
 import type { AppScreenHeaderProps } from "@/types/client";
 
-import { AppBackButton } from "./AppBackButton";
+import { AppBackButton } from "../app-back-button";
 import { createStyles } from "./styles";
 
 export function AppScreenHeader({

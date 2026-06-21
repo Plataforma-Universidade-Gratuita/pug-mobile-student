@@ -42,7 +42,9 @@ export function ProfileScreen() {
 	const currentFormerStudent = useCurrentFormerStudentStore(
 		state => state.currentFormerStudent,
 	);
-	const currentCourse = useCurrentFormerStudentStore(state => state.currentCourse);
+	const currentCourse = useCurrentFormerStudentStore(
+		state => state.currentCourse,
+	);
 	const currentFormerStudentError = useCurrentFormerStudentStore(
 		state => state.error,
 	);

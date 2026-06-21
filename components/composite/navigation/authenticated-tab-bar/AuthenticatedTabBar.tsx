@@ -17,7 +17,7 @@ import {
 	TAB_BAR_DRAG_ACTIVATION_OFFSET,
 	TAB_BAR_ICON_SIZE,
 } from "./constants";
-import { createTabBarStyles } from "./styles";
+import { createStyles } from "./styles";
 import { clampTabIndex } from "./utils";
 
 export function AuthenticatedTabBar({
@@ -29,7 +29,7 @@ export function AuthenticatedTabBar({
 	const insets = useSafeAreaInsets();
 	const routeCount = state.routes.length;
 	const styles = useMemo(
-		() => createTabBarStyles(theme, insets.bottom),
+		() => createStyles(theme, insets.bottom),
 		[insets.bottom, theme],
 	);
 	const railRef = useRef<View>(null);

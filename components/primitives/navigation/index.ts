@@ -1,3 +1,3 @@
-export * from "./FilterSheetScaffold";
-export * from "./ModalScreenScaffold";
-export * from "./OverflowActionSheet";
+export * from "./filter-sheet-scaffold";
+export * from "./modal-screen-scaffold";
+export * from "./overflow-action-sheet";

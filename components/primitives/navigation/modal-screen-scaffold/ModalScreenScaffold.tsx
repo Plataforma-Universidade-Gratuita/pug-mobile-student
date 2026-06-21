@@ -6,7 +6,7 @@ import { useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ModalScreenScaffoldProps } from "@/types/client";
 
-import { Label } from "../forms";
+import { Label } from "../../forms";
 import { createStyles } from "./styles";
 
 export function ModalScreenScaffold({
