@@ -12,7 +12,8 @@
 		},
 		"attendanceDetail": {
 			"actions": {
-				"openProject": "Open project"
+				"openProject": "Open project",
+				"showQr": "Show QR code"
 			},
 			"fields": {
 				"registration": "Academic registration",
@@ -40,6 +41,26 @@
 			"values": {
 				"notValidated": "Not validated yet"
 			}
+		},
+		"attendanceQr": {
+			"actions": {
+				"done": "Done"
+			},
+			"fields": {
+				"code": "Validation code",
+				"duration": "Logged duration"
+			},
+			"helper": "Keep the code fully visible until the validation is completed.",
+			"states": {
+				"errorDescription": "Refresh the modal or try again in a moment.",
+				"errorTitle": "Unable to load this QR code",
+				"loadingDescription": "Fetching the selected attendance and generating the QR code.",
+				"loadingTitle": "Loading attendance QR",
+				"missingDescription": "We could not find this attendance or its validation hash.",
+				"missingTitle": "QR code unavailable"
+			},
+			"subtitle": "Present this code so the project attendance can be validated.",
+			"title": "Attendance QR"
 		},
 		"chips": {
 			"active": "Active projects",

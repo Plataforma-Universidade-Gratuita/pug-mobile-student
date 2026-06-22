@@ -273,6 +273,14 @@ export function AttendanceDetailScreen() {
 							<View style={styles.actions}>
 								<Button
 									onPress={() => {
+										router.push(`/attendance/qr/${attendance.id}`);
+									}}
+								>
+									{t("activity.attendanceDetail.actions.showQr")}
+								</Button>
+								<Button
+									variant="secondary"
+									onPress={() => {
 										router.push(`/discover/projects/${attendance.project.id}`);
 									}}
 								>

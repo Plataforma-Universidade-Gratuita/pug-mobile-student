@@ -1,13 +1,7 @@
 import React from "react";
 
-import { ModalRoutePlaceholderScreen } from "@/features/shell";
+import { AttendanceQrModalScreen } from "@/features/attendance-qr";
 
 export default function AttendanceQrModalRoute() {
-	return (
-		<ModalRoutePlaceholderScreen
-			description="The attendance QR presentation route lands here."
-			subtitle="Full-screen modal scaffold."
-			title="Attendance QR"
-		/>
-	);
+	return <AttendanceQrModalScreen />;
 }

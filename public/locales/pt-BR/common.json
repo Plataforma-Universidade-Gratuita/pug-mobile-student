@@ -12,7 +12,8 @@
 		},
 		"attendanceDetail": {
 			"actions": {
-				"openProject": "Abrir projeto"
+				"openProject": "Abrir projeto",
+				"showQr": "Mostrar QR code"
 			},
 			"fields": {
 				"registration": "Matrícula acadêmica",
@@ -40,6 +41,26 @@
 			"values": {
 				"notValidated": "Ainda não validada"
 			}
+		},
+		"attendanceQr": {
+			"actions": {
+				"done": "Concluir"
+			},
+			"fields": {
+				"code": "Código de validação",
+				"duration": "Duração registrada"
+			},
+			"helper": "Mantenha o código totalmente visível até a validação ser concluída.",
+			"states": {
+				"errorDescription": "Atualize o modal ou tente novamente em instantes.",
+				"errorTitle": "Não foi possível carregar este QR code",
+				"loadingDescription": "Buscando a presença selecionada e gerando o QR code.",
+				"loadingTitle": "Carregando QR da presença",
+				"missingDescription": "Não encontramos esta presença ou o hash de validação dela.",
+				"missingTitle": "QR code indisponível"
+			},
+			"subtitle": "Apresente este código para que a presença no projeto seja validada.",
+			"title": "QR da presença"
 		},
 		"chips": {
 			"active": "Projetos ativos",
@@ -113,37 +134,37 @@
 			"badge": "Acesso de egresso",
 			"emailLabel": "Email",
 			"errors": {
-				"emailInvalid": "Informe um endereÃ§o de email vÃ¡lido.",
-				"emailRequired": "Email Ã© obrigatÃ³rio.",
+				"emailInvalid": "Informe um endereço de email válido.",
+				"emailRequired": "Email é obrigatório.",
 				"emailTooLong": "Email muito longo.",
-				"fallback": "NÃ£o foi possÃ­vel acessar agora. Tente novamente em instantes.",
-				"invalidCredentials": "Email ou senha estÃ£o incorretos ou a conta estÃ¡ inativa.",
+				"fallback": "Não foi possível acessar agora. Tente novamente em instantes.",
+				"invalidCredentials": "Email ou senha estão incorretos ou a conta está inativa.",
 				"passwordInvalid": "A senha deve ter entre 8 e 255 caracteres.",
-				"passwordRequired": "Senha Ã© obrigatÃ³ria."
+				"passwordRequired": "Senha é obrigatória."
 			},
 			"passwordHelper": "Deixe em branco no primeiro acesso.",
 			"passwordLabel": "Senha",
 			"submit": "Acessar",
-			"subtitle": "Gerencie suas inscriÃ§Ãµes e presenÃ§as em projetos em um sÃ³ lugar.",
+			"subtitle": "Gerencie suas inscrições e presenças em projetos em um só lugar.",
 			"title": "Controle suas horas de contrapartida"
 		},
 		"wireCredentials": {
-			"badge": "ConfiguraÃ§Ã£o do primeiro acesso",
+			"badge": "Configuração do primeiro acesso",
 			"confirmPasswordLabel": "Confirmar senha",
 			"confirmPasswordPlaceholder": "Repita sua senha",
 			"errors": {
-				"confirmationMismatch": "As senhas nÃ£o coincidem.",
+				"confirmationMismatch": "As senhas não coincidem.",
 				"confirmationRequired": "Confirme sua senha.",
-				"fallback": "NÃ£o foi possÃ­vel concluir a configuraÃ§Ã£o agora. Tente novamente em instantes.",
-				"missingEmail": "NÃ£o foi possÃ­vel identificar o email da conta atual.",
+				"fallback": "Não foi possível concluir a configuração agora. Tente novamente em instantes.",
+				"missingEmail": "Não foi possível identificar o email da conta atual.",
 				"passwordMinLength": "A senha deve ter pelo menos 8 caracteres.",
-				"passwordRequired": "Senha Ã© obrigatÃ³ria."
+				"passwordRequired": "Senha é obrigatória."
 			},
 			"finishLater": "Concluir depois",
 			"passwordLabel": "Senha",
 			"passwordPlaceholder": "Crie sua senha",
-			"submit": "Concluir configuraÃ§Ã£o",
-			"subtitle": "Crie a senha que serÃ¡ exigida nos prÃ³ximos acessos.",
+			"submit": "Concluir configuração",
+			"subtitle": "Crie a senha que será exigida nos próximos acessos.",
 			"title": "Defina sua senha"
 		}
 	},
