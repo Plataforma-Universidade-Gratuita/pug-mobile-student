@@ -6,13 +6,21 @@ import { ApiError } from "@/api/errors";
 import { buildEnrollmentComplexSearchRequest } from "@/api/utils";
 import type { EnrollmentComplexSearchFilters } from "@/types/client";
 
-import { get, getMine, list, search } from "./endpoints";
+import { get, getMine, list, listMine, search } from "./endpoints";
 import { enrollmentKeys as keys } from "./keys";
 
 export function useEnrollmentsQuery(enabled = true) {
 	return useQuery({
 		queryKey: keys.list(),
 		queryFn: () => list(),
+		enabled,
+	});
+}
+
+export function useMyEnrollmentsQuery(enabled = true) {
+	return useQuery({
+		queryKey: [...keys.list(), "mine"] as const,
+		queryFn: () => listMine(),
 		enabled,
 	});
 }

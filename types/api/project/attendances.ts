@@ -15,9 +15,11 @@ export type AttendanceResponse = z.infer<typeof AttendanceResponseSchema>;
 export type AttendanceComplexSearchRequest = z.infer<
 	typeof AttendanceComplexSearchRequestSchema
 >;
-export type AttendanceComplexSearchResponse = PageResponse<
-	z.infer<typeof AttendanceComplexSearchResponseSchema>
+export type AttendanceComplexSearchItem = z.infer<
+	typeof AttendanceComplexSearchResponseSchema
 >;
+export type AttendanceComplexSearchResponse =
+	PageResponse<AttendanceComplexSearchItem>;
 export type AttendanceCreateRequest = z.infer<
 	typeof AttendanceCreateRequestSchema
 >;

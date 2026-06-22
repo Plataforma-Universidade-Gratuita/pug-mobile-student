@@ -1,4 +1,64 @@
 {
+	"activity": {
+		"actions": {
+			"filters": "Open filters",
+			"open": "Open"
+		},
+		"attendance": {
+			"duration": "{{count}}h logged",
+			"helper": "Attendance status: {{status}}.",
+			"validated": "Validated",
+			"waiting": "Waiting validation"
+		},
+		"chips": {
+			"active": "Active projects",
+			"needsAttendance": "Needs attendance",
+			"pending": "Pending review",
+			"recent": "Recent records",
+			"waiting": "Waiting validation"
+		},
+		"enrollment": {
+			"helper": "Current enrollment status: {{status}}."
+		},
+		"focus": {
+			"activeDescription": "Keep an eye on project progress and register attendances on time.",
+			"activeTitle": "{{count}} active enrollments in progress",
+			"attendancesDescription": "Review recent validations and watch for records still waiting on confirmation.",
+			"attendancesTitle": "{{count}} attendances tracked so far",
+			"pendingDescription": "Track partner responses and move approved enrollments into attendance flow.",
+			"pendingTitle": "{{count}} pending enrollments need attention"
+		},
+		"sections": {
+			"attendances": "Your attendances",
+			"attendancesHelper": "Review validation state and jump back to the related project.",
+			"enrollments": "Your enrollments",
+			"enrollmentsHelper": "Follow approval status and open each project for details."
+		},
+		"segments": {
+			"attendances": "Attendances",
+			"enrollments": "Enrollments"
+		},
+		"states": {
+			"badge": "Activity state",
+			"emptyAttendancesDescription": "Attendance records will appear here once your project activity starts.",
+			"emptyAttendancesTitle": "No attendances yet",
+			"emptyEnrollmentsDescription": "Projects you apply to will show up here as soon as they are created.",
+			"emptyEnrollmentsTitle": "No enrollments yet",
+			"errorDescription": "Refresh the screen or try again in a moment.",
+			"errorTitle": "Unable to load activity",
+			"loadingDescription": "Fetching enrollments, attendances, and related project details.",
+			"loadingTitle": "Loading your activity"
+		},
+		"summary": {
+			"active": "Active",
+			"attendances": "Attendances",
+			"pending": "Pending"
+		},
+		"title": "Activity",
+		"values": {
+			"projectFallback": "Project unavailable"
+		}
+	},
 	"auth": {
 		"login": {
 			"badge": "Former student access",

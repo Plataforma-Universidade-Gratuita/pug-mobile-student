@@ -1,4 +1,64 @@
 {
+	"activity": {
+		"actions": {
+			"filters": "Abrir filtros",
+			"open": "Abrir"
+		},
+		"attendance": {
+			"duration": "{{count}}h registradas",
+			"helper": "Status da presen?a: {{status}}.",
+			"validated": "Validada",
+			"waiting": "Aguardando valida??o"
+		},
+		"chips": {
+			"active": "Projetos ativos",
+			"needsAttendance": "Precisa registrar presen?a",
+			"pending": "Aguardando an?lise",
+			"recent": "Registros recentes",
+			"waiting": "Aguardando valida??o"
+		},
+		"enrollment": {
+			"helper": "Status atual da inscri??o: {{status}}."
+		},
+		"focus": {
+			"activeDescription": "Acompanhe o progresso dos projetos e registre as presen?as no momento certo.",
+			"activeTitle": "{{count}} inscri??es ativas em andamento",
+			"attendancesDescription": "Revise valida??es recentes e observe registros que ainda aguardam confirma??o.",
+			"attendancesTitle": "{{count}} presen?as registradas at? agora",
+			"pendingDescription": "Acompanhe a resposta das entidades parceiras e avance as inscri??es aprovadas para o fluxo de presen?as.",
+			"pendingTitle": "{{count}} inscri??es pendentes exigem aten??o"
+		},
+		"sections": {
+			"attendances": "Suas presen?as",
+			"attendancesHelper": "Revise o estado da valida??o e volte ao projeto relacionado.",
+			"enrollments": "Suas inscri??es",
+			"enrollmentsHelper": "Acompanhe o status de aprova??o e abra cada projeto para ver os detalhes."
+		},
+		"segments": {
+			"attendances": "Presen?as",
+			"enrollments": "Inscri??es"
+		},
+		"states": {
+			"badge": "Estado da atividade",
+			"emptyAttendancesDescription": "Os registros de presen?a v?o aparecer aqui quando sua atividade no projeto come?ar.",
+			"emptyAttendancesTitle": "Nenhuma presen?a ainda",
+			"emptyEnrollmentsDescription": "Os projetos em que voc? se inscrever v?o aparecer aqui assim que forem criados.",
+			"emptyEnrollmentsTitle": "Nenhuma inscri??o ainda",
+			"errorDescription": "Atualize a tela ou tente novamente em instantes.",
+			"errorTitle": "N?o foi poss?vel carregar a atividade",
+			"loadingDescription": "Buscando inscri??es, presen?as e detalhes dos projetos relacionados.",
+			"loadingTitle": "Carregando sua atividade"
+		},
+		"summary": {
+			"active": "Ativas",
+			"attendances": "Presen?as",
+			"pending": "Pendentes"
+		},
+		"title": "Atividade",
+		"values": {
+			"projectFallback": "Projeto indispon?vel"
+		}
+	},
 	"auth": {
 		"login": {
 			"badge": "Acesso de egresso",
