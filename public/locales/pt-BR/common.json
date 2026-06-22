@@ -150,5 +150,53 @@
 			"loading": "Carregando...",
 			"unavailable": "IndisponÃ­vel"
 		}
+	},
+	"projectDetail": {
+		"actions": {
+			"apply": "Inscrever-se no projeto",
+			"close": "Fechar",
+			"exitProject": "Sair do projeto",
+			"manage": "Gerenciar inscricao"
+		},
+		"entity": {
+			"address": "Endereco",
+			"city": "Cidade",
+			"cnpj": "CNPJ",
+			"createdBy": "Criado por",
+			"name": "Nome"
+		},
+		"manage": {
+			"caption": "Inscricao",
+			"closeHelper": "Fechar esta folha e voltar para os detalhes do projeto.",
+			"exitProjectHelper": "Encerrar sua participacao e liberar a vaga para outro participante.",
+			"subtitle": "Escolha o que deseja fazer com a sua inscricao neste projeto."
+		},
+		"metrics": {
+			"activeParticipants": "Participantes ativos",
+			"completedHours": "Horas concluidas",
+			"maxParticipants": "Maximo de participantes",
+			"offeredHours": "Horas ofertadas",
+			"pendingEnrollments": "Inscricoes pendentes",
+			"progress": "Progresso",
+			"progressValue": "{{value}}% concluido"
+		},
+		"sections": {
+			"entity": "Entidade"
+		},
+		"states": {
+			"badge": "Projeto",
+			"errorDescription": "Atualize a tela ou tente novamente em alguns instantes.",
+			"errorTitle": "Nao foi possivel carregar o projeto",
+			"loadingDescription": "Buscando dados do projeto, entidade e inscricoes vinculadas.",
+			"loadingTitle": "Carregando detalhes do projeto",
+			"missingDescription": "Nao encontramos este projeto para mostrar os detalhes.",
+			"missingTitle": "Projeto indisponivel"
+		},
+		"title": "Detalhes do projeto",
+		"values": {
+			"loading": "Carregando...",
+			"unavailable": "Nao disponivel",
+			"unlimited": "Sem limite"
+		}
 	}
 }

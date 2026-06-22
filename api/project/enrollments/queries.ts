@@ -2,10 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 
+import { ApiError } from "@/api/errors";
 import { buildEnrollmentComplexSearchRequest } from "@/api/utils";
 import type { EnrollmentComplexSearchFilters } from "@/types/client";
 
-import { get, list, search } from "./endpoints";
+import { get, getMine, list, search } from "./endpoints";
 import { enrollmentKeys as keys } from "./keys";
 
 export function useEnrollmentsQuery(enabled = true) {
@@ -13,6 +14,15 @@ export function useEnrollmentsQuery(enabled = true) {
 		queryKey: keys.list(),
 		queryFn: () => list(),
 		enabled,
+	});
+}
+
+export function useProjectEnrollmentsQuery(projectId: string | null) {
+	return useQuery({
+		queryKey:
+			projectId === null ? keys.idleProjectList() : keys.projectList(projectId),
+		queryFn: () => list(projectId!),
+		enabled: projectId !== null,
 	});
 }
 
@@ -50,5 +60,25 @@ export function useEnrollmentDetailQuery(
 				: keys.detail(projectId, formerStudentId),
 		queryFn: () => get(projectId!, formerStudentId!),
 		enabled: projectId !== null && formerStudentId !== null,
+	});
+}
+
+export function useMyEnrollmentDetailQuery(projectId: string | null) {
+	return useQuery({
+		queryKey:
+			projectId === null ? keys.idleMineDetail() : keys.mineDetail(projectId),
+		queryFn: async () => {
+			try {
+				return await getMine(projectId!);
+			} catch (error) {
+				if (error instanceof ApiError && error.status === 404) {
+					return null;
+				}
+
+				throw error;
+			}
+		},
+		enabled: projectId !== null,
+		retry: false,
 	});
 }

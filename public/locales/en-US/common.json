@@ -150,5 +150,53 @@
 			"loading": "Loading...",
 			"unavailable": "Unavailable"
 		}
+	},
+	"projectDetail": {
+		"actions": {
+			"apply": "Apply to project",
+			"close": "Close",
+			"exitProject": "Exit project",
+			"manage": "Manage enrollment"
+		},
+		"entity": {
+			"address": "Address",
+			"city": "City",
+			"cnpj": "CNPJ",
+			"createdBy": "Created by",
+			"name": "Name"
+		},
+		"manage": {
+			"caption": "Enrollment",
+			"closeHelper": "Close this sheet and return to the project details.",
+			"exitProjectHelper": "Leave this project and free the slot for another participant.",
+			"subtitle": "Choose what you want to do with your enrollment in this project."
+		},
+		"metrics": {
+			"activeParticipants": "Active participants",
+			"completedHours": "Completed hours",
+			"maxParticipants": "Max participants",
+			"offeredHours": "Offered hours",
+			"pendingEnrollments": "Pending enrollments",
+			"progress": "Progress",
+			"progressValue": "{{value}}% completed"
+		},
+		"sections": {
+			"entity": "Entity"
+		},
+		"states": {
+			"badge": "Project",
+			"errorDescription": "Refresh the screen or try again in a moment.",
+			"errorTitle": "Unable to load this project",
+			"loadingDescription": "Fetching project, entity, and related enrollment data.",
+			"loadingTitle": "Loading project details",
+			"missingDescription": "We could not find this project to show its details.",
+			"missingTitle": "Project unavailable"
+		},
+		"title": "Project details",
+		"values": {
+			"loading": "Loading...",
+			"unavailable": "Unavailable",
+			"unlimited": "Unlimited"
+		}
 	}
 }

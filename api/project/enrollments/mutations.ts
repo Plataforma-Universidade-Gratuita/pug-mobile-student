@@ -10,10 +10,16 @@ import type { EnrollmentResponse } from "@/types/api";
 import type {
 	EnrollmentCreateMutationVariables,
 	EnrollmentDeleteMutationVariables,
+	EnrollmentMyStatusMutationVariables,
 	EnrollmentStatusMutationVariables,
 } from "@/types/client";
 
-import { create, deleteEnrollment, updateStatus } from "./endpoints";
+import {
+	create,
+	deleteEnrollment,
+	updateMyStatus,
+	updateStatus,
+} from "./endpoints";
 import { enrollmentKeys as keys } from "./keys";
 
 function upsertListItem<TItem>(
@@ -56,6 +62,9 @@ function isSameEnrollment(
 function writeEnrollmentCaches(
 	queryClient: QueryClient,
 	enrollment: EnrollmentResponse,
+	options: {
+		includeMineDetail?: boolean;
+	} = {},
 ) {
 	queryClient.setQueryData(
 		keys.detail(enrollment.projectId, enrollment.formerStudentId),
@@ -66,6 +75,22 @@ function writeEnrollmentCaches(
 			isSameEnrollment(item, enrollment.projectId, enrollment.formerStudentId),
 		),
 	);
+	queryClient.setQueryData<EnrollmentResponse[]>(
+		keys.projectList(enrollment.projectId),
+		current =>
+			upsertListItem(current, enrollment, item =>
+				isSameEnrollment(
+					item,
+					enrollment.projectId,
+					enrollment.formerStudentId,
+				),
+			),
+	);
+
+	if (options.includeMineDetail) {
+		queryClient.setQueryData(keys.mineDetail(enrollment.projectId), enrollment);
+	}
+
 	queryClient.invalidateQueries({ queryKey: keys.all });
 }
 
@@ -79,8 +104,18 @@ function removeEnrollmentCaches(
 			isSameEnrollment(item, projectId, formerStudentId),
 		),
 	);
+	queryClient.setQueryData<EnrollmentResponse[]>(
+		keys.projectList(projectId),
+		current =>
+			removeListItem(current, item =>
+				isSameEnrollment(item, projectId, formerStudentId),
+			),
+	);
 	queryClient.removeQueries({
 		queryKey: keys.detail(projectId, formerStudentId),
+	});
+	queryClient.removeQueries({
+		queryKey: keys.mineDetail(projectId),
 	});
 	queryClient.invalidateQueries({ queryKey: keys.all });
 }
@@ -132,6 +167,20 @@ export function useEnrollmentStatusMutation() {
 		mutationFn: runEnrollmentStatusAction,
 		onSuccess: enrollment => {
 			writeEnrollmentCaches(queryClient, enrollment);
+		},
+	});
+}
+
+export function useMyEnrollmentStatusMutation() {
+	const queryClient = useQueryClient();
+
+	return useMutation({
+		mutationFn: ({ projectId, status }: EnrollmentMyStatusMutationVariables) =>
+			updateMyStatus(projectId, status),
+		onSuccess: enrollment => {
+			writeEnrollmentCaches(queryClient, enrollment, {
+				includeMineDetail: true,
+			});
 		},
 	});
 }

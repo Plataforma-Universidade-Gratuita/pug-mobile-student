@@ -26,11 +26,16 @@ export interface EnrollmentDeleteMutationVariables {
 
 export interface EnrollmentCreateMutationVariables {
 	projectId: string;
-	formerStudentId: string;
+	formerStudentId?: string;
 }
 
 export interface EnrollmentStatusMutationVariables {
 	action: EnrollmentStatusAction;
 	projectId: string;
 	formerStudentId: string;
+}
+
+export interface EnrollmentMyStatusMutationVariables {
+	projectId: string;
+	status: EnrollmentStatus;
 }
