@@ -214,6 +214,7 @@ export function ActivityAttendanceCard({
 	helperText,
 	dateLabel,
 	validatorLabel,
+	ctaLabel,
 	onPress,
 }: ActivityAttendanceCardProps) {
 	const theme = useThemeStore(state => state.theme);
@@ -257,7 +258,7 @@ export function ActivityAttendanceCard({
 							role="field"
 							style={[styles.ctaText, { color: theme.colors.brand }]}
 						>
-							QR
+							{ctaLabel}
 						</Label>
 					</View>
 

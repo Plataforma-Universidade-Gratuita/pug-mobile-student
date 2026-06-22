@@ -25,11 +25,18 @@ import {
 	ActivitySegmentedControl,
 	ActivitySummarySection,
 } from "./activity-sections";
+import { ActivityFilterSheet } from "./filter-sheet";
 import { createStyles } from "./styles";
 import {
+	applyActivityAttendanceFilters,
 	buildActivitySummaryCopy,
+	buildAttendanceStatusOptions,
+	buildEnrollmentStatusOptions,
 	countActiveEnrollments,
 	countPendingEnrollments,
+	createDefaultActivityFilters,
+	filterActivityEnrollmentItems,
+	hasActiveActivityFilters,
 	resolveAttendanceStatusTone,
 	resolveEnrollmentStatusTone,
 	resolveProjectName,
@@ -45,6 +52,8 @@ export function ActivityScreen() {
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
 	const [activeTab, setActiveTab] = useState<ActivityTab>("enrollments");
+	const [isFilterSheetVisible, setIsFilterSheetVisible] = useState(false);
+	const [filters, setFilters] = useState(createDefaultActivityFilters());
 	const currentFormerStudent = useCurrentFormerStudentStore(
 		state => state.currentFormerStudent,
 	);
@@ -132,6 +141,23 @@ export function ActivityScreen() {
 			.sort(sortActivityAttendanceItems);
 	}, [attendancesQuery.data, projectsById]);
 
+	const visibleEnrollmentItems = useMemo(
+		() => filterActivityEnrollmentItems(enrollmentItems, filters),
+		[enrollmentItems, filters],
+	);
+	const visibleAttendanceItems = useMemo(
+		() => applyActivityAttendanceFilters(attendanceItems, filters),
+		[attendanceItems, filters],
+	);
+	const enrollmentStatusOptions = useMemo(
+		() => buildEnrollmentStatusOptions(enrollmentItems),
+		[enrollmentItems],
+	);
+	const attendanceStatusOptions = useMemo(
+		() => buildAttendanceStatusOptions(attendanceItems),
+		[attendanceItems],
+	);
+	const hasActiveFilters = hasActiveActivityFilters(filters);
 	const activeCount = countActiveEnrollments(enrollmentsQuery.data ?? []);
 	const pendingCount = countPendingEnrollments(enrollmentsQuery.data ?? []);
 	const attendanceCount = (attendancesQuery.data ?? []).length;
@@ -155,8 +181,6 @@ export function ActivityScreen() {
 		enrollmentsQuery.isRefetching ||
 		attendancesQuery.isRefetching ||
 		projectsQuery.isRefetching;
-	const visibleEnrollmentItems = enrollmentItems;
-	const visibleAttendanceItems = attendanceItems;
 	const contentBottomPadding =
 		theme.space[8] + theme.space[4] + Math.max(insets.bottom, theme.space[4]);
 	const stateCopy = hasQueryError
@@ -173,14 +197,22 @@ export function ActivityScreen() {
 				}
 			: activeTab === "enrollments" && visibleEnrollmentItems.length === 0
 				? {
-						title: t("activity.states.emptyEnrollmentsTitle"),
-						description: t("activity.states.emptyEnrollmentsDescription"),
+						title: hasActiveFilters
+							? t("activity.states.filteredEmptyEnrollmentsTitle")
+							: t("activity.states.emptyEnrollmentsTitle"),
+						description: hasActiveFilters
+							? t("activity.states.filteredEmptyEnrollmentsDescription")
+							: t("activity.states.emptyEnrollmentsDescription"),
 						badgeTone: "neutral" as const,
 					}
 				: activeTab === "attendances" && visibleAttendanceItems.length === 0
 					? {
-							title: t("activity.states.emptyAttendancesTitle"),
-							description: t("activity.states.emptyAttendancesDescription"),
+							title: hasActiveFilters
+								? t("activity.states.filteredEmptyAttendancesTitle")
+								: t("activity.states.emptyAttendancesTitle"),
+							description: hasActiveFilters
+								? t("activity.states.filteredEmptyAttendancesDescription")
+								: t("activity.states.emptyAttendancesDescription"),
 							badgeTone: "neutral" as const,
 						}
 					: null;
@@ -192,8 +224,11 @@ export function ActivityScreen() {
 				rightAccessory={
 					<HeaderActionButton
 						accessibilityLabel={t("activity.actions.filters")}
-						disabled
+						disabled={hasQueryError || isInitialLoading}
 						icon={SlidersHorizontal}
+						onPress={() => {
+							setIsFilterSheetVisible(true);
+						}}
 					/>
 				}
 			/>
@@ -281,7 +316,7 @@ export function ActivityScreen() {
 								? visibleEnrollmentItems.map(item => (
 										<ActivityEnrollmentCard
 											key={`${item.enrollment.projectId}-${item.enrollment.formerStudentId}`}
-											ctaLabel={t("activity.actions.open")}
+											ctaLabel={t("activity.actions.details")}
 											helperText={t("activity.enrollment.helper", {
 												status: item.enrollment.status.statusFormatted,
 											})}
@@ -291,7 +326,7 @@ export function ActivityScreen() {
 											}
 											onPress={() => {
 												router.push(
-													`/discover/projects/${item.enrollment.projectId}`,
+													`/activity/enrollments/${item.enrollment.projectId}`,
 												);
 											}}
 											projectName={resolveProjectName(
@@ -307,6 +342,7 @@ export function ActivityScreen() {
 								: visibleAttendanceItems.map(item => (
 										<ActivityAttendanceCard
 											key={item.attendance.id}
+											ctaLabel={t("activity.actions.details")}
 											dateLabel={
 												item.attendance.attendanceInfo.auditInfo
 													.createdAtFormatted
@@ -319,7 +355,7 @@ export function ActivityScreen() {
 											})}
 											onPress={() => {
 												router.push(
-													`/discover/projects/${item.attendance.project.id}`,
+													`/activity/attendances/${item.attendance.id}`,
 												);
 											}}
 											projectName={resolveProjectName(
@@ -341,6 +377,24 @@ export function ActivityScreen() {
 					)}
 				</View>
 			</ScrollView>
+
+			<ActivityFilterSheet
+				activeTab={activeTab}
+				filters={filters}
+				onApply={nextFilters => {
+					setFilters(nextFilters);
+					setIsFilterSheetVisible(false);
+				}}
+				onDismiss={() => {
+					setIsFilterSheetVisible(false);
+				}}
+				statusOptions={
+					activeTab === "enrollments"
+						? enrollmentStatusOptions
+						: attendanceStatusOptions
+				}
+				visible={isFilterSheetVisible}
+			/>
 		</View>
 	);
 }

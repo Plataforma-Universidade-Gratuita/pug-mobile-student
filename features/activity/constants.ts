@@ -7,10 +7,10 @@ export const ACTIVE_ENROLLMENT_STATUSES: EnrollmentStatus[] = [
 
 export const PENDING_ENROLLMENT_STATUS = "PENDING" as const;
 
-export const ACTIVITY_VISIBLE_ENROLLMENT_STATUSES: EnrollmentStatus[] = [
+export const ENROLLMENT_STATUS_ORDER: EnrollmentStatus[] = [
+	"PENDING",
 	"APPROVED",
 	"ON_HOLD",
-	"PENDING",
 	"COMPLETED",
 	"EXITED",
 	"CANCELED",

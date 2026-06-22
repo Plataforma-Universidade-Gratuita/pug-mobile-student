@@ -1,14 +1,45 @@
 {
 	"activity": {
 		"actions": {
-			"filters": "Open filters",
-			"open": "Open"
+			"details": "Details",
+			"filters": "Open filters"
 		},
 		"attendance": {
 			"duration": "{{count}}h logged",
 			"helper": "Attendance status: {{status}}.",
 			"validated": "Validated",
 			"waiting": "Waiting validation"
+		},
+		"attendanceDetail": {
+			"actions": {
+				"openProject": "Open project"
+			},
+			"fields": {
+				"registration": "Academic registration",
+				"student": "Student",
+				"validationCode": "Validation code"
+			},
+			"metrics": {
+				"createdAt": "Created at",
+				"validatedAt": "Validated at",
+				"validator": "Validator"
+			},
+			"sections": {
+				"validation": "Validation data"
+			},
+			"states": {
+				"errorDescription": "Refresh the screen or try again in a moment.",
+				"errorTitle": "Unable to load this attendance",
+				"loadingDescription": "Fetching the selected attendance and validation data.",
+				"loadingTitle": "Loading attendance details",
+				"missingDescription": "We could not find this attendance in your current activity list.",
+				"missingTitle": "Attendance unavailable"
+			},
+			"subtitle": "Review validation state and the linked project before opening it again.",
+			"title": "Attendance details",
+			"values": {
+				"notValidated": "Not validated yet"
+			}
 		},
 		"chips": {
 			"active": "Active projects",
@@ -19,6 +50,20 @@
 		},
 		"enrollment": {
 			"helper": "Current enrollment status: {{status}}."
+		},
+		"enrollmentDetail": {
+			"title": "Enrollment details"
+		},
+		"filters": {
+			"apply": "Apply",
+			"clear": "Clear",
+			"searchHelper": "Matches the project name, entity, description, or status.",
+			"searchLabel": "Project or status",
+			"searchPlaceholder": "Search activity",
+			"statusesHelper": "Select one or more statuses from the current list.",
+			"statusesLabel": "Statuses",
+			"subtitle": "Apply local filters to narrow the current activity list.",
+			"title": "Filter activity"
 		},
 		"focus": {
 			"activeDescription": "Keep an eye on project progress and register attendances on time.",
@@ -46,6 +91,10 @@
 			"emptyEnrollmentsTitle": "No enrollments yet",
 			"errorDescription": "Refresh the screen or try again in a moment.",
 			"errorTitle": "Unable to load activity",
+			"filteredEmptyAttendancesDescription": "Try clearing one or more filters to see more attendances.",
+			"filteredEmptyAttendancesTitle": "No attendances match these filters",
+			"filteredEmptyEnrollmentsDescription": "Try clearing one or more filters to see more enrollments.",
+			"filteredEmptyEnrollmentsTitle": "No enrollments match these filters",
 			"loadingDescription": "Fetching enrollments, attendances, and related project details.",
 			"loadingTitle": "Loading your activity"
 		},

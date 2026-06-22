@@ -1,14 +1,45 @@
 {
 	"activity": {
 		"actions": {
-			"filters": "Abrir filtros",
-			"open": "Abrir"
+			"details": "Detalhes",
+			"filters": "Abrir filtros"
 		},
 		"attendance": {
 			"duration": "{{count}}h registradas",
 			"helper": "Status da presen?a: {{status}}.",
 			"validated": "Validada",
 			"waiting": "Aguardando valida??o"
+		},
+		"attendanceDetail": {
+			"actions": {
+				"openProject": "Abrir projeto"
+			},
+			"fields": {
+				"registration": "Matrícula acadêmica",
+				"student": "Estudante",
+				"validationCode": "Código de validação"
+			},
+			"metrics": {
+				"createdAt": "Criada em",
+				"validatedAt": "Validada em",
+				"validator": "Validador"
+			},
+			"sections": {
+				"validation": "Dados de validação"
+			},
+			"states": {
+				"errorDescription": "Atualize a tela ou tente novamente em instantes.",
+				"errorTitle": "Não foi possível carregar esta presença",
+				"loadingDescription": "Buscando a presença selecionada e os dados de validação.",
+				"loadingTitle": "Carregando detalhes da presença",
+				"missingDescription": "Não encontramos esta presença na sua lista atual de atividades.",
+				"missingTitle": "Presença indisponível"
+			},
+			"subtitle": "Revise o estado da validação e o projeto relacionado antes de abri-lo novamente.",
+			"title": "Detalhes da presença",
+			"values": {
+				"notValidated": "Ainda não validada"
+			}
 		},
 		"chips": {
 			"active": "Projetos ativos",
@@ -19,6 +50,20 @@
 		},
 		"enrollment": {
 			"helper": "Status atual da inscri??o: {{status}}."
+		},
+		"enrollmentDetail": {
+			"title": "Detalhes da inscrição"
+		},
+		"filters": {
+			"apply": "Aplicar",
+			"clear": "Limpar",
+			"searchHelper": "Busca pelo nome do projeto, entidade, descrição ou status.",
+			"searchLabel": "Projeto ou status",
+			"searchPlaceholder": "Buscar atividade",
+			"statusesHelper": "Selecione um ou mais status da lista atual.",
+			"statusesLabel": "Status",
+			"subtitle": "Aplique filtros locais para reduzir a lista de atividade atual.",
+			"title": "Filtrar atividade"
 		},
 		"focus": {
 			"activeDescription": "Acompanhe o progresso dos projetos e registre as presen?as no momento certo.",
@@ -46,6 +91,10 @@
 			"emptyEnrollmentsTitle": "Nenhuma inscri??o ainda",
 			"errorDescription": "Atualize a tela ou tente novamente em instantes.",
 			"errorTitle": "N?o foi poss?vel carregar a atividade",
+			"filteredEmptyAttendancesDescription": "Tente limpar um ou mais filtros para ver mais presenças.",
+			"filteredEmptyAttendancesTitle": "Nenhuma presença corresponde a esses filtros",
+			"filteredEmptyEnrollmentsDescription": "Tente limpar um ou mais filtros para ver mais inscrições.",
+			"filteredEmptyEnrollmentsTitle": "Nenhuma inscrição corresponde a esses filtros",
 			"loadingDescription": "Buscando inscri??es, presen?as e detalhes dos projetos relacionados.",
 			"loadingTitle": "Carregando sua atividade"
 		},

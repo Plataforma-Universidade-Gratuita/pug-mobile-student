@@ -1,14 +1,13 @@
 import React from "react";
 
-import { RoutePlaceholderScreen } from "@/features/shell";
+import { useTranslation } from "react-i18next";
+
+import { ProjectDetailScreen } from "@/features/project-detail";
 
 export default function EnrollmentDetailRoute() {
+	const { t } = useTranslation();
+
 	return (
-		<RoutePlaceholderScreen
-			description="Enrollment detail, linked project context, and attendance entry actions land here."
-			showBackButton
-			subtitle="Enrollment detail route scaffold."
-			title="Enrollment"
-		/>
+		<ProjectDetailScreen titleOverride={t("activity.enrollmentDetail.title")} />
 	);
 }

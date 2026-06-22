@@ -1,5 +1,9 @@
 import type { BadgeTone } from "../components/primitives/display/badge";
 
+export interface ProjectDetailScreenProps {
+	titleOverride?: string;
+}
+
 export interface ProjectOverviewCardProps {
 	title: string;
 	description: string;

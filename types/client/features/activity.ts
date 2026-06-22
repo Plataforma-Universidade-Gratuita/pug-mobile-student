@@ -1,11 +1,33 @@
 import type {
 	AttendanceComplexSearchItem,
+	AttendanceStatus,
 	EnrollmentResponse,
+	EnrollmentStatus,
 	ProjectResponse,
 } from "@/types/api";
 import type { BadgeTone } from "@/types/client";
 
 export type ActivityTab = "enrollments" | "attendances";
+
+export interface ActivityFilters {
+	query: string;
+	enrollmentStatuses: EnrollmentStatus[];
+	attendanceStatuses: AttendanceStatus[];
+}
+
+export interface ActivityFilterStatusOption {
+	value: string;
+	label: string;
+}
+
+export interface ActivityFilterSheetProps {
+	visible: boolean;
+	activeTab: ActivityTab;
+	filters: ActivityFilters;
+	statusOptions: ActivityFilterStatusOption[];
+	onApply: (filters: ActivityFilters) => void;
+	onDismiss: () => void;
+}
 
 export interface ActivityEnrollmentCardProps {
 	projectName: string;
@@ -25,6 +47,7 @@ export interface ActivityAttendanceCardProps {
 	helperText: string;
 	dateLabel: string;
 	validatorLabel: string;
+	ctaLabel: string;
 	onPress: () => void;
 }
 

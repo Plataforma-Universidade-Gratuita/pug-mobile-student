@@ -9,6 +9,8 @@ import type {
 import type {
 	ActivityAttendanceItem,
 	ActivityEnrollmentItem,
+	ActivityFilterStatusOption,
+	ActivityFilters,
 	ActivityTab,
 	BadgeTone,
 } from "@/types/client";
@@ -16,12 +18,29 @@ import type {
 import {
 	ACTIVE_ENROLLMENT_STATUSES,
 	ATTENDANCE_STATUS_ORDER,
+	ENROLLMENT_STATUS_ORDER,
 	PENDING_ENROLLMENT_STATUS,
 } from "./constants";
 
 const activeEnrollmentStatusSet = new Set<EnrollmentStatus>(
 	ACTIVE_ENROLLMENT_STATUSES,
 );
+
+export function createDefaultActivityFilters(): ActivityFilters {
+	return {
+		query: "",
+		enrollmentStatuses: [],
+		attendanceStatuses: [],
+	};
+}
+
+export function hasActiveActivityFilters(filters: ActivityFilters) {
+	return (
+		filters.query.trim().length > 0 ||
+		filters.enrollmentStatuses.length > 0 ||
+		filters.attendanceStatuses.length > 0
+	);
+}
 
 export function countActiveEnrollments(enrollments: EnrollmentResponse[]) {
 	return enrollments.filter(enrollment =>
@@ -57,6 +76,125 @@ export function sortActivityAttendanceItems(
 	const rightDate = right.attendance.attendanceInfo.auditInfo.createdAt ?? "";
 
 	return rightDate.localeCompare(leftDate);
+}
+
+export function buildEnrollmentStatusOptions(
+	items: ActivityEnrollmentItem[],
+): ActivityFilterStatusOption[] {
+	const optionMap = new Map<EnrollmentStatus, string>();
+
+	for (const item of items) {
+		optionMap.set(
+			item.enrollment.status.status,
+			item.enrollment.status.statusFormatted,
+		);
+	}
+
+	return [...optionMap.entries()]
+		.sort((left, right) => {
+			const leftIndex = ENROLLMENT_STATUS_ORDER.indexOf(left[0]);
+			const rightIndex = ENROLLMENT_STATUS_ORDER.indexOf(right[0]);
+
+			if (leftIndex === -1 || rightIndex === -1) {
+				return left[1].localeCompare(right[1]);
+			}
+
+			return leftIndex - rightIndex;
+		})
+		.map(([value, label]) => ({
+			value,
+			label,
+		}));
+}
+
+export function buildAttendanceStatusOptions(
+	items: ActivityAttendanceItem[],
+): ActivityFilterStatusOption[] {
+	const optionMap = new Map<AttendanceStatus, string>();
+
+	for (const item of items) {
+		optionMap.set(
+			item.attendance.status.status,
+			item.attendance.status.statusFormatted,
+		);
+	}
+
+	return [...optionMap.entries()]
+		.sort(
+			(left, right) =>
+				ATTENDANCE_STATUS_ORDER[left[0]] - ATTENDANCE_STATUS_ORDER[right[0]],
+		)
+		.map(([value, label]) => ({
+			value,
+			label,
+		}));
+}
+
+function matchesQuery(value: string, query: string) {
+	return value.toLocaleLowerCase().includes(query);
+}
+
+export function filterActivityEnrollmentItems(
+	items: ActivityEnrollmentItem[],
+	filters: ActivityFilters,
+) {
+	const query = filters.query.trim().toLocaleLowerCase();
+
+	return items.filter(item => {
+		if (
+			filters.enrollmentStatuses.length > 0 &&
+			!filters.enrollmentStatuses.includes(item.enrollment.status.status)
+		) {
+			return false;
+		}
+
+		if (!query) {
+			return true;
+		}
+
+		const haystack = [
+			item.project?.name ?? "",
+			item.project?.description ?? "",
+			item.project?.entity.name ?? "",
+			item.enrollment.status.statusFormatted,
+		]
+			.join(" ")
+			.toLocaleLowerCase();
+
+		return matchesQuery(haystack, query);
+	});
+}
+
+export function applyActivityAttendanceFilters(
+	items: ActivityAttendanceItem[],
+	filters: ActivityFilters,
+) {
+	const query = filters.query.trim().toLocaleLowerCase();
+
+	return items.filter(item => {
+		if (
+			filters.attendanceStatuses.length > 0 &&
+			!filters.attendanceStatuses.includes(item.attendance.status.status)
+		) {
+			return false;
+		}
+
+		if (!query) {
+			return true;
+		}
+
+		const haystack = [
+			item.project?.name ?? item.attendance.project.name,
+			item.project?.description ?? "",
+			item.project?.entity.name ?? "",
+			item.attendance.status.statusFormatted,
+			item.attendance.validator?.name ?? "",
+		]
+			.join(" ")
+			.toLocaleLowerCase();
+
+		return matchesQuery(haystack, query);
+	});
 }
 
 export function resolveEnrollmentStatusTone(

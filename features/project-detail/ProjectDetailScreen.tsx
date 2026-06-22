@@ -15,6 +15,7 @@ import {
 import { Badge, Label } from "@/components/primitives";
 import { useCurrentFormerStudentStore, useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
+import type { ProjectDetailScreenProps } from "@/types/client";
 
 import {
 	ManageEnrollmentSheet,
@@ -32,16 +33,25 @@ import {
 	resolveProjectDetailStatusTone,
 } from "./utils";
 
-export function ProjectDetailScreen() {
+export function ProjectDetailScreen({
+	titleOverride,
+}: ProjectDetailScreenProps) {
 	const { t } = useTranslation();
 	const insets = useSafeAreaInsets();
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme), [theme]);
 	const [isManageSheetVisible, setIsManageSheetVisible] = useState(false);
-	const params = useLocalSearchParams<{ id?: string | string[] }>();
+	const params = useLocalSearchParams<{
+		id?: string | string[];
+		projectId?: string | string[];
+	}>();
 	const projectId =
-		typeof params.id === "string" && params.id.trim() ? params.id : null;
+		typeof params.id === "string" && params.id.trim()
+			? params.id
+			: typeof params.projectId === "string" && params.projectId.trim()
+				? params.projectId
+				: null;
 	const currentFormerStudent = useCurrentFormerStudentStore(
 		state => state.currentFormerStudent,
 	);
@@ -192,7 +202,7 @@ export function ProjectDetailScreen() {
 	return (
 		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}>
 			<BrandScreenHeader
-				title={t("projectDetail.title")}
+				title={titleOverride ?? t("projectDetail.title")}
 				leftAccessory={<AppBackButton />}
 				rightAccessory={rightAccessory}
 			/>
