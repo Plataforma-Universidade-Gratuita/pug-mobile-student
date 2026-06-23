@@ -229,10 +229,58 @@
 		"title": "Discover"
 	},
 	"home": {
-		"badge": "Session active",
-		"logout": "Log out",
-		"subtitleFallback": "Your session is ready.",
-		"title": "You are signed in."
+		"actions": {
+			"attendances": "Attendances",
+			"attendancesHelper": "Review validations and recent activity.",
+			"discover": "Discover",
+			"discoverHelper": "Find projects that still have open capacity.",
+			"enrollments": "Enrollments",
+			"enrollmentsHelper": "Check approvals and pending project requests.",
+			"latestQr": "Latest QR",
+			"latestQrHelper": "Open the most recent attendance validation code.",
+			"openAttendance": "Open attendance",
+			"openEnrollment": "Open enrollment",
+			"profile": "Profile",
+			"profileHelper": "Review your student data and preferences."
+		},
+		"recent": {
+			"emptyAttendanceDescription": "Your attendance records will appear here after your next project session.",
+			"emptyAttendanceTitle": "No attendance yet",
+			"emptyEnrollmentDescription": "Your latest project application will appear here once you create one.",
+			"emptyEnrollmentTitle": "No enrollment yet",
+			"latestAttendance": "Latest attendance",
+			"latestAttendanceDescription": "Registered on {{createdAt}}.",
+			"latestEnrollment": "Latest enrollment",
+			"latestEnrollmentDescription": "Submitted on {{createdAt}}."
+		},
+		"sections": {
+			"quickActions": "Quick actions",
+			"quickActionsHelper": "Jump into the next thing you need to handle.",
+			"recent": "Recent activity",
+			"recentHelper": "Open your latest enrollment or attendance without searching for it."
+		},
+		"states": {
+			"badge": "Home state",
+			"emptyBadge": "No data",
+			"errorDescription": "Refresh the screen or try again in a moment.",
+			"errorTitle": "Unable to load your dashboard",
+			"loadingDescription": "Fetching your current student context, enrollments, and attendances.",
+			"loadingTitle": "Loading your home overview"
+		},
+		"summary": {
+			"activeEnrollments": "Active projects",
+			"attendances": "Attendances",
+			"dueDate": "Due date",
+			"pendingEnrollments": "Pending approvals",
+			"progress": "Counterpart progress",
+			"progressValue": "{{value}}% completed",
+			"remainingDays": "Remaining days"
+		},
+		"title": "Home",
+		"values": {
+			"projectUnavailable": "Project unavailable",
+			"unavailable": "Unavailable"
+		}
 	},
 	"profile": {
 		"badge": "Profile",

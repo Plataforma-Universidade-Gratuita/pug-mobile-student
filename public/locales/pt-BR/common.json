@@ -229,10 +229,58 @@
 		"title": "Descobrir"
 	},
 	"home": {
-		"badge": "SessÃ£o ativa",
-		"logout": "Sair",
-		"subtitleFallback": "Sua sessÃ£o estÃ¡ pronta.",
-		"title": "VocÃª estÃ¡ conectado."
+		"actions": {
+			"attendances": "Presencas",
+			"attendancesHelper": "Revise validacoes e atividade recente.",
+			"discover": "Descobrir",
+			"discoverHelper": "Encontre projetos que ainda possuem vagas abertas.",
+			"enrollments": "Inscricoes",
+			"enrollmentsHelper": "Acompanhe aprovacoes e pedidos pendentes.",
+			"latestQr": "Ultimo QR",
+			"latestQrHelper": "Abra o codigo de validacao da presenca mais recente.",
+			"openAttendance": "Abrir presenca",
+			"openEnrollment": "Abrir inscricao",
+			"profile": "Perfil",
+			"profileHelper": "Revise seus dados e preferencias."
+		},
+		"recent": {
+			"emptyAttendanceDescription": "Seus registros de presenca aparecerao aqui depois da proxima atividade em projeto.",
+			"emptyAttendanceTitle": "Nenhuma presenca ainda",
+			"emptyEnrollmentDescription": "Sua ultima inscricao em projeto aparecera aqui assim que for criada.",
+			"emptyEnrollmentTitle": "Nenhuma inscricao ainda",
+			"latestAttendance": "Ultima presenca",
+			"latestAttendanceDescription": "Registrada em {{createdAt}}.",
+			"latestEnrollment": "Ultima inscricao",
+			"latestEnrollmentDescription": "Enviada em {{createdAt}}."
+		},
+		"sections": {
+			"quickActions": "Acoes rapidas",
+			"quickActionsHelper": "Entre direto no proximo ponto que voce precisa resolver.",
+			"recent": "Atividade recente",
+			"recentHelper": "Abra sua ultima inscricao ou presenca sem precisar procurar."
+		},
+		"states": {
+			"badge": "Estado da home",
+			"emptyBadge": "Sem dados",
+			"errorDescription": "Atualize a tela ou tente novamente em instantes.",
+			"errorTitle": "Nao foi possivel carregar seu painel",
+			"loadingDescription": "Buscando seu contexto atual, inscricoes e presencas.",
+			"loadingTitle": "Carregando sua visao inicial"
+		},
+		"summary": {
+			"activeEnrollments": "Projetos ativos",
+			"attendances": "Presencas",
+			"dueDate": "Prazo final",
+			"pendingEnrollments": "Aprovacoes pendentes",
+			"progress": "Progresso da contrapartida",
+			"progressValue": "{{value}}% concluido",
+			"remainingDays": "Dias restantes"
+		},
+		"title": "Home",
+		"values": {
+			"projectUnavailable": "Projeto indisponivel",
+			"unavailable": "Indisponivel"
+		}
 	},
 	"profile": {
 		"badge": "Perfil",

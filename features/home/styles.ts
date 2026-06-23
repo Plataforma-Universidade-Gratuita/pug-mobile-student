@@ -15,20 +15,30 @@ export function createStyles(
 			backgroundColor: spec.screenBackground,
 		},
 		content: {
-			flex: 1,
 			paddingHorizontal: theme.layout.screenPadding,
-			paddingVertical: theme.space[6],
+			paddingTop: theme.space[5],
 		},
 		shell: {
-			flex: 1,
-			justifyContent: "center",
 			gap: theme.space[5],
 		},
-		badge: {
+		sectionHeader: {
+			gap: theme.space[1],
+		},
+		snapshotStack: {
+			gap: theme.space[3],
+		},
+		stateCard: {
+			borderRadius: theme.radius.xl,
+			borderWidth: 1,
+			paddingHorizontal: theme.space[4],
+			paddingVertical: theme.space[4],
+			gap: theme.space[3],
+		},
+		stateBadge: {
 			alignSelf: "flex-start",
 		},
-		header: {
-			gap: theme.form.headerGap,
+		stateBody: {
+			gap: theme.space[1],
 		},
 	});
 }

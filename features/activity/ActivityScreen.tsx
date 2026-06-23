@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { SlidersHorizontal } from "lucide-react-native";
 import { useTranslation } from "react-i18next";
 import { RefreshControl, ScrollView, View } from "react-native";
@@ -47,11 +47,17 @@ import {
 export function ActivityScreen() {
 	const { t } = useTranslation();
 	const router = useRouter();
+	const params = useLocalSearchParams<{ tab?: string | string[] }>();
 	const insets = useSafeAreaInsets();
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
-	const [activeTab, setActiveTab] = useState<ActivityTab>("enrollments");
+	const requestedTab =
+		typeof params.tab === "string" &&
+		(params.tab === "enrollments" || params.tab === "attendances")
+			? params.tab
+			: "enrollments";
+	const [activeTab, setActiveTab] = useState<ActivityTab>(requestedTab);
 	const [isFilterSheetVisible, setIsFilterSheetVisible] = useState(false);
 	const [filters, setFilters] = useState(createDefaultActivityFilters());
 	const currentFormerStudent = useCurrentFormerStudentStore(
@@ -76,6 +82,14 @@ export function ActivityScreen() {
 		api.project.attendances.useAttendancesByFormerStudentQuery(
 			currentFormerStudent?.accountId ?? null,
 		);
+
+	useEffect(() => {
+		setActiveTab(requestedTab);
+	}, [requestedTab]);
+
+	useEffect(() => {
+		setActiveTab(requestedTab);
+	}, [requestedTab]);
 
 	useEffect(() => {
 		if (!isCurrentFormerStudentLoaded && !isCurrentFormerStudentLoading) {
