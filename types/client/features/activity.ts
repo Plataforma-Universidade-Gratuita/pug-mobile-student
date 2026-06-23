@@ -74,3 +74,20 @@ export interface ActivityAttendanceItem {
 	attendance: AttendanceComplexSearchItem;
 	project: ProjectResponse | null;
 }
+
+export interface ActivityStateCardProps {
+	badgeLabel: string;
+	description: string;
+	title: string;
+	tone: NonNullable<BadgeTone>;
+}
+
+export interface ActivityListSectionProps {
+	activeTab: ActivityTab;
+	attendanceItems: ActivityAttendanceItem[];
+	enrollmentItems: ActivityEnrollmentItem[];
+	resolveAttendanceStatusTone: (status: AttendanceStatus) => BadgeTone;
+	resolveEnrollmentStatusTone: (status: EnrollmentStatus) => BadgeTone;
+	resolveProjectName: (project: ProjectResponse | null, fallback: string) => string;
+	t: (...args: any[]) => any;
+}

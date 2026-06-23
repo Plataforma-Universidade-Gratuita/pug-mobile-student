@@ -48,3 +48,17 @@ export interface HomeQuickActionBuildArgs {
 	onProfilePress: () => void;
 	t: (...args: any[]) => any;
 }
+
+export interface HomeStateCardProps {
+	badgeLabel: string;
+	description: string;
+	title: string;
+	tone: NonNullable<PrimitiveBadgeProps["tone"]>;
+}
+
+export interface HomeRecentSectionProps {
+	attendanceCard: HomeActivitySnapshotCardProps;
+	enrollmentCard: HomeActivitySnapshotCardProps;
+	helper: string;
+	title: string;
+}

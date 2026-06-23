@@ -122,5 +122,8 @@ export function createStyles(
 		snapshotAction: {
 			marginTop: theme.space[1],
 		},
+		stateBody: {
+			gap: theme.space[1],
+		},
 	});
 }

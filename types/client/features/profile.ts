@@ -36,3 +36,11 @@ export interface ProfilePreferencesCardProps {
 	language: AppLang;
 	onLanguageChange: (language: AppLang) => void;
 }
+
+export interface ProfileLogoutSheetProps {
+	visible: boolean;
+	isBusy: boolean;
+	onDismiss: () => void;
+	onSignOut: () => void;
+	onSignOutAll: () => void;
+}
