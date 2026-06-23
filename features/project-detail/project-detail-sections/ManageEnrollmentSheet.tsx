@@ -7,9 +7,12 @@ import { Label, OverflowActionSheet } from "@/components/primitives";
 import { useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ManageEnrollmentSheetProps } from "@/types/client";
-import { withAlpha } from "@/utils";
 
 import { createStyles } from "./styles";
+import {
+	createCloseSheetOptionStyle,
+	createExitProjectOptionStyle,
+} from "./utils";
 
 export function ManageEnrollmentSheet({
 	visible,
@@ -45,29 +48,11 @@ export function ManageEnrollmentSheet({
 						onPress={onExitProject}
 						style={({ pressed }) => [
 							styles.sheetOption,
-							{
-								backgroundColor: pressed
-									? withAlpha(
-											theme.colors.danger,
-											theme.mode === "dark" ? 0.24 : 0.18,
-										)
-									: withAlpha(
-											theme.colors.danger,
-											theme.mode === "dark" ? 0.16 : 0.12,
-										),
-								borderColor: withAlpha(
-									theme.colors.danger,
-									theme.mode === "dark" ? 0.28 : 0.2,
-								),
-								opacity: isBusy ? 0.6 : 1,
-							},
+							createExitProjectOptionStyle(theme, isBusy, pressed),
 						]}
 					>
 						<View style={styles.sheetOptionCopy}>
-							<Label
-								role="field"
-								style={{ color: theme.colors.danger }}
-							>
+							<Label role="field" style={styles.sheetDangerTitle}>
 								{t("projectDetail.actions.exitProject")}
 							</Label>
 							<Label role="helper">
@@ -81,16 +66,7 @@ export function ManageEnrollmentSheet({
 						onPress={onDismiss}
 						style={({ pressed }) => [
 							styles.sheetOption,
-							{
-								backgroundColor: pressed
-									? withAlpha(
-											theme.colors.text,
-											theme.mode === "dark" ? 0.08 : 0.04,
-										)
-									: theme.colors.surface3,
-								borderColor: spec.panelBorder,
-								opacity: isBusy ? 0.6 : 1,
-							},
+							createCloseSheetOptionStyle(theme, spec, isBusy, pressed),
 						]}
 					>
 						<View style={styles.sheetOptionCopy}>

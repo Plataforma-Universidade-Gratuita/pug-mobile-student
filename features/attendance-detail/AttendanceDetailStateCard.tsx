@@ -7,7 +7,7 @@ import { useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { AttendanceDetailStateCardProps } from "@/types/client";
 
-import { createStyles } from "../styles";
+import { createStyles } from "./styles";
 
 export function AttendanceDetailStateCard({ badgeLabel, description, title, tone }: AttendanceDetailStateCardProps) {
 	const theme = useThemeStore(state => state.theme);

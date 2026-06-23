@@ -1,4 +1,5 @@
-import type { AttendanceComplexSearchItem, BadgeTone } from "@/types/client";
+import type { AttendanceComplexSearchItem } from "@/types/api";
+import type { BadgeTone } from "@/types/client";
 
 export interface AttendanceDetailStateCardProps {
 	badgeLabel: string;
