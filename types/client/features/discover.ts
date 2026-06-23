@@ -1,4 +1,4 @@
-import type { ProjectStatus } from "@/types/api";
+import type { ProjectResponse, ProjectStatus } from "@/types/api";
 
 import type { BadgeTone } from "../components/primitives/display/badge";
 
@@ -36,4 +36,23 @@ export interface DiscoverProjectCardProps {
 	seatsLabel: string;
 	hoursLabel: string;
 	onPress: () => void;
+}
+
+export interface DiscoverSummarySectionProps {
+	areaName: string;
+	badgeLabel: string;
+	countLabel: string | null;
+	description: string;
+}
+
+export interface DiscoverStateCardProps {
+	badgeLabel: string;
+	description: string;
+	title: string;
+	tone: NonNullable<BadgeTone>;
+}
+
+export interface DiscoverResultsSectionProps {
+	projects: ProjectResponse[];
+	t: (...args: any[]) => any;
 }

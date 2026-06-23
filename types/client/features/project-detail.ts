@@ -33,3 +33,27 @@ export interface ManageEnrollmentSheetProps {
 	onDismiss: () => void;
 	onExitProject: () => void;
 }
+
+export interface ProjectDetailStateCardProps {
+	badgeLabel: string;
+	description: string;
+	title: string;
+	tone: NonNullable<BadgeTone>;
+}
+
+export interface ProjectDetailContentProps {
+	activeParticipantsValue: string;
+	addressValue: string | null;
+	cityValue: string;
+	cnpjValue: string;
+	completedHoursValue: string;
+	completionPercentLabel: string;
+	completionRatio: number;
+	createdByValue: string;
+	entityName: string;
+	maxParticipantsValue: string;
+	offeredHoursValue: string;
+	pendingEnrollmentsValue: string;
+	project: { description: string; name: string; status: { statusFormatted: string } };
+	statusTone: BadgeTone;
+}
