@@ -39,16 +39,22 @@ export function ProfileScreen() {
 	const styles = useMemo(() => createStyles(theme), [theme]);
 	const contentBottomPadding =
 		theme.space[8] + Math.max(insets.bottom, theme.space[2]) + theme.space[4];
-	const currentAccount = useCurrentFormerStudentStore(state => state.currentAccount);
+	const currentAccount = useCurrentFormerStudentStore(
+		state => state.currentAccount,
+	);
 	const currentUser = useCurrentFormerStudentStore(state => state.currentUser);
 	const currentFormerStudent = useCurrentFormerStudentStore(
 		state => state.currentFormerStudent,
 	);
-	const currentCourse = useCurrentFormerStudentStore(state => state.currentCourse);
+	const currentCourse = useCurrentFormerStudentStore(
+		state => state.currentCourse,
+	);
 	const currentFormerStudentError = useCurrentFormerStudentStore(
 		state => state.error,
 	);
-	const isProfileLoading = useCurrentFormerStudentStore(state => state.isLoading);
+	const isProfileLoading = useCurrentFormerStudentStore(
+		state => state.isLoading,
+	);
 	const loadingLabel = t("profile.values.loading");
 	const unavailableLabel = t("profile.values.unavailable");
 	const hasProfileLoadError = currentFormerStudentError !== null;
@@ -109,7 +115,7 @@ export function ProfileScreen() {
 	);
 
 	return (
-		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}> 
+		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}>
 			<BrandScreenHeader
 				title={t("profile.title")}
 				rightAccessory={

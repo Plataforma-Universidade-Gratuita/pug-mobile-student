@@ -1,11 +1,9 @@
 import React from "react";
 
-import { View } from "react-native";
+import type { ProjectDetailContentProps } from "@/types/client";
 
 import { ProjectEntityCard } from "./ProjectEntityCard";
 import { ProjectOverviewCard } from "./ProjectOverviewCard";
-
-import type { ProjectDetailContentProps } from "@/types/client";
 
 export function ProjectDetailContent(props: ProjectDetailContentProps) {
 	return (

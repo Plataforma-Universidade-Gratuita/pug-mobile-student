@@ -10,9 +10,16 @@ import type { DiscoverResultsSectionProps } from "@/types/client";
 
 import { DiscoverProjectCard } from "../project-card";
 import { createStyles } from "../styles";
-import { getProjectAvailableSeats, getProjectRemainingHours, resolveDiscoverProjectStatusTone } from "../utils";
+import {
+	getProjectAvailableSeats,
+	getProjectRemainingHours,
+	resolveDiscoverProjectStatusTone,
+} from "../utils";
 
-export function DiscoverResultsSection({ projects, t }: DiscoverResultsSectionProps) {
+export function DiscoverResultsSection({
+	projects,
+	t,
+}: DiscoverResultsSectionProps) {
 	const router = useRouter();
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
@@ -21,15 +28,28 @@ export function DiscoverResultsSection({ projects, t }: DiscoverResultsSectionPr
 	return (
 		<View style={styles.resultsSection}>
 			<View style={styles.resultsHeader}>
-				<Label role="field" style={styles.resultsTitle}>{t("discover.resultsTitle")}</Label>
+				<Label
+					role="field"
+					style={styles.resultsTitle}
+				>
+					{t("discover.resultsTitle")}
+				</Label>
 			</View>
 			<View style={styles.projectList}>
 				{projects.map(project => {
 					const remainingHours = getProjectRemainingHours(project);
 					const availableSeats = getProjectAvailableSeats(project);
 					const maxParticipants = project.projectInfo.maxParticipants;
-					const hoursLabel = remainingHours == null ? t("discover.card.hoursFallback") : t("discover.card.hoursValue", { count: remainingHours });
-					const seatsLabel = maxParticipants == null ? t("discover.card.seatsUnlimited") : availableSeats == null ? t("discover.card.seatsOpen") : t("discover.card.seatsValue", { count: availableSeats });
+					const hoursLabel =
+						remainingHours == null
+							? t("discover.card.hoursFallback")
+							: t("discover.card.hoursValue", { count: remainingHours });
+					const seatsLabel =
+						maxParticipants == null
+							? t("discover.card.seatsUnlimited")
+							: availableSeats == null
+								? t("discover.card.seatsOpen")
+								: t("discover.card.seatsValue", { count: availableSeats });
 
 					return (
 						<DiscoverProjectCard
@@ -42,7 +62,9 @@ export function DiscoverResultsSection({ projects, t }: DiscoverResultsSectionPr
 							}}
 							seatsLabel={seatsLabel}
 							statusLabel={project.status.statusFormatted}
-							statusTone={resolveDiscoverProjectStatusTone(project.status.status)}
+							statusTone={resolveDiscoverProjectStatusTone(
+								project.status.status,
+							)}
 							title={project.name}
 						/>
 					);

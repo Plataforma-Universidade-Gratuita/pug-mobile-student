@@ -1,4 +1,7 @@
-import type { AppResolvedTheme, PrimitiveSurfaceStyleSpec } from "@/types/client";
+import type {
+	AppResolvedTheme,
+	PrimitiveSurfaceStyleSpec,
+} from "@/types/client";
 import { withAlpha } from "@/utils";
 
 export function createStaySignedInOptionStyle(

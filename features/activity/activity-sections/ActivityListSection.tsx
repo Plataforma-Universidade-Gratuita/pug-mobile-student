@@ -28,7 +28,10 @@ export function ActivityListSection({
 	return (
 		<View style={styles.activityList}>
 			<View style={styles.sectionHeader}>
-				<Label role="field" style={styles.sectionTitle}>
+				<Label
+					role="field"
+					style={styles.sectionTitle}
+				>
 					{activeTab === "enrollments"
 						? t("activity.sections.enrollments")
 						: t("activity.sections.attendances")}
@@ -44,30 +47,57 @@ export function ActivityListSection({
 						<ActivityEnrollmentCard
 							key={`${item.enrollment.projectId}-${item.enrollment.formerStudentId}`}
 							ctaLabel={t("activity.actions.details")}
-							helperText={t("activity.enrollment.helper", { status: item.enrollment.status.statusFormatted })}
-							metaLabel={item.project?.entity.name ?? t("activity.values.projectFallback")}
+							helperText={t("activity.enrollment.helper", {
+								status: item.enrollment.status.statusFormatted,
+							})}
+							metaLabel={
+								item.project?.entity.name ??
+								t("activity.values.projectFallback")
+							}
 							onPress={() => {
-								router.push(`/activity/enrollments/${item.enrollment.projectId}`);
+								router.push(
+									`/activity/enrollments/${item.enrollment.projectId}`,
+								);
 							}}
-							projectName={resolveProjectName(item.project, t("activity.values.projectFallback"))}
+							projectName={resolveProjectName(
+								item.project,
+								t("activity.values.projectFallback"),
+							)}
 							statusLabel={item.enrollment.status.statusFormatted}
-							statusTone={resolveEnrollmentStatusTone(item.enrollment.status.status)}
+							statusTone={resolveEnrollmentStatusTone(
+								item.enrollment.status.status,
+							)}
 						/>
 					))
 				: attendanceItems.map(item => (
 						<ActivityAttendanceCard
 							key={item.attendance.id}
 							ctaLabel={t("activity.actions.details")}
-							dateLabel={item.attendance.attendanceInfo.auditInfo.createdAtFormatted}
-							durationLabel={t("activity.attendance.duration", { count: item.attendance.qrValidationInfo.duration })}
-							helperText={t("activity.attendance.helper", { status: item.attendance.status.statusFormatted })}
+							dateLabel={
+								item.attendance.attendanceInfo.auditInfo.createdAtFormatted
+							}
+							durationLabel={t("activity.attendance.duration", {
+								count: item.attendance.qrValidationInfo.duration,
+							})}
+							helperText={t("activity.attendance.helper", {
+								status: item.attendance.status.statusFormatted,
+							})}
 							onPress={() => {
 								router.push(`/activity/attendances/${item.attendance.id}`);
 							}}
-							projectName={resolveProjectName(item.project, t("activity.values.projectFallback"))}
+							projectName={resolveProjectName(
+								item.project,
+								t("activity.values.projectFallback"),
+							)}
 							statusLabel={item.attendance.status.statusFormatted}
-							statusTone={resolveAttendanceStatusTone(item.attendance.status.status)}
-							validatorLabel={item.attendance.attendanceInfo.validatedAt ? t("activity.attendance.validated") : t("activity.attendance.waiting")}
+							statusTone={resolveAttendanceStatusTone(
+								item.attendance.status.status,
+							)}
+							validatorLabel={
+								item.attendance.attendanceInfo.validatedAt
+									? t("activity.attendance.validated")
+									: t("activity.attendance.waiting")
+							}
 						/>
 					))}
 		</View>

@@ -54,6 +54,10 @@ export interface ProjectDetailContentProps {
 	maxParticipantsValue: string;
 	offeredHoursValue: string;
 	pendingEnrollmentsValue: string;
-	project: { description: string; name: string; status: { statusFormatted: string } };
+	project: {
+		description: string;
+		name: string;
+		status: { statusFormatted: string };
+	};
 	statusTone: BadgeTone;
 }

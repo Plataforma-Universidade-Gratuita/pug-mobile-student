@@ -9,7 +9,12 @@ import type { HomeStateCardProps } from "@/types/client";
 
 import { createStyles } from "./styles";
 
-export function HomeStateCard({ badgeLabel, description, title, tone }: HomeStateCardProps) {
+export function HomeStateCard({
+	badgeLabel,
+	description,
+	title,
+	tone,
+}: HomeStateCardProps) {
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);

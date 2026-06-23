@@ -22,41 +22,133 @@ export function AttendanceDetailContent({
 
 	return (
 		<>
-			<View style={[styles.card, { backgroundColor: spec.panelBackground, borderColor: spec.panelBorder }]}>
+			<View
+				style={[
+					styles.card,
+					{
+						backgroundColor: spec.panelBackground,
+						borderColor: spec.panelBorder,
+					},
+				]}
+			>
 				<View style={styles.heroMetaRow}>
-					<Badge tone={statusTone} variant="primary">{attendance.status.statusFormatted}</Badge>
-					<Label role="helper">{t("activity.attendance.duration", { count: attendance.qrValidationInfo.duration })}</Label>
+					<Badge
+						tone={statusTone}
+						variant="primary"
+					>
+						{attendance.status.statusFormatted}
+					</Badge>
+					<Label role="helper">
+						{t("activity.attendance.duration", {
+							count: attendance.qrValidationInfo.duration,
+						})}
+					</Label>
 				</View>
 				<View style={styles.heroCopy}>
-					<Label role="title" style={styles.heroTitle}>{attendance.project.name}</Label>
+					<Label
+						role="title"
+						style={styles.heroTitle}
+					>
+						{attendance.project.name}
+					</Label>
 					<Label role="helper">{t("activity.attendanceDetail.subtitle")}</Label>
 				</View>
 			</View>
 			<View style={styles.metricGrid}>
 				{[
-					[t("activity.attendanceDetail.metrics.createdAt"), attendance.attendanceInfo.auditInfo.createdAtFormatted],
-					[t("activity.attendanceDetail.metrics.validatedAt"), attendance.attendanceInfo.validatedAtFormatted || t("activity.attendance.waiting")],
-					[t("activity.attendanceDetail.metrics.validator"), attendance.validator?.name || t("activity.attendanceDetail.values.notValidated")],
+					[
+						t("activity.attendanceDetail.metrics.createdAt"),
+						attendance.attendanceInfo.auditInfo.createdAtFormatted,
+					],
+					[
+						t("activity.attendanceDetail.metrics.validatedAt"),
+						attendance.attendanceInfo.validatedAtFormatted ||
+							t("activity.attendance.waiting"),
+					],
+					[
+						t("activity.attendanceDetail.metrics.validator"),
+						attendance.validator?.name ||
+							t("activity.attendanceDetail.values.notValidated"),
+					],
 				].map(([label, value]) => (
-					<View key={String(label)} style={[styles.metricCard, { backgroundColor: spec.panelBackground, borderColor: spec.panelBorder }]}> 
+					<View
+						key={String(label)}
+						style={[
+							styles.metricCard,
+							{
+								backgroundColor: spec.panelBackground,
+								borderColor: spec.panelBorder,
+							},
+						]}
+					>
 						<Label role="helper">{label}</Label>
-						<Label role="field" style={styles.metricValue}>{value}</Label>
+						<Label
+							role="field"
+							style={styles.metricValue}
+						>
+							{value}
+						</Label>
 					</View>
 				))}
 			</View>
-			<View style={[styles.card, { backgroundColor: spec.panelBackground, borderColor: spec.panelBorder }]}>
+			<View
+				style={[
+					styles.card,
+					{
+						backgroundColor: spec.panelBackground,
+						borderColor: spec.panelBorder,
+					},
+				]}
+			>
 				<View style={styles.section}>
-					<Label role="field" style={styles.sectionTitle}>{t("activity.attendanceDetail.sections.validation")}</Label>
+					<Label
+						role="field"
+						style={styles.sectionTitle}
+					>
+						{t("activity.attendanceDetail.sections.validation")}
+					</Label>
 					<View style={styles.rowGroup}>
-						<View style={styles.row}><Label role="helper">{t("activity.attendanceDetail.fields.validationCode")}</Label><Label role="field">{attendance.qrValidationInfo.qrValidationHash}</Label></View>
-						<View style={styles.row}><Label role="helper">{t("activity.attendanceDetail.fields.student")}</Label><Label role="field">{attendance.student.account.name}</Label></View>
-						<View style={styles.row}><Label role="helper">{t("activity.attendanceDetail.fields.registration")}</Label><Label role="field">{attendance.student.academicRegistration}</Label></View>
+						<View style={styles.row}>
+							<Label role="helper">
+								{t("activity.attendanceDetail.fields.validationCode")}
+							</Label>
+							<Label role="field">
+								{attendance.qrValidationInfo.qrValidationHash}
+							</Label>
+						</View>
+						<View style={styles.row}>
+							<Label role="helper">
+								{t("activity.attendanceDetail.fields.student")}
+							</Label>
+							<Label role="field">{attendance.student.account.name}</Label>
+						</View>
+						<View style={styles.row}>
+							<Label role="helper">
+								{t("activity.attendanceDetail.fields.registration")}
+							</Label>
+							<Label role="field">
+								{attendance.student.academicRegistration}
+							</Label>
+						</View>
 					</View>
 				</View>
 			</View>
 			<View style={styles.actions}>
-				<Button onPress={() => { router.push(`/attendance/qr/${attendance.id}`); }}>{t("activity.attendanceDetail.actions.showQr")}</Button>
-				<Button variant="secondary" onPress={() => { router.push(`/discover/projects/${attendance.project.id}`); }}>{t("activity.attendanceDetail.actions.openProject")}</Button>
+				<Button
+					onPress={() => {
+						router.push(`/attendance/qr/${attendance.id}`);
+					}}
+				>
+					{t("activity.attendanceDetail.actions.showQr")}
+				</Button>
+				<Button
+					variant="secondary"
+					onPress={() => {
+						router.push(`/discover/projects/${attendance.project.id}`);
+					}}
+				>
+					{t("activity.attendanceDetail.actions.openProject")}
+				</Button>
 			</View>
 		</>
 	);

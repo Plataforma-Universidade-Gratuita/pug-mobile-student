@@ -11,8 +11,12 @@ import * as api from "@/api";
 import { BrandScreenHeader, HeaderActionButton } from "@/components";
 import { useCurrentFormerStudentStore, useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
-import type { ActivityAttendanceItem, ActivityEnrollmentItem, ActivityTab } from "@/types/client";
 import type { ProjectResponse } from "@/types/api";
+import type {
+	ActivityAttendanceItem,
+	ActivityEnrollmentItem,
+	ActivityTab,
+} from "@/types/client";
 
 import {
 	ActivityListSection,
@@ -93,18 +97,27 @@ export function ActivityScreen() {
 
 	const projectIds = useMemo(() => {
 		const ids = new Set<string>();
-		for (const enrollment of enrollmentsQuery.data ?? []) ids.add(enrollment.projectId);
-		for (const attendance of attendancesQuery.data ?? []) ids.add(attendance.project.id);
+		for (const enrollment of enrollmentsQuery.data ?? [])
+			ids.add(enrollment.projectId);
+		for (const attendance of attendancesQuery.data ?? [])
+			ids.add(attendance.project.id);
 		return [...ids];
 	}, [attendancesQuery.data, enrollmentsQuery.data]);
 	const projectsQuery = useQuery({
-		queryKey: ["project", "project", "list", "activity", projectIds.join(",")] as const,
+		queryKey: [
+			"project",
+			"project",
+			"list",
+			"activity",
+			projectIds.join(","),
+		] as const,
 		queryFn: () => api.project.projects.list(projectIds),
 		enabled: projectIds.length > 0,
 	});
 	const projectsById = useMemo(() => {
 		const map = new Map<string, ProjectResponse>();
-		for (const project of projectsQuery.data ?? []) map.set(project.id, project);
+		for (const project of projectsQuery.data ?? [])
+			map.set(project.id, project);
 		return map;
 	}, [projectsQuery.data]);
 	const enrollmentItems = useMemo(
@@ -174,13 +187,13 @@ export function ActivityScreen() {
 				title: t("activity.states.errorTitle"),
 				description: t("activity.states.errorDescription"),
 				badgeTone: "danger" as const,
-		  }
+			}
 		: isInitialLoading
 			? {
 					title: t("activity.states.loadingTitle"),
 					description: t("activity.states.loadingDescription"),
 					badgeTone: "neutral" as const,
-			  }
+				}
 			: activeTab === "enrollments" && visibleEnrollmentItems.length === 0
 				? {
 						title: hasActiveFilters
@@ -190,7 +203,7 @@ export function ActivityScreen() {
 							? t("activity.states.filteredEmptyEnrollmentsDescription")
 							: t("activity.states.emptyEnrollmentsDescription"),
 						badgeTone: "neutral" as const,
-				  }
+					}
 				: activeTab === "attendances" && visibleAttendanceItems.length === 0
 					? {
 							title: hasActiveFilters
@@ -200,11 +213,11 @@ export function ActivityScreen() {
 								? t("activity.states.filteredEmptyAttendancesDescription")
 								: t("activity.states.emptyAttendancesDescription"),
 							badgeTone: "neutral" as const,
-					  }
+						}
 					: null;
 
 	return (
-		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}> 
+		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}>
 			<BrandScreenHeader
 				title={t("activity.title")}
 				rightAccessory={
@@ -219,7 +232,10 @@ export function ActivityScreen() {
 				}
 			/>
 			<ScrollView
-				contentContainerStyle={[styles.content, { paddingBottom: contentBottomPadding }]}
+				contentContainerStyle={[
+					styles.content,
+					{ paddingBottom: contentBottomPadding },
+				]}
 				refreshControl={
 					<RefreshControl
 						refreshing={isRefreshing}
@@ -237,16 +253,55 @@ export function ActivityScreen() {
 				showsVerticalScrollIndicator={false}
 			>
 				<View style={styles.shell}>
-					<ActivitySummarySection activeCount={String(activeCount)} attendanceCount={String(attendanceCount)} chipLabels={summaryCopy.chips} focusDescription={summaryCopy.description} focusTitle={summaryCopy.title} pendingCount={String(pendingCount)} />
-					<ActivitySegmentedControl activeTab={activeTab} onTabChange={setActiveTab} />
+					<ActivitySummarySection
+						activeCount={String(activeCount)}
+						attendanceCount={String(attendanceCount)}
+						chipLabels={summaryCopy.chips}
+						focusDescription={summaryCopy.description}
+						focusTitle={summaryCopy.title}
+						pendingCount={String(pendingCount)}
+					/>
+					<ActivitySegmentedControl
+						activeTab={activeTab}
+						onTabChange={setActiveTab}
+					/>
 					{stateCopy ? (
-						<ActivityStateCard badgeLabel={t("activity.states.badge")} description={stateCopy.description} title={stateCopy.title} tone={stateCopy.badgeTone} />
+						<ActivityStateCard
+							badgeLabel={t("activity.states.badge")}
+							description={stateCopy.description}
+							title={stateCopy.title}
+							tone={stateCopy.badgeTone}
+						/>
 					) : (
-						<ActivityListSection activeTab={activeTab} attendanceItems={visibleAttendanceItems} enrollmentItems={visibleEnrollmentItems} resolveAttendanceStatusTone={resolveAttendanceStatusTone} resolveEnrollmentStatusTone={resolveEnrollmentStatusTone} resolveProjectName={resolveProjectName} t={t} />
+						<ActivityListSection
+							activeTab={activeTab}
+							attendanceItems={visibleAttendanceItems}
+							enrollmentItems={visibleEnrollmentItems}
+							resolveAttendanceStatusTone={resolveAttendanceStatusTone}
+							resolveEnrollmentStatusTone={resolveEnrollmentStatusTone}
+							resolveProjectName={resolveProjectName}
+							t={t}
+						/>
 					)}
 				</View>
 			</ScrollView>
-			<ActivityFilterSheet activeTab={activeTab} filters={filters} onApply={nextFilters => { setFilters(nextFilters); setIsFilterSheetVisible(false); }} onDismiss={() => { setIsFilterSheetVisible(false); }} statusOptions={activeTab === "enrollments" ? enrollmentStatusOptions : attendanceStatusOptions} visible={isFilterSheetVisible} />
+			<ActivityFilterSheet
+				activeTab={activeTab}
+				filters={filters}
+				onApply={nextFilters => {
+					setFilters(nextFilters);
+					setIsFilterSheetVisible(false);
+				}}
+				onDismiss={() => {
+					setIsFilterSheetVisible(false);
+				}}
+				statusOptions={
+					activeTab === "enrollments"
+						? enrollmentStatusOptions
+						: attendanceStatusOptions
+				}
+				visible={isFilterSheetVisible}
+			/>
 		</View>
 	);
 }

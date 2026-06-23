@@ -11,7 +11,10 @@ import { BrandScreenHeader } from "@/components";
 import { useCurrentFormerStudentStore, useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ProjectResponse } from "@/types/api";
-import type { HomeActivitySnapshotCardProps, HomeQuickActionItem } from "@/types/client";
+import type {
+	HomeActivitySnapshotCardProps,
+	HomeQuickActionItem,
+} from "@/types/client";
 
 import {
 	HomeCounterpartSummaryCard,
@@ -41,8 +44,12 @@ export function HomeScreen() {
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
 	const currentUser = useCurrentFormerStudentStore(state => state.currentUser);
-	const currentFormerStudent = useCurrentFormerStudentStore(state => state.currentFormerStudent);
-	const currentCourse = useCurrentFormerStudentStore(state => state.currentCourse);
+	const currentFormerStudent = useCurrentFormerStudentStore(
+		state => state.currentFormerStudent,
+	);
+	const currentCourse = useCurrentFormerStudentStore(
+		state => state.currentCourse,
+	);
 	const isCurrentFormerStudentLoading = useCurrentFormerStudentStore(
 		state => state.isLoading,
 	);
@@ -74,11 +81,19 @@ export function HomeScreen() {
 	]);
 
 	const projectIds = useMemo(
-		() => [...new Set((enrollmentsQuery.data ?? []).map(item => item.projectId))],
+		() => [
+			...new Set((enrollmentsQuery.data ?? []).map(item => item.projectId)),
+		],
 		[enrollmentsQuery.data],
 	);
 	const projectsQuery = useQuery({
-		queryKey: ["project", "project", "list", "home", projectIds.join(",")] as const,
+		queryKey: [
+			"project",
+			"project",
+			"list",
+			"home",
+			projectIds.join(","),
+		] as const,
 		queryFn: () => api.project.projects.list(projectIds),
 		enabled: projectIds.length > 0,
 	});
@@ -91,8 +106,14 @@ export function HomeScreen() {
 
 		return map;
 	}, [projectsQuery.data]);
-	const latestEnrollment = useMemo(() => findLatestEnrollment(enrollmentsQuery.data ?? []), [enrollmentsQuery.data]);
-	const latestAttendance = useMemo(() => findLatestAttendance(attendancesQuery.data ?? []), [attendancesQuery.data]);
+	const latestEnrollment = useMemo(
+		() => findLatestEnrollment(enrollmentsQuery.data ?? []),
+		[enrollmentsQuery.data],
+	);
+	const latestAttendance = useMemo(
+		() => findLatestAttendance(attendancesQuery.data ?? []),
+		[attendancesQuery.data],
+	);
 	const activeEnrollments = countHomeActiveEnrollments(
 		enrollmentsQuery.data ?? [],
 	);
@@ -204,8 +225,7 @@ export function HomeScreen() {
 				}
 			: undefined,
 		title:
-			latestAttendance?.project.name ??
-			t("home.recent.emptyAttendanceTitle"),
+			latestAttendance?.project.name ?? t("home.recent.emptyAttendanceTitle"),
 	};
 
 	return (
@@ -254,7 +274,9 @@ export function HomeScreen() {
 									currentFormerStudent?.campus.campusFormatted ??
 									t("home.values.unavailable")
 								}
-								courseLabel={currentCourse?.name ?? t("home.values.unavailable")}
+								courseLabel={
+									currentCourse?.name ?? t("home.values.unavailable")
+								}
 								dueDateLabel={
 									currentFormerStudent?.period.dueDateFormatted ||
 									t("home.values.unavailable")
@@ -267,7 +289,8 @@ export function HomeScreen() {
 								progressRatio={Math.max(
 									0,
 									Math.min(
-										(currentFormerStudent?.counterpartHours.progress ?? 0) / 100,
+										(currentFormerStudent?.counterpartHours.progress ?? 0) /
+											100,
 										1,
 									),
 								)}

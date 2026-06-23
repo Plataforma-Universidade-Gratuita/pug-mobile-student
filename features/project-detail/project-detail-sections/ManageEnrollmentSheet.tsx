@@ -52,7 +52,10 @@ export function ManageEnrollmentSheet({
 						]}
 					>
 						<View style={styles.sheetOptionCopy}>
-							<Label role="field" style={styles.sheetDangerTitle}>
+							<Label
+								role="field"
+								style={styles.sheetDangerTitle}
+							>
 								{t("projectDetail.actions.exitProject")}
 							</Label>
 							<Label role="helper">

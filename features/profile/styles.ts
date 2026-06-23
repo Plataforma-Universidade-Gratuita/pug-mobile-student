@@ -53,6 +53,12 @@ export function createStyles(theme: AppResolvedTheme) {
 		logoutOptionTitle: {
 			color: theme.colors.text,
 		},
+		logoutWarningTitle: {
+			color: theme.colors.warningSoftText,
+		},
+		logoutDangerTitle: {
+			color: theme.colors.danger,
+		},
 		logoutOptionHelper: {
 			color: theme.colors.muted,
 		},

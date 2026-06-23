@@ -9,7 +9,12 @@ import type { ActivityStateCardProps } from "@/types/client";
 
 import { createStyles } from "../styles";
 
-export function ActivityStateCard({ badgeLabel, description, title, tone }: ActivityStateCardProps) {
+export function ActivityStateCard({
+	badgeLabel,
+	description,
+	title,
+	tone,
+}: ActivityStateCardProps) {
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
@@ -18,10 +23,17 @@ export function ActivityStateCard({ badgeLabel, description, title, tone }: Acti
 		<View
 			style={[
 				styles.stateCard,
-				{ backgroundColor: spec.panelBackground, borderColor: spec.panelBorder },
+				{
+					backgroundColor: spec.panelBackground,
+					borderColor: spec.panelBorder,
+				},
 			]}
 		>
-			<Badge style={styles.stateBadge} tone={tone} variant="primary">
+			<Badge
+				style={styles.stateBadge}
+				tone={tone}
+				variant="primary"
+			>
 				{badgeLabel}
 			</Badge>
 			<View style={styles.stateBody}>

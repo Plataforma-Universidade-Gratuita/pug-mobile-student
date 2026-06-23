@@ -103,5 +103,8 @@ export function createStyles(
 		sheetOptionCopy: {
 			gap: theme.space[1],
 		},
+		sheetDangerTitle: {
+			color: theme.colors.danger,
+		},
 	});
 }

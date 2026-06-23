@@ -88,6 +88,9 @@ export interface ActivityListSectionProps {
 	enrollmentItems: ActivityEnrollmentItem[];
 	resolveAttendanceStatusTone: (status: AttendanceStatus) => BadgeTone;
 	resolveEnrollmentStatusTone: (status: EnrollmentStatus) => BadgeTone;
-	resolveProjectName: (project: ProjectResponse | null, fallback: string) => string;
+	resolveProjectName: (
+		project: ProjectResponse | null,
+		fallback: string,
+	) => string;
 	t: (...args: any[]) => any;
 }

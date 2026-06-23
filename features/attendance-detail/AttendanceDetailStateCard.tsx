@@ -9,14 +9,33 @@ import type { AttendanceDetailStateCardProps } from "@/types/client";
 
 import { createStyles } from "./styles";
 
-export function AttendanceDetailStateCard({ badgeLabel, description, title, tone }: AttendanceDetailStateCardProps) {
+export function AttendanceDetailStateCard({
+	badgeLabel,
+	description,
+	title,
+	tone,
+}: AttendanceDetailStateCardProps) {
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
 
 	return (
-		<View style={[styles.card, { backgroundColor: spec.panelBackground, borderColor: spec.panelBorder }]}>
-			<Badge style={styles.stateBadge} tone={tone} variant="primary">{badgeLabel}</Badge>
+		<View
+			style={[
+				styles.card,
+				{
+					backgroundColor: spec.panelBackground,
+					borderColor: spec.panelBorder,
+				},
+			]}
+		>
+			<Badge
+				style={styles.stateBadge}
+				tone={tone}
+				variant="primary"
+			>
+				{badgeLabel}
+			</Badge>
 			<View style={styles.stateBody}>
 				<Label role="field">{title}</Label>
 				<Label role="helper">{description}</Label>
