@@ -84,6 +84,19 @@ export function createSectionStyles(
 			alignItems: "flex-end",
 			justifyContent: "center",
 		},
+		actionRow: {
+			flexDirection: "row",
+			alignItems: "center",
+			justifyContent: "space-between",
+			gap: theme.space[3],
+			paddingTop: theme.space[3],
+		},
+		actionButton: {
+			paddingHorizontal: theme.space[3],
+			paddingVertical: theme.space[2],
+			borderWidth: 1,
+			borderRadius: theme.radius.circle,
+		},
 		selector: {
 			flexDirection: "row",
 			alignItems: "center",

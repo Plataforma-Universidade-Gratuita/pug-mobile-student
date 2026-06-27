@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from "react";
 
+import { useRouter } from "expo-router";
 import { LogOut } from "lucide-react-native";
 import { useTranslation } from "react-i18next";
 import { ScrollView, View } from "react-native";
@@ -25,6 +26,7 @@ import { resolveProfileFieldValue } from "./utils";
 
 export function ProfileScreen() {
 	const { t } = useTranslation();
+	const router = useRouter();
 	const insets = useSafeAreaInsets();
 	const theme = useThemeStore(state => state.theme);
 	const themeMode = useThemeStore(state => state.mode);
@@ -153,11 +155,15 @@ export function ProfileScreen() {
 						campusValue={campus}
 						courseLabel={t("profile.fields.course")}
 						courseValue={courseName}
+						detailsLabel={t("profile.actions.openAcademicDetails")}
 						emailLabel={t("profile.fields.accountEmail")}
 						emailValue={email}
 						errorMessage={
 							hasProfileLoadError ? t("profile.errors.load") : undefined
 						}
+						onOpenAcademicDetails={() => {
+							router.push("/profile/academic");
+						}}
 						sectionTitle={t("profile.sections.record")}
 					/>
 					<PreferencesCard

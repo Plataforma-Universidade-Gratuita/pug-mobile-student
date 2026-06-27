@@ -4,6 +4,18 @@ export interface ProjectDetailScreenProps {
 	titleOverride?: string;
 }
 
+export interface ProjectDetailHeaderActionsProps {
+	canApply: boolean;
+	canManage: boolean;
+	disabled: boolean;
+	onApply: () => void;
+	onManage: () => void;
+}
+
+export interface ProjectDetailAttendanceActionProps {
+	onPress: () => void;
+}
+
 export interface ProjectOverviewCardProps {
 	title: string;
 	description: string;
@@ -32,6 +44,14 @@ export interface ManageEnrollmentSheetProps {
 	isBusy: boolean;
 	onDismiss: () => void;
 	onExitProject: () => void;
+}
+
+export interface ApplyEnrollmentSheetProps {
+	visible: boolean;
+	projectName: string;
+	isBusy: boolean;
+	onApply: () => void;
+	onDismiss: () => void;
 }
 
 export interface ProjectDetailStateCardProps {

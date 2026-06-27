@@ -11,6 +11,7 @@ export interface ProfileStudentCardProps {
 
 export interface ProfileInfoCardProps {
 	sectionTitle: string;
+	detailsLabel: string;
 	emailLabel: string;
 	emailValue: string;
 	activeStatusLabel: string;
@@ -22,6 +23,7 @@ export interface ProfileInfoCardProps {
 	courseValue: string;
 	areaOfExpertiseLabel: string;
 	areaOfExpertiseValue: string;
+	onOpenAcademicDetails: () => void;
 	errorMessage?: string | undefined;
 }
 

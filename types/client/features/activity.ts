@@ -29,6 +29,12 @@ export interface ActivityFilterSheetProps {
 	onDismiss: () => void;
 }
 
+export interface ActivityHeaderActionsProps {
+	disabled: boolean;
+	onOpenFilters: () => void;
+	onOpenNewAttendance: () => void;
+}
+
 export interface ActivityEnrollmentCardProps {
 	projectName: string;
 	statusLabel: string;
@@ -80,6 +86,12 @@ export interface ActivityStateCardProps {
 	description: string;
 	title: string;
 	tone: NonNullable<BadgeTone>;
+}
+
+export interface ActivityStateCopy {
+	badgeTone: NonNullable<BadgeTone>;
+	description: string;
+	title: string;
 }
 
 export interface ActivityListSectionProps {

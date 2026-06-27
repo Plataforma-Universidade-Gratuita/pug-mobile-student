@@ -24,6 +24,11 @@ export function createStyles(
 			maxWidth: theme.layout.contentMaxWidth,
 			gap: theme.space[4],
 		},
+		headerActions: {
+			flexDirection: "row",
+			alignItems: "center",
+			gap: theme.space[2],
+		},
 		segmented: {
 			flexDirection: "row",
 			gap: theme.space[2],

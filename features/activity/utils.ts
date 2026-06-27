@@ -11,6 +11,7 @@ import type {
 	ActivityEnrollmentItem,
 	ActivityFilterStatusOption,
 	ActivityFilters,
+	ActivityStateCopy,
 	ActivityTab,
 	BadgeTone,
 } from "@/types/client";
@@ -284,6 +285,64 @@ export function buildActivitySummaryCopy(options: {
 			options.t("activity.chips.needsAttendance"),
 		],
 	};
+}
+
+export function resolveActivityStateCopy(options: {
+	activeTab: ActivityTab;
+	hasActiveFilters: boolean;
+	hasQueryError: boolean;
+	isInitialLoading: boolean;
+	t: TFunction;
+	visibleAttendanceCount: number;
+	visibleEnrollmentCount: number;
+}): ActivityStateCopy | null {
+	if (options.hasQueryError) {
+		return {
+			title: options.t("activity.states.errorTitle"),
+			description: options.t("activity.states.errorDescription"),
+			badgeTone: "danger",
+		};
+	}
+
+	if (options.isInitialLoading) {
+		return {
+			title: options.t("activity.states.loadingTitle"),
+			description: options.t("activity.states.loadingDescription"),
+			badgeTone: "neutral",
+		};
+	}
+
+	if (
+		options.activeTab === "enrollments" &&
+		options.visibleEnrollmentCount === 0
+	) {
+		return {
+			title: options.hasActiveFilters
+				? options.t("activity.states.filteredEmptyEnrollmentsTitle")
+				: options.t("activity.states.emptyEnrollmentsTitle"),
+			description: options.hasActiveFilters
+				? options.t("activity.states.filteredEmptyEnrollmentsDescription")
+				: options.t("activity.states.emptyEnrollmentsDescription"),
+			badgeTone: "neutral",
+		};
+	}
+
+	if (
+		options.activeTab === "attendances" &&
+		options.visibleAttendanceCount === 0
+	) {
+		return {
+			title: options.hasActiveFilters
+				? options.t("activity.states.filteredEmptyAttendancesTitle")
+				: options.t("activity.states.emptyAttendancesTitle"),
+			description: options.hasActiveFilters
+				? options.t("activity.states.filteredEmptyAttendancesDescription")
+				: options.t("activity.states.emptyAttendancesDescription"),
+			badgeTone: "neutral",
+		};
+	}
+
+	return null;
 }
 
 export function resolveProjectName(

@@ -1,16 +1,19 @@
 import React, { useMemo } from "react";
 
-import { View } from "react-native";
+import { ChevronRight } from "lucide-react-native";
+import { Pressable, View } from "react-native";
 
 import { Badge, Label } from "@/components/primitives";
 import { useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ProfileInfoCardProps } from "@/types/client";
+import { withAlpha } from "@/utils";
 
 import { createSectionStyles } from "./styles";
 
 export function InfoCard({
 	sectionTitle,
+	detailsLabel,
 	emailLabel,
 	emailValue,
 	activeStatusLabel,
@@ -22,6 +25,7 @@ export function InfoCard({
 	courseValue,
 	areaOfExpertiseLabel,
 	areaOfExpertiseValue,
+	onOpenAcademicDetails,
 	errorMessage,
 }: ProfileInfoCardProps) {
 	const theme = useThemeStore(state => state.theme);
@@ -108,6 +112,31 @@ export function InfoCard({
 					</View>
 				</View>
 			</View>
+
+			<Pressable
+				onPress={onOpenAcademicDetails}
+				style={({ pressed }) => [
+					styles.actionRow,
+					styles.rowDivider,
+					styles.actionButton,
+					{
+						borderTopColor: spec.panelBorder,
+						borderColor: spec.panelBorder,
+						backgroundColor: pressed
+							? withAlpha(
+									theme.colors.text,
+									theme.mode === "dark" ? 0.08 : 0.04,
+								)
+							: theme.colors.surface1,
+					},
+				]}
+			>
+				<Label role="field">{detailsLabel}</Label>
+				<ChevronRight
+					color={theme.colors.brand}
+					size={18}
+				/>
+			</Pressable>
 
 			{errorMessage ? (
 				<Label

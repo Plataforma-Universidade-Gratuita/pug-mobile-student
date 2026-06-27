@@ -11,10 +11,7 @@ import { BrandScreenHeader } from "@/components";
 import { useCurrentFormerStudentStore, useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ProjectResponse } from "@/types/api";
-import type {
-	HomeActivitySnapshotCardProps,
-	HomeQuickActionItem,
-} from "@/types/client";
+import type { HomeQuickActionItem } from "@/types/client";
 
 import {
 	HomeCounterpartSummaryCard,
@@ -25,15 +22,14 @@ import {
 import { createStyles } from "./styles";
 import {
 	buildHomeSummaryMetrics,
+	buildHomeAttendanceSnapshotCard,
+	buildHomeEnrollmentSnapshotCard,
 	buildQuickActionItems,
 	countHomeActiveEnrollments,
 	countHomePendingEnrollments,
 	findLatestAttendance,
 	findLatestEnrollment,
 	formatHomeProgressValue,
-	resolveHomeAttendanceStatusTone,
-	resolveHomeEnrollmentProjectName,
-	resolveHomeEnrollmentStatusTone,
 } from "./utils";
 
 export function HomeScreen() {
@@ -168,65 +164,32 @@ export function HomeScreen() {
 		projectsQuery.isRefetching;
 	const contentBottomPadding =
 		theme.space[8] + theme.space[4] + Math.max(insets.bottom, theme.space[4]);
-	const enrollmentCard: HomeActivitySnapshotCardProps = {
-		badgeLabel:
-			latestEnrollment?.status.statusFormatted ?? t("home.states.emptyBadge"),
-		badgeTone: latestEnrollment
-			? resolveHomeEnrollmentStatusTone(latestEnrollment.status.status)
-			: "neutral",
-		ctaLabel: latestEnrollment ? t("home.actions.openEnrollment") : null,
-		description: latestEnrollment
-			? t("home.recent.latestEnrollmentDescription", {
-					createdAt:
-						latestEnrollment.enrollmentInfo.auditInfo.createdAtFormatted,
-				})
-			: t("home.recent.emptyEnrollmentDescription"),
-		eyebrow: t("home.recent.latestEnrollment"),
-		onPress: latestEnrollment
-			? () => {
-					router.push({
-						pathname: "/activity/enrollments/[projectId]",
-						params: {
-							projectId: latestEnrollment.projectId,
-						},
-					});
-				}
-			: undefined,
-		title: latestEnrollment
-			? resolveHomeEnrollmentProjectName(
-					latestEnrollment.projectId,
-					projectsById,
-					t("home.values.projectUnavailable"),
-				)
-			: t("home.recent.emptyEnrollmentTitle"),
-	};
-	const attendanceCard: HomeActivitySnapshotCardProps = {
-		badgeLabel:
-			latestAttendance?.status.statusFormatted ?? t("home.states.emptyBadge"),
-		badgeTone: latestAttendance
-			? resolveHomeAttendanceStatusTone(latestAttendance.status.status)
-			: "neutral",
-		ctaLabel: latestAttendance ? t("home.actions.openAttendance") : null,
-		description: latestAttendance
-			? t("home.recent.latestAttendanceDescription", {
-					createdAt:
-						latestAttendance.attendanceInfo.auditInfo.createdAtFormatted,
-				})
-			: t("home.recent.emptyAttendanceDescription"),
-		eyebrow: t("home.recent.latestAttendance"),
-		onPress: latestAttendance
-			? () => {
-					router.push({
-						pathname: "/activity/attendances/[id]",
-						params: {
-							id: latestAttendance.id,
-						},
-					});
-				}
-			: undefined,
-		title:
-			latestAttendance?.project.name ?? t("home.recent.emptyAttendanceTitle"),
-	};
+	const enrollmentCard = buildHomeEnrollmentSnapshotCard({
+		latestAttendance,
+		latestEnrollment,
+		onOpenAttendance: () => undefined,
+		onOpenEnrollment: projectId => {
+			router.push({
+				pathname: "/activity/enrollments/[projectId]",
+				params: { projectId },
+			});
+		},
+		projectsById,
+		t,
+	});
+	const attendanceCard = buildHomeAttendanceSnapshotCard({
+		latestAttendance,
+		latestEnrollment,
+		onOpenAttendance: attendanceId => {
+			router.push({
+				pathname: "/activity/attendances/[id]",
+				params: { id: attendanceId },
+			});
+		},
+		onOpenEnrollment: () => undefined,
+		projectsById,
+		t,
+	});
 
 	return (
 		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}>

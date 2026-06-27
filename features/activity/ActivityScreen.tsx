@@ -1,14 +1,13 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
-import { useLocalSearchParams } from "expo-router";
-import { SlidersHorizontal } from "lucide-react-native";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { RefreshControl, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import * as api from "@/api";
-import { BrandScreenHeader, HeaderActionButton } from "@/components";
+import { BrandScreenHeader } from "@/components";
 import { useCurrentFormerStudentStore, useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ProjectResponse } from "@/types/api";
@@ -19,6 +18,7 @@ import type {
 } from "@/types/client";
 
 import {
+	ActivityHeaderActions,
 	ActivityListSection,
 	ActivitySegmentedControl,
 	ActivityStateCard,
@@ -37,6 +37,7 @@ import {
 	filterActivityEnrollmentItems,
 	hasActiveActivityFilters,
 	resolveAttendanceStatusTone,
+	resolveActivityStateCopy,
 	resolveEnrollmentStatusTone,
 	resolveProjectName,
 	sortActivityAttendanceItems,
@@ -45,6 +46,7 @@ import {
 
 export function ActivityScreen() {
 	const { t } = useTranslation();
+	const router = useRouter();
 	const params = useLocalSearchParams<{ tab?: string | string[] }>();
 	const insets = useSafeAreaInsets();
 	const theme = useThemeStore(state => state.theme);
@@ -182,51 +184,28 @@ export function ActivityScreen() {
 		projectsQuery.isRefetching;
 	const contentBottomPadding =
 		theme.space[8] + theme.space[4] + Math.max(insets.bottom, theme.space[4]);
-	const stateCopy = hasQueryError
-		? {
-				title: t("activity.states.errorTitle"),
-				description: t("activity.states.errorDescription"),
-				badgeTone: "danger" as const,
-			}
-		: isInitialLoading
-			? {
-					title: t("activity.states.loadingTitle"),
-					description: t("activity.states.loadingDescription"),
-					badgeTone: "neutral" as const,
-				}
-			: activeTab === "enrollments" && visibleEnrollmentItems.length === 0
-				? {
-						title: hasActiveFilters
-							? t("activity.states.filteredEmptyEnrollmentsTitle")
-							: t("activity.states.emptyEnrollmentsTitle"),
-						description: hasActiveFilters
-							? t("activity.states.filteredEmptyEnrollmentsDescription")
-							: t("activity.states.emptyEnrollmentsDescription"),
-						badgeTone: "neutral" as const,
-					}
-				: activeTab === "attendances" && visibleAttendanceItems.length === 0
-					? {
-							title: hasActiveFilters
-								? t("activity.states.filteredEmptyAttendancesTitle")
-								: t("activity.states.emptyAttendancesTitle"),
-							description: hasActiveFilters
-								? t("activity.states.filteredEmptyAttendancesDescription")
-								: t("activity.states.emptyAttendancesDescription"),
-							badgeTone: "neutral" as const,
-						}
-					: null;
+	const stateCopy = resolveActivityStateCopy({
+		activeTab,
+		hasActiveFilters,
+		hasQueryError,
+		isInitialLoading,
+		t,
+		visibleAttendanceCount: visibleAttendanceItems.length,
+		visibleEnrollmentCount: visibleEnrollmentItems.length,
+	});
 
 	return (
 		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}>
 			<BrandScreenHeader
 				title={t("activity.title")}
 				rightAccessory={
-					<HeaderActionButton
-						accessibilityLabel={t("activity.actions.filters")}
+					<ActivityHeaderActions
 						disabled={hasQueryError || isInitialLoading}
-						icon={SlidersHorizontal}
-						onPress={() => {
+						onOpenFilters={() => {
 							setIsFilterSheetVisible(true);
+						}}
+						onOpenNewAttendance={() => {
+							router.push("/attendance/new");
 						}}
 					/>
 				}

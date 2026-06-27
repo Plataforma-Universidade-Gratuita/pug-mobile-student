@@ -1,24 +1,22 @@
 import React, { useEffect, useMemo, useState } from "react";
 
-import { useLocalSearchParams } from "expo-router";
-import { Plus, Settings2 } from "lucide-react-native";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { RefreshControl, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import * as api from "@/api";
-import {
-	AppBackButton,
-	BrandScreenHeader,
-	HeaderActionButton,
-} from "@/components";
+import { AppBackButton, BrandScreenHeader } from "@/components";
 import { useCurrentFormerStudentStore, useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ProjectDetailScreenProps } from "@/types/client";
 
 import {
+	ApplyEnrollmentSheet,
 	ManageEnrollmentSheet,
+	ProjectDetailAttendanceAction,
 	ProjectDetailContent,
+	ProjectDetailHeaderActions,
 	ProjectDetailStateCard,
 } from "./project-detail-sections";
 import { createStyles } from "./styles";
@@ -36,10 +34,12 @@ export function ProjectDetailScreen({
 	titleOverride,
 }: ProjectDetailScreenProps) {
 	const { t } = useTranslation();
+	const router = useRouter();
 	const insets = useSafeAreaInsets();
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme), [theme]);
+	const [isApplySheetVisible, setIsApplySheetVisible] = useState(false);
 	const [isManageSheetVisible, setIsManageSheetVisible] = useState(false);
 	const params = useLocalSearchParams<{
 		id?: string | string[];
@@ -150,6 +150,8 @@ export function ProjectDetailScreen({
 		currentFormerStudent !== null &&
 		myEnrollment === null &&
 		!myEnrollmentQuery.isLoading;
+	const canCreateAttendance =
+		projectId !== null && myEnrollmentStatus === "APPROVED";
 	const isMutatingEnrollment =
 		createEnrollmentMutation.isPending || updateMyEnrollmentMutation.isPending;
 	const hasQueryError =
@@ -171,33 +173,24 @@ export function ProjectDetailScreen({
 		myEnrollmentQuery.isRefetching;
 	const contentBottomPadding =
 		theme.space[8] + theme.space[4] + Math.max(insets.bottom, theme.space[4]);
-	const rightAccessory = canManage ? (
-		<HeaderActionButton
-			accessibilityLabel={t("projectDetail.actions.manage")}
-			disabled={isMutatingEnrollment}
-			icon={Settings2}
-			onPress={() => {
-				setIsManageSheetVisible(true);
-			}}
-		/>
-	) : canApply ? (
-		<HeaderActionButton
-			accessibilityLabel={t("projectDetail.actions.apply")}
-			disabled={isMutatingEnrollment}
-			icon={Plus}
-			onPress={() => {
-				if (!projectId || !currentFormerStudent) return;
-				void createEnrollmentMutation.mutateAsync({ projectId });
-			}}
-		/>
-	) : null;
-
 	return (
 		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}>
 			<BrandScreenHeader
 				title={titleOverride ?? t("projectDetail.title")}
 				leftAccessory={<AppBackButton />}
-				rightAccessory={rightAccessory}
+				rightAccessory={
+					<ProjectDetailHeaderActions
+						canApply={canApply}
+						canManage={canManage}
+						disabled={isMutatingEnrollment}
+						onApply={() => {
+							setIsApplySheetVisible(true);
+						}}
+						onManage={() => {
+							setIsManageSheetVisible(true);
+						}}
+					/>
+				}
 			/>
 			<ScrollView
 				contentContainerStyle={[
@@ -244,22 +237,36 @@ export function ProjectDetailScreen({
 							tone="neutral"
 						/>
 					) : project ? (
-						<ProjectDetailContent
-							activeParticipantsValue={activeParticipantsValue}
-							addressValue={addressValue}
-							cityValue={cityValue}
-							cnpjValue={cnpjValue}
-							completedHoursValue={completedHoursValue}
-							completionPercentLabel={completionPercentLabel}
-							completionRatio={completionRatio}
-							createdByValue={createdByValue}
-							entityName={entityName}
-							maxParticipantsValue={maxParticipantsValue}
-							offeredHoursValue={offeredHoursValue}
-							pendingEnrollmentsValue={pendingEnrollmentsValue}
-							project={project}
-							statusTone={resolveProjectDetailStatusTone(project.status.status)}
-						/>
+						<>
+							<ProjectDetailContent
+								activeParticipantsValue={activeParticipantsValue}
+								addressValue={addressValue}
+								cityValue={cityValue}
+								cnpjValue={cnpjValue}
+								completedHoursValue={completedHoursValue}
+								completionPercentLabel={completionPercentLabel}
+								completionRatio={completionRatio}
+								createdByValue={createdByValue}
+								entityName={entityName}
+								maxParticipantsValue={maxParticipantsValue}
+								offeredHoursValue={offeredHoursValue}
+								pendingEnrollmentsValue={pendingEnrollmentsValue}
+								project={project}
+								statusTone={resolveProjectDetailStatusTone(
+									project.status.status,
+								)}
+							/>
+							{canCreateAttendance ? (
+								<ProjectDetailAttendanceAction
+									onPress={() => {
+										router.push({
+											pathname: "/attendance/new",
+											params: { projectId },
+										});
+									}}
+								/>
+							) : null}
+						</>
 					) : (
 						<ProjectDetailStateCard
 							badgeLabel={t("projectDetail.states.badge")}
@@ -270,6 +277,27 @@ export function ProjectDetailScreen({
 					)}
 				</View>
 			</ScrollView>
+			{project ? (
+				<ApplyEnrollmentSheet
+					isBusy={isMutatingEnrollment}
+					onApply={() => {
+						if (!projectId || !currentFormerStudent) {
+							return;
+						}
+
+						void createEnrollmentMutation
+							.mutateAsync({ projectId })
+							.then(() => {
+								setIsApplySheetVisible(false);
+							});
+					}}
+					onDismiss={() => {
+						setIsApplySheetVisible(false);
+					}}
+					projectName={project.name}
+					visible={isApplySheetVisible}
+				/>
+			) : null}
 			{project ? (
 				<ManageEnrollmentSheet
 					isBusy={isMutatingEnrollment}

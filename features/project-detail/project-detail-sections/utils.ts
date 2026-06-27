@@ -35,3 +35,20 @@ export function createCloseSheetOptionStyle(
 		opacity: isBusy ? 0.6 : 1,
 	};
 }
+
+export function createApplyEnrollmentOptionStyle(
+	theme: AppResolvedTheme,
+	isBusy: boolean,
+	pressed: boolean,
+) {
+	return {
+		backgroundColor: pressed
+			? withAlpha(theme.colors.brand, theme.mode === "dark" ? 0.18 : 0.12)
+			: withAlpha(theme.colors.brand, theme.mode === "dark" ? 0.1 : 0.06),
+		borderColor: withAlpha(
+			theme.colors.brand,
+			theme.mode === "dark" ? 0.5 : 0.36,
+		),
+		opacity: isBusy ? 0.72 : 1,
+	};
+}

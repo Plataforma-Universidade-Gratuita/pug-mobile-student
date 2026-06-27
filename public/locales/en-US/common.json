@@ -1,8 +1,41 @@
 {
+	"academicDetails": {
+		"fields": {
+			"campus": "Campus",
+			"completedHours": "Completed hours",
+			"dueDate": "Due date",
+			"missingHours": "Missing hours",
+			"progress": "Progress",
+			"remainingDays": "Remaining days",
+			"requiredHours": "Required hours",
+			"startDate": "Start date"
+		},
+		"progressValue": "{{value}}% completed",
+		"sections": {
+			"counterpart": "Counterpart hours",
+			"period": "Period",
+			"record": "Academic record"
+		},
+		"state": {
+			"badge": "Academic state",
+			"emptyDescription": "We could not find an academic record for this session.",
+			"emptyTitle": "Academic record unavailable",
+			"errorDescription": "Refresh the screen or try again in a moment.",
+			"errorTitle": "Unable to load academic details",
+			"loadingDescription": "Fetching your current academic record and counterpart progress.",
+			"loadingTitle": "Loading academic details"
+		},
+		"status": {
+			"concluded": "Concluded",
+			"inProgress": "In progress"
+		},
+		"title": "Academic details"
+	},
 	"activity": {
 		"actions": {
 			"details": "Details",
-			"filters": "Open filters"
+			"filters": "Open filters",
+			"newAttendance": "New attendance"
 		},
 		"attendance": {
 			"duration": "{{count}}h logged",
@@ -128,6 +161,41 @@
 		"values": {
 			"projectFallback": "Project unavailable"
 		}
+	},
+	"attendanceCreate": {
+		"actions": {
+			"submit": "Create attendance"
+		},
+		"duration": {
+			"helper": "Use the number of hours completed in this project activity.",
+			"label": "Duration in hours",
+			"placeholder": "Example: 2"
+		},
+		"errors": {
+			"durationInvalid": "Enter a duration greater than zero.",
+			"durationRequired": "Duration is required.",
+			"fallback": "Unable to create this attendance right now. Try again in a moment.",
+			"missingFormerStudent": "Unable to resolve the current former student context.",
+			"projectRequired": "Select a project before continuing."
+		},
+		"project": {
+			"helper": "Choose one of your approved project enrollments.",
+			"label": "Project",
+			"lockedHelper": "This attendance will be created for the current project.",
+			"selected": "Selected project",
+			"selectedFromProject": "Selected from this project"
+		},
+		"states": {
+			"badge": "Attendance state",
+			"emptyDescription": "You need an approved enrollment before logging a new attendance.",
+			"emptyTitle": "No approved project yet",
+			"errorDescription": "Refresh the modal or try again in a moment.",
+			"errorTitle": "Unable to prepare the attendance form",
+			"loadingDescription": "Fetching your approved enrollments and available project context.",
+			"loadingTitle": "Loading attendance form"
+		},
+		"subtitle": "Register your project hours and open the validation QR right after saving.",
+		"title": "New attendance"
 	},
 	"auth": {
 		"login": {
@@ -283,6 +351,9 @@
 		}
 	},
 	"profile": {
+		"actions": {
+			"openAcademicDetails": "Academic details"
+		},
 		"badge": "Profile",
 		"errors": {
 			"load": "Some profile data could not be loaded right now."
@@ -334,7 +405,14 @@
 			"apply": "Apply to project",
 			"close": "Close",
 			"exitProject": "Exit project",
-			"manage": "Manage enrollment"
+			"manage": "Manage enrollment",
+			"newAttendance": "Log attendance"
+		},
+		"apply": {
+			"applyHelper": "Create a new enrollment request for this project and wait for partner review.",
+			"caption": "Enrollment",
+			"closeHelper": "Close this sheet and keep reviewing the project details.",
+			"subtitle": "Confirm that you want to apply to this project before submitting your enrollment."
 		},
 		"entity": {
 			"address": "Address",

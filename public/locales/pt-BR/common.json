@@ -1,8 +1,41 @@
 {
+	"academicDetails": {
+		"fields": {
+			"campus": "Campus",
+			"completedHours": "Horas concluidas",
+			"dueDate": "Data limite",
+			"missingHours": "Horas faltantes",
+			"progress": "Progresso",
+			"remainingDays": "Dias restantes",
+			"requiredHours": "Horas obrigatorias",
+			"startDate": "Data de inicio"
+		},
+		"progressValue": "{{value}}% concluidos",
+		"sections": {
+			"counterpart": "Horas de contrapartida",
+			"period": "Periodo",
+			"record": "Registro academico"
+		},
+		"state": {
+			"badge": "Estado academico",
+			"emptyDescription": "Nao encontramos um registro academico para esta sessao.",
+			"emptyTitle": "Registro academico indisponivel",
+			"errorDescription": "Atualize a tela ou tente novamente em instantes.",
+			"errorTitle": "Nao foi possivel carregar os detalhes academicos",
+			"loadingDescription": "Buscando seu registro academico atual e o progresso da contrapartida.",
+			"loadingTitle": "Carregando detalhes academicos"
+		},
+		"status": {
+			"concluded": "Concluido",
+			"inProgress": "Em andamento"
+		},
+		"title": "Detalhes academicos"
+	},
 	"activity": {
 		"actions": {
 			"details": "Detalhes",
-			"filters": "Abrir filtros"
+			"filters": "Abrir filtros",
+			"newAttendance": "Nova presenca"
 		},
 		"attendance": {
 			"duration": "{{count}}h registradas",
@@ -128,6 +161,41 @@
 		"values": {
 			"projectFallback": "Projeto indispon?vel"
 		}
+	},
+	"attendanceCreate": {
+		"actions": {
+			"submit": "Criar presenca"
+		},
+		"duration": {
+			"helper": "Use a quantidade de horas concluida nesta atividade do projeto.",
+			"label": "Duracao em horas",
+			"placeholder": "Exemplo: 2"
+		},
+		"errors": {
+			"durationInvalid": "Informe uma duracao maior que zero.",
+			"durationRequired": "A duracao e obrigatoria.",
+			"fallback": "Nao foi possivel criar esta presenca agora. Tente novamente em instantes.",
+			"missingFormerStudent": "Nao foi possivel identificar o contexto atual do egresso.",
+			"projectRequired": "Selecione um projeto antes de continuar."
+		},
+		"project": {
+			"helper": "Escolha uma das suas inscricoes aprovadas em projeto.",
+			"label": "Projeto",
+			"lockedHelper": "Esta presenca sera criada para o projeto atual.",
+			"selected": "Projeto selecionado",
+			"selectedFromProject": "Selecionado deste projeto"
+		},
+		"states": {
+			"badge": "Estado da presenca",
+			"emptyDescription": "Voce precisa de uma inscricao aprovada antes de registrar uma nova presenca.",
+			"emptyTitle": "Nenhum projeto aprovado ainda",
+			"errorDescription": "Atualize o modal ou tente novamente em instantes.",
+			"errorTitle": "Nao foi possivel preparar o formulario de presenca",
+			"loadingDescription": "Buscando suas inscricoes aprovadas e o contexto dos projetos disponiveis.",
+			"loadingTitle": "Carregando formulario de presenca"
+		},
+		"subtitle": "Registre suas horas no projeto e abra o QR de validacao logo depois de salvar.",
+		"title": "Nova presenca"
 	},
 	"auth": {
 		"login": {
@@ -283,6 +351,9 @@
 		}
 	},
 	"profile": {
+		"actions": {
+			"openAcademicDetails": "Detalhes academicos"
+		},
 		"badge": "Perfil",
 		"errors": {
 			"load": "Alguns dados do perfil nÃ£o puderam ser carregados agora."
@@ -334,7 +405,14 @@
 			"apply": "Inscrever-se no projeto",
 			"close": "Fechar",
 			"exitProject": "Sair do projeto",
-			"manage": "Gerenciar inscricao"
+			"manage": "Gerenciar inscricao",
+			"newAttendance": "Registrar presenca"
+		},
+		"apply": {
+			"applyHelper": "Crie uma nova solicitacao de inscricao para este projeto e aguarde a analise da entidade.",
+			"caption": "Inscricao",
+			"closeHelper": "Feche esta folha e continue revisando os detalhes do projeto.",
+			"subtitle": "Confirme que voce quer se inscrever neste projeto antes de enviar sua solicitacao."
 		},
 		"entity": {
 			"address": "Endereco",

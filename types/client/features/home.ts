@@ -1,5 +1,10 @@
 import type { LucideIcon } from "lucide-react-native";
 
+import type {
+	AttendanceComplexSearchItem,
+	EnrollmentResponse,
+	ProjectResponse,
+} from "@/types/api";
 import type { PrimitiveBadgeProps } from "@/types/client/components";
 
 export interface HomeSummaryMetricItem {
@@ -61,4 +66,13 @@ export interface HomeRecentSectionProps {
 	enrollmentCard: HomeActivitySnapshotCardProps;
 	helper: string;
 	title: string;
+}
+
+export interface HomeSnapshotCardBuildArgs {
+	latestAttendance: AttendanceComplexSearchItem | null;
+	latestEnrollment: EnrollmentResponse | null;
+	onOpenAttendance: (attendanceId: string) => void;
+	onOpenEnrollment: (projectId: string) => void;
+	projectsById: Map<string, ProjectResponse>;
+	t: (...args: any[]) => any;
 }

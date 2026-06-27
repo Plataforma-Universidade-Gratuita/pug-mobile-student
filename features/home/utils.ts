@@ -9,7 +9,9 @@ import type {
 } from "@/types/api";
 import type {
 	HomeQuickActionBuildArgs,
+	HomeActivitySnapshotCardProps,
 	HomeQuickActionItem,
+	HomeSnapshotCardBuildArgs,
 	PrimitiveBadgeProps,
 } from "@/types/client";
 
@@ -177,4 +179,68 @@ export function buildQuickActionItems({
 	}
 
 	return items;
+}
+
+export function buildHomeEnrollmentSnapshotCard({
+	latestEnrollment,
+	onOpenEnrollment,
+	projectsById,
+	t,
+}: HomeSnapshotCardBuildArgs): HomeActivitySnapshotCardProps {
+	return {
+		badgeLabel:
+			latestEnrollment?.status.statusFormatted ?? t("home.states.emptyBadge"),
+		badgeTone: latestEnrollment
+			? resolveHomeEnrollmentStatusTone(latestEnrollment.status.status)
+			: "neutral",
+		ctaLabel: latestEnrollment ? t("home.actions.openEnrollment") : null,
+		description: latestEnrollment
+			? t("home.recent.latestEnrollmentDescription", {
+					createdAt:
+						latestEnrollment.enrollmentInfo.auditInfo.createdAtFormatted,
+				})
+			: t("home.recent.emptyEnrollmentDescription"),
+		eyebrow: t("home.recent.latestEnrollment"),
+		onPress: latestEnrollment
+			? () => {
+					onOpenEnrollment(latestEnrollment.projectId);
+				}
+			: undefined,
+		title: latestEnrollment
+			? resolveHomeEnrollmentProjectName(
+					latestEnrollment.projectId,
+					projectsById,
+					t("home.values.projectUnavailable"),
+				)
+			: t("home.recent.emptyEnrollmentTitle"),
+	};
+}
+
+export function buildHomeAttendanceSnapshotCard({
+	latestAttendance,
+	onOpenAttendance,
+	t,
+}: HomeSnapshotCardBuildArgs): HomeActivitySnapshotCardProps {
+	return {
+		badgeLabel:
+			latestAttendance?.status.statusFormatted ?? t("home.states.emptyBadge"),
+		badgeTone: latestAttendance
+			? resolveHomeAttendanceStatusTone(latestAttendance.status.status)
+			: "neutral",
+		ctaLabel: latestAttendance ? t("home.actions.openAttendance") : null,
+		description: latestAttendance
+			? t("home.recent.latestAttendanceDescription", {
+					createdAt:
+						latestAttendance.attendanceInfo.auditInfo.createdAtFormatted,
+				})
+			: t("home.recent.emptyAttendanceDescription"),
+		eyebrow: t("home.recent.latestAttendance"),
+		onPress: latestAttendance
+			? () => {
+					onOpenAttendance(latestAttendance.id);
+				}
+			: undefined,
+		title:
+			latestAttendance?.project.name ?? t("home.recent.emptyAttendanceTitle"),
+	};
 }
