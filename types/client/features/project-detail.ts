@@ -1,3 +1,5 @@
+import type { ProjectStatus } from "@/types/api";
+
 import type { BadgeTone } from "../components/primitives/display/badge";
 
 export interface ProjectDetailScreenProps {
@@ -59,6 +61,31 @@ export interface ProjectDetailStateCardProps {
 	description: string;
 	title: string;
 	tone: NonNullable<BadgeTone>;
+}
+
+export interface ProjectDetailResolvedContentProps {
+	activeParticipantsValue: string;
+	addressValue: string | null;
+	canCreateAttendance: boolean;
+	cityValue: string;
+	cnpjValue: string;
+	completedHoursValue: string;
+	completionPercentLabel: string;
+	completionRatio: number;
+	createdByValue: string;
+	entityName: string;
+	maxParticipantsValue: string;
+	offeredHoursValue: string;
+	pendingEnrollmentsValue: string;
+	project: {
+		description: string;
+		id: string;
+		name: string;
+		status: {
+			status: ProjectStatus;
+			statusFormatted: string;
+		};
+	} | null;
 }
 
 export interface ProjectDetailContentProps {

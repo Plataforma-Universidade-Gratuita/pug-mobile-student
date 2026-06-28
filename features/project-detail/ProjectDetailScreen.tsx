@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { RefreshControl, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
@@ -11,11 +11,10 @@ import { useCurrentFormerStudentStore, useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ProjectDetailScreenProps } from "@/types/client";
 
+import { ProjectDetailResolvedContent } from "./ProjectDetailResolvedContent";
 import {
 	ApplyEnrollmentSheet,
 	ManageEnrollmentSheet,
-	ProjectDetailAttendanceAction,
-	ProjectDetailContent,
 	ProjectDetailHeaderActions,
 	ProjectDetailStateCard,
 } from "./project-detail-sections";
@@ -27,14 +26,12 @@ import {
 	getProjectCompletionRatio,
 	resolveOptionalNumberText,
 	resolveOptionalText,
-	resolveProjectDetailStatusTone,
 } from "./utils";
 
 export function ProjectDetailScreen({
 	titleOverride,
 }: ProjectDetailScreenProps) {
 	const { t } = useTranslation();
-	const router = useRouter();
 	const insets = useSafeAreaInsets();
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
@@ -237,36 +234,22 @@ export function ProjectDetailScreen({
 							tone="neutral"
 						/>
 					) : project ? (
-						<>
-							<ProjectDetailContent
-								activeParticipantsValue={activeParticipantsValue}
-								addressValue={addressValue}
-								cityValue={cityValue}
-								cnpjValue={cnpjValue}
-								completedHoursValue={completedHoursValue}
-								completionPercentLabel={completionPercentLabel}
-								completionRatio={completionRatio}
-								createdByValue={createdByValue}
-								entityName={entityName}
-								maxParticipantsValue={maxParticipantsValue}
-								offeredHoursValue={offeredHoursValue}
-								pendingEnrollmentsValue={pendingEnrollmentsValue}
-								project={project}
-								statusTone={resolveProjectDetailStatusTone(
-									project.status.status,
-								)}
-							/>
-							{canCreateAttendance ? (
-								<ProjectDetailAttendanceAction
-									onPress={() => {
-										router.push({
-											pathname: "/attendance/new",
-											params: { projectId },
-										});
-									}}
-								/>
-							) : null}
-						</>
+						<ProjectDetailResolvedContent
+							activeParticipantsValue={activeParticipantsValue}
+							addressValue={addressValue}
+							canCreateAttendance={canCreateAttendance}
+							cityValue={cityValue}
+							cnpjValue={cnpjValue}
+							completedHoursValue={completedHoursValue}
+							completionPercentLabel={completionPercentLabel}
+							completionRatio={completionRatio}
+							createdByValue={createdByValue}
+							entityName={entityName}
+							maxParticipantsValue={maxParticipantsValue}
+							offeredHoursValue={offeredHoursValue}
+							pendingEnrollmentsValue={pendingEnrollmentsValue}
+							project={project}
+						/>
 					) : (
 						<ProjectDetailStateCard
 							badgeLabel={t("projectDetail.states.badge")}

@@ -48,3 +48,44 @@ export interface NewAttendanceProjectSectionProps {
 	selectedProjectId: string;
 	styles: NewAttendanceProjectSectionStyles;
 }
+
+export interface NewAttendanceContentStyles {
+	errorText: StyleProp<TextStyle>;
+	field: StyleProp<ViewStyle>;
+	formCard: StyleProp<ViewStyle>;
+	projectOptionList: StyleProp<ViewStyle>;
+	section: StyleProp<ViewStyle>;
+	sectionHeader: StyleProp<ViewStyle>;
+}
+
+export interface NewAttendanceContentProps {
+	clearServerError: () => void;
+	durationErrorMessage: string | null;
+	durationHelperText: string;
+	durationLabel: string;
+	durationPlaceholder: string;
+	durationValue: string;
+	formFooterError: string | null;
+	hasEligibleProjects: boolean;
+	hasQueryError: boolean;
+	isInitialLoading: boolean;
+	isProjectLocked: boolean;
+	isSubmitting: boolean;
+	onChangeDuration: (value: string) => void;
+	onDurationBlur: () => void;
+	onSelectProject: (projectId: string) => void;
+	onSubmit: () => void;
+	projectErrorMessage: string | undefined;
+	projectOptions: NewAttendanceProjectOption[];
+	selectedProjectId: string;
+	stateBadgeLabel: string;
+	states: {
+		emptyDescription: string;
+		emptyTitle: string;
+		errorDescription: string;
+		errorTitle: string;
+		loadingDescription: string;
+		loadingTitle: string;
+	};
+	styles: NewAttendanceContentStyles;
+}

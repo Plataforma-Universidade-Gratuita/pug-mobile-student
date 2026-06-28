@@ -2,19 +2,13 @@ import React, { useEffect, useMemo } from "react";
 
 import { useQuery } from "@tanstack/react-query";
 import { useLocalSearchParams, useRouter } from "expo-router";
-import { Controller } from "react-hook-form";
 import { useTranslation } from "react-i18next";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import * as api from "@/api";
 import { AppBackButton } from "@/components";
-import {
-	Button,
-	Input,
-	Label,
-	ModalScreenScaffold,
-} from "@/components/primitives";
+import { Button, ModalScreenScaffold } from "@/components/primitives";
 import { useLocalizedZodForm, useServerErrorState } from "@/hooks";
 import { createNewAttendanceFormSchema } from "@/schemas/client";
 import { useCurrentFormerStudentStore, useThemeStore } from "@/stores";
@@ -22,8 +16,7 @@ import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ProjectResponse } from "@/types/api";
 import type { NewAttendanceFormValues } from "@/types/client";
 
-import { NewAttendanceProjectSection } from "./NewAttendanceProjectSection";
-import { NewAttendanceStateCard } from "./NewAttendanceStateCard";
+import { NewAttendanceContent } from "./NewAttendanceContent";
 import { createStyles } from "./styles";
 import {
 	buildNewAttendanceProjectOptions,
@@ -217,92 +210,68 @@ export function NewAttendanceModalScreen() {
 						showsVerticalScrollIndicator={false}
 					>
 						<View style={styles.contentShell}>
-							{hasQueryError ? (
-								<NewAttendanceStateCard
-									badgeLabel={t("attendanceCreate.states.badge")}
-									description={t("attendanceCreate.states.errorDescription")}
-									title={t("attendanceCreate.states.errorTitle")}
-									tone="danger"
-								/>
-							) : isInitialLoading ? (
-								<NewAttendanceStateCard
-									badgeLabel={t("attendanceCreate.states.badge")}
-									description={t("attendanceCreate.states.loadingDescription")}
-									title={t("attendanceCreate.states.loadingTitle")}
-									tone="neutral"
-								/>
-							) : !hasEligibleProjects ? (
-								<NewAttendanceStateCard
-									badgeLabel={t("attendanceCreate.states.badge")}
-									description={t("attendanceCreate.states.emptyDescription")}
-									title={t("attendanceCreate.states.emptyTitle")}
-									tone="warning"
-								/>
-							) : (
-								<View style={styles.formCard}>
-									<NewAttendanceProjectSection
-										clearServerError={clearServerError}
-										errorMessage={form.formState.errors.projectId?.message}
-										isProjectLocked={isProjectLocked}
-										isSubmitting={isSubmitting}
-										onSelectProject={projectId => {
-											form.setValue("projectId", projectId, {
-												shouldDirty: true,
-												shouldTouch: true,
-												shouldValidate: true,
-											});
-										}}
-										options={projectOptions}
-										selectedProjectId={selectedProjectId}
-										styles={{
-											errorText: styles.errorText,
-											projectOptionList: styles.projectOptionList,
-											section: styles.section,
-											sectionHeader: styles.sectionHeader,
-										}}
-									/>
-									<View style={styles.field}>
-										<Label role="field">
-											{t("attendanceCreate.duration.label")}
-										</Label>
-										<Controller
-											control={form.control}
-											name="duration"
-											render={({ field, fieldState }) => (
-												<Input
-													disabled={isSubmitting}
-													error={fieldState.error?.message ?? null}
-													helperText={t("attendanceCreate.duration.helper")}
-													onBlur={() => {
-														field.onBlur();
-													}}
-													onChangeText={value => {
-														field.onChange(value);
-														clearServerError();
-													}}
-													onSubmitEditing={() => {
-														void form.handleSubmit(onSubmit)();
-													}}
-													placeholder={t(
-														"attendanceCreate.duration.placeholder",
-													)}
-													returnKeyType="done"
-													type="text"
-													value={field.value}
-												/>
-											)}
-										/>
-									</View>
-									{serverError ? (
-										<Label
-											role="helper"
-											style={styles.errorText}
-										>
-											{serverError}
-										</Label>
-									) : null}
-								</View>
-							)}
+							<NewAttendanceContent
+								clearServerError={clearServerError}
+								durationErrorMessage={
+									form.formState.errors.duration?.message ?? null
+								}
+								durationHelperText={t("attendanceCreate.duration.helper")}
+								durationLabel={t("attendanceCreate.duration.label")}
+								durationPlaceholder={t("attendanceCreate.duration.placeholder")}
+								durationValue={form.watch("duration")}
+								formFooterError={serverError}
+								hasEligibleProjects={hasEligibleProjects}
+								hasQueryError={hasQueryError}
+								isInitialLoading={isInitialLoading}
+								isProjectLocked={isProjectLocked}
+								isSubmitting={isSubmitting}
+								onChangeDuration={value => {
+									form.setValue("duration", value, {
+										shouldDirty: true,
+										shouldTouch: true,
+										shouldValidate: true,
+									});
+								}}
+								onDurationBlur={() => {
+									form.trigger("duration");
+								}}
+								onSelectProject={projectId => {
+									form.setValue("projectId", projectId, {
+										shouldDirty: true,
+										shouldTouch: true,
+										shouldValidate: true,
+									});
+								}}
+								onSubmit={() => {
+									void form.handleSubmit(onSubmit)();
+								}}
+								projectErrorMessage={form.formState.errors.projectId?.message}
+								projectOptions={projectOptions}
+								selectedProjectId={selectedProjectId}
+								stateBadgeLabel={t("attendanceCreate.states.badge")}
+								states={{
+									emptyDescription: t(
+										"attendanceCreate.states.emptyDescription",
+									),
+									emptyTitle: t("attendanceCreate.states.emptyTitle"),
+									errorDescription: t(
+										"attendanceCreate.states.errorDescription",
+									),
+									errorTitle: t("attendanceCreate.states.errorTitle"),
+									loadingDescription: t(
+										"attendanceCreate.states.loadingDescription",
+									),
+									loadingTitle: t("attendanceCreate.states.loadingTitle"),
+								}}
+								styles={{
+									errorText: styles.errorText,
+									field: styles.field,
+									formCard: styles.formCard,
+									projectOptionList: styles.projectOptionList,
+									section: styles.section,
+									sectionHeader: styles.sectionHeader,
+								}}
+							/>
 						</View>
 					</ScrollView>
 				</KeyboardAvoidingView>
