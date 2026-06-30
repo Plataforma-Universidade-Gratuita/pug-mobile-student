@@ -10,19 +10,11 @@ export function createSectionStyles(
 	spec: PrimitiveSurfaceStyleSpec,
 ) {
 	return StyleSheet.create({
-		card: {
+		identitySection: {
 			gap: theme.space[3],
-			padding: spec.panelPadding,
-			borderWidth: 1,
-			borderRadius: theme.radius.xl,
-			...theme.shadow.sm,
 		},
-		sectionCard: {
-			paddingBottom: theme.space[4],
-		},
-		identityCard: {
-			borderRadius: spec.panelRadius,
-			...theme.shadow.md,
+		section: {
+			gap: theme.space[3],
 		},
 		identityTop: {
 			flexDirection: "row",
@@ -59,9 +51,6 @@ export function createSectionStyles(
 		rows: {
 			gap: theme.space[1],
 		},
-		rowsBottomTrim: {
-			marginBottom: -theme.space[1],
-		},
 		row: {
 			flexDirection: "row",
 			alignItems: "flex-end",
@@ -84,18 +73,17 @@ export function createSectionStyles(
 			alignItems: "flex-end",
 			justifyContent: "center",
 		},
-		actionRow: {
+		actionButton: {
 			flexDirection: "row",
 			alignItems: "center",
 			justifyContent: "space-between",
 			gap: theme.space[3],
-			paddingTop: theme.space[3],
-		},
-		actionButton: {
-			paddingHorizontal: theme.space[3],
-			paddingVertical: theme.space[2],
+			paddingHorizontal: theme.space[4],
+			paddingVertical: theme.space[3],
 			borderWidth: 1,
-			borderRadius: theme.radius.circle,
+			borderRadius: theme.radius.xl,
+			backgroundColor: theme.colors.surface2,
+			...theme.shadow.sm,
 		},
 		selector: {
 			flexDirection: "row",
@@ -119,17 +107,5 @@ export function createSectionStyles(
 			justifyContent: "center",
 		},
 		selectorOptionCompact: {},
-		logoutSection: {
-			marginTop: theme.space[2],
-			paddingTop: theme.space[3],
-		},
-		logoutTrigger: {
-			minHeight: 54,
-			paddingHorizontal: theme.space[4],
-			borderRadius: theme.radius.lg,
-			alignItems: "center",
-			justifyContent: "center",
-			...theme.shadow.sm,
-		},
 	});
 }

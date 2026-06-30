@@ -31,16 +31,7 @@ export function StudentCard({
 	);
 
 	return (
-		<View
-			style={[
-				styles.card,
-				styles.identityCard,
-				{
-					backgroundColor: spec.panelBackground,
-					borderColor: spec.panelBorder,
-				},
-			]}
-		>
+		<View style={styles.identitySection}>
 			<View style={styles.identityTop}>
 				<View style={styles.identityCopy}>
 					<Badge

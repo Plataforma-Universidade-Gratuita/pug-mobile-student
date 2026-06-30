@@ -21,26 +21,19 @@ export function createStyles(
 		shell: {
 			width: "100%",
 			maxWidth: theme.layout.contentMaxWidth,
-			gap: theme.space[4],
+			gap: theme.space[6],
 		},
-		card: {
+		section: {
 			gap: theme.space[3],
-			paddingHorizontal: theme.space[4],
-			paddingVertical: theme.space[4],
-			borderWidth: 1,
-			borderRadius: theme.radius.xl,
-			backgroundColor: spec.panelBackground,
-			borderColor: spec.panelBorder,
-			...theme.shadow.sm,
 		},
-		cardHeader: {
-			gap: theme.space[1],
+		sectionHeader: {
+			flexDirection: "row",
+			alignItems: "center",
+			justifyContent: "space-between",
+			gap: theme.space[3],
 		},
-		cardTitle: {
+		sectionTitle: {
 			color: theme.colors.text,
-		},
-		cardHelper: {
-			color: theme.colors.muted,
 		},
 		badge: {
 			alignSelf: "flex-start",
@@ -120,3 +113,4 @@ export function createStyles(
 		},
 	});
 }
+

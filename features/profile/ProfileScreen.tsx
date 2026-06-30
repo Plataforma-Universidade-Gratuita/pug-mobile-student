@@ -40,7 +40,7 @@ export function ProfileScreen() {
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme), [theme]);
 	const contentBottomPadding =
-		theme.space[8] + Math.max(insets.bottom, theme.space[2]) + theme.space[4];
+		theme.space[8] + theme.space[2] + Math.max(insets.bottom, theme.space[4]);
 	const currentAccount = useCurrentFormerStudentStore(
 		state => state.currentAccount,
 	);

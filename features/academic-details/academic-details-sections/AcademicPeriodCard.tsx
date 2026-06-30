@@ -23,11 +23,11 @@ export function AcademicPeriodCard({
 	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
 
 	return (
-		<View style={styles.card}>
-			<View style={styles.cardHeader}>
+		<View style={styles.section}>
+			<View style={styles.sectionHeader}>
 				<Label
 					role="field"
-					style={styles.cardTitle}
+					style={styles.sectionTitle}
 				>
 					{sectionTitle}
 				</Label>

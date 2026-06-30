@@ -17,10 +17,10 @@ export function createStyles(theme: AppResolvedTheme) {
 		shell: {
 			width: "100%",
 			maxWidth: theme.layout.contentMaxWidth,
-			gap: theme.space[4],
+			gap: theme.space[5],
 		},
 		sheetContent: {
-			gap: theme.space[4],
+			gap: theme.space[5],
 		},
 		sheetHeader: {
 			gap: theme.space[1],
@@ -73,3 +73,4 @@ export function createStyles(theme: AppResolvedTheme) {
 		},
 	});
 }
+

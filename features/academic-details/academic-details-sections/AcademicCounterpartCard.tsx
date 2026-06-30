@@ -28,8 +28,14 @@ export function AcademicCounterpartCard({
 	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
 
 	return (
-		<View style={styles.card}>
-			<View style={styles.cardHeader}>
+		<View style={styles.section}>
+			<View style={styles.sectionHeader}>
+				<Label
+					role="field"
+					style={styles.sectionTitle}
+				>
+					{sectionTitle}
+				</Label>
 				<Badge
 					style={styles.badge}
 					tone={isConcluded ? "success" : "brand"}
@@ -37,12 +43,6 @@ export function AcademicCounterpartCard({
 				>
 					{statusLabel}
 				</Badge>
-				<Label
-					role="field"
-					style={styles.cardTitle}
-				>
-					{sectionTitle}
-				</Label>
 			</View>
 			<View style={styles.metricsGrid}>
 				<View style={styles.metricCard}>

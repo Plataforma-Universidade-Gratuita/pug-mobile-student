@@ -34,21 +34,12 @@ export function PreferencesCard({
 	const selectorOptionPressedBackground = withAlpha(theme.colors.brand, 0.14);
 
 	return (
-		<View
-			style={[
-				styles.card,
-				styles.sectionCard,
-				{
-					backgroundColor: spec.panelBackground,
-					borderColor: spec.panelBorder,
-				},
-			]}
-		>
+		<View style={styles.section}>
 			<View style={styles.sectionHeader}>
 				<Label role="caption">{sectionTitle}</Label>
 			</View>
 
-			<View style={[styles.rows, styles.rowsBottomTrim]}>
+			<View style={styles.rows}>
 				<View style={styles.row}>
 					<View style={styles.rowCopy}>
 						<Label role="field">{themeLabel}</Label>
@@ -97,12 +88,9 @@ export function PreferencesCard({
 				</View>
 
 				<View
-					style={[
-						styles.row,
-						styles.rowDivider,
-						{ borderTopColor: spec.panelBorder },
-					]}
-				>
+					style={[styles.rowDivider, { borderTopColor: spec.panelBorder }]}
+				/>
+				<View style={styles.row}>
 					<View style={styles.rowCopy}>
 						<Label role="field">{languageLabel}</Label>
 						<Label role="helper">{languageHelper}</Label>

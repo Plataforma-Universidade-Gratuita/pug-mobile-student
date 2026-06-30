@@ -45,7 +45,7 @@ export function AcademicDetailsScreen() {
 	}, [isLoaded, isLoading, loadCurrentFormerStudentContext]);
 
 	const contentBottomPadding =
-		theme.space[8] + Math.max(insets.bottom, theme.space[2]) + theme.space[4];
+		theme.space[8] + theme.space[2] + Math.max(insets.bottom, theme.space[4]);
 	const loadingLabel = t("profile.values.loading");
 	const unavailableLabel = t("profile.values.unavailable");
 	const hasError = currentFormerStudentError !== null;

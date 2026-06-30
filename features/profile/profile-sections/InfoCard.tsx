@@ -33,21 +33,12 @@ export function InfoCard({
 	const styles = useMemo(() => createSectionStyles(theme, spec), [spec, theme]);
 
 	return (
-		<View
-			style={[
-				styles.card,
-				styles.sectionCard,
-				{
-					backgroundColor: spec.panelBackground,
-					borderColor: spec.panelBorder,
-				},
-			]}
-		>
+		<View style={styles.section}>
 			<View style={styles.sectionHeader}>
 				<Label role="caption">{sectionTitle}</Label>
 			</View>
 
-			<View style={[styles.rows, styles.rowsBottomTrim]}>
+			<View style={styles.rows}>
 				<View style={styles.row}>
 					<View style={styles.rowCopy}>
 						<Label role="caption">{emailLabel}</Label>
@@ -65,12 +56,9 @@ export function InfoCard({
 				</View>
 
 				<View
-					style={[
-						styles.row,
-						styles.rowDivider,
-						{ borderTopColor: spec.panelBorder },
-					]}
-				>
+					style={[styles.rowDivider, { borderTopColor: spec.panelBorder }]}
+				/>
+				<View style={styles.row}>
 					<View style={styles.rowCopy}>
 						<Label role="caption">{academicRegistrationLabel}</Label>
 						<Label style={styles.rowValue}>{academicRegistrationValue}</Label>
@@ -87,12 +75,9 @@ export function InfoCard({
 				</View>
 
 				<View
-					style={[
-						styles.row,
-						styles.rowDivider,
-						{ borderTopColor: spec.panelBorder },
-					]}
-				>
+					style={[styles.rowDivider, { borderTopColor: spec.panelBorder }]}
+				/>
+				<View style={styles.row}>
 					<View style={styles.rowCopy}>
 						<Label role="caption">{courseLabel}</Label>
 						<Label style={styles.rowValue}>{courseValue}</Label>
@@ -100,12 +85,9 @@ export function InfoCard({
 				</View>
 
 				<View
-					style={[
-						styles.row,
-						styles.rowDivider,
-						{ borderTopColor: spec.panelBorder },
-					]}
-				>
+					style={[styles.rowDivider, { borderTopColor: spec.panelBorder }]}
+				/>
+				<View style={styles.row}>
 					<View style={styles.rowCopy}>
 						<Label role="caption">{areaOfExpertiseLabel}</Label>
 						<Label style={styles.rowValue}>{areaOfExpertiseValue}</Label>
@@ -116,18 +98,15 @@ export function InfoCard({
 			<Pressable
 				onPress={onOpenAcademicDetails}
 				style={({ pressed }) => [
-					styles.actionRow,
-					styles.rowDivider,
 					styles.actionButton,
 					{
-						borderTopColor: spec.panelBorder,
 						borderColor: spec.panelBorder,
 						backgroundColor: pressed
 							? withAlpha(
 									theme.colors.text,
 									theme.mode === "dark" ? 0.08 : 0.04,
 								)
-							: theme.colors.surface1,
+							: theme.colors.surface2,
 					},
 				]}
 			>
