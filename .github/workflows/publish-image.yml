@@ -112,11 +112,6 @@ jobs:
               ;;
           esac
 
-          API_URL="$(echo "$API_URL" | xargs)"
-
-          echo "TARGET_ENVIRONMENT=[$TARGET_ENVIRONMENT]"
-          echo "Resolved API_URL=[$API_URL]"
-
           if [ -z "$API_URL" ]; then
           echo "EXPO_PUBLIC_API_URL for $TARGET_ENVIRONMENT is empty or not configured."
           exit 1

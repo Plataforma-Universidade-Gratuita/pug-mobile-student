@@ -15,7 +15,6 @@ ENV EXPO_PUBLIC_API_URL=$EXPO_PUBLIC_API_URL
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-RUN echo "Building Expo web with EXPO_PUBLIC_API_URL=[$EXPO_PUBLIC_API_URL]"
 RUN npx expo export -p web
 
 FROM nginx:1.27-alpine AS runner

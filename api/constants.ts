@@ -1,7 +1,11 @@
 const API_VERSION_PREFIX = "/v1";
 
+const configuredApiBaseUrl = process.env.EXPO_PUBLIC_API_URL?.trim();
+
 export const API_BASE_URL =
-	process.env.EXPO_PUBLIC_API_URL ?? "http://localhost:8080";
+	configuredApiBaseUrl && configuredApiBaseUrl.length > 0
+		? configuredApiBaseUrl
+		: "http://localhost:8080";
 
 export const JSON_HEADERS: Record<string, string> = {
 	"Content-Type": "application/json",
