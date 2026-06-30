@@ -20,8 +20,8 @@
 		"lint:fix": "eslint . --fix",
 		"format": "npm run trans && prettier --write . && npm run lint:fix && tsc --noEmit",
 		"format:check": "prettier --check . && npm run lint",
-        "build:web": "cross-env NODE_OPTIONS=--use-system-ca expo export -p web",
-        "verify": "npm run format:check && tsc --noEmit && npm run trans && npm run build:web"
+		"build:web": "cross-env NODE_OPTIONS=--use-system-ca expo export -p web",
+		"verify": "npm run format:check && tsc --noEmit && npm run trans && npm run build:web"
 	},
 	"dependencies": {
 		"@expo/config-plugins": "54.0.4",
