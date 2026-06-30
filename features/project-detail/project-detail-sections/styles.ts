@@ -31,6 +31,7 @@ export function createStyles(
 		},
 		title: {
 			color: theme.colors.text,
+			flex: 1,
 		},
 		metricsGrid: {
 			flexDirection: "row",

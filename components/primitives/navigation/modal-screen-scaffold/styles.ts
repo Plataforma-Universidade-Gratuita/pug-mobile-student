@@ -20,6 +20,9 @@ export function createStyles(
 			paddingBottom: theme.space[5],
 			gap: theme.space[5],
 		},
+		modalContentCompact: {
+			gap: theme.space[4],
+		},
 		modalHeaderRow: {
 			flexDirection: "row",
 			alignItems: "flex-start",

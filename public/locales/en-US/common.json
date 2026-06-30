@@ -41,13 +41,12 @@
 		},
 		"attendanceDetail": {
 			"actions": {
-				"openProject": "Open project",
+				"openEnrollment": "Open enrollment",
 				"showQr": "Show QR code"
 			},
 			"fields": {
-				"registration": "Academic registration",
-				"student": "Student",
-				"validationCode": "Validation code"
+				"formerStudent": "Former student",
+				"registration": "Academic registration"
 			},
 			"metrics": {
 				"createdAt": "Created at",
@@ -76,7 +75,6 @@
 				"done": "Done"
 			},
 			"fields": {
-				"code": "Validation code",
 				"duration": "Logged duration"
 			},
 			"helper": "Keep the code fully visible until the validation is completed.",

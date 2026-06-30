@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { useRouter } from "expo-router";
 import { RefreshControl, ScrollView, View } from "react-native";
 
-import { Button, Badge, Label } from "@/components/primitives";
+import { Badge, Button, Label } from "@/components/primitives";
 import { ActivityAttendanceCard } from "@/features/activity/activity-sections";
 import { resolveAttendanceStatusTone } from "@/features/activity/utils";
 import { ProjectDetailStateCard } from "@/features/project-detail/project-detail-sections";
@@ -36,22 +36,22 @@ function EnrollmentProjectCard({
 
 	return (
 		<View style={styles.projectSection}>
-			<View style={styles.projectHeader}>
-				<View style={styles.projectTitleCopy}>
+			<View style={styles.projectTitleCopy}>
+				<View style={styles.projectHeader}>
 					<Label
 						role="title"
 						style={styles.title}
 					>
 						{title}
 					</Label>
-					<Label role="helper">{description}</Label>
+					<Badge
+						tone={statusTone}
+						variant="primary"
+					>
+						{statusLabel}
+					</Badge>
 				</View>
-				<Badge
-					tone={statusTone}
-					variant="primary"
-				>
-					{statusLabel}
-				</Badge>
+				<Label role="helper">{description}</Label>
 			</View>
 			<View style={styles.progressBlock}>
 				<Label role="helper">{progressValueLabel}</Label>

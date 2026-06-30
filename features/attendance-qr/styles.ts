@@ -55,7 +55,7 @@ export function createStyles(
 		qrFrame: {
 			alignSelf: "center",
 			borderRadius: theme.radius.lg,
-			padding: theme.space[3],
+			padding: theme.space[2],
 			backgroundColor: theme.colors.chromeFg,
 		},
 		qrRows: {
@@ -67,14 +67,9 @@ export function createStyles(
 		qrCell: {
 			margin: 0,
 		},
-		metaGroup: {
-			gap: theme.space[3],
-		},
-		metaRow: {
-			gap: theme.space[1],
-		},
-		codeValue: {
-			color: theme.colors.text,
+		footerContent: {
+			marginBottom: -theme.space[2],
+			marginTop: -theme.space[2],
 		},
 		footerButton: {
 			width: "100%",

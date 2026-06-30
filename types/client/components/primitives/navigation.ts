@@ -16,8 +16,11 @@ export interface FilterSheetScaffoldProps {
 export interface ModalScreenScaffoldProps {
 	title: string;
 	subtitle?: string;
+	subtitleNumberOfLines?: number;
 	children: ReactNode;
 	footer?: ReactNode;
 	leftAccessory?: ReactNode;
 	rightAccessory?: ReactNode;
+	compactHeader?: boolean;
+	actionSlotMinWidth?: number;
 }

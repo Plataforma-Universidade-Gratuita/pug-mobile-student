@@ -25,20 +25,19 @@ export function createStyles(
 		projectSection: {
 			gap: theme.space[3],
 		},
-		entitySection: {
-			gap: theme.space[3],
-		},
 		projectHeader: {
 			alignItems: "flex-start",
 			flexDirection: "row",
 			gap: theme.space[3],
-			justifyContent: "space-between",
 		},
 		projectTitleCopy: {
 			flex: 1,
 			gap: theme.space[1],
 		},
-		title: { color: theme.colors.text },
+		title: {
+			color: theme.colors.text,
+			flex: 1,
+		},
 		progressBlock: { gap: theme.space[2] },
 		progressTrack: {
 			backgroundColor: theme.colors.surface3,

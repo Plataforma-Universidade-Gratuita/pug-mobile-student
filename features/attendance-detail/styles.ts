@@ -24,24 +24,24 @@ export function createStyles(
 			maxWidth: theme.layout.contentMaxWidth,
 			gap: theme.space[4],
 		},
-		card: {
-			borderRadius: theme.radius.xl,
-			borderWidth: 1,
-			paddingHorizontal: theme.space[4],
-			paddingVertical: theme.space[4],
+		heroSection: {
+			gap: theme.space[3],
+		},
+		heroHeader: {
 			gap: theme.space[3],
 		},
 		heroCopy: {
+			flex: 1,
 			gap: theme.space[1],
 		},
-		heroMetaRow: {
+		titleRow: {
+			alignItems: "flex-start",
 			flexDirection: "row",
-			flexWrap: "wrap",
-			alignItems: "center",
 			gap: theme.space[2],
 		},
 		heroTitle: {
 			color: theme.colors.text,
+			flex: 1,
 		},
 		metricGrid: {
 			flexDirection: "row",
@@ -58,7 +58,7 @@ export function createStyles(
 		metricValue: {
 			color: theme.colors.text,
 		},
-		section: {
+		validationSection: {
 			gap: theme.space[3],
 		},
 		sectionTitle: {
@@ -72,6 +72,13 @@ export function createStyles(
 		},
 		actions: {
 			gap: theme.space[2],
+		},
+		stateCard: {
+			borderRadius: theme.radius.xl,
+			borderWidth: 1,
+			paddingHorizontal: theme.space[4],
+			paddingVertical: theme.space[4],
+			gap: theme.space[3],
 		},
 		stateBadge: {
 			alignSelf: "flex-start",

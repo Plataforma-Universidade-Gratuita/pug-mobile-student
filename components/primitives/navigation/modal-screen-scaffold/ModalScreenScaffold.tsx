@@ -12,31 +12,64 @@ import { createStyles } from "./styles";
 export function ModalScreenScaffold({
 	title,
 	subtitle,
+	subtitleNumberOfLines,
 	children,
 	footer,
 	leftAccessory,
 	rightAccessory,
+	compactHeader = false,
+	actionSlotMinWidth,
 }: ModalScreenScaffoldProps) {
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
+	const subtitleProps =
+		subtitleNumberOfLines != null
+			? { numberOfLines: subtitleNumberOfLines }
+			: {};
 
 	return (
 		<View
 			style={[styles.modalScreen, { backgroundColor: spec.screenBackground }]}
 		>
-			<View style={styles.modalContent}>
+			<View
+				style={[
+					styles.modalContent,
+					compactHeader ? styles.modalContentCompact : null,
+				]}
+			>
 				<View style={styles.modalHeaderRow}>
-					<View style={styles.modalActionSlot}>
+					<View
+						style={[
+							styles.modalActionSlot,
+							actionSlotMinWidth != null
+								? { minWidth: actionSlotMinWidth }
+								: null,
+						]}
+					>
 						{leftAccessory ? leftAccessory : null}
 					</View>
 
 					<View style={styles.modalHeaderCopy}>
 						<Label role="title">{title}</Label>
-						{subtitle ? <Label role="helper">{subtitle}</Label> : null}
+						{subtitle ? (
+							<Label
+								role="helper"
+								{...subtitleProps}
+							>
+								{subtitle}
+							</Label>
+						) : null}
 					</View>
 
-					<View style={styles.modalActionSlot}>
+					<View
+						style={[
+							styles.modalActionSlot,
+							actionSlotMinWidth != null
+								? { minWidth: actionSlotMinWidth }
+								: null,
+						]}
+					>
 						{rightAccessory ? rightAccessory : null}
 					</View>
 				</View>

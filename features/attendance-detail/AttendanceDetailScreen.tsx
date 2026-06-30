@@ -61,7 +61,7 @@ export function AttendanceDetailScreen() {
 		[attendanceId, attendancesQuery.data],
 	);
 	const contentBottomPadding =
-		theme.space[8] + theme.space[4] + Math.max(insets.bottom, theme.space[4]);
+		theme.space[8] + theme.space[2] + Math.max(insets.bottom, theme.space[4]);
 	const hasQueryError =
 		currentFormerStudentError != null || attendancesQuery.error != null;
 	const isInitialLoading =

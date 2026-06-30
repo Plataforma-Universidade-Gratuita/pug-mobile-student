@@ -41,13 +41,12 @@
 		},
 		"attendanceDetail": {
 			"actions": {
-				"openProject": "Abrir projeto",
+				"openEnrollment": "Abrir inscricao",
 				"showQr": "Mostrar QR code"
 			},
 			"fields": {
-				"registration": "Matrícula acadêmica",
-				"student": "Estudante",
-				"validationCode": "Código de validação"
+				"formerStudent": "Egresso",
+				"registration": "Matrícula acadêmica"
 			},
 			"metrics": {
 				"createdAt": "Criada em",
@@ -76,7 +75,6 @@
 				"done": "Concluir"
 			},
 			"fields": {
-				"code": "Código de validação",
 				"duration": "Duração registrada"
 			},
 			"helper": "Mantenha o código totalmente visível até a validação ser concluída.",

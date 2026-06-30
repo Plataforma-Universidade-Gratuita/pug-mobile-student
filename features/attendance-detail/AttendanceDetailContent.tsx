@@ -22,38 +22,30 @@ export function AttendanceDetailContent({
 
 	return (
 		<>
-			<View
-				style={[
-					styles.card,
-					{
-						backgroundColor: spec.panelBackground,
-						borderColor: spec.panelBorder,
-					},
-				]}
-			>
-				<View style={styles.heroMetaRow}>
-					<Badge
-						tone={statusTone}
-						variant="primary"
-					>
-						{attendance.status.statusFormatted}
-					</Badge>
-					<Label role="helper">
-						{t("activity.attendance.duration", {
-							count: attendance.qrValidationInfo.duration,
-						})}
-					</Label>
-				</View>
-				<View style={styles.heroCopy}>
-					<Label
-						role="title"
-						style={styles.heroTitle}
-					>
-						{attendance.project.name}
-					</Label>
-					<Label role="helper">{t("activity.attendanceDetail.subtitle")}</Label>
+			<View style={styles.heroSection}>
+				<View style={styles.heroHeader}>
+					<View style={styles.heroCopy}>
+						<View style={styles.titleRow}>
+							<Label
+								role="title"
+								style={styles.heroTitle}
+							>
+								{attendance.project.name}
+							</Label>
+							<Badge
+								tone={statusTone}
+								variant="primary"
+							>
+								{attendance.status.statusFormatted}
+							</Badge>
+						</View>
+						<Label role="helper">
+							{t("activity.attendanceDetail.subtitle")}
+						</Label>
+					</View>
 				</View>
 			</View>
+
 			<View style={styles.metricGrid}>
 				{[
 					[
@@ -76,7 +68,7 @@ export function AttendanceDetailContent({
 						style={[
 							styles.metricCard,
 							{
-								backgroundColor: spec.panelBackground,
+								backgroundColor: theme.colors.surface2,
 								borderColor: spec.panelBorder,
 							},
 						]}
@@ -91,48 +83,42 @@ export function AttendanceDetailContent({
 					</View>
 				))}
 			</View>
-			<View
-				style={[
-					styles.card,
-					{
-						backgroundColor: spec.panelBackground,
-						borderColor: spec.panelBorder,
-					},
-				]}
-			>
-				<View style={styles.section}>
-					<Label
-						role="field"
-						style={styles.sectionTitle}
-					>
-						{t("activity.attendanceDetail.sections.validation")}
-					</Label>
-					<View style={styles.rowGroup}>
-						<View style={styles.row}>
-							<Label role="helper">
-								{t("activity.attendanceDetail.fields.validationCode")}
-							</Label>
-							<Label role="field">
-								{attendance.qrValidationInfo.qrValidationHash}
-							</Label>
-						</View>
-						<View style={styles.row}>
-							<Label role="helper">
-								{t("activity.attendanceDetail.fields.student")}
-							</Label>
-							<Label role="field">{attendance.student.account.name}</Label>
-						</View>
-						<View style={styles.row}>
-							<Label role="helper">
-								{t("activity.attendanceDetail.fields.registration")}
-							</Label>
-							<Label role="field">
-								{attendance.student.academicRegistration}
-							</Label>
-						</View>
+
+			<View style={styles.validationSection}>
+				<Label
+					role="field"
+					style={styles.sectionTitle}
+				>
+					{t("activity.attendanceDetail.sections.validation")}
+				</Label>
+				<View style={styles.rowGroup}>
+					<View style={styles.row}>
+						<Label role="helper">
+							{t("activity.attendanceQr.fields.duration")}
+						</Label>
+						<Label role="field">
+							{t("activity.attendance.duration", {
+								count: attendance.qrValidationInfo.duration,
+							})}
+						</Label>
+					</View>
+					<View style={styles.row}>
+						<Label role="helper">
+							{t("activity.attendanceDetail.fields.formerStudent")}
+						</Label>
+						<Label role="field">{attendance.student.account.name}</Label>
+					</View>
+					<View style={styles.row}>
+						<Label role="helper">
+							{t("activity.attendanceDetail.fields.registration")}
+						</Label>
+						<Label role="field">
+							{attendance.student.academicRegistration}
+						</Label>
 					</View>
 				</View>
 			</View>
+
 			<View style={styles.actions}>
 				<Button
 					onPress={() => {
@@ -144,10 +130,10 @@ export function AttendanceDetailContent({
 				<Button
 					variant="secondary"
 					onPress={() => {
-						router.push(`/discover/projects/${attendance.project.id}`);
+						router.push(`/activity/enrollments/${attendance.project.id}`);
 					}}
 				>
-					{t("activity.attendanceDetail.actions.openProject")}
+					{t("activity.attendanceDetail.actions.openEnrollment")}
 				</Button>
 			</View>
 		</>

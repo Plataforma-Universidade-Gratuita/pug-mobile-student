@@ -30,23 +30,22 @@ export function ProjectOverviewCard({
 	return (
 		<View style={styles.overviewSection}>
 			<View style={styles.cardHeader}>
-				<View style={styles.titleRow}>
-					<View style={styles.titleCopy}>
+				<View style={styles.titleCopy}>
+					<View style={styles.titleRow}>
 						<Label
 							role="title"
 							style={styles.title}
 						>
 							{title}
 						</Label>
-						<Label role="helper">{description}</Label>
+						<Badge
+							tone={statusTone}
+							variant="primary"
+						>
+							{statusLabel}
+						</Badge>
 					</View>
-
-					<Badge
-						tone={statusTone}
-						variant="primary"
-					>
-						{statusLabel}
-					</Badge>
+					<Label role="helper">{description}</Label>
 				</View>
 			</View>
 

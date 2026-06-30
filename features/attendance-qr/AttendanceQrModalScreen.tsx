@@ -6,12 +6,11 @@ import { ScrollView, View, useWindowDimensions } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import * as api from "@/api";
-import { AppBackButton } from "@/components";
 import {
+	Badge,
 	Button,
 	Label,
 	ModalScreenScaffold,
-	Badge,
 } from "@/components/primitives";
 import { useCurrentFormerStudentStore, useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
@@ -74,8 +73,8 @@ export function AttendanceQrModalScreen() {
 		[attendance?.qrValidationInfo.qrValidationHash],
 	);
 	const qrSize = Math.min(
-		windowWidth - theme.layout.screenPadding * 2 - theme.space[6],
-		300,
+		windowWidth - theme.layout.screenPadding * 2 - theme.space[8],
+		280,
 	);
 	const cellSize = qrMatrix
 		? Math.max(4, Math.floor(qrSize / qrMatrix.length))
@@ -123,16 +122,20 @@ export function AttendanceQrModalScreen() {
 			<ModalScreenScaffold
 				title={t("activity.attendanceQr.title")}
 				subtitle={t("activity.attendanceQr.subtitle")}
-				leftAccessory={<AppBackButton />}
+				subtitleNumberOfLines={1}
+				compactHeader
+				actionSlotMinWidth={0}
 				footer={
-					<Button
-						onPress={() => {
-							router.back();
-						}}
-						style={styles.footerButton}
-					>
-						{t("activity.attendanceQr.actions.done")}
-					</Button>
+					<View style={styles.footerContent}>
+						<Button
+							onPress={() => {
+								router.back();
+							}}
+							style={styles.footerButton}
+						>
+							{t("activity.attendanceQr.actions.done")}
+						</Button>
+					</View>
 				}
 			>
 				<ScrollView
@@ -206,33 +209,6 @@ export function AttendanceQrModalScreen() {
 												))}
 											</View>
 										))}
-									</View>
-								</View>
-
-								<View style={styles.metaGroup}>
-									<View style={styles.metaRow}>
-										<Label role="helper">
-											{t("activity.attendanceQr.fields.duration")}
-										</Label>
-										<Label
-											role="field"
-											style={styles.codeValue}
-										>
-											{t("activity.attendance.duration", {
-												count: attendance.qrValidationInfo.duration,
-											})}
-										</Label>
-									</View>
-									<View style={styles.metaRow}>
-										<Label role="helper">
-											{t("activity.attendanceQr.fields.code")}
-										</Label>
-										<Label
-											role="field"
-											style={styles.codeValue}
-										>
-											{attendance.qrValidationInfo.qrValidationHash}
-										</Label>
 									</View>
 								</View>
 							</View>
