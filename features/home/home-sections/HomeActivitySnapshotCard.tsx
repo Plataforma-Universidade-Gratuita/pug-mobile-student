@@ -33,7 +33,7 @@ export function HomeActivitySnapshotCard({
 			disabled={onPress == null}
 			onPress={onPress}
 			style={({ pressed }) => [
-				styles.card,
+				styles.snapshotCard,
 				{
 					backgroundColor:
 						onPress != null && pressed

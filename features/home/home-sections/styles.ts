@@ -10,11 +10,7 @@ export function createStyles(
 	spec: PrimitiveSurfaceStyleSpec,
 ) {
 	return StyleSheet.create({
-		card: {
-			borderRadius: theme.radius.xl,
-			borderWidth: 1,
-			paddingHorizontal: theme.space[4],
-			paddingVertical: theme.space[4],
+		summarySection: {
 			gap: theme.space[4],
 		},
 		badge: {
@@ -27,8 +23,8 @@ export function createStyles(
 			gap: theme.space[1],
 		},
 		title: {
-			fontSize: theme.type.lg,
-			lineHeight: theme.type.lg * theme.lineHeight.tight,
+			fontSize: theme.type.xxl,
+			lineHeight: theme.type.xxl * theme.lineHeight.tight,
 		},
 		progressBlock: {
 			gap: theme.space[2],
@@ -107,6 +103,13 @@ export function createStyles(
 		actionCopy: {
 			gap: theme.space[1],
 		},
+		snapshotCard: {
+			borderRadius: theme.radius.xl,
+			borderWidth: 1,
+			paddingHorizontal: theme.space[4],
+			paddingVertical: theme.space[4],
+			gap: theme.space[4],
+		},
 		snapshotHeader: {
 			flexDirection: "row",
 			alignItems: "flex-start",
@@ -121,6 +124,13 @@ export function createStyles(
 		},
 		snapshotAction: {
 			marginTop: theme.space[1],
+		},
+		stateCard: {
+			borderRadius: theme.radius.xl,
+			borderWidth: 1,
+			paddingHorizontal: theme.space[4],
+			paddingVertical: theme.space[4],
+			gap: theme.space[3],
 		},
 		stateBody: {
 			gap: theme.space[1],

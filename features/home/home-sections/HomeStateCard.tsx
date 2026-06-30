@@ -22,7 +22,7 @@ export function HomeStateCard({
 	return (
 		<View
 			style={[
-				styles.card,
+				styles.stateCard,
 				{
 					backgroundColor: spec.panelBackground,
 					borderColor: spec.panelBorder,

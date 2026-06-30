@@ -28,15 +28,7 @@ export function HomeCounterpartSummaryCard({
 		"%") as DimensionValue;
 
 	return (
-		<View
-			style={[
-				styles.card,
-				{
-					backgroundColor: spec.panelBackground,
-					borderColor: spec.panelBorder,
-				},
-			]}
-		>
+		<View style={styles.summarySection}>
 			<View style={styles.header}>
 				<Badge
 					style={styles.badge}
