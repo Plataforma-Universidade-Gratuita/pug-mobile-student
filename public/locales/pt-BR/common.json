@@ -100,6 +100,22 @@
 		},
 		"enrollment": {},
 		"enrollmentDetail": {
+			"actions": {
+				"openProject": "Ver detalhes do projeto"
+			},
+			"attendancesHelper": "Revise apenas as presencas registradas neste projeto para a sua inscricao atual.",
+			"attendancesTitle": "Presencas desta inscricao",
+			"badge": "Inscricao",
+			"states": {
+				"emptyAttendancesDescription": "As presencas registradas para esta inscricao vao aparecer aqui assim que forem criadas.",
+				"emptyAttendancesTitle": "Nenhuma presenca ainda",
+				"errorDescription": "Atualize a tela ou tente novamente em instantes.",
+				"errorTitle": "Nao foi possivel carregar esta inscricao",
+				"loadingDescription": "Buscando os detalhes da inscricao, do projeto e das presencas relacionadas.",
+				"loadingTitle": "Carregando detalhes da inscricao",
+				"missingDescription": "Nao encontramos uma inscricao ativa sua para este projeto.",
+				"missingTitle": "Inscricao indisponivel"
+			},
 			"title": "Detalhes da inscrição"
 		},
 		"filters": {
@@ -412,7 +428,6 @@
 			"address": "Endereco",
 			"city": "Cidade",
 			"cnpj": "CNPJ",
-			"name": "Nome",
 			"staff": "Colaboradores"
 		},
 		"manage": {

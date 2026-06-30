@@ -100,6 +100,22 @@
 		},
 		"enrollment": {},
 		"enrollmentDetail": {
+			"actions": {
+				"openProject": "Project details"
+			},
+			"attendancesHelper": "Review only the attendances logged on this project for your current enrollment.",
+			"attendancesTitle": "Attendances on this enrollment",
+			"badge": "Enrollment",
+			"states": {
+				"emptyAttendancesDescription": "Attendances logged for this enrollment will appear here as soon as they are created.",
+				"emptyAttendancesTitle": "No attendances yet",
+				"errorDescription": "Refresh the screen or try again in a moment.",
+				"errorTitle": "Unable to load this enrollment",
+				"loadingDescription": "Fetching the enrollment, project, and related attendance details.",
+				"loadingTitle": "Loading enrollment details",
+				"missingDescription": "We could not find one of your current enrollments for this project.",
+				"missingTitle": "Enrollment unavailable"
+			},
 			"title": "Enrollment details"
 		},
 		"filters": {
@@ -412,7 +428,6 @@
 			"address": "Address",
 			"city": "City",
 			"cnpj": "CNPJ",
-			"name": "Name",
 			"staff": "Staff"
 		},
 		"manage": {

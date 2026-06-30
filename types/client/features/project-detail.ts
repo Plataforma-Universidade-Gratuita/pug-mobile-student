@@ -109,19 +109,14 @@ export interface ProjectDetailResolvedContentProps {
 export interface ProjectDetailContentProps {
 	activeParticipantsValue: string;
 	addressValue: string | null;
-	canApply: boolean;
-	canManage: boolean;
 	cityValue: string;
 	cnpjValue: string;
 	completedHoursValue: string;
 	completionPercentLabel: string;
 	completionRatio: number;
-	disabled: boolean;
 	entityName: string;
 	maxParticipantsValue: string;
 	offeredHoursValue: string;
-	onApply: () => void;
-	onManage: () => void;
 	project: {
 		description: string;
 		name: string;

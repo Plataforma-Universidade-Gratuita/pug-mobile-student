@@ -2,7 +2,6 @@ import React from "react";
 
 import type { ProjectDetailContentProps } from "@/types/client";
 
-import { ProjectDetailBottomCta } from "./ProjectDetailBottomCta";
 import { ProjectEntityCard } from "./ProjectEntityCard";
 import { ProjectOverviewCard } from "./ProjectOverviewCard";
 
@@ -20,13 +19,6 @@ export function ProjectDetailContent(props: ProjectDetailContentProps) {
 				statusLabel={props.project.status.statusFormatted}
 				statusTone={props.statusTone}
 				title={props.project.name}
-			/>
-			<ProjectDetailBottomCta
-				canApply={props.canApply}
-				canManage={props.canManage}
-				disabled={props.disabled}
-				onApply={props.onApply}
-				onManage={props.onManage}
 			/>
 			<ProjectEntityCard
 				addressValue={props.addressValue}

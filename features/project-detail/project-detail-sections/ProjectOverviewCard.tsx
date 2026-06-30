@@ -28,15 +28,7 @@ export function ProjectOverviewCard({
 	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
 
 	return (
-		<View
-			style={[
-				styles.card,
-				{
-					backgroundColor: spec.panelBackground,
-					borderColor: spec.panelBorder,
-				},
-			]}
-		>
+		<View style={styles.overviewSection}>
 			<View style={styles.cardHeader}>
 				<View style={styles.titleRow}>
 					<View style={styles.titleCopy}>

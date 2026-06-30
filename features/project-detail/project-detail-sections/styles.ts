@@ -4,17 +4,17 @@ import type {
 	AppResolvedTheme,
 	PrimitiveSurfaceStyleSpec,
 } from "@/types/client";
+import { withAlpha } from "@/utils";
 
 export function createStyles(
 	theme: AppResolvedTheme,
 	spec: PrimitiveSurfaceStyleSpec,
 ) {
 	return StyleSheet.create({
-		card: {
-			borderRadius: theme.radius.xl,
-			borderWidth: 1,
-			paddingHorizontal: theme.space[4],
-			paddingVertical: theme.space[4],
+		overviewSection: {
+			gap: theme.space[4],
+		},
+		entitySection: {
 			gap: theme.space[4],
 		},
 		cardHeader: {
@@ -30,8 +30,7 @@ export function createStyles(
 			gap: theme.space[1],
 		},
 		title: {
-			fontSize: theme.type.lg,
-			lineHeight: theme.type.lg * theme.lineHeight.tight,
+			color: theme.colors.text,
 		},
 		metricsGrid: {
 			flexDirection: "row",
@@ -76,24 +75,72 @@ export function createStyles(
 		sectionTitle: {
 			color: theme.colors.text,
 		},
-		entityRows: {
+		entityHeaderBlock: {
 			gap: theme.space[3],
 		},
-		entityRow: {
+		entityTitle: {
+			color: theme.colors.text,
+			fontSize: theme.type.lg,
+			lineHeight: theme.type.lg * theme.lineHeight.tight,
+		},
+		entityMetaGrid: {
+			flexDirection: "row",
+			flexWrap: "wrap",
+			gap: theme.space[2],
+		},
+		entityMetaCard: {
+			borderRadius: theme.radius.lg,
+			borderWidth: 1,
+			flexBasis: "48%",
+			flexGrow: 1,
 			gap: theme.space[1],
+			minWidth: 0,
+			paddingHorizontal: theme.space[3],
+			paddingVertical: theme.space[3],
+		},
+		entityAddressCard: {
+			borderRadius: theme.radius.lg,
+			borderWidth: 1,
+			gap: theme.space[1],
+			paddingHorizontal: theme.space[3],
+			paddingVertical: theme.space[3],
 		},
 		staffBlock: {
-			gap: theme.space[2],
+			gap: theme.space[3],
+		},
+		staffTitle: {
+			color: theme.colors.text,
 		},
 		staffList: {
 			gap: theme.space[2],
 		},
 		staffItem: {
+			alignItems: "center",
 			borderRadius: theme.radius.lg,
 			borderWidth: 1,
+			flexDirection: "row",
+			gap: theme.space[3],
 			paddingHorizontal: theme.space[3],
 			paddingVertical: theme.space[3],
+		},
+		staffAvatar: {
+			alignItems: "center",
+			borderRadius: theme.radius.circle,
+			borderWidth: 1,
+			height: 40,
+			justifyContent: "center",
+			width: 40,
+		},
+		staffAvatarText: {
+			color: theme.colors.brand,
+			fontSize: theme.type.sm,
+		},
+		staffCopy: {
+			flex: 1,
 			gap: theme.space[1],
+		},
+		staffEmail: {
+			color: withAlpha(theme.colors.text, theme.mode === "dark" ? 0.76 : 0.64),
 		},
 		sheetContent: {
 			gap: theme.space[4],

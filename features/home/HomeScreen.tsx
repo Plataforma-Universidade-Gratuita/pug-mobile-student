@@ -163,7 +163,7 @@ export function HomeScreen() {
 		attendancesQuery.isRefetching ||
 		projectsQuery.isRefetching;
 	const contentBottomPadding =
-		theme.space[8] + theme.space[4] + Math.max(insets.bottom, theme.space[4]);
+		theme.space[8] + theme.space[2] + Math.max(insets.bottom, theme.space[4]);
 	const enrollmentCard = buildHomeEnrollmentSnapshotCard({
 		latestAttendance,
 		latestEnrollment,

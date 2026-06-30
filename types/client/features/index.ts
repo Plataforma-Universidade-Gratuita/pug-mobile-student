@@ -2,6 +2,7 @@ export * from "./academic-details";
 export * from "./attendance-detail";
 export * from "./activity";
 export * from "./discover";
+export * from "./enrollment-detail";
 export * from "./home";
 export * from "./new-attendance";
 export * from "./profile";

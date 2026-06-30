@@ -7,28 +7,23 @@ import type { ProjectDetailResolvedContentProps } from "@/types/client";
 
 import {
 	ProjectDetailAttendanceAction,
-	ProjectDetailContent,
 	ProjectDetailStateCard,
+	ProjectDetailContent,
 } from "./project-detail-sections";
 import { resolveProjectDetailStatusTone } from "./utils";
 
 export function ProjectDetailResolvedContent({
 	activeParticipantsValue,
 	addressValue,
-	canApply,
 	canCreateAttendance,
-	canManage,
 	cityValue,
 	cnpjValue,
 	completedHoursValue,
 	completionPercentLabel,
 	completionRatio,
-	disabled,
 	entityName,
 	maxParticipantsValue,
 	offeredHoursValue,
-	onApply,
-	onManage,
 	project,
 	staffItems,
 	staffStateLabel,
@@ -52,19 +47,14 @@ export function ProjectDetailResolvedContent({
 			<ProjectDetailContent
 				activeParticipantsValue={activeParticipantsValue}
 				addressValue={addressValue}
-				canApply={canApply}
-				canManage={canManage}
 				cityValue={cityValue}
 				cnpjValue={cnpjValue}
 				completedHoursValue={completedHoursValue}
 				completionPercentLabel={completionPercentLabel}
 				completionRatio={completionRatio}
-				disabled={disabled}
 				entityName={entityName}
 				maxParticipantsValue={maxParticipantsValue}
 				offeredHoursValue={offeredHoursValue}
-				onApply={onApply}
-				onManage={onManage}
 				project={project}
 				staffItems={staffItems}
 				staffStateLabel={staffStateLabel}

@@ -188,7 +188,7 @@ export function ProjectDetailScreen({
 		enrollmentsQuery.isRefetching ||
 		myEnrollmentQuery.isRefetching;
 	const contentBottomPadding =
-		theme.space[8] + Math.max(insets.bottom, theme.space[4]);
+		theme.space[8] + theme.space[2] + Math.max(insets.bottom, theme.space[4]);
 
 	return (
 		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}>

@@ -28,7 +28,7 @@ export function resolveButtonColors(
 	switch (variant) {
 		case "secondary":
 			return {
-				buttonColor: "transparent",
+				buttonColor: theme.colors.surface3,
 				textColor: theme.colors.text,
 				borderColor: theme.colors.border1,
 			};

@@ -6,7 +6,10 @@ import { useThemeStore } from "@/stores";
 import type { ProjectDetailScrollContentProps } from "@/types/client";
 
 import { ProjectDetailResolvedContent } from "./ProjectDetailResolvedContent";
-import { ProjectDetailStateCard } from "./project-detail-sections";
+import {
+	ProjectDetailBottomCta,
+	ProjectDetailStateCard,
+} from "./project-detail-sections";
 import { createStyles } from "./styles";
 
 export function ProjectDetailScrollContent({
@@ -45,6 +48,7 @@ export function ProjectDetailScrollContent({
 }: ProjectDetailScrollContentProps) {
 	const theme = useThemeStore(state => state.theme);
 	const styles = createStyles(theme);
+	const shouldShowStickyCta = project != null && (canApply || canManage);
 
 	return (
 		<ScrollView
@@ -52,6 +56,7 @@ export function ProjectDetailScrollContent({
 				styles.content,
 				{ paddingBottom: contentBottomPadding },
 			]}
+			stickyHeaderIndices={shouldShowStickyCta ? [0] : undefined}
 			refreshControl={
 				<RefreshControl
 					refreshing={isRefreshing}
@@ -61,6 +66,19 @@ export function ProjectDetailScrollContent({
 			}
 			showsVerticalScrollIndicator={false}
 		>
+			{shouldShowStickyCta ? (
+				<View style={styles.stickyHeader}>
+					<View style={styles.stickyHeaderShell}>
+						<ProjectDetailBottomCta
+							canApply={canApply}
+							canManage={canManage}
+							disabled={disabled}
+							onApply={onApply}
+							onManage={onManage}
+						/>
+					</View>
+				</View>
+			) : null}
 			<View style={styles.shell}>
 				{hasQueryError ? (
 					<ProjectDetailStateCard

@@ -9,6 +9,7 @@ import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ProjectEntityCardProps } from "@/types/client";
 
 import { createStyles } from "./styles";
+import { getProjectStaffInitials } from "./utils";
 
 export function ProjectEntityCard({
 	entityName,
@@ -24,15 +25,7 @@ export function ProjectEntityCard({
 	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
 
 	return (
-		<View
-			style={[
-				styles.card,
-				{
-					backgroundColor: spec.panelBackground,
-					borderColor: spec.panelBorder,
-				},
-			]}
-		>
+		<View style={styles.entitySection}>
 			<Label
 				role="field"
 				style={styles.sectionTitle}
@@ -40,29 +33,62 @@ export function ProjectEntityCard({
 				{t("projectDetail.sections.entity")}
 			</Label>
 
-			<View style={styles.entityRows}>
-				<View style={styles.entityRow}>
-					<Label role="helper">{t("projectDetail.entity.name")}</Label>
-					<Label role="field">{entityName}</Label>
+			<View style={styles.entityHeaderBlock}>
+				<Label
+					role="title"
+					style={styles.entityTitle}
+				>
+					{entityName}
+				</Label>
+				<View style={styles.entityMetaGrid}>
+					<View
+						style={[
+							styles.entityMetaCard,
+							{
+								backgroundColor: theme.colors.surface2,
+								borderColor: spec.panelBorder,
+							},
+						]}
+					>
+						<Label role="helper">{t("projectDetail.entity.city")}</Label>
+						<Label role="field">{cityValue}</Label>
+					</View>
+					<View
+						style={[
+							styles.entityMetaCard,
+							{
+								backgroundColor: theme.colors.surface2,
+								borderColor: spec.panelBorder,
+							},
+						]}
+					>
+						<Label role="helper">{t("projectDetail.entity.cnpj")}</Label>
+						<Label role="field">{cnpjValue}</Label>
+					</View>
 				</View>
 				{addressValue ? (
-					<View style={styles.entityRow}>
+					<View
+						style={[
+							styles.entityAddressCard,
+							{
+								backgroundColor: theme.colors.surface2,
+								borderColor: spec.panelBorder,
+							},
+						]}
+					>
 						<Label role="helper">{t("projectDetail.entity.address")}</Label>
 						<Label role="field">{addressValue}</Label>
 					</View>
 				) : null}
-				<View style={styles.entityRow}>
-					<Label role="helper">{t("projectDetail.entity.cnpj")}</Label>
-					<Label role="field">{cnpjValue}</Label>
-				</View>
-				<View style={styles.entityRow}>
-					<Label role="helper">{t("projectDetail.entity.city")}</Label>
-					<Label role="field">{cityValue}</Label>
-				</View>
 			</View>
 
 			<View style={styles.staffBlock}>
-				<Label role="helper">{t("projectDetail.entity.staff")}</Label>
+				<Label
+					role="field"
+					style={styles.staffTitle}
+				>
+					{t("projectDetail.entity.staff")}
+				</Label>
 				{staffItems.length > 0 ? (
 					<View style={styles.staffList}>
 						{staffItems.map(staffItem => (
@@ -76,8 +102,31 @@ export function ProjectEntityCard({
 									},
 								]}
 							>
-								<Label role="field">{staffItem.name}</Label>
-								<Label role="helper">{staffItem.email}</Label>
+								<View
+									style={[
+										styles.staffAvatar,
+										{
+											backgroundColor: theme.colors.surface3,
+											borderColor: spec.panelBorder,
+										},
+									]}
+								>
+									<Label
+										role="field"
+										style={styles.staffAvatarText}
+									>
+										{getProjectStaffInitials(staffItem.name)}
+									</Label>
+								</View>
+								<View style={styles.staffCopy}>
+									<Label role="field">{staffItem.name}</Label>
+									<Label
+										role="helper"
+										style={styles.staffEmail}
+									>
+										{staffItem.email}
+									</Label>
+								</View>
 							</View>
 						))}
 					</View>

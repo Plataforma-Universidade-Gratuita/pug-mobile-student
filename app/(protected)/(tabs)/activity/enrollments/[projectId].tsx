@@ -1,13 +1,7 @@
 import React from "react";
 
-import { useTranslation } from "react-i18next";
-
-import { ProjectDetailScreen } from "@/features/project-detail";
+import { EnrollmentDetailScreen } from "@/features/enrollment-detail";
 
 export default function EnrollmentDetailRoute() {
-	const { t } = useTranslation();
-
-	return (
-		<ProjectDetailScreen titleOverride={t("activity.enrollmentDetail.title")} />
-	);
+	return <EnrollmentDetailScreen />;
 }
