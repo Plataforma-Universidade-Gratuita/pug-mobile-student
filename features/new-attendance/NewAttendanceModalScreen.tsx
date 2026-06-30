@@ -17,6 +17,7 @@ import type { ProjectResponse } from "@/types/api";
 import type { NewAttendanceFormValues } from "@/types/client";
 
 import { NewAttendanceContent } from "./NewAttendanceContent";
+import { ATTENDANCE_ELIGIBLE_ENROLLMENT_STATUS } from "./constants";
 import { createStyles } from "./styles";
 import {
 	buildNewAttendanceProjectOptions,
@@ -82,7 +83,7 @@ export function NewAttendanceModalScreen() {
 	const eligibleProjectIds = useMemo(() => {
 		const ids = new Set<string>();
 		for (const enrollment of enrollmentsQuery.data ?? []) {
-			if (enrollment.status.status === "APPROVED") {
+			if (enrollment.status.status === ATTENDANCE_ELIGIBLE_ENROLLMENT_STATUS) {
 				ids.add(enrollment.projectId);
 			}
 		}

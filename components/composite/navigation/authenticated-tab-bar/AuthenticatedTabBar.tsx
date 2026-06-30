@@ -189,9 +189,9 @@ export function AuthenticatedTabBar({
 				>
 					{itemWidth > 0 ? (
 						<Animated.View
-							pointerEvents="none"
 							style={[
 								styles.activePill,
+								styles.pointerEventsNone,
 								{
 									left: TAB_BAR_DOCK_PADDING,
 									width: itemWidth,
