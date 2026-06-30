@@ -1,6 +1,6 @@
 import React, { useMemo } from "react";
 
-import { Plus, SlidersHorizontal } from "lucide-react-native";
+import { SlidersHorizontal } from "lucide-react-native";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
@@ -14,7 +14,6 @@ import { createStyles } from "../styles";
 export function ActivityHeaderActions({
 	disabled,
 	onOpenFilters,
-	onOpenNewAttendance,
 }: ActivityHeaderActionsProps) {
 	const { t } = useTranslation();
 	const theme = useThemeStore(state => state.theme);
@@ -23,12 +22,6 @@ export function ActivityHeaderActions({
 
 	return (
 		<View style={styles.headerActions}>
-			<HeaderActionButton
-				accessibilityLabel={t("activity.actions.newAttendance")}
-				disabled={disabled}
-				icon={Plus}
-				onPress={onOpenNewAttendance}
-			/>
 			<HeaderActionButton
 				accessibilityLabel={t("activity.actions.filters")}
 				disabled={disabled}

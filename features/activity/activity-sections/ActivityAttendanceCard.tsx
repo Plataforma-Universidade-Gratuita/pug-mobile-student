@@ -10,15 +10,12 @@ import type { ActivityAttendanceCardProps } from "@/types/client";
 import { createStyles } from "../styles";
 
 export function ActivityAttendanceCard({
-	ctaLabel,
 	dateLabel,
 	durationLabel,
-	helperText,
 	onPress,
 	projectName,
 	statusLabel,
 	statusTone,
-	validatorLabel,
 }: ActivityAttendanceCardProps) {
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
@@ -38,44 +35,27 @@ export function ActivityAttendanceCard({
 						},
 					]}
 				>
-					<View style={styles.cardHead}>
+					<View style={styles.cardBodyRow}>
 						<View style={styles.cardCopy}>
-							<View style={styles.cardMetaRow}>
-								<Badge
-									tone={statusTone}
-									variant="primary"
-								>
-									{statusLabel}
-								</Badge>
-								<Label role="helper">{durationLabel}</Label>
-							</View>
 							<Label
 								role="field"
 								style={styles.cardTitle}
 							>
 								{projectName}
 							</Label>
-							<Label role="helper">{helperText}</Label>
+							<View style={styles.cardMetaRow}>
+								<Label role="helper">{durationLabel}</Label>
+							</View>
+							<View style={styles.cardMetaRow}>
+								<Label role="helper">{dateLabel}</Label>
+							</View>
 						</View>
-						<Label
-							role="field"
-							style={[styles.ctaText, { color: theme.colors.brand }]}
-						>
-							{ctaLabel}
-						</Label>
-					</View>
-					<View style={styles.pillRow}>
 						<Badge
-							tone="neutral"
-							variant="secondary"
+							tone={statusTone}
+							variant="primary"
+							style={styles.cardBadge}
 						>
-							{dateLabel}
-						</Badge>
-						<Badge
-							tone="neutral"
-							variant="secondary"
-						>
-							{validatorLabel}
+							{statusLabel}
 						</Badge>
 					</View>
 				</View>

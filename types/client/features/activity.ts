@@ -32,16 +32,19 @@ export interface ActivityFilterSheetProps {
 export interface ActivityHeaderActionsProps {
 	disabled: boolean;
 	onOpenFilters: () => void;
-	onOpenNewAttendance: () => void;
+}
+
+export interface ActivityFloatingCtaProps {
+	bottomOffset: number;
+	disabled: boolean;
+	onPress: () => void;
 }
 
 export interface ActivityEnrollmentCardProps {
 	projectName: string;
 	statusLabel: string;
 	statusTone: BadgeTone;
-	helperText: string;
 	metaLabel: string;
-	ctaLabel: string;
 	onPress: () => void;
 }
 
@@ -50,10 +53,7 @@ export interface ActivityAttendanceCardProps {
 	statusLabel: string;
 	statusTone: BadgeTone;
 	durationLabel: string;
-	helperText: string;
 	dateLabel: string;
-	validatorLabel: string;
-	ctaLabel: string;
 	onPress: () => void;
 }
 

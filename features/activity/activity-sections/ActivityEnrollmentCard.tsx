@@ -10,8 +10,6 @@ import type { ActivityEnrollmentCardProps } from "@/types/client";
 import { createStyles } from "../styles";
 
 export function ActivityEnrollmentCard({
-	ctaLabel,
-	helperText,
 	metaLabel,
 	onPress,
 	projectName,
@@ -36,31 +34,23 @@ export function ActivityEnrollmentCard({
 						},
 					]}
 				>
-					<View style={styles.cardHead}>
+					<View style={styles.cardBodyRow}>
 						<View style={styles.cardCopy}>
-							<View style={styles.cardMetaRow}>
-								<Badge
-									tone={statusTone}
-									variant="primary"
-								>
-									{statusLabel}
-								</Badge>
-								<Label role="helper">{metaLabel}</Label>
-							</View>
 							<Label
 								role="field"
 								style={styles.cardTitle}
 							>
 								{projectName}
 							</Label>
-							<Label role="helper">{helperText}</Label>
+							<Label role="helper">{metaLabel}</Label>
 						</View>
-						<Label
-							role="field"
-							style={[styles.ctaText, { color: theme.colors.brand }]}
+						<Badge
+							tone={statusTone}
+							variant="primary"
+							style={styles.cardBadge}
 						>
-							{ctaLabel}
-						</Label>
+							{statusLabel}
+						</Badge>
 					</View>
 				</View>
 			)}

@@ -3,7 +3,11 @@ import { StyleSheet } from "react-native";
 import type { AppResolvedTheme } from "@/types/client";
 import { withAlpha } from "@/utils";
 
-import { TAB_BAR_DOCK_PADDING } from "./constants";
+import {
+	TAB_BAR_ACTION_GAP,
+	TAB_BAR_ACTION_SIZE,
+	TAB_BAR_DOCK_PADDING,
+} from "./constants";
 
 export function createStyles(theme: AppResolvedTheme, bottomInset: number) {
 	const bottomPadding = Math.max(bottomInset, theme.space[2]) + theme.space[2];
@@ -19,8 +23,15 @@ export function createStyles(theme: AppResolvedTheme, bottomInset: number) {
 			position: "absolute",
 			right: 0,
 		},
-		dock: {
+		shellRow: {
+			alignItems: "center",
 			alignSelf: "center",
+			flexDirection: "row",
+			gap: TAB_BAR_ACTION_GAP,
+			maxWidth: 392,
+			width: "100%",
+		},
+		dock: {
 			backgroundColor: withAlpha(theme.colors.surface1, 0.5),
 			borderColor: withAlpha(
 				theme.colors.border1,
@@ -28,11 +39,10 @@ export function createStyles(theme: AppResolvedTheme, bottomInset: number) {
 			),
 			borderRadius: theme.radius.circle,
 			borderWidth: 1,
-			maxWidth: 320,
+			flex: 1,
 			overflow: "visible",
 			padding: TAB_BAR_DOCK_PADDING,
 			position: "relative",
-			width: "100%",
 			...(theme.mode === "dark"
 				? {
 						shadowColor: theme.colors.overlay,
@@ -48,6 +58,32 @@ export function createStyles(theme: AppResolvedTheme, bottomInset: number) {
 						shadowOffset: { width: 0, height: 6 },
 						elevation: 2,
 					}),
+		},
+		actionButton: {
+			alignItems: "center",
+			backgroundColor: theme.colors.brand,
+			borderRadius: theme.radius.circle,
+			height: TAB_BAR_ACTION_SIZE,
+			justifyContent: "center",
+			width: TAB_BAR_ACTION_SIZE,
+			...(theme.mode === "dark"
+				? {
+						shadowColor: theme.colors.overlay,
+						shadowOpacity: 0.24,
+						shadowRadius: 16,
+						shadowOffset: { width: 0, height: 8 },
+						elevation: 4,
+					}
+				: {
+						shadowColor: theme.colors.text,
+						shadowOpacity: 0.12,
+						shadowRadius: 12,
+						shadowOffset: { width: 0, height: 6 },
+						elevation: 3,
+					}),
+		},
+		actionButtonPressed: {
+			opacity: 0.84,
 		},
 		activePill: {
 			backgroundColor: theme.colors.surface3,

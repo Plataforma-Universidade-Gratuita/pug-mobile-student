@@ -7,6 +7,8 @@ import React, {
 } from "react";
 
 import type { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import { useRouter } from "expo-router";
+import { Plus } from "lucide-react-native";
 import { Animated, PanResponder, Pressable, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
@@ -25,6 +27,7 @@ export function AuthenticatedTabBar({
 	descriptors,
 	navigation,
 }: BottomTabBarProps) {
+	const router = useRouter();
 	const theme = useThemeStore(store => store.theme);
 	const insets = useSafeAreaInsets();
 	const routeCount = state.routes.length;
@@ -179,89 +182,107 @@ export function AuthenticatedTabBar({
 
 	return (
 		<View style={styles.container}>
-			<View
-				style={styles.dock}
-				{...panResponder.panHandlers}
-			>
-				{itemWidth > 0 ? (
-					<Animated.View
-						pointerEvents="none"
-						style={[
-							styles.activePill,
-							{
-								left: TAB_BAR_DOCK_PADDING,
-								width: itemWidth,
-								transform: [{ translateX: indicatorTranslateX }],
-							},
-						]}
-					/>
-				) : null}
-
+			<View style={styles.shellRow}>
 				<View
-					ref={railRef}
-					onLayout={() => {
-						syncRailMetrics();
-					}}
-					style={styles.rail}
+					style={styles.dock}
+					{...panResponder.panHandlers}
 				>
-					{state.routes.map((route, index) => {
-						const descriptor = descriptors[route.key];
-						const options = descriptor?.options;
+					{itemWidth > 0 ? (
+						<Animated.View
+							pointerEvents="none"
+							style={[
+								styles.activePill,
+								{
+									left: TAB_BAR_DOCK_PADDING,
+									width: itemWidth,
+									transform: [{ translateX: indicatorTranslateX }],
+								},
+							]}
+						/>
+					) : null}
 
-						if (!descriptor || !options) {
-							return null;
-						}
+					<View
+						ref={railRef}
+						onLayout={() => {
+							syncRailMetrics();
+						}}
+						style={styles.rail}
+					>
+						{state.routes.map((route, index) => {
+							const descriptor = descriptors[route.key];
+							const options = descriptor?.options;
 
-						const isHighlighted = highlightedIndex === index;
-						const color = isHighlighted
-							? theme.colors.tabFgActive
-							: theme.colors.tabFgInactive;
-						const icon = options.tabBarIcon?.({
-							focused: isHighlighted,
-							color,
-							size: TAB_BAR_ICON_SIZE,
-						});
-						const accessibilityLabel =
-							typeof options.title === "string" ? options.title : route.name;
+							if (!descriptor || !options) {
+								return null;
+							}
 
-						return (
-							<Pressable
-								key={route.key}
-								accessibilityLabel={accessibilityLabel}
-								accessibilityRole="tab"
-								accessibilityState={
-									state.index === index ? { selected: true } : {}
-								}
-								onLongPress={() => {
-									navigation.emit({
-										type: "tabLongPress",
-										target: route.key,
-									});
-								}}
-								onPress={() => {
-									setPreview(index);
-									animateIndicatorToIndex(index, true);
-									navigateToIndex(index);
-								}}
-								onPressIn={() => {
-									setPreview(index);
-									animateIndicatorToIndex(index);
-								}}
-								onPressOut={() => {
-									if (index === state.index) {
-										setPreview(null);
+							const isHighlighted = highlightedIndex === index;
+							const color = isHighlighted
+								? theme.colors.tabFgActive
+								: theme.colors.tabFgInactive;
+							const icon = options.tabBarIcon?.({
+								focused: isHighlighted,
+								color,
+								size: TAB_BAR_ICON_SIZE,
+							});
+							const accessibilityLabel =
+								typeof options.title === "string" ? options.title : route.name;
+
+							return (
+								<Pressable
+									key={route.key}
+									accessibilityLabel={accessibilityLabel}
+									accessibilityRole="tab"
+									accessibilityState={
+										state.index === index ? { selected: true } : {}
 									}
-								}}
-								style={({ pressed }) => [
-									styles.item,
-									pressed ? styles.itemPressed : null,
-								]}
-							>
-								<View style={styles.iconSlot}>{icon}</View>
-							</Pressable>
-						);
-					})}
+									onLongPress={() => {
+										navigation.emit({
+											type: "tabLongPress",
+											target: route.key,
+										});
+									}}
+									onPress={() => {
+										setPreview(index);
+										animateIndicatorToIndex(index, true);
+										navigateToIndex(index);
+									}}
+									onPressIn={() => {
+										setPreview(index);
+										animateIndicatorToIndex(index);
+									}}
+									onPressOut={() => {
+										if (index === state.index) {
+											setPreview(null);
+										}
+									}}
+									style={({ pressed }) => [
+										styles.item,
+										pressed ? styles.itemPressed : null,
+									]}
+								>
+									<View style={styles.iconSlot}>{icon}</View>
+								</Pressable>
+							);
+						})}
+					</View>
 				</View>
+				<Pressable
+					accessibilityLabel="New attendance"
+					accessibilityRole="button"
+					onPress={() => {
+						router.push("/attendance/new");
+					}}
+					style={({ pressed }) => [
+						styles.actionButton,
+						pressed ? styles.actionButtonPressed : null,
+					]}
+				>
+					<Plus
+						color={theme.colors.chromeFg}
+						size={24}
+					/>
+				</Pressable>
 			</View>
 		</View>
 	);

@@ -1,10 +1,9 @@
 import React, { useEffect, useMemo, useState } from "react";
 
 import { useQuery } from "@tanstack/react-query";
-import { useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams } from "expo-router";
 import { useTranslation } from "react-i18next";
 import { RefreshControl, ScrollView, View } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import * as api from "@/api";
 import { BrandScreenHeader } from "@/components";
@@ -14,6 +13,7 @@ import type { ProjectResponse } from "@/types/api";
 import type {
 	ActivityAttendanceItem,
 	ActivityEnrollmentItem,
+	ActivityFilters,
 	ActivityTab,
 } from "@/types/client";
 
@@ -46,9 +46,7 @@ import {
 
 export function ActivityScreen() {
 	const { t } = useTranslation();
-	const router = useRouter();
 	const params = useLocalSearchParams<{ tab?: string | string[] }>();
-	const insets = useSafeAreaInsets();
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
@@ -183,7 +181,7 @@ export function ActivityScreen() {
 		attendancesQuery.isRefetching ||
 		projectsQuery.isRefetching;
 	const contentBottomPadding =
-		theme.space[8] + theme.space[4] + Math.max(insets.bottom, theme.space[4]);
+		theme.space[8] + Math.max(theme.space[5], theme.space[4]);
 	const stateCopy = resolveActivityStateCopy({
 		activeTab,
 		hasActiveFilters,
@@ -203,9 +201,6 @@ export function ActivityScreen() {
 						disabled={hasQueryError || isInitialLoading}
 						onOpenFilters={() => {
 							setIsFilterSheetVisible(true);
-						}}
-						onOpenNewAttendance={() => {
-							router.push("/attendance/new");
 						}}
 					/>
 				}
@@ -267,7 +262,7 @@ export function ActivityScreen() {
 			<ActivityFilterSheet
 				activeTab={activeTab}
 				filters={filters}
-				onApply={nextFilters => {
+				onApply={(nextFilters: ActivityFilters) => {
 					setFilters(nextFilters);
 					setIsFilterSheetVisible(false);
 				}}

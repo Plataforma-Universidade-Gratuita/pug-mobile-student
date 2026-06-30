@@ -29,6 +29,20 @@ export function createStyles(
 			alignItems: "center",
 			gap: theme.space[2],
 		},
+		floatingCta: {
+			position: "absolute",
+			right: theme.layout.screenPadding,
+			width: 56,
+			height: 56,
+			borderRadius: theme.radius.circle,
+			alignItems: "center",
+			justifyContent: "center",
+			shadowColor: theme.colors.overlay,
+			shadowOpacity: theme.mode === "dark" ? 0.3 : 0.16,
+			shadowRadius: 12,
+			shadowOffset: { width: 0, height: 6 },
+			elevation: 6,
+		},
 		segmented: {
 			flexDirection: "row",
 			gap: theme.space[2],
@@ -106,9 +120,12 @@ export function createStyles(
 			borderWidth: 1,
 			paddingHorizontal: theme.space[4],
 			paddingVertical: theme.space[4],
-			gap: theme.space[3],
+			gap: theme.space[2],
 		},
-		cardHead: {
+		cardBadge: {
+			alignSelf: "flex-start",
+		},
+		cardBodyRow: {
 			flexDirection: "row",
 			alignItems: "flex-start",
 			justifyContent: "space-between",
@@ -118,22 +135,18 @@ export function createStyles(
 			flex: 1,
 			gap: theme.space[1],
 		},
+		cardTitle: {
+			color: theme.colors.text,
+		},
 		cardMetaRow: {
 			flexDirection: "row",
 			flexWrap: "wrap",
 			alignItems: "center",
 			gap: theme.space[2],
 		},
-		cardTitle: {
-			color: theme.colors.text,
-		},
-		ctaText: {
+		cardActionText: {
 			fontWeight: theme.weight.semibold,
-		},
-		pillRow: {
-			flexDirection: "row",
-			flexWrap: "wrap",
-			gap: theme.space[2],
+			color: theme.colors.brand,
 		},
 	});
 }

@@ -46,10 +46,6 @@ export function ActivityListSection({
 				? enrollmentItems.map(item => (
 						<ActivityEnrollmentCard
 							key={`${item.enrollment.projectId}-${item.enrollment.formerStudentId}`}
-							ctaLabel={t("activity.actions.details")}
-							helperText={t("activity.enrollment.helper", {
-								status: item.enrollment.status.statusFormatted,
-							})}
 							metaLabel={
 								item.project?.entity.name ??
 								t("activity.values.projectFallback")
@@ -72,15 +68,11 @@ export function ActivityListSection({
 				: attendanceItems.map(item => (
 						<ActivityAttendanceCard
 							key={item.attendance.id}
-							ctaLabel={t("activity.actions.details")}
 							dateLabel={
 								item.attendance.attendanceInfo.auditInfo.createdAtFormatted
 							}
 							durationLabel={t("activity.attendance.duration", {
 								count: item.attendance.qrValidationInfo.duration,
-							})}
-							helperText={t("activity.attendance.helper", {
-								status: item.attendance.status.statusFormatted,
 							})}
 							onPress={() => {
 								router.push(`/activity/attendances/${item.attendance.id}`);
@@ -93,11 +85,6 @@ export function ActivityListSection({
 							statusTone={resolveAttendanceStatusTone(
 								item.attendance.status.status,
 							)}
-							validatorLabel={
-								item.attendance.attendanceInfo.validatedAt
-									? t("activity.attendance.validated")
-									: t("activity.attendance.waiting")
-							}
 						/>
 					))}
 		</View>
