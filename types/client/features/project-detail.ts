@@ -14,8 +14,21 @@ export interface ProjectDetailHeaderActionsProps {
 	onManage: () => void;
 }
 
+export interface ProjectDetailBottomCtaProps {
+	canApply: boolean;
+	canManage: boolean;
+	disabled: boolean;
+	onApply: () => void;
+	onManage: () => void;
+}
+
 export interface ProjectDetailAttendanceActionProps {
 	onPress: () => void;
+}
+
+export interface ProjectDetailStaffItem {
+	name: string;
+	email: string;
 }
 
 export interface ProjectOverviewCardProps {
@@ -24,7 +37,6 @@ export interface ProjectOverviewCardProps {
 	statusLabel: string;
 	statusTone: BadgeTone;
 	activeParticipantsValue: string;
-	pendingEnrollmentsValue: string;
 	maxParticipantsValue: string;
 	completedHoursValue: string;
 	offeredHoursValue: string;
@@ -37,7 +49,8 @@ export interface ProjectEntityCardProps {
 	addressValue: string | null;
 	cnpjValue: string;
 	cityValue: string;
-	createdByValue: string;
+	staffItems: ProjectDetailStaffItem[];
+	staffStateLabel: string;
 }
 
 export interface ManageEnrollmentSheetProps {
@@ -66,17 +79,20 @@ export interface ProjectDetailStateCardProps {
 export interface ProjectDetailResolvedContentProps {
 	activeParticipantsValue: string;
 	addressValue: string | null;
+	canApply: boolean;
 	canCreateAttendance: boolean;
+	canManage: boolean;
 	cityValue: string;
 	cnpjValue: string;
 	completedHoursValue: string;
 	completionPercentLabel: string;
 	completionRatio: number;
-	createdByValue: string;
+	disabled: boolean;
 	entityName: string;
 	maxParticipantsValue: string;
 	offeredHoursValue: string;
-	pendingEnrollmentsValue: string;
+	onApply: () => void;
+	onManage: () => void;
 	project: {
 		description: string;
 		id: string;
@@ -86,25 +102,75 @@ export interface ProjectDetailResolvedContentProps {
 			statusFormatted: string;
 		};
 	} | null;
+	staffItems: ProjectDetailStaffItem[];
+	staffStateLabel: string;
 }
 
 export interface ProjectDetailContentProps {
 	activeParticipantsValue: string;
 	addressValue: string | null;
+	canApply: boolean;
+	canManage: boolean;
 	cityValue: string;
 	cnpjValue: string;
 	completedHoursValue: string;
 	completionPercentLabel: string;
 	completionRatio: number;
-	createdByValue: string;
+	disabled: boolean;
 	entityName: string;
 	maxParticipantsValue: string;
 	offeredHoursValue: string;
-	pendingEnrollmentsValue: string;
+	onApply: () => void;
+	onManage: () => void;
 	project: {
 		description: string;
 		name: string;
 		status: { statusFormatted: string };
 	};
+	staffItems: ProjectDetailStaffItem[];
+	staffStateLabel: string;
 	statusTone: BadgeTone;
+}
+
+export interface ProjectDetailScrollContentProps {
+	activeParticipantsValue: string;
+	addressValue: string | null;
+	badgeLabel: string;
+	canApply: boolean;
+	canCreateAttendance: boolean;
+	canManage: boolean;
+	cityValue: string;
+	cnpjValue: string;
+	completedHoursValue: string;
+	completionPercentLabel: string;
+	completionRatio: number;
+	contentBottomPadding: number;
+	descriptionError: string;
+	descriptionLoading: string;
+	descriptionMissing: string;
+	disabled: boolean;
+	entityName: string;
+	hasQueryError: boolean;
+	isInitialLoading: boolean;
+	isRefreshing: boolean;
+	maxParticipantsValue: string;
+	offeredHoursValue: string;
+	onApply: () => void;
+	onManage: () => void;
+	onRefresh: () => void;
+	project: {
+		description: string;
+		id: string;
+		name: string;
+		status: {
+			status: ProjectStatus;
+			statusFormatted: string;
+		};
+	} | null;
+	staffItems: ProjectDetailStaffItem[];
+	staffStateLabel: string;
+	themeBrandColor: string;
+	titleError: string;
+	titleLoading: string;
+	titleMissing: string;
 }

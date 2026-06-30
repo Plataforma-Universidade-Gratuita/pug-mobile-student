@@ -16,7 +16,6 @@ export function ProjectOverviewCard({
 	statusLabel,
 	statusTone,
 	activeParticipantsValue,
-	pendingEnrollmentsValue,
 	maxParticipantsValue,
 	completedHoursValue,
 	offeredHoursValue,
@@ -64,10 +63,6 @@ export function ProjectOverviewCard({
 					[
 						t("projectDetail.metrics.activeParticipants"),
 						activeParticipantsValue,
-					],
-					[
-						t("projectDetail.metrics.pendingEnrollments"),
-						pendingEnrollmentsValue,
 					],
 					[t("projectDetail.metrics.maxParticipants"), maxParticipantsValue],
 					[t("projectDetail.metrics.completedHours"), completedHoursValue],

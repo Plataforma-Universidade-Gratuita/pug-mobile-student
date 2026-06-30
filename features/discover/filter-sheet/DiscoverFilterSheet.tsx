@@ -74,7 +74,9 @@ export function DiscoverFilterSheet({
 						<Button
 							fullWidth={false}
 							onPress={() => {
-								setDraftFilters(createDefaultDiscoverFilters());
+								const nextFilters = createDefaultDiscoverFilters();
+								setDraftFilters(nextFilters);
+								onApply(nextFilters);
 							}}
 							style={styles.footerAction}
 							variant="secondary"

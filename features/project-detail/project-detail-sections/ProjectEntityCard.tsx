@@ -15,7 +15,8 @@ export function ProjectEntityCard({
 	addressValue,
 	cnpjValue,
 	cityValue,
-	createdByValue,
+	staffItems,
+	staffStateLabel,
 }: ProjectEntityCardProps) {
 	const { t } = useTranslation();
 	const theme = useThemeStore(state => state.theme);
@@ -44,28 +45,45 @@ export function ProjectEntityCard({
 					<Label role="helper">{t("projectDetail.entity.name")}</Label>
 					<Label role="field">{entityName}</Label>
 				</View>
-
 				{addressValue ? (
 					<View style={styles.entityRow}>
 						<Label role="helper">{t("projectDetail.entity.address")}</Label>
 						<Label role="field">{addressValue}</Label>
 					</View>
 				) : null}
-
 				<View style={styles.entityRow}>
 					<Label role="helper">{t("projectDetail.entity.cnpj")}</Label>
 					<Label role="field">{cnpjValue}</Label>
 				</View>
-
 				<View style={styles.entityRow}>
 					<Label role="helper">{t("projectDetail.entity.city")}</Label>
 					<Label role="field">{cityValue}</Label>
 				</View>
+			</View>
 
-				<View style={styles.entityRow}>
-					<Label role="helper">{t("projectDetail.entity.createdBy")}</Label>
-					<Label role="field">{createdByValue}</Label>
-				</View>
+			<View style={styles.staffBlock}>
+				<Label role="helper">{t("projectDetail.entity.staff")}</Label>
+				{staffItems.length > 0 ? (
+					<View style={styles.staffList}>
+						{staffItems.map(staffItem => (
+							<View
+								key={`${staffItem.name}-${staffItem.email}`}
+								style={[
+									styles.staffItem,
+									{
+										backgroundColor: theme.colors.surface2,
+										borderColor: spec.panelBorder,
+									},
+								]}
+							>
+								<Label role="field">{staffItem.name}</Label>
+								<Label role="helper">{staffItem.email}</Label>
+							</View>
+						))}
+					</View>
+				) : (
+					<Label role="field">{staffStateLabel}</Label>
+				)}
 			</View>
 		</View>
 	);

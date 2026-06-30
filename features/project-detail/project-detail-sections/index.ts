@@ -1,6 +1,7 @@
 export * from "./ApplyEnrollmentSheet";
 export * from "./ManageEnrollmentSheet";
 export * from "./ProjectDetailAttendanceAction";
+export * from "./ProjectDetailBottomCta";
 export * from "./ProjectEntityCard";
 export * from "./ProjectOverviewCard";
 export * from "./ProjectDetailContent";

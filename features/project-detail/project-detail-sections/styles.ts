@@ -82,6 +82,19 @@ export function createStyles(
 		entityRow: {
 			gap: theme.space[1],
 		},
+		staffBlock: {
+			gap: theme.space[2],
+		},
+		staffList: {
+			gap: theme.space[2],
+		},
+		staffItem: {
+			borderRadius: theme.radius.lg,
+			borderWidth: 1,
+			paddingHorizontal: theme.space[3],
+			paddingVertical: theme.space[3],
+			gap: theme.space[1],
+		},
 		sheetContent: {
 			gap: theme.space[4],
 		},

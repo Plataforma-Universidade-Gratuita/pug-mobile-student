@@ -21,6 +21,7 @@ import { DiscoverFilterSheet } from "./filter-sheet";
 import { createStyles } from "./styles";
 import {
 	createDefaultDiscoverFilters,
+	excludeProjectsWithOngoingEnrollments,
 	filterDiscoverProjects,
 	hasDiscoverFilters,
 	resolveDiscoverQueryStateCopy,
@@ -76,6 +77,9 @@ export function DiscoverScreen() {
 		projectFilters,
 		areaOfExpertise !== null,
 	);
+	const enrollmentsQuery = api.project.enrollments.useMyEnrollmentsQuery(
+		isCurrentFormerStudentLoaded,
+	);
 
 	useEffect(() => {
 		if (!isCurrentFormerStudentLoaded && !isCurrentFormerStudentLoading) {
@@ -93,8 +97,12 @@ export function DiscoverScreen() {
 	}, [areaOfExpertiseId]);
 
 	const discoverableProjects = useMemo(
-		() => [...(projectsQuery.data?.content ?? [])].sort(sortDiscoverProjects),
-		[projectsQuery.data?.content],
+		() =>
+			excludeProjectsWithOngoingEnrollments(
+				[...(projectsQuery.data?.content ?? [])],
+				enrollmentsQuery.data ?? [],
+			).sort(sortDiscoverProjects),
+		[enrollmentsQuery.data, projectsQuery.data?.content],
 	);
 	const entityOptions = useMemo(() => {
 		const entitiesById = new Map<string, string>();
@@ -126,10 +134,11 @@ export function DiscoverScreen() {
 	const hasActiveFilters = hasDiscoverFilters(appliedFilters);
 	const queryStateCopy = resolveDiscoverQueryStateCopy(t, {
 		hasProfileError: currentFormerStudentError !== null,
-		hasProjectError: projectsQuery.error != null,
+		hasProjectError:
+			projectsQuery.error != null || enrollmentsQuery.error != null,
 		isProfileLoading:
 			!isCurrentFormerStudentLoaded && isCurrentFormerStudentLoading,
-		isProjectsLoading: projectsQuery.isLoading,
+		isProjectsLoading: projectsQuery.isLoading || enrollmentsQuery.isLoading,
 		hasAreaOfExpertise: areaOfExpertise !== null,
 		projectCount: discoverableProjects.length,
 	});
@@ -176,6 +185,7 @@ export function DiscoverScreen() {
 							if (!isCurrentFormerStudentLoaded) {
 								void loadCurrentFormerStudentContext();
 							}
+							void enrollmentsQuery.refetch();
 							if (areaOfExpertise !== null) {
 								void projectsQuery.refetch();
 							}

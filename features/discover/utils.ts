@@ -1,9 +1,14 @@
 import type { TFunction } from "i18next";
 
-import type { ProjectResponse } from "@/types/api";
+import type {
+	EnrollmentResponse,
+	EnrollmentStatus,
+	ProjectResponse,
+} from "@/types/api";
 import type { BadgeTone, DiscoverFilters } from "@/types/client";
 
 import {
+	DISCOVER_EXCLUDED_ENROLLMENT_STATUSES,
 	DISCOVERABLE_PROJECT_STATUSES,
 	DISCOVER_PROJECT_STATUS_ORDER,
 } from "./constants";
@@ -13,6 +18,8 @@ type ProjectStatus = ProjectResponse["status"]["status"];
 const DISCOVERABLE_PROJECT_STATUS_SET: ReadonlySet<ProjectStatus> = new Set(
 	DISCOVERABLE_PROJECT_STATUSES,
 );
+const DISCOVER_EXCLUDED_ENROLLMENT_STATUS_SET: ReadonlySet<EnrollmentStatus> =
+	new Set(DISCOVER_EXCLUDED_ENROLLMENT_STATUSES);
 
 export function createDefaultDiscoverFilters(): DiscoverFilters {
 	return {
@@ -62,6 +69,21 @@ export function filterDiscoverProjects(
 			normalizedName.includes(query) || normalizedDescription.includes(query)
 		);
 	});
+}
+
+export function excludeProjectsWithOngoingEnrollments(
+	projects: ProjectResponse[],
+	enrollments: EnrollmentResponse[],
+) {
+	const excludedProjectIds = new Set(
+		enrollments
+			.filter(enrollment =>
+				DISCOVER_EXCLUDED_ENROLLMENT_STATUS_SET.has(enrollment.status.status),
+			)
+			.map(enrollment => enrollment.projectId),
+	);
+
+	return projects.filter(project => !excludedProjectIds.has(project.id));
 }
 
 export function getProjectRemainingHours(project: ProjectResponse) {

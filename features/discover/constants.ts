@@ -4,6 +4,12 @@ export const DISCOVERABLE_PROJECT_STATUSES = [
 	"ON_HOLD",
 ] as const;
 
+export const DISCOVER_EXCLUDED_ENROLLMENT_STATUSES = [
+	"PENDING",
+	"APPROVED",
+	"ON_HOLD",
+] as const;
+
 export const DISCOVER_PROJECT_STATUS_ORDER = {
 	IN_PROGRESS: 0,
 	PLANNED: 1,

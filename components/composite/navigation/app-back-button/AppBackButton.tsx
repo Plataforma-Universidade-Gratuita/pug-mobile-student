@@ -1,5 +1,6 @@
 import React from "react";
 
+import { useRouter } from "expo-router";
 import { ChevronLeft } from "lucide-react-native";
 
 import type { AppBackButtonProps } from "@/types/client";
@@ -11,13 +12,23 @@ export function AppBackButton({
 	onPress,
 	style,
 }: AppBackButtonProps) {
-	const actionProps = onPress ? { onPress } : {};
+	const router = useRouter();
+	const resolvedOnPress =
+		onPress ??
+		(() => {
+			if (typeof window !== "undefined" && window.history.length <= 1) {
+				router.replace("/");
+				return;
+			}
+
+			router.back();
+		});
 
 	return (
 		<HeaderActionButton
 			accessibilityLabel={accessibilityLabel}
 			icon={ChevronLeft}
-			{...actionProps}
+			onPress={resolvedOnPress}
 			style={style}
 		/>
 	);

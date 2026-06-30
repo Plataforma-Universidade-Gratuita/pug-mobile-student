@@ -418,7 +418,6 @@
 			"address": "Address",
 			"city": "City",
 			"cnpj": "CNPJ",
-			"createdBy": "Created by",
 			"name": "Name"
 		},
 		"manage": {
@@ -432,7 +431,6 @@
 			"completedHours": "Completed hours",
 			"maxParticipants": "Max participants",
 			"offeredHours": "Offered hours",
-			"pendingEnrollments": "Pending enrollments",
 			"progress": "Progress",
 			"progressValue": "{{value}}% completed"
 		},

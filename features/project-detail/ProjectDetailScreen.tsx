@@ -1,8 +1,8 @@
 import React, { useEffect, useMemo, useState } from "react";
 
-import { useLocalSearchParams } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
-import { RefreshControl, ScrollView, View } from "react-native";
+import { View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import * as api from "@/api";
@@ -11,27 +11,28 @@ import { useCurrentFormerStudentStore, useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ProjectDetailScreenProps } from "@/types/client";
 
-import { ProjectDetailResolvedContent } from "./ProjectDetailResolvedContent";
+import { ProjectDetailScrollContent } from "./ProjectDetailScrollContent";
 import {
 	ApplyEnrollmentSheet,
 	ManageEnrollmentSheet,
-	ProjectDetailHeaderActions,
-	ProjectDetailStateCard,
 } from "./project-detail-sections";
 import { createStyles } from "./styles";
 import {
 	canManageEnrollment,
 	countActiveParticipants,
-	countPendingEnrollments,
 	getProjectCompletionRatio,
 	resolveOptionalNumberText,
 	resolveOptionalText,
 } from "./utils";
 
+const PROJECT_DETAIL_STAFF_PAGE = 0,
+	PROJECT_DETAIL_STAFF_SIZE = 50;
+
 export function ProjectDetailScreen({
 	titleOverride,
 }: ProjectDetailScreenProps) {
 	const { t } = useTranslation();
+	const router = useRouter();
 	const insets = useSafeAreaInsets();
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
@@ -70,6 +71,20 @@ export function ProjectDetailScreen({
 	const entity = entityQuery.data ?? null;
 	const cityId = entity?.cityId ?? null;
 	const cityQuery = api.geo.cities.useCityDetailQuery(cityId);
+	const staffQuery = api.partner.staff.useStaffSearchQuery(
+		PROJECT_DETAIL_STAFF_PAGE,
+		PROJECT_DETAIL_STAFF_SIZE,
+		{
+			activeOnly: true,
+			cpf: "",
+			dateFrom: "",
+			dateTo: "",
+			email: "",
+			entityIds: entityId ? [entityId] : [],
+			name: "",
+		},
+		entityId !== null,
+	);
 	const enrollmentsQuery =
 		api.project.enrollments.useProjectEnrollmentsQuery(projectId);
 	const myEnrollmentQuery =
@@ -94,10 +109,6 @@ export function ProjectDetailScreen({
 		enrollmentsQuery.isLoading && enrollmentsQuery.data == null
 			? t("projectDetail.values.loading")
 			: String(countActiveParticipants(enrollments));
-	const pendingEnrollmentsValue =
-		enrollmentsQuery.isLoading && enrollmentsQuery.data == null
-			? t("projectDetail.values.loading")
-			: String(countPendingEnrollments(enrollments));
 	const completedHours = project?.projectInfo.completedHours ?? null;
 	const offeredHours = project?.projectInfo.offeredHours ?? null;
 	const completionRatio = getProjectCompletionRatio(
@@ -126,19 +137,25 @@ export function ProjectDetailScreen({
 					cityQuery.data?.name,
 					t("projectDetail.values.unavailable"),
 				);
-	const createdByValue = resolveOptionalText(
-		project?.projectInfo.createdBy.name,
-		t("projectDetail.values.unavailable"),
-	);
 	const entityName = resolveOptionalText(
 		entity?.name,
 		t("projectDetail.values.unavailable"),
 	);
-	const addressValue = entity?.address.trim() ? entity.address : null;
+	const addressValue = entity?.address?.trim() ? entity.address : null;
 	const cnpjValue = resolveOptionalText(
 		entity?.cnpjFormatted ?? entity?.cnpj,
 		t("projectDetail.values.unavailable"),
 	);
+	const staffItems = (staffQuery.data?.content ?? [])
+		.map(item => ({
+			name: item.account.user.name.trim(),
+			email: item.account.email.trim(),
+		}))
+		.filter(item => item.name.length > 0);
+	const staffStateLabel =
+		staffQuery.isLoading && entityId !== null
+			? t("projectDetail.values.loading")
+			: t("projectDetail.values.unavailable");
 	const myEnrollment = myEnrollmentQuery.data;
 	const myEnrollmentStatus = myEnrollment?.status.status;
 	const canManage = canManageEnrollment(myEnrollmentStatus);
@@ -155,6 +172,7 @@ export function ProjectDetailScreen({
 		projectQuery.error != null ||
 		entityQuery.error != null ||
 		cityQuery.error != null ||
+		staffQuery.error != null ||
 		enrollmentsQuery.error != null ||
 		myEnrollmentQuery.error != null ||
 		currentFormerStudentError != null;
@@ -166,112 +184,82 @@ export function ProjectDetailScreen({
 		projectQuery.isRefetching ||
 		entityQuery.isRefetching ||
 		cityQuery.isRefetching ||
+		staffQuery.isRefetching ||
 		enrollmentsQuery.isRefetching ||
 		myEnrollmentQuery.isRefetching;
 	const contentBottomPadding =
-		theme.space[8] + theme.space[4] + Math.max(insets.bottom, theme.space[4]);
+		theme.space[8] + Math.max(insets.bottom, theme.space[4]);
+
 	return (
 		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}>
 			<BrandScreenHeader
 				title={titleOverride ?? t("projectDetail.title")}
 				leftAccessory={<AppBackButton />}
-				rightAccessory={
-					<ProjectDetailHeaderActions
-						canApply={canApply}
-						canManage={canManage}
-						disabled={isMutatingEnrollment}
-						onApply={() => {
-							setIsApplySheetVisible(true);
-						}}
-						onManage={() => {
-							setIsManageSheetVisible(true);
-						}}
-					/>
-				}
 			/>
-			<ScrollView
-				contentContainerStyle={[
-					styles.content,
-					{ paddingBottom: contentBottomPadding },
-				]}
-				refreshControl={
-					<RefreshControl
-						refreshing={isRefreshing}
-						onRefresh={() => {
-							if (!isCurrentFormerStudentLoaded) {
-								void loadCurrentFormerStudentContext();
-							}
-							if (projectId !== null) {
-								void projectQuery.refetch();
-								void enrollmentsQuery.refetch();
-								void myEnrollmentQuery.refetch();
-							}
-							if (entityId !== null) {
-								void entityQuery.refetch();
-							}
-							if (cityId !== null) {
-								void cityQuery.refetch();
-							}
-						}}
-						tintColor={theme.colors.brand}
-					/>
-				}
-				showsVerticalScrollIndicator={false}
-			>
-				<View style={styles.shell}>
-					{hasQueryError ? (
-						<ProjectDetailStateCard
-							badgeLabel={t("projectDetail.states.badge")}
-							description={t("projectDetail.states.errorDescription")}
-							title={t("projectDetail.states.errorTitle")}
-							tone="danger"
-						/>
-					) : isInitialLoading ? (
-						<ProjectDetailStateCard
-							badgeLabel={t("projectDetail.states.badge")}
-							description={t("projectDetail.states.loadingDescription")}
-							title={t("projectDetail.states.loadingTitle")}
-							tone="neutral"
-						/>
-					) : project ? (
-						<ProjectDetailResolvedContent
-							activeParticipantsValue={activeParticipantsValue}
-							addressValue={addressValue}
-							canCreateAttendance={canCreateAttendance}
-							cityValue={cityValue}
-							cnpjValue={cnpjValue}
-							completedHoursValue={completedHoursValue}
-							completionPercentLabel={completionPercentLabel}
-							completionRatio={completionRatio}
-							createdByValue={createdByValue}
-							entityName={entityName}
-							maxParticipantsValue={maxParticipantsValue}
-							offeredHoursValue={offeredHoursValue}
-							pendingEnrollmentsValue={pendingEnrollmentsValue}
-							project={project}
-						/>
-					) : (
-						<ProjectDetailStateCard
-							badgeLabel={t("projectDetail.states.badge")}
-							description={t("projectDetail.states.missingDescription")}
-							title={t("projectDetail.states.missingTitle")}
-							tone="warning"
-						/>
-					)}
-				</View>
-			</ScrollView>
+			<ProjectDetailScrollContent
+				activeParticipantsValue={activeParticipantsValue}
+				addressValue={addressValue}
+				badgeLabel={t("projectDetail.states.badge")}
+				canApply={canApply}
+				canCreateAttendance={canCreateAttendance}
+				canManage={canManage}
+				cityValue={cityValue}
+				cnpjValue={cnpjValue}
+				completedHoursValue={completedHoursValue}
+				completionPercentLabel={completionPercentLabel}
+				completionRatio={completionRatio}
+				contentBottomPadding={contentBottomPadding}
+				descriptionError={t("projectDetail.states.errorDescription")}
+				descriptionLoading={t("projectDetail.states.loadingDescription")}
+				descriptionMissing={t("projectDetail.states.missingDescription")}
+				disabled={isMutatingEnrollment}
+				entityName={entityName}
+				hasQueryError={hasQueryError}
+				isInitialLoading={isInitialLoading}
+				isRefreshing={isRefreshing}
+				maxParticipantsValue={maxParticipantsValue}
+				offeredHoursValue={offeredHoursValue}
+				onApply={() => {
+					setIsApplySheetVisible(true);
+				}}
+				onManage={() => {
+					setIsManageSheetVisible(true);
+				}}
+				onRefresh={() => {
+					if (!isCurrentFormerStudentLoaded)
+						void loadCurrentFormerStudentContext();
+					if (projectId !== null) {
+						void projectQuery.refetch();
+						void enrollmentsQuery.refetch();
+						void myEnrollmentQuery.refetch();
+					}
+					if (entityId !== null) {
+						void entityQuery.refetch();
+						void staffQuery.refetch();
+					}
+					if (cityId !== null) void cityQuery.refetch();
+				}}
+				project={project}
+				staffItems={staffItems}
+				staffStateLabel={staffStateLabel}
+				themeBrandColor={theme.colors.brand}
+				titleError={t("projectDetail.states.errorTitle")}
+				titleLoading={t("projectDetail.states.loadingTitle")}
+				titleMissing={t("projectDetail.states.missingTitle")}
+			/>
 			{project ? (
 				<ApplyEnrollmentSheet
 					isBusy={isMutatingEnrollment}
 					onApply={() => {
-						if (!projectId || !currentFormerStudent) {
-							return;
-						}
-
+						if (!projectId || !currentFormerStudent) return;
 						void createEnrollmentMutation
 							.mutateAsync({ projectId })
 							.then(() => {
 								setIsApplySheetVisible(false);
+								router.replace({
+									pathname: "/activity",
+									params: { tab: "enrollments" },
+								});
 							});
 					}}
 					onDismiss={() => {

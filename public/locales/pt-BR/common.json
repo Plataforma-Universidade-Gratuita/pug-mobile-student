@@ -418,7 +418,6 @@
 			"address": "Endereco",
 			"city": "Cidade",
 			"cnpj": "CNPJ",
-			"createdBy": "Criado por",
 			"name": "Nome"
 		},
 		"manage": {
@@ -432,7 +431,6 @@
 			"completedHours": "Horas concluidas",
 			"maxParticipants": "Maximo de participantes",
 			"offeredHours": "Horas ofertadas",
-			"pendingEnrollments": "Inscricoes pendentes",
 			"progress": "Progresso",
 			"progressValue": "{{value}}% concluido"
 		},

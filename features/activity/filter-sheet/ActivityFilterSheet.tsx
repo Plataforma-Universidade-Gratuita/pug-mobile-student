@@ -90,7 +90,9 @@ export function ActivityFilterSheet({
 						<Button
 							fullWidth={false}
 							onPress={() => {
-								setDraftFilters(createDefaultActivityFilters());
+								const nextFilters = createDefaultActivityFilters();
+								setDraftFilters(nextFilters);
+								onApply(nextFilters);
 							}}
 							style={styles.footerAction}
 							variant="secondary"

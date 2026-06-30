@@ -8,7 +8,6 @@ import type { BadgeTone } from "@/types/client";
 import {
 	ACTIVE_PARTICIPANT_STATUSES,
 	MANAGEABLE_ENROLLMENT_STATUSES,
-	PENDING_ENROLLMENT_STATUS,
 } from "./constants";
 
 const activeParticipantStatusSet = new Set<EnrollmentStatus>(
@@ -21,12 +20,6 @@ const manageableEnrollmentStatusSet = new Set<EnrollmentStatus>(
 export function countActiveParticipants(enrollments: EnrollmentResponse[]) {
 	return enrollments.filter(enrollment =>
 		activeParticipantStatusSet.has(enrollment.status.status),
-	).length;
-}
-
-export function countPendingEnrollments(enrollments: EnrollmentResponse[]) {
-	return enrollments.filter(
-		enrollment => enrollment.status.status === PENDING_ENROLLMENT_STATUS,
 	).length;
 }
 

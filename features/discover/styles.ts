@@ -17,8 +17,11 @@ export function createStyles(
 		content: {
 			paddingHorizontal: theme.layout.screenPadding,
 			paddingTop: theme.space[5],
+			alignItems: "center",
 		},
 		shell: {
+			width: "100%",
+			maxWidth: theme.layout.contentMaxWidth,
 			gap: theme.space[4],
 		},
 		summarySection: {

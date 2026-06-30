@@ -15,18 +15,23 @@ import { resolveProjectDetailStatusTone } from "./utils";
 export function ProjectDetailResolvedContent({
 	activeParticipantsValue,
 	addressValue,
+	canApply,
 	canCreateAttendance,
+	canManage,
 	cityValue,
 	cnpjValue,
 	completedHoursValue,
 	completionPercentLabel,
 	completionRatio,
-	createdByValue,
+	disabled,
 	entityName,
 	maxParticipantsValue,
 	offeredHoursValue,
-	pendingEnrollmentsValue,
+	onApply,
+	onManage,
 	project,
+	staffItems,
+	staffStateLabel,
 }: ProjectDetailResolvedContentProps) {
 	const { t } = useTranslation();
 	const router = useRouter();
@@ -47,17 +52,22 @@ export function ProjectDetailResolvedContent({
 			<ProjectDetailContent
 				activeParticipantsValue={activeParticipantsValue}
 				addressValue={addressValue}
+				canApply={canApply}
+				canManage={canManage}
 				cityValue={cityValue}
 				cnpjValue={cnpjValue}
 				completedHoursValue={completedHoursValue}
 				completionPercentLabel={completionPercentLabel}
 				completionRatio={completionRatio}
-				createdByValue={createdByValue}
+				disabled={disabled}
 				entityName={entityName}
 				maxParticipantsValue={maxParticipantsValue}
 				offeredHoursValue={offeredHoursValue}
-				pendingEnrollmentsValue={pendingEnrollmentsValue}
+				onApply={onApply}
+				onManage={onManage}
 				project={project}
+				staffItems={staffItems}
+				staffStateLabel={staffStateLabel}
 				statusTone={resolveProjectDetailStatusTone(project.status.status)}
 			/>
 			{canCreateAttendance ? (
