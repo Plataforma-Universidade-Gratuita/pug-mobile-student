@@ -154,5 +154,6 @@ jobs:
             EXPO_PUBLIC_API_URL=${{ steps.public-api.outputs.expo_public_api_url }}
           provenance: false
           sbom: false
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
+          no-cache: true
+#          cache-from: type=gha
+#          cache-to: type=gha,mode=max
