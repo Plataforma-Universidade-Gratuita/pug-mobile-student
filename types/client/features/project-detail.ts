@@ -22,10 +22,6 @@ export interface ProjectDetailBottomCtaProps {
 	onManage: () => void;
 }
 
-export interface ProjectDetailAttendanceActionProps {
-	onPress: () => void;
-}
-
 export interface ProjectDetailStaffItem {
 	name: string;
 	email: string;
@@ -36,6 +32,7 @@ export interface ProjectOverviewCardProps {
 	description: string;
 	statusLabel: string;
 	statusTone: BadgeTone;
+	isLoading?: boolean;
 	activeParticipantsValue: string;
 	maxParticipantsValue: string;
 	completedHoursValue: string;
@@ -49,6 +46,7 @@ export interface ProjectEntityCardProps {
 	addressValue: string | null;
 	cnpjValue: string;
 	cityValue: string;
+	isLoading?: boolean;
 	staffItems: ProjectDetailStaffItem[];
 	staffStateLabel: string;
 }
@@ -80,7 +78,6 @@ export interface ProjectDetailResolvedContentProps {
 	activeParticipantsValue: string;
 	addressValue: string | null;
 	canApply: boolean;
-	canCreateAttendance: boolean;
 	canManage: boolean;
 	cityValue: string;
 	cnpjValue: string;
@@ -89,6 +86,7 @@ export interface ProjectDetailResolvedContentProps {
 	completionRatio: number;
 	disabled: boolean;
 	entityName: string;
+	isLoading?: boolean;
 	maxParticipantsValue: string;
 	offeredHoursValue: string;
 	onApply: () => void;
@@ -115,6 +113,7 @@ export interface ProjectDetailContentProps {
 	completionPercentLabel: string;
 	completionRatio: number;
 	entityName: string;
+	isLoading?: boolean;
 	maxParticipantsValue: string;
 	offeredHoursValue: string;
 	project: {
@@ -132,7 +131,6 @@ export interface ProjectDetailScrollContentProps {
 	addressValue: string | null;
 	badgeLabel: string;
 	canApply: boolean;
-	canCreateAttendance: boolean;
 	canManage: boolean;
 	cityValue: string;
 	cnpjValue: string;

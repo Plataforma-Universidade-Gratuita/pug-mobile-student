@@ -29,6 +29,9 @@ export function createStyles(
 			flex: 1,
 			gap: theme.space[1],
 		},
+		loadingDescription: {
+			gap: theme.space[1],
+		},
 		title: {
 			color: theme.colors.text,
 			flex: 1,

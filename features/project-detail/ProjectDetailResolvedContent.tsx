@@ -1,12 +1,11 @@
 import React from "react";
 
-import { useRouter } from "expo-router";
 import { useTranslation } from "react-i18next";
 
 import type { ProjectDetailResolvedContentProps } from "@/types/client";
 
 import {
-	ProjectDetailAttendanceAction,
+	ProjectDetailBottomCta,
 	ProjectDetailStateCard,
 	ProjectDetailContent,
 } from "./project-detail-sections";
@@ -15,21 +14,25 @@ import { resolveProjectDetailStatusTone } from "./utils";
 export function ProjectDetailResolvedContent({
 	activeParticipantsValue,
 	addressValue,
-	canCreateAttendance,
+	canApply,
+	canManage,
 	cityValue,
 	cnpjValue,
 	completedHoursValue,
 	completionPercentLabel,
 	completionRatio,
+	disabled,
 	entityName,
+	isLoading = false,
 	maxParticipantsValue,
 	offeredHoursValue,
+	onApply,
+	onManage,
 	project,
 	staffItems,
 	staffStateLabel,
 }: ProjectDetailResolvedContentProps) {
 	const { t } = useTranslation();
-	const router = useRouter();
 
 	if (!project) {
 		return (
@@ -53,6 +56,7 @@ export function ProjectDetailResolvedContent({
 				completionPercentLabel={completionPercentLabel}
 				completionRatio={completionRatio}
 				entityName={entityName}
+				isLoading={isLoading}
 				maxParticipantsValue={maxParticipantsValue}
 				offeredHoursValue={offeredHoursValue}
 				project={project}
@@ -60,14 +64,13 @@ export function ProjectDetailResolvedContent({
 				staffStateLabel={staffStateLabel}
 				statusTone={resolveProjectDetailStatusTone(project.status.status)}
 			/>
-			{canCreateAttendance ? (
-				<ProjectDetailAttendanceAction
-					onPress={() => {
-						router.push({
-							pathname: "/attendance/new",
-							params: { projectId: project.id },
-						});
-					}}
+			{canApply || canManage ? (
+				<ProjectDetailBottomCta
+					canApply={canApply}
+					canManage={canManage}
+					disabled={disabled}
+					onApply={onApply}
+					onManage={onManage}
 				/>
 			) : null}
 		</>

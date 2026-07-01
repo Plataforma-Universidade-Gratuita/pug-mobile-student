@@ -1,16 +1,17 @@
 import React, { useMemo } from "react";
 
 import { useRouter } from "expo-router";
+import { useTranslation } from "react-i18next";
 import { RefreshControl, ScrollView, View } from "react-native";
 
 import { Badge, Button, Label } from "@/components/primitives";
 import { ActivityAttendanceCard } from "@/features/activity/activity-sections";
-import { resolveAttendanceStatusTone } from "@/features/activity/utils";
-import { ProjectDetailStateCard } from "@/features/project-detail/project-detail-sections";
 import {
-	getProjectCompletionRatio,
-	resolveProjectDetailStatusTone,
-} from "@/features/project-detail/utils";
+	resolveAttendanceStatusTone,
+	resolveEnrollmentStatusTone,
+} from "@/features/activity/utils";
+import { ProjectDetailStateCard } from "@/features/project-detail/project-detail-sections";
+import { getProjectCompletionRatio } from "@/features/project-detail/utils";
 import { useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type {
@@ -21,7 +22,10 @@ import type {
 import { createStyles } from "./styles";
 
 function EnrollmentProjectCard({
+	canManage,
 	description,
+	disabled,
+	onManage,
 	onOpenProject,
 	progressRatio,
 	progressValueLabel,
@@ -30,6 +34,7 @@ function EnrollmentProjectCard({
 	title,
 	viewProjectLabel,
 }: EnrollmentProjectCardProps) {
+	const { t } = useTranslation();
 	const theme = useThemeStore(state => state.theme);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme, spec), [spec, theme]);
@@ -64,6 +69,14 @@ function EnrollmentProjectCard({
 					/>
 				</View>
 			</View>
+			{canManage ? (
+				<Button
+					disabled={disabled}
+					onPress={onManage}
+				>
+					{t("projectDetail.actions.manage")}
+				</Button>
+			) : null}
 			<Button
 				fullWidth={false}
 				variant="secondary"
@@ -77,11 +90,15 @@ function EnrollmentProjectCard({
 
 export function EnrollmentDetailContent({
 	attendanceItems,
+	canManage,
 	contentBottomPadding,
+	disabled,
 	hasEnrollment,
 	hasQueryError,
 	isInitialLoading,
 	isRefreshing,
+	enrollmentStatus,
+	onManage,
 	onOpenProject,
 	onRefresh,
 	project,
@@ -148,14 +165,21 @@ export function EnrollmentDetailContent({
 		>
 			<View style={styles.shell}>
 				<EnrollmentProjectCard
+					canManage={canManage}
 					description={project.description}
+					disabled={disabled}
+					onManage={onManage}
 					onOpenProject={onOpenProject}
 					progressRatio={progressRatio}
 					progressValueLabel={t("projectDetail.metrics.progressValue", {
 						value: Math.round(progressRatio * 100),
 					})}
-					statusLabel={project.status.statusFormatted}
-					statusTone={resolveProjectDetailStatusTone(project.status.status)}
+					statusLabel={enrollmentStatus?.statusFormatted ?? ""}
+					statusTone={
+						enrollmentStatus
+							? resolveEnrollmentStatusTone(enrollmentStatus.status)
+							: "neutral"
+					}
 					title={project.name}
 					viewProjectLabel={t("activity.enrollmentDetail.actions.openProject")}
 				/>

@@ -27,6 +27,13 @@ const activeEnrollmentStatusSet = new Set<EnrollmentStatus>(
 	ACTIVE_ENROLLMENT_STATUSES,
 );
 
+function normalizeActivitySearchValue(value: string) {
+	return value
+		.toLocaleLowerCase()
+		.normalize("NFD")
+		.replace(/[\u0300-\u036f]/g, "");
+}
+
 export function createDefaultActivityFilters(): ActivityFilters {
 	return {
 		query: "",
@@ -132,14 +139,14 @@ export function buildAttendanceStatusOptions(
 }
 
 function matchesQuery(value: string, query: string) {
-	return value.toLocaleLowerCase().includes(query);
+	return normalizeActivitySearchValue(value).includes(query);
 }
 
 export function filterActivityEnrollmentItems(
 	items: ActivityEnrollmentItem[],
 	filters: ActivityFilters,
 ) {
-	const query = filters.query.trim().toLocaleLowerCase();
+	const query = normalizeActivitySearchValue(filters.query.trim());
 
 	return items.filter(item => {
 		if (
@@ -155,12 +162,8 @@ export function filterActivityEnrollmentItems(
 
 		const haystack = [
 			item.project?.name ?? "",
-			item.project?.description ?? "",
 			item.project?.entity.name ?? "",
-			item.enrollment.status.statusFormatted,
-		]
-			.join(" ")
-			.toLocaleLowerCase();
+		].join(" ");
 
 		return matchesQuery(haystack, query);
 	});
@@ -170,7 +173,7 @@ export function applyActivityAttendanceFilters(
 	items: ActivityAttendanceItem[],
 	filters: ActivityFilters,
 ) {
-	const query = filters.query.trim().toLocaleLowerCase();
+	const query = normalizeActivitySearchValue(filters.query.trim());
 
 	return items.filter(item => {
 		if (
@@ -184,15 +187,7 @@ export function applyActivityAttendanceFilters(
 			return true;
 		}
 
-		const haystack = [
-			item.project?.name ?? item.attendance.project.name,
-			item.project?.description ?? "",
-			item.project?.entity.name ?? "",
-			item.attendance.status.statusFormatted,
-			item.attendance.validator?.name ?? "",
-		]
-			.join(" ")
-			.toLocaleLowerCase();
+		const haystack = item.project?.name ?? item.attendance.project.name;
 
 		return matchesQuery(haystack, query);
 	});
@@ -201,26 +196,18 @@ export function applyActivityAttendanceFilters(
 export function resolveEnrollmentStatusTone(
 	status: EnrollmentStatus,
 ): BadgeTone {
-	if (status === "APPROVED") {
+	if (status === "COMPLETED") {
 		return "success";
 	}
-
-	if (status === "ON_HOLD") {
-		return "warning";
-	}
-
-	if (status === "PENDING") {
+	if (status === "APPROVED" || status === "PENDING") {
 		return "info";
 	}
-
-	if (status === "COMPLETED") {
-		return "brand";
+	if (status === "ON_HOLD" || status === "CANCELED") {
+		return "warning";
 	}
-
-	if (status === "REJECTED" || status === "CANCELED" || status === "REMOVED") {
+	if (status === "EXITED" || status === "REJECTED" || status === "REMOVED") {
 		return "danger";
 	}
-
 	return "neutral";
 }
 

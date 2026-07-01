@@ -119,9 +119,11 @@
 		"filters": {
 			"apply": "Aplicar",
 			"clear": "Limpar",
-			"searchHelper": "Busca por nome do projeto, organização, descrição ou status.",
-			"searchLabel": "Projeto ou status",
-			"searchPlaceholder": "Buscar atividade",
+			"searchHelperAttendances": "Busca por nome do projeto.",
+			"searchHelperEnrollments": "Busca por nome do projeto ou nome da organização.",
+			"searchLabel": "Busca",
+			"searchPlaceholderAttendances": "Buscar por nome do projeto",
+			"searchPlaceholderEnrollments": "Buscar por projeto ou organização",
 			"statusesHelper": "Selecione um ou mais status da lista atual.",
 			"statusesLabel": "Status",
 			"subtitle": "Aplique filtros locais para reduzir a lista atual de atividades.",
@@ -339,9 +341,7 @@
 			"badge": "Estado da tela inicial",
 			"emptyBadge": "Sem dados",
 			"errorDescription": "Atualize a tela ou tente novamente em instantes.",
-			"errorTitle": "Não foi possível carregar seu painel",
-			"loadingDescription": "Buscando seu contexto atual, inscrições e presenças.",
-			"loadingTitle": "Carregando visão inicial"
+			"errorTitle": "Não foi possível carregar seu painel"
 		},
 		"summary": {
 			"activeEnrollments": "Projetos ativos",
@@ -413,8 +413,7 @@
 			"apply": "Inscrever-se",
 			"close": "Fechar",
 			"exitProject": "Sair do projeto",
-			"manage": "Gerenciar inscrição",
-			"newAttendance": "Registrar presença"
+			"manage": "Gerenciar inscrição"
 		},
 		"apply": {
 			"applyHelper": "Crie uma nova inscrição para este projeto e aguarde a análise da organização.",

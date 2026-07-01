@@ -6,12 +6,15 @@ import { ProjectEntityCard } from "./ProjectEntityCard";
 import { ProjectOverviewCard } from "./ProjectOverviewCard";
 
 export function ProjectDetailContent(props: ProjectDetailContentProps) {
+	const isLoading = props.isLoading ?? false;
+
 	return (
 		<>
 			<ProjectOverviewCard
 				activeParticipantsValue={props.activeParticipantsValue}
 				completedHoursValue={props.completedHoursValue}
 				description={props.project.description}
+				isLoading={isLoading}
 				maxParticipantsValue={props.maxParticipantsValue}
 				offeredHoursValue={props.offeredHoursValue}
 				progressRatio={props.completionRatio}
@@ -25,6 +28,7 @@ export function ProjectDetailContent(props: ProjectDetailContentProps) {
 				cityValue={props.cityValue}
 				cnpjValue={props.cnpjValue}
 				entityName={props.entityName}
+				isLoading={isLoading}
 				staffItems={props.staffItems}
 				staffStateLabel={props.staffStateLabel}
 			/>

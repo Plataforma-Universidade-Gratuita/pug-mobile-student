@@ -119,9 +119,11 @@
 		"filters": {
 			"apply": "Apply",
 			"clear": "Clear",
-			"searchHelper": "Matches the project name, entity, description, or status.",
-			"searchLabel": "Project or status",
-			"searchPlaceholder": "Search activity",
+			"searchHelperAttendances": "Matches the project name.",
+			"searchHelperEnrollments": "Matches the project name or entity name.",
+			"searchLabel": "Search",
+			"searchPlaceholderAttendances": "Search by project name",
+			"searchPlaceholderEnrollments": "Search by project or entity",
 			"statusesHelper": "Select one or more statuses from the current list.",
 			"statusesLabel": "Statuses",
 			"subtitle": "Apply local filters to narrow the current activity list.",
@@ -339,9 +341,7 @@
 			"badge": "Home state",
 			"emptyBadge": "No data",
 			"errorDescription": "Refresh the screen or try again in a moment.",
-			"errorTitle": "Unable to load your dashboard",
-			"loadingDescription": "Fetching your current student context, enrollments, and attendances.",
-			"loadingTitle": "Loading your home overview"
+			"errorTitle": "Unable to load your dashboard"
 		},
 		"summary": {
 			"activeEnrollments": "Active projects",
@@ -413,8 +413,7 @@
 			"apply": "Apply to project",
 			"close": "Close",
 			"exitProject": "Exit project",
-			"manage": "Manage enrollment",
-			"newAttendance": "Log attendance"
+			"manage": "Manage enrollment"
 		},
 		"apply": {
 			"applyHelper": "Create a new enrollment request for this project and wait for partner review.",

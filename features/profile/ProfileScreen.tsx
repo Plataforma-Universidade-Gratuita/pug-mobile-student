@@ -1,5 +1,6 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 
+import { useScrollToTop } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { LogOut } from "lucide-react-native";
 import { useTranslation } from "react-i18next";
@@ -14,6 +15,7 @@ import {
 	useThemeStore,
 } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
+import { getTabScreenContentBottomPadding } from "@/utils/layout/getTabScreenContentBottomPadding";
 
 import {
 	InfoCard,
@@ -27,6 +29,7 @@ import { resolveProfileFieldValue } from "./utils";
 export function ProfileScreen() {
 	const { t } = useTranslation();
 	const router = useRouter();
+	const scrollRef = useRef<ScrollView>(null);
 	const insets = useSafeAreaInsets();
 	const theme = useThemeStore(state => state.theme);
 	const themeMode = useThemeStore(state => state.mode);
@@ -37,10 +40,13 @@ export function ProfileScreen() {
 	const signOutAll = useAuthStore(state => state.signOutAll);
 	const isMutatingSession = useAuthStore(state => state.isMutatingSession);
 	const [isLogoutSheetVisible, setIsLogoutSheetVisible] = useState(false);
+	useScrollToTop(scrollRef);
 	const spec = useMemo(() => createPrimitiveSurfaceStyleSpec(theme), [theme]);
 	const styles = useMemo(() => createStyles(theme), [theme]);
-	const contentBottomPadding =
-		theme.space[8] + theme.space[2] + Math.max(insets.bottom, theme.space[4]);
+	const contentBottomPadding = getTabScreenContentBottomPadding(
+		theme,
+		insets.bottom,
+	);
 	const currentAccount = useCurrentFormerStudentStore(
 		state => state.currentAccount,
 	);
@@ -67,12 +73,12 @@ export function ProfileScreen() {
 				? t("profile.values.active")
 				: t("profile.values.inactive")
 			: unavailableLabel;
-	const activeTone: "neutral" | "success" | "danger" =
+	const activeTone: "neutral" | "success" | "warning" =
 		isProfileLoading || !currentAccount
 			? "neutral"
 			: currentAccount.active
 				? "success"
-				: "danger";
+				: "warning";
 	const studentName = resolveProfileFieldValue(
 		currentUser?.name,
 		isProfileLoading,
@@ -132,6 +138,7 @@ export function ProfileScreen() {
 				}
 			/>
 			<ScrollView
+				ref={scrollRef}
 				contentContainerStyle={[
 					styles.content,
 					{ paddingBottom: contentBottomPadding },

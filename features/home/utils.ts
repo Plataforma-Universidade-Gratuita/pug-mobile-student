@@ -59,19 +59,20 @@ export function resolveHomeEnrollmentStatusTone(
 	status: EnrollmentStatus,
 ): PrimitiveBadgeProps["tone"] {
 	switch (status) {
-		case "APPROVED":
 		case "COMPLETED":
 			return "success";
+		case "APPROVED":
+		case "PENDING":
+			return "info";
 		case "ON_HOLD":
+		case "CANCELED":
 			return "warning";
 		case "REJECTED":
-		case "CANCELED":
 		case "REMOVED":
 		case "EXITED":
 			return "danger";
-		case "PENDING":
 		default:
-			return "info";
+			return "neutral";
 	}
 }
 
@@ -81,11 +82,12 @@ export function resolveHomeAttendanceStatusTone(
 	switch (status) {
 		case "PRESENT":
 			return "success";
-		case "ABSENT":
-			return "warning";
 		case "WAITING":
+			return "warning";
+		case "ABSENT":
+			return "danger";
 		default:
-			return "info";
+			return "neutral";
 	}
 }
 

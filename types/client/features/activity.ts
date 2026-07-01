@@ -46,6 +46,7 @@ export interface ActivityEnrollmentCardProps {
 	statusTone: BadgeTone;
 	metaLabel: string;
 	onPress: () => void;
+	isLoading?: boolean;
 }
 
 export interface ActivityAttendanceCardProps {
@@ -55,6 +56,7 @@ export interface ActivityAttendanceCardProps {
 	durationLabel: string;
 	dateLabel: string;
 	onPress: () => void;
+	isLoading?: boolean;
 }
 
 export interface ActivitySummarySectionProps {
@@ -64,6 +66,7 @@ export interface ActivitySummarySectionProps {
 	focusTitle: string;
 	focusDescription: string;
 	chipLabels: string[];
+	isLoading?: boolean;
 }
 
 export interface ActivitySegmentedControlProps {
@@ -105,4 +108,5 @@ export interface ActivityListSectionProps {
 		fallback: string,
 	) => string;
 	t: (...args: any[]) => any;
+	isLoading?: boolean;
 }
