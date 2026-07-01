@@ -15,10 +15,14 @@ import { useAuthStore } from "@/stores";
 import type {
 	PrimitiveInputFocusHandle,
 	WireCredentialsFormValues,
+	WireCredentialsPasswordRequirements,
 } from "@/types/client";
+import {
+	evaluateWireCredentialsPasswordRequirements,
+	resolveWireCredentialsErrorMessageWithFallback,
+} from "@/utils";
 
 import { createStyles } from "./styles";
-import { resolveWireCredentialsErrorMessageWithFallback } from "./utils";
 
 export function WireCredentialsScreen() {
 	const { t } = useTranslation();
@@ -45,6 +49,9 @@ export function WireCredentialsScreen() {
 		mode: "onSubmit",
 		reValidateMode: "onChange",
 	});
+	const passwordValue = form.watch("password") ?? "";
+	const passwordRequirements =
+		evaluateWireCredentialsPasswordRequirements(passwordValue);
 
 	async function onSubmit(values: WireCredentialsFormValues) {
 		clearServerError();
@@ -137,6 +144,67 @@ export function WireCredentialsScreen() {
 										/>
 									)}
 								/>
+								<View style={styles.requirementsCard}>
+									<Label
+										role="helper"
+										style={styles.requirementsTitle}
+									>
+										{t("auth.wireCredentials.passwordChecklistTitle")}
+									</Label>
+									<View style={styles.requirementsList}>
+										{[
+											[
+												"hasMinimumLength",
+												t("auth.wireCredentials.passwordChecklist.minLength"),
+											],
+											[
+												"hasUppercaseLetter",
+												t("auth.wireCredentials.passwordChecklist.uppercase"),
+											],
+											[
+												"hasLowercaseLetter",
+												t("auth.wireCredentials.passwordChecklist.lowercase"),
+											],
+											[
+												"hasNumber",
+												t("auth.wireCredentials.passwordChecklist.number"),
+											],
+											[
+												"hasSpecialSymbol",
+												t(
+													"auth.wireCredentials.passwordChecklist.specialSymbol",
+												),
+											],
+										].map(([key, label]) => {
+											const isSatisfied =
+												passwordRequirements[
+													key as keyof WireCredentialsPasswordRequirements
+												];
+
+											return (
+												<View
+													key={String(key)}
+													style={styles.requirementRow}
+												>
+													<View
+														style={[
+															styles.requirementIndicator,
+															isSatisfied
+																? styles.requirementIndicatorSatisfied
+																: styles.requirementIndicatorPending,
+														]}
+													/>
+													<Label
+														role="helper"
+														tone={isSatisfied ? "success" : "muted"}
+													>
+														{label}
+													</Label>
+												</View>
+											);
+										})}
+									</View>
+								</View>
 							</View>
 
 							<View style={styles.field}>

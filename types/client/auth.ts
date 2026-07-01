@@ -22,6 +22,14 @@ export interface WireCredentialsFormValues {
 	confirmPassword: string;
 }
 
+export interface WireCredentialsPasswordRequirements {
+	hasMinimumLength: boolean;
+	hasUppercaseLetter: boolean;
+	hasLowercaseLetter: boolean;
+	hasNumber: boolean;
+	hasSpecialSymbol: boolean;
+}
+
 export interface StoredSessionTokens {
 	accessToken: string;
 	refreshToken: string;

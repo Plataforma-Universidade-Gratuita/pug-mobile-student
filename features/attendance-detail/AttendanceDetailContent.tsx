@@ -130,7 +130,7 @@ export function AttendanceDetailContent({
 				<Button
 					variant="secondary"
 					onPress={() => {
-						router.push(`/activity/enrollments/${attendance.project.id}`);
+						router.replace(`/activity/enrollments/${attendance.project.id}`);
 					}}
 				>
 					{t("activity.attendanceDetail.actions.openEnrollment")}

@@ -4,6 +4,7 @@ import type {
 	EnrollmentResponse,
 	EnrollmentStatus,
 	ProjectResponse,
+	ProjectStatus,
 } from "@/types/api";
 import type { BadgeTone, DiscoverFilters } from "@/types/client";
 
@@ -12,8 +13,6 @@ import {
 	DISCOVERABLE_PROJECT_STATUSES,
 	DISCOVER_PROJECT_STATUS_ORDER,
 } from "./constants";
-
-type ProjectStatus = ProjectResponse["status"]["status"];
 
 const DISCOVERABLE_PROJECT_STATUS_SET: ReadonlySet<ProjectStatus> = new Set(
 	DISCOVERABLE_PROJECT_STATUSES,

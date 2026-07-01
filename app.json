@@ -2,7 +2,7 @@
 	"expo": {
 		"name": "pug-mobile-student",
 		"slug": "pug-mobile-student",
-		"version": "0.1.0",
+		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./public/assets/icon.png",
 		"scheme": "pugmobilestudent",

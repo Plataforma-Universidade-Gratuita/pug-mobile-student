@@ -18,7 +18,7 @@ import type {
 	ActivityFilters,
 	ActivityTab,
 } from "@/types/client";
-import { getTabScreenContentBottomPadding } from "@/utils/layout/getTabScreenContentBottomPadding";
+import { getTabScreenContentBottomPadding } from "@/utils";
 
 import {
 	ActivityHeaderActions,

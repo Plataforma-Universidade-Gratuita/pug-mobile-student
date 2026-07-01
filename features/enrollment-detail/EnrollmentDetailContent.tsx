@@ -206,7 +206,7 @@ export function EnrollmentDetailContent({
 									count: attendance.qrValidationInfo.duration,
 								})}
 								onPress={() => {
-									router.push(`/activity/attendances/${attendance.id}`);
+									router.replace(`/activity/attendances/${attendance.id}`);
 								}}
 								projectName={attendance.project.name}
 								statusLabel={attendance.status.statusFormatted}

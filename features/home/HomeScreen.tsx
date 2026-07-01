@@ -13,7 +13,7 @@ import { useCurrentFormerStudentStore, useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ProjectResponse } from "@/types/api";
 import type { HomeQuickActionItem } from "@/types/client";
-import { getTabScreenContentBottomPadding } from "@/utils/layout/getTabScreenContentBottomPadding";
+import { getTabScreenContentBottomPadding } from "@/utils";
 
 import {
 	HomeCounterpartSummaryCard,

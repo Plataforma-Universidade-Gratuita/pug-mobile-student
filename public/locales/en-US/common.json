@@ -235,10 +235,19 @@
 				"confirmationRequired": "Confirm your password.",
 				"fallback": "Unable to finish setup right now. Try again in a moment.",
 				"missingEmail": "Unable to resolve the current account email.",
+				"passwordInvalid": "Password does not meet the required format.",
 				"passwordMinLength": "Password must have at least 8 characters.",
 				"passwordRequired": "Password is required."
 			},
 			"finishLater": "Finish later",
+			"passwordChecklist": {
+				"lowercase": "An uncapitalized letter",
+				"minLength": "At least 8 characters",
+				"number": "A number",
+				"specialSymbol": "A special symbol",
+				"uppercase": "A capitalized letter"
+			},
+			"passwordChecklistTitle": "Your password must include:",
 			"passwordLabel": "Password",
 			"passwordPlaceholder": "Create your password",
 			"submit": "Finish setup",

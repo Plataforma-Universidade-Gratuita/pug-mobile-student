@@ -15,7 +15,7 @@ import {
 	useThemeStore,
 } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
-import { getTabScreenContentBottomPadding } from "@/utils/layout/getTabScreenContentBottomPadding";
+import { getTabScreenContentBottomPadding } from "@/utils";
 
 import {
 	InfoCard,

@@ -11,7 +11,7 @@ import { BrandScreenHeader, HeaderActionButton } from "@/components";
 import { useCurrentFormerStudentStore, useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ProjectResponse } from "@/types/api";
-import { getTabScreenContentBottomPadding } from "@/utils/layout/getTabScreenContentBottomPadding";
+import { getTabScreenContentBottomPadding } from "@/utils";
 
 import { DISCOVERABLE_PROJECT_STATUSES } from "./constants";
 import {

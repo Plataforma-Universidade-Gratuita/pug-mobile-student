@@ -12,6 +12,12 @@ import type { PugJwtPayload, StoredSessionTokens } from "./auth";
 import type { AppLang } from "./context";
 import type { AppResolvedTheme, AppTheme, ResolvedThemeMode } from "./theme";
 
+export interface SecureStoreModule {
+	getItemAsync: (key: string) => Promise<string | null>;
+	setItemAsync: (key: string, value: string) => Promise<void>;
+	deleteItemAsync: (key: string) => Promise<void>;
+}
+
 export interface AuthStoreState {
 	isAuthenticated: boolean;
 	isBootstrapping: boolean;
