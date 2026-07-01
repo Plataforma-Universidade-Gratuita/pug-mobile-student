@@ -10,6 +10,7 @@ import { AppBackButton, BrandScreenHeader } from "@/components";
 import { useCurrentFormerStudentStore, useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ProjectDetailScreenProps } from "@/types/client";
+import { getTabScreenContentBottomPadding } from "@/utils";
 
 import { ProjectDetailScrollContent } from "./ProjectDetailScrollContent";
 import { ApplyEnrollmentSheet } from "./project-detail-sections";
@@ -175,8 +176,10 @@ export function ProjectDetailScreen({
 		staffQuery.isRefetching ||
 		enrollmentsQuery.isRefetching ||
 		myEnrollmentQuery.isRefetching;
-	const contentBottomPadding =
-		theme.space[8] + theme.space[6] + Math.max(insets.bottom, theme.space[4]);
+	const contentBottomPadding = getTabScreenContentBottomPadding(
+		theme,
+		insets.bottom,
+	);
 
 	return (
 		<View style={[styles.screen, { backgroundColor: spec.screenBackground }]}>

@@ -13,9 +13,14 @@ export function ProjectDetailContent(props: ProjectDetailContentProps) {
 			<ProjectOverviewCard
 				activeParticipantsValue={props.activeParticipantsValue}
 				completedHoursValue={props.completedHoursValue}
+				{...(props.ctaDisabled !== undefined
+					? { ctaDisabled: props.ctaDisabled }
+					: {})}
+				ctaLabel={props.ctaLabel}
 				description={props.project.description}
 				isLoading={isLoading}
 				maxParticipantsValue={props.maxParticipantsValue}
+				onPressCta={props.onPressCta}
 				offeredHoursValue={props.offeredHoursValue}
 				progressRatio={props.completionRatio}
 				progressValueLabel={props.completionPercentLabel}

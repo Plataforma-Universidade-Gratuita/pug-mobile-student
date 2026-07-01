@@ -1,13 +1,11 @@
 import { jwtDecode } from "jwt-decode";
 
-import * as api from "@/api";
+import { ApiError } from "@/api/errors";
 import type {
 	PugJwtPayload,
 	StudentTokenValidationResult,
 	WireCredentialsPasswordRequirements,
 } from "@/types/client";
-
-const { ApiError } = api;
 
 export function validateFormerStudentToken(
 	token: string,

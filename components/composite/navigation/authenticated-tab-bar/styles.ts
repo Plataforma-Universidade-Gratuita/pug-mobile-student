@@ -81,7 +81,15 @@ export function createStyles(theme: AppResolvedTheme, bottomInset: number) {
 		},
 		actionButton: {
 			alignItems: "center",
-			backgroundColor: theme.colors.brand,
+			backgroundColor:
+				theme.mode === "dark"
+					? withAlpha(theme.colors.brand, 0.28)
+					: theme.colors.brand,
+			borderColor:
+				theme.mode === "dark"
+					? withAlpha(theme.colors.brand, 0.32)
+					: "transparent",
+			borderWidth: theme.mode === "dark" ? 1 : 0,
 			borderRadius: theme.radius.circle,
 			height: TAB_BAR_ACTION_SIZE,
 			justifyContent: "center",

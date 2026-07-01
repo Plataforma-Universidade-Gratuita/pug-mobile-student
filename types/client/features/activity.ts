@@ -101,7 +101,9 @@ export interface ActivityListSectionProps {
 	activeTab: ActivityTab;
 	attendanceItems: ActivityAttendanceItem[];
 	enrollmentItems: ActivityEnrollmentItem[];
+	resolveAttendanceStatusLabel: (label: string) => string;
 	resolveAttendanceStatusTone: (status: AttendanceStatus) => BadgeTone;
+	resolveEnrollmentStatusLabel: (label: string) => string;
 	resolveEnrollmentStatusTone: (status: EnrollmentStatus) => BadgeTone;
 	resolveProjectName: (
 		project: ProjectResponse | null,

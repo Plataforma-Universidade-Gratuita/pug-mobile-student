@@ -53,8 +53,18 @@ export function createStyles(
 			borderRadius: theme.radius.lg,
 			backgroundColor: theme.colors.surface2,
 		},
+		requirementsHeader: {
+			flexDirection: "row",
+			alignItems: "center",
+			justifyContent: "space-between",
+			gap: theme.space[3],
+		},
 		requirementsTitle: {
 			color: theme.colors.text,
+			flex: 1,
+		},
+		requirementsChevron: {
+			color: theme.colors.muted,
 		},
 		requirementsList: {
 			gap: theme.space[2],

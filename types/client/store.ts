@@ -46,6 +46,7 @@ export interface CurrentFormerStudentStoreState {
 	isLoaded: boolean;
 	error: string | null;
 	loadCurrentFormerStudentContext: () => Promise<void>;
+	refreshCurrentFormerStudentContext: () => Promise<void>;
 	clearCurrentFormerStudentContext: () => void;
 }
 

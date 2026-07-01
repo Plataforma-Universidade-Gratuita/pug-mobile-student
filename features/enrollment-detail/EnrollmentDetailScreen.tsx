@@ -13,6 +13,7 @@ import type {
 	AttendanceComplexSearchFilters,
 	EnrollmentDetailScreenProps,
 } from "@/types/client";
+import { getTabScreenContentBottomPadding } from "@/utils";
 
 import { ManageEnrollmentSheet } from "../project-detail/project-detail-sections";
 import { canManageEnrollment } from "../project-detail/utils";
@@ -98,8 +99,10 @@ export function EnrollmentDetailScreen({
 		(myEnrollmentQuery.isLoading && myEnrollmentQuery.data == null) ||
 		(!isCurrentFormerStudentLoaded && isCurrentFormerStudentLoading);
 	const isRefreshing = isManualRefreshing;
-	const contentBottomPadding =
-		theme.space[8] + theme.space[2] + Math.max(insets.bottom, theme.space[4]);
+	const contentBottomPadding = getTabScreenContentBottomPadding(
+		theme,
+		insets.bottom,
+	);
 	const attendanceItems = attendancesQuery.data?.content ?? [];
 	const myEnrollment = myEnrollmentQuery.data;
 	const myEnrollmentStatus = myEnrollment?.status.status;

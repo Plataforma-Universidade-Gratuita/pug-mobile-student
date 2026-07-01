@@ -39,6 +39,9 @@ export interface ProjectOverviewCardProps {
 	offeredHoursValue: string;
 	progressRatio: number;
 	progressValueLabel: string;
+	ctaLabel?: string | null | undefined;
+	ctaDisabled?: boolean;
+	onPressCta?: (() => void) | undefined;
 }
 
 export interface ProjectEntityCardProps {
@@ -112,9 +115,12 @@ export interface ProjectDetailContentProps {
 	completedHoursValue: string;
 	completionPercentLabel: string;
 	completionRatio: number;
+	ctaLabel?: string | null;
+	ctaDisabled?: boolean;
 	entityName: string;
 	isLoading?: boolean;
 	maxParticipantsValue: string;
+	onPressCta?: (() => void) | undefined;
 	offeredHoursValue: string;
 	project: {
 		description: string;

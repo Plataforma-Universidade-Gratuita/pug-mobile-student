@@ -40,8 +40,10 @@ import {
 	createDefaultActivityFilters,
 	filterActivityEnrollmentItems,
 	hasActiveActivityFilters,
-	resolveAttendanceStatusTone,
 	resolveActivityStateCopy,
+	resolveActivityAttendanceStatusLabel,
+	resolveAttendanceStatusTone,
+	resolveActivityEnrollmentStatusLabel,
 	resolveEnrollmentStatusTone,
 	resolveProjectName,
 	sortActivityAttendanceItems,
@@ -267,7 +269,13 @@ export function ActivityScreen() {
 									attendanceItems={visibleAttendanceItems}
 									enrollmentItems={visibleEnrollmentItems}
 									isLoading={isRefreshing}
+									resolveAttendanceStatusLabel={
+										resolveActivityAttendanceStatusLabel
+									}
 									resolveAttendanceStatusTone={resolveAttendanceStatusTone}
+									resolveEnrollmentStatusLabel={
+										resolveActivityEnrollmentStatusLabel
+									}
 									resolveEnrollmentStatusTone={resolveEnrollmentStatusTone}
 									resolveProjectName={resolveProjectName}
 									t={t}

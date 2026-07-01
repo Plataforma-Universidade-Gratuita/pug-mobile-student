@@ -5,7 +5,6 @@ import { useTranslation } from "react-i18next";
 import type { ProjectDetailResolvedContentProps } from "@/types/client";
 
 import {
-	ProjectDetailBottomCta,
 	ProjectDetailStateCard,
 	ProjectDetailContent,
 } from "./project-detail-sections";
@@ -46,33 +45,31 @@ export function ProjectDetailResolvedContent({
 	}
 
 	return (
-		<>
-			<ProjectDetailContent
-				activeParticipantsValue={activeParticipantsValue}
-				addressValue={addressValue}
-				cityValue={cityValue}
-				cnpjValue={cnpjValue}
-				completedHoursValue={completedHoursValue}
-				completionPercentLabel={completionPercentLabel}
-				completionRatio={completionRatio}
-				entityName={entityName}
-				isLoading={isLoading}
-				maxParticipantsValue={maxParticipantsValue}
-				offeredHoursValue={offeredHoursValue}
-				project={project}
-				staffItems={staffItems}
-				staffStateLabel={staffStateLabel}
-				statusTone={resolveProjectDetailStatusTone(project.status.status)}
-			/>
-			{canApply || canManage ? (
-				<ProjectDetailBottomCta
-					canApply={canApply}
-					canManage={canManage}
-					disabled={disabled}
-					onApply={onApply}
-					onManage={onManage}
-				/>
-			) : null}
-		</>
+		<ProjectDetailContent
+			activeParticipantsValue={activeParticipantsValue}
+			addressValue={addressValue}
+			cityValue={cityValue}
+			cnpjValue={cnpjValue}
+			completedHoursValue={completedHoursValue}
+			completionPercentLabel={completionPercentLabel}
+			completionRatio={completionRatio}
+			ctaDisabled={disabled}
+			ctaLabel={
+				canManage
+					? t("projectDetail.actions.manage")
+					: canApply
+						? t("projectDetail.actions.apply")
+						: null
+			}
+			entityName={entityName}
+			isLoading={isLoading}
+			maxParticipantsValue={maxParticipantsValue}
+			onPressCta={canManage ? onManage : canApply ? onApply : undefined}
+			offeredHoursValue={offeredHoursValue}
+			project={project}
+			staffItems={staffItems}
+			staffStateLabel={staffStateLabel}
+			statusTone={resolveProjectDetailStatusTone(project.status.status)}
+		/>
 	);
 }

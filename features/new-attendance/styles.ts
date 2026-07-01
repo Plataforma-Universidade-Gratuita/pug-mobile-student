@@ -49,6 +49,9 @@ export function createStyles(
 		projectOptionList: {
 			gap: theme.space[2],
 		},
+		projectOptionListContainer: {
+			maxHeight: 320,
+		},
 		projectOptionCard: {
 			borderRadius: theme.radius.lg,
 			borderWidth: 1,

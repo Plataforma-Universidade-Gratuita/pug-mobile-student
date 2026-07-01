@@ -3,7 +3,7 @@ import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { View } from "react-native";
 
-import { Badge, Label, LoadingBlock } from "@/components/primitives";
+import { Button, Badge, Label, LoadingBlock } from "@/components/primitives";
 import { useThemeStore } from "@/stores";
 import { createPrimitiveSurfaceStyleSpec } from "@/styles";
 import type { ProjectOverviewCardProps } from "@/types/client";
@@ -22,6 +22,9 @@ export function ProjectOverviewCard({
 	isLoading = false,
 	progressRatio,
 	progressValueLabel,
+	ctaLabel = null,
+	ctaDisabled = false,
+	onPressCta,
 }: ProjectOverviewCardProps) {
 	const { t } = useTranslation();
 	const theme = useThemeStore(state => state.theme);
@@ -36,29 +39,29 @@ export function ProjectOverviewCard({
 						{isLoading ? (
 							<>
 								<LoadingBlock
-									width="68%"
-									height={26}
-								/>
-								<LoadingBlock
 									width={96}
 									height={28}
 									radius={theme.radius.circle}
 								/>
+								<LoadingBlock
+									width="68%"
+									height={26}
+								/>
 							</>
 						) : (
 							<>
-								<Label
-									role="title"
-									style={styles.title}
-								>
-									{title}
-								</Label>
 								<Badge
 									tone={statusTone}
 									variant="primary"
 								>
 									{statusLabel}
 								</Badge>
+								<Label
+									role="title"
+									style={styles.title}
+								>
+									{title}
+								</Label>
 							</>
 						)}
 					</View>
@@ -149,6 +152,23 @@ export function ProjectOverviewCard({
 					)}
 				</View>
 			</View>
+
+			{ctaLabel ? (
+				isLoading ? (
+					<LoadingBlock
+						width="100%"
+						height={theme.form.controlHeight}
+						radius={theme.form.controlRadius}
+					/>
+				) : (
+					<Button
+						disabled={ctaDisabled}
+						{...(onPressCta ? { onPress: onPressCta } : {})}
+					>
+						{ctaLabel}
+					</Button>
+				)
+			) : null}
 		</View>
 	);
 }

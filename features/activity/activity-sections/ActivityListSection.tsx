@@ -17,7 +17,9 @@ export function ActivityListSection({
 	attendanceItems,
 	enrollmentItems,
 	isLoading = false,
+	resolveAttendanceStatusLabel,
 	resolveAttendanceStatusTone,
+	resolveEnrollmentStatusLabel,
 	resolveEnrollmentStatusTone,
 	resolveProjectName,
 	t,
@@ -74,7 +76,9 @@ export function ActivityListSection({
 									item.project,
 									t("activity.values.projectFallback"),
 								)}
-								statusLabel={item.enrollment.status.statusFormatted}
+								statusLabel={resolveEnrollmentStatusLabel(
+									item.enrollment.status.statusFormatted,
+								)}
 								statusTone={resolveEnrollmentStatusTone(
 									item.enrollment.status.status,
 								)}
@@ -110,7 +114,9 @@ export function ActivityListSection({
 									item.project,
 									t("activity.values.projectFallback"),
 								)}
-								statusLabel={item.attendance.status.statusFormatted}
+								statusLabel={resolveAttendanceStatusLabel(
+									item.attendance.status.statusFormatted,
+								)}
 								statusTone={resolveAttendanceStatusTone(
 									item.attendance.status.status,
 								)}

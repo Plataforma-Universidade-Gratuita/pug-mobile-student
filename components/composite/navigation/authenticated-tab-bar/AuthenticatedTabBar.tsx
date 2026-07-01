@@ -279,7 +279,11 @@ export function AuthenticatedTabBar({
 					]}
 				>
 					<Plus
-						color={theme.colors.chromeFg}
+						color={
+							theme.mode === "dark"
+								? theme.colors.brandSoftText
+								: theme.colors.chromeFg
+						}
 						size={24}
 					/>
 				</Pressable>

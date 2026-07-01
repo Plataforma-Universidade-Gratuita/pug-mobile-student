@@ -94,7 +94,9 @@ export function buildEnrollmentStatusOptions(
 	for (const item of items) {
 		optionMap.set(
 			item.enrollment.status.status,
-			item.enrollment.status.statusFormatted,
+			resolveActivityEnrollmentStatusLabel(
+				item.enrollment.status.statusFormatted,
+			),
 		);
 	}
 
@@ -123,7 +125,9 @@ export function buildAttendanceStatusOptions(
 	for (const item of items) {
 		optionMap.set(
 			item.attendance.status.status,
-			item.attendance.status.statusFormatted,
+			resolveActivityAttendanceStatusLabel(
+				item.attendance.status.statusFormatted,
+			),
 		);
 	}
 
@@ -193,14 +197,33 @@ export function applyActivityAttendanceFilters(
 	});
 }
 
+export function resolveActivityEnrollmentStatusLabel(label: string) {
+	return label;
+}
+
+export function resolveActivityAttendanceStatusLabel(label: string) {
+	if (label === "Waiting validation") {
+		return "Waiting";
+	}
+
+	if (label === "Aguardando valida??o") {
+		return "Aguardando";
+	}
+
+	return label;
+}
+
 export function resolveEnrollmentStatusTone(
 	status: EnrollmentStatus,
 ): BadgeTone {
 	if (status === "COMPLETED") {
 		return "success";
 	}
-	if (status === "APPROVED" || status === "PENDING") {
+	if (status === "APPROVED") {
 		return "info";
+	}
+	if (status === "PENDING") {
+		return "brand";
 	}
 	if (status === "ON_HOLD" || status === "CANCELED") {
 		return "warning";

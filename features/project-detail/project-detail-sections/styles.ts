@@ -21,7 +21,6 @@ export function createStyles(
 			gap: theme.space[3],
 		},
 		titleRow: {
-			flexDirection: "row",
 			alignItems: "flex-start",
 			gap: theme.space[2],
 		},

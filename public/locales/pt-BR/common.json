@@ -59,8 +59,6 @@
 			"states": {
 				"errorDescription": "Atualize a tela ou tente novamente em instantes.",
 				"errorTitle": "Não foi possível carregar esta presença",
-				"loadingDescription": "Buscando a presença selecionada e os dados de validação.",
-				"loadingTitle": "Carregando detalhes da presença",
 				"missingDescription": "Não encontramos esta presença na sua lista atual de atividades.",
 				"missingTitle": "Presença indisponível"
 			},
@@ -109,8 +107,6 @@
 				"emptyAttendancesTitle": "Nenhuma presença ainda",
 				"errorDescription": "Atualize a tela ou tente novamente em instantes.",
 				"errorTitle": "Não foi possível carregar esta inscrição",
-				"loadingDescription": "Buscando a inscrição, o projeto e as presenças relacionadas.",
-				"loadingTitle": "Carregando detalhes da inscrição",
 				"missingDescription": "Não encontramos uma inscrição sua neste projeto.",
 				"missingTitle": "Inscrição indisponível"
 			},

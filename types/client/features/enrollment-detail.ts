@@ -46,6 +46,7 @@ export interface EnrollmentProjectCardProps {
 	canManage: boolean;
 	description: string;
 	disabled: boolean;
+	isLoading?: boolean;
 	onManage: () => void;
 	onOpenProject: () => void;
 	progressRatio: number;

@@ -55,6 +55,14 @@ export function findLatestAttendance(items: AttendanceComplexSearchItem[]) {
 	);
 }
 
+export function findLatestWaitingAttendance(
+	items: AttendanceComplexSearchItem[],
+) {
+	return findLatestAttendance(
+		items.filter(item => item.status.status === "WAITING"),
+	);
+}
+
 export function resolveHomeEnrollmentStatusTone(
 	status: EnrollmentStatus,
 ): PrimitiveBadgeProps["tone"] {

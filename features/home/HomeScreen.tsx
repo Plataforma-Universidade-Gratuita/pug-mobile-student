@@ -32,6 +32,7 @@ import {
 	countHomePendingEnrollments,
 	findLatestAttendance,
 	findLatestEnrollment,
+	findLatestWaitingAttendance,
 	formatHomeProgressValue,
 } from "./utils";
 
@@ -115,6 +116,10 @@ export function HomeScreen() {
 		() => findLatestAttendance(attendancesQuery.data ?? []),
 		[attendancesQuery.data],
 	);
+	const latestWaitingAttendance = useMemo(
+		() => findLatestWaitingAttendance(attendancesQuery.data ?? []),
+		[attendancesQuery.data],
+	);
 	const activeEnrollments = countHomeActiveEnrollments(
 		enrollmentsQuery.data ?? [],
 	);
@@ -131,7 +136,7 @@ export function HomeScreen() {
 	const quickActionItems = useMemo<HomeQuickActionItem[]>(
 		() =>
 			buildQuickActionItems({
-				latestAttendanceId: latestAttendance?.id ?? null,
+				latestAttendanceId: latestWaitingAttendance?.id ?? null,
 				onAttendancesPress: () => {
 					router.push("/activity?tab=attendances");
 				},
@@ -142,8 +147,8 @@ export function HomeScreen() {
 					router.push("/activity?tab=enrollments");
 				},
 				onLatestQrPress: () => {
-					if (latestAttendance) {
-						router.push(`/attendance/qr/${latestAttendance.id}`);
+					if (latestWaitingAttendance) {
+						router.push(`/attendance/qr/${latestWaitingAttendance.id}`);
 					}
 				},
 				onProfilePress: () => {
@@ -151,7 +156,7 @@ export function HomeScreen() {
 				},
 				t,
 			}),
-		[latestAttendance, router, t],
+		[latestWaitingAttendance, router, t],
 	);
 	const hasQueryError =
 		currentFormerStudentError != null ||
