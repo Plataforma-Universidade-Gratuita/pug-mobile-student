@@ -18,7 +18,8 @@
 				"monochromeImage": "./public/assets/adaptive-icon-white.png"
 			},
 			"edgeToEdgeEnabled": true,
-			"predictiveBackGestureEnabled": false
+			"predictiveBackGestureEnabled": false,
+			"package": "com.anonymous.pugmobilestudent"
 		},
 		"web": {
 			"output": "static",
