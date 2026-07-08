@@ -1,4 +1,3 @@
-
 import React from "react";
 
 import { AcademicDetailsScreen } from "@/features/academic-details";

@@ -1,4 +1,3 @@
-
 import QRCode from "qrcode-terminal/vendor/QRCode";
 import QRErrorCorrectLevel from "qrcode-terminal/vendor/QRCode/QRErrorCorrectLevel";
 

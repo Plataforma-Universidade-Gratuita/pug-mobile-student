@@ -1,4 +1,3 @@
-
 import { FolderKanban, QrCode, Search, UserRound } from "lucide-react-native";
 
 import type {

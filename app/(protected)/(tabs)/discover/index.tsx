@@ -1,4 +1,3 @@
-
 import React from "react";
 
 import { DiscoverScreen } from "@/features/discover";

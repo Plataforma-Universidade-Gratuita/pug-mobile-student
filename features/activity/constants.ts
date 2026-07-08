@@ -1,4 +1,3 @@
-
 import type { AttendanceStatus, EnrollmentStatus } from "@/types/api";
 
 export const ACTIVE_ENROLLMENT_STATUSES: EnrollmentStatus[] = [

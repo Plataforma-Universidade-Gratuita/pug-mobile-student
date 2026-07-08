@@ -1,4 +1,3 @@
-
 import React from "react";
 
 import { NewAttendanceModalScreen } from "@/features/new-attendance";
